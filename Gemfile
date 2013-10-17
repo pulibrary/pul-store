@@ -49,3 +49,10 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+gem "devise", "3.0.0.rc"
+gem "devise-guests", "~> 0.3"
+gem "bootstrap-sass"
+group :development, :test do
+  gem "jettywrapper"
+end
