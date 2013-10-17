@@ -1,3 +1,0 @@
-[submodule "app/models/af-models"]
-	path = app/models/af-models
-	url = git@github.com:pulibrary/hydra-models.git
