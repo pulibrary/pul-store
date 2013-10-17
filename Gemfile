@@ -34,6 +34,10 @@ end
 
 gem 'hydra', '~> 6.0.0', :require => 'hydra6'
 
+group :development, :test do
+  gem "rspec-rails"
+end
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
