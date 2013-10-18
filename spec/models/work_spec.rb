@@ -6,11 +6,29 @@ require 'spec_helper'
 
 describe Work do
   it "has a valid factory" do
-    w = FactoryGirl.create(:work)
-    w.should be_valid
+    FactoryGirl.create(:work).should be_valid
   end
-  it "has a title"
-  it "has a sort title"
+
+  it "is invalid without a title" do
+    expect { 
+      FactoryGirl.create(:work, title: nil) 
+    }.to raise_error ActiveFedora::RecordInvalid
+
+    expect { 
+      FactoryGirl.create(:work, title: 'My Book') 
+    }.to_not raise_error
+  end
+
+  it "is invalid without a sort title" do
+    expect { 
+      FactoryGirl.create(:work, sort_title: nil) 
+    }.to raise_error ActiveFedora::RecordInvalid
+
+    expect { 
+      FactoryGirl.create(:work, sort_title: 'My Book') 
+    }.to_not raise_error
+  end
+
   it "is sortable by sort_title"
   it "may have zero or one creators" 
   it "has zero creators if there are contributors" 
