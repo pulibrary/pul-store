@@ -19,6 +19,15 @@ class Work < ActiveFedora::Base
   
   delegate :date_uploaded, to: 'work_rdf_metadata', multiple: false
   delegate :date_modified, to: 'work_rdf_metadata', multiple: false
+
+  def <=>(another)
+    if sort_title.is_a? Array # should never be multiple, but is still a list; this is expected to change
+      sort_title[0].downcase <=> another.sort_title[0].downcase
+    else
+      sort_title.downcase <=> another.sort_title.downcase
+    end  
+  end
+
 end
 
 
