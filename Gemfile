@@ -36,6 +36,14 @@ gem 'hydra', '~> 6.0.0', :require => 'hydra6'
 
 group :development, :test do
   gem "rspec-rails"
+  gem 'factory_girl_rails'
+end
+
+group :test do 
+  gem 'faker' 
+  gem 'capybara' 
+  # gem 'guard-rspec' 
+  # gem 'launchy' 
 end
 
 # Use ActiveModel has_secure_password
