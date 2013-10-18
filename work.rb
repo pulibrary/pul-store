@@ -1,9 +1,6 @@
 class Work < ActiveFedora::Base
-  # before_save :stamp
-  # see: http://rdoc.info/github/projecthydra/active_fedora/ActiveFedora/Callbacks
-  # before_validation :stamp
-  before_save do
-    if self.date_uploaded == [] # this may change??
+  before_validation do
+    if self.date_uploaded == [] # this may
       self.date_uploaded = DateTime.now.utc
     end
     self.date_modified = DateTime.now.utc
