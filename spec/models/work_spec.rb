@@ -6,7 +6,8 @@ require 'spec_helper'
 
 describe Work do
   it "has a valid factory" do
-    Factory.create(:work).should be_valid
+    w = FactoryGirl.create(:work)
+    w.should be_valid
   end
   it "has a title"
   it "has a sort title"
