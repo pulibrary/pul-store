@@ -4,9 +4,10 @@ class Work < ActiveFedora::Base
   # TODO: needs to get a PID, date_modified and possibly date_uploaded just 
   # before save. See http://stackoverflow.com/a/6770431/714478
 
-  validates :type, presence: true
   validates :title, presence: true
   validates :sort_title, presence: true
+
+  validates :type, presence: true
   validates :pid, presence: true
   validates_with CreatorContributorValidator
 

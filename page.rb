@@ -8,5 +8,4 @@ class Page < ActiveFedora::Base
 
   delegate :display_label, to: 'page_rdf_metadata', unique: :true
   delegate :sort_order, to: 'page_rdf_metadata', unique: :true
-  
 end
