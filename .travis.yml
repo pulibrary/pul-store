@@ -3,6 +3,9 @@ rvm:
   - "2.0.0"
 before_install:
   - git submodule update --init --recursive
+after_install:
+  - rails g hydra:jetty
+  - rake jetty:start
 notifications:
   email:
     recipients:
