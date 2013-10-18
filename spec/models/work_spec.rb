@@ -10,6 +10,9 @@ describe Work do
   end
 
   it "is invalid without a title" do
+    w = FactoryGirl.build(:work, title: nil)
+    w.should_not be_valid
+    
     expect { 
       FactoryGirl.create(:work, title: nil) 
     }.to raise_error ActiveFedora::RecordInvalid
@@ -47,11 +50,34 @@ describe Work do
     end
   end
 
-  it "may have zero or one creators" 
-  it "has zero creators if there are contributors" 
-  it "has more than one contributors if there are any"
+  it "may have zero or one creators"  do
+    FactoryGirl.create(:work, creator: "Stroop, Jon").should be_valid
+  end
 
-  it "has a pid after it is saved"
+  it "may not have more than one creator"  do
+    expect { 
+      FactoryGirl.create(:work, creator: ["Stroop, Jon", "Ellis, Shaun"])
+    }.to raise_error ActiveFedora::RecordInvalid
+  end
+
+  it "may mave two or more contributors"  do
+    cs = ["Stroop, Jon", "Ellis, Shaun"]
+    cs << "Reiss, Kevin"
+    FactoryGirl.create(:work, contributor: cs).should be_valid
+  end
+
+  it "must have zero creators if there are contributors" do
+    cs = ["Stroop, Jon", "Ellis, Shaun"]
+    # expect { 
+    #   FactoryGirl.create(:work, creator: "Reiss, Kevin", contributor: cs)
+    # }.to raise_error ActiveFedora::RecordInvalid
+  end 
+
+  it "has a pid after it is saved ???"
+
+  # hint..try ti use FactoryGirl.build, then save.
+
   it "has a date uploaded after it is saved"
   it "has a date modified after it is saved"
+  it "gets a new a date modified after it is modified"
 end
