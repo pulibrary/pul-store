@@ -3,7 +3,7 @@ class Text < Work
 
   has_many :pages, property: :is_part_of
 
-  validates :type, inclusion: { 
+  validates :type, exclusion: { 
     in: ['Text'],
     message: "%{value} is not a valid value for type"
   }
