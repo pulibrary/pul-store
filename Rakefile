@@ -4,3 +4,5 @@
 require File.expand_path('../config/application', __FILE__)
 
 PulStore::Application.load_tasks
+
+task :default => [:ci]
