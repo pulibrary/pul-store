@@ -5,12 +5,12 @@ class PageRdfMetadata < ActiveFedora::NtriplesRDFDatastream
 
     map.identifier({in: RDF::DC})
 
-    map.display_label(to: "displayLabel", in: RDF::PULHYDRA) do |index|
+    map.display_label(to: "displayLabel", in: RDF::PULStorePages) do |index|
       index.as :displayable
       index.type :string
     end
 
-    map.sort_order(to: "sortOrder", in: RDF::PULHYDRA) do |index|
+    map.sort_order(to: "sortOrder", in: RDF::PULStorePages) do |index|
       index.as :stored_searchable
       index.type :integer
     end

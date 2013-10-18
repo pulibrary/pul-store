@@ -1,5 +1,5 @@
 module RDF
-  class PULHYDRA < Vocabulary("http://library.princeton.edu/hydra#")
+  class PULStorePages < Vocabulary("http://princeton.edu/pulstore/pages")
     property :displayLabel
     property :sortOrder
   end
