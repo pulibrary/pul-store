@@ -3,9 +3,14 @@ require File.expand_path('../../lib/rdf/work_properties', __FILE__)
 class WorkRdfMetadata < ActiveFedora::NtriplesRDFDatastream
 
   map_predicates do |map|
-    map.identifier({in: RDF::DC})
-    map.part_of(:to => "isPartOf", :in => RDF::DC) # index, eg. if is part of a Collection
-    map.resource_type(:to => "type", :in => RDF::DC) do |index|
+
+    map.identifier({in: RDF::DC}) # what is this? NOID, or Physical id?
+
+    # TODO: split into isPartOfCollection and isPartOfProject and index as 
+    # facetable
+    map.part_of(:to => "isPartOf", :in => RDF::DC) 
+
+    map.type(in: RDF::DC) do |index|
       index.as :stored_searchable, :facetable
     end
     
@@ -18,38 +23,26 @@ class WorkRdfMetadata < ActiveFedora::NtriplesRDFDatastream
       index.type :string
     end
 
-    map.contributor(in: RDF::DC) do |index|
-      index.as :stored_searchable, :facetable
-    end
-
-    map.type(in: RDF::DC) do |index|
-      index.as :stored_searchable, :facetable
-    end
-
     map.creator(in: RDF::DC) do |index|
       index.as :stored_searchable, :facetable
     end
 
-    map.description(in: RDF::DC) do |index|
-      index.type :text
+    map.contributor(in: RDF::DC) do |index|
+      index.as :stored_searchable, :facetable
+    end
+
+    map.date_created(:to => "created", :in => RDF::DC) do |index|
       index.as :stored_searchable
     end
-
-    map.subject(in: RDF::DC) do |index|
-      index.type :text
-      index.as :stored_searchable
-    end
-
-    map.date_uploaded(to: "dateSubmitted", in: RDF::DC) do |index|
+    
+    map.date_uploaded(:to => "dateSubmitted", :in => RDF::DC) do |index|
       index.type :date
-      index.as :stored_searchable, :sortable
+      index.as :stored_sortable
     end
-
-    map.date_modified(to: "modified", in: RDF::DC) do |index|
+    map.date_modified(:to => "modified", :in => RDF::DC) do |index|
       index.type :date
-      index.as :stored_searchable, :sortable
+      index.as :stored_sortable
     end
-
 
   end
 end
