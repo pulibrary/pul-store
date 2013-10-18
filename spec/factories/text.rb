@@ -1,5 +1,6 @@
 require 'faker'
 
+
 FactoryGirl.define do
   factory :text do |t|
     t.type "Text"
