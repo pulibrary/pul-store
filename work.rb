@@ -6,6 +6,7 @@ class Work < ActiveFedora::Base
 
   validates :type, presence: true
   validates :title, presence: true
+  validates :sort_title, presence: true
   validates :pid, presence: true
   validates_with CreatorContributorValidator
 
