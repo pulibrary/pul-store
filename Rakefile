@@ -5,21 +5,20 @@ require File.expand_path('../config/application', __FILE__)
 
 PulStore::Application.load_tasks
 
-# CI Jetty
-APP_ROOT= File.dirname(__FILE__)
-require 'jettywrapper'
-
-desc "Run Continuous Integration"
-task :ci => ['jetty:config'] do
-  jetty_params = Jettywrapper.load_config
+task "ci" do
+  require 'jettywrapper'
+  jetty_params = Jettywrapper.load_config.merge(
+      {:jetty_home => File.expand_path(File.dirname(__FILE__) + '/jetty'),
+       :startup_wait => 60,
+       :jetty_port => ENV['TEST_JETTY_PORT'] || 8983
+      }
+  )
+  Rake::Task['jetty:config'].invoke
   error = nil
   error = Jettywrapper.wrap(jetty_params) do
     Rake::Task['spec'].invoke
   end
   raise "test failures: #{error}" if error
-
-  Rake::Task["doc"].invoke
-
 end
 
 task :default => [:ci]
