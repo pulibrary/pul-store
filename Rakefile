@@ -9,7 +9,7 @@ task "ci" do
   require 'jettywrapper'
   jetty_params = Jettywrapper.load_config.merge(
       {:jetty_home => File.expand_path(File.dirname(__FILE__) + '/jetty'),
-       :startup_wait => 60,
+       :startup_wait => 180,
        :jetty_port => ENV['TEST_JETTY_PORT'] || 8983
       }
   )
