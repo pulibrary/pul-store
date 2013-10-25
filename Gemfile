@@ -27,15 +27,15 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
+gem "hydra", "~> 6.1.0.rc7"
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
 end
 
-gem 'hydra', '~> 6.0.0', :require => 'hydra6'
-
 group :development, :test do
-  gem "rspec-rails"
+  gem 'rspec-rails'
   gem 'factory_girl_rails'
 end
 
@@ -45,6 +45,7 @@ group :test do
   # gem 'guard-rspec' 
   # gem 'launchy' 
 end
+
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -58,9 +59,11 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem "devise", "3.0.0.rc"
-gem "devise-guests", "~> 0.3"
 gem "bootstrap-sass"
+gem "devise"
+gem "devise-guests", "~> 0.3"
+
 group :development, :test do
+  gem "rspec-rails"
   gem "jettywrapper"
 end
