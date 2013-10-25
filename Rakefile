@@ -7,7 +7,6 @@ PulStore::Application.load_tasks
 
 task "ci" do
   require 'jettywrapper'
-  directory "jetty"
   jetty_params = Jettywrapper.load_config.merge(
       {:jetty_home => File.expand_path(File.dirname(__FILE__) + '/jetty'),
        :startup_wait => 180,
