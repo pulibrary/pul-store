@@ -19,4 +19,4 @@
 /tmp
 
 # Ignore jetty server, solr, fedora, associated data directories
-/jetty
+/jetty/*
