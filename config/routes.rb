@@ -1,4 +1,6 @@
 PulStore::Application.routes.draw do
+  resources :items
+
   root :to => "catalog#index"
   Blacklight.add_routes(self)
   HydraHead.add_routes(self)
