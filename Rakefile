@@ -5,7 +5,7 @@ require File.expand_path('../config/application', __FILE__)
 
 PulStore::Application.load_tasks
 
-task "ci" do
+task :ci do
   require 'jettywrapper'
   jetty_params = Jettywrapper.load_config.merge(
       {:jetty_home => File.expand_path(File.dirname(__FILE__) + '/jetty'),
