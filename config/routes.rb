@@ -1,4 +1,6 @@
 PulStore::Application.routes.draw do
+  resources :texts
+
   resources :items
 
   root :to => "catalog#index"

@@ -19,11 +19,12 @@ require 'spec_helper'
 # that an instance is receiving a specific message.
 
 describe ItemsController do
+  before(:each) { Item.delete_all }
 
   # This should return the minimal set of attributes required to create a valid
   # Item. As you add validations to Item, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) { { type: 'Item' } }
+  let(:valid_attributes) { FactoryGirl.attributes_for(:item) }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
