@@ -14,6 +14,8 @@ task :ci do
        :jetty_port => ENV['TEST_JETTY_PORT'] || 8983
       }
   )
+
+  Rake::Task['jetty:unzip'].invoke
   Rake::Task['jetty:config'].invoke
   error = nil
   error = Jettywrapper.wrap(jetty_params) do
