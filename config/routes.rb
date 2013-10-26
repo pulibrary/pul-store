@@ -1,4 +1,6 @@
 PulStore::Application.routes.draw do
+  resources :pages
+
   resources :texts
 
   resources :items
