@@ -1,7 +1,5 @@
 require 'faker'
 
-# # TODO: Some of these should be arrays. 
-
 FactoryGirl.define do
 
   factory :item do |i| 
@@ -16,7 +14,6 @@ FactoryGirl.define do
     # FactoryGirl.attributes_for(:item)
     t.type "Text"
     t.description { Array.new(rand(0..5)) { Faker::Lorem.sentence(5, true, 3) } }
-    # t.language { rand(0..3).times { Faker::Lorem.words(1) } }
     t.language { Array.new(rand(0..3)) { Faker::Lorem.word[0..2] } }
     t.subject { Array.new(rand(0..5)) { Faker::Lorem.sentence(1, true, 3) } }
     t.toc { Faker::Lorem.sentence(5, true, 3) }
