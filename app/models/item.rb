@@ -8,7 +8,7 @@ class Item  < ActiveFedora::Base
   # type AR model
   validates :type, presence: true
 
-  validates_with CreatorContributorValidator
+  #  BROKEN: validates_with CreatorContributorValidator
   
   # validates :date_modified, presence: true
   # validates :date_uploaded, presence: true
@@ -24,4 +24,14 @@ class Item  < ActiveFedora::Base
   # and not really descriptive)
   delegate :date_uploaded, to: 'descMetadata', multiple: false
   delegate :date_modified, to: 'descMetadata', multiple: false
+
+
+  def <=>(another)
+    if sort_title.is_a? Array # should never be multiple, but is still a list; this is expected to change
+      sort_title[0].downcase <=> another.sort_title[0].downcase
+    else
+      sort_title.downcase <=> another.sort_title.downcase
+    end  
+  end
+
 end
