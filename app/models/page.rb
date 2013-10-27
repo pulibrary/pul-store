@@ -1,5 +1,7 @@
 class Page < ActiveFedora::Base
 
+  belongs_to :text, property: :is_part_of
+
   has_metadata 'page_rdf_metadata', type: PageRdfMetadata
 
   has_file_datastream 'master_image'

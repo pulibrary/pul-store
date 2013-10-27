@@ -10,14 +10,15 @@ FactoryGirl.define do
     # i.date_modified DateTime.now.utc # probably should be randomized
   end
 
-  factory :text, parent: :item do |t|
-    # FactoryGirl.attributes_for(:item)
-    t.type "Text"
-    t.description { Array.new(rand(0..5)) { Faker::Lorem.sentence(5, true, 3) } }
-    t.language { Array.new(rand(0..3)) { Faker::Lorem.word[0..2] } }
-    t.subject { Array.new(rand(0..5)) { Faker::Lorem.sentence(1, true, 3) } }
-    t.toc { Faker::Lorem.sentence(5, true, 3) }
-  end
+  # Not working. See ./text.rb
+  # factory :text, parent: :item do |t|
+  #   # FactoryGirl.attributes_for(:item)
+  #   t.type "Text"
+  #   t.description { Array.new(rand(0..5)) { Faker::Lorem.sentence(5, true, 3) } }
+  #   t.language { Array.new(rand(0..3)) { Faker::Lorem.word[0..2] } }
+  #   t.subject { Array.new(rand(0..5)) { Faker::Lorem.sentence(1, true, 3) } }
+  #   t.toc { Faker::Lorem.sentence(5, true, 3) }
+  # end
 
 end
 

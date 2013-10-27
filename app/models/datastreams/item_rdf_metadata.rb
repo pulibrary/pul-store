@@ -2,6 +2,7 @@ require File.expand_path('../../../../lib/rdf/item_properties', __FILE__)
 
 class ItemRdfMetadata < ActiveFedora::NtriplesRDFDatastream
 
+
   map_predicates do |map|
 
     map.identifier({in: RDF::DC}) # what is this? NOID, or Physical id?
@@ -18,7 +19,7 @@ class ItemRdfMetadata < ActiveFedora::NtriplesRDFDatastream
       index.as :stored_searchable
     end
 
-    map.sort_title(to: "sortTitle", in: RDF::PULStoreWorks) do |index|
+    map.sort_title(to: "sortTitle", in: RDF::PULItemWorks) do |index|
       index.as :sortable
       index.type :string
     end
