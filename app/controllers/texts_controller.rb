@@ -67,7 +67,8 @@ class TextsController < ApplicationController
       @text = Text.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+    # Never trust parameters from the scary internet, only allow the 
+    # white list through.
     def text_params
       params.require(:text).permit(:type, :title, :sort_title, :creator, 
         :contributor, :date_created, :description, :subject, :language, :toc)
