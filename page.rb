@@ -1,13 +1,17 @@
 class Page < ActiveFedora::Base
-  has_metadata 'page_rdf_metadata', type: PageRdfMetadata
-
-  # TODO: needs validations
-
-  has_file_datastream 'master_image'
-  has_file_datastream 'deliverable_image'
 
   belongs_to :text, property: :is_part_of
 
-  delegate :display_label, to: 'page_rdf_metadata', unique: :true
-  delegate :sort_order, to: 'page_rdf_metadata', unique: :true
+  has_metadata 'page_rdf_metadata', type: PageRdfMetadata
+
+  has_file_datastream 'master_image'
+  has_file_datastream 'master_image_fits'
+  has_file_datastream 'deliverable_image'
+  has_file_datastream 'page_text_content'
+
+  delegate :display_label, to: 'page_rdf_metadata', multiple: false
+  delegate :sort_order, to: 'page_rdf_metadata', multiple: false
+  delegate :type, to: 'page_rdf_metadata', multiple: false
+  delegate :date_uploaded, to: 'page_rdf_metadata', multiple: false
+  delegate :date_modified, to: 'page_rdf_metadata', multiple: false
 end

@@ -1,6 +1,7 @@
-require File.expand_path('../../lib/rdf/work_properties', __FILE__)
+require File.expand_path('../../../../lib/rdf/item_properties', __FILE__)
 
-class WorkRdfMetadata < ActiveFedora::NtriplesRDFDatastream
+class ItemRdfMetadata < ActiveFedora::NtriplesRDFDatastream
+
 
   map_predicates do |map|
 
@@ -18,7 +19,7 @@ class WorkRdfMetadata < ActiveFedora::NtriplesRDFDatastream
       index.as :stored_searchable
     end
 
-    map.sort_title(to: "sortTitle", in: RDF::PULStoreWorks) do |index|
+    map.sort_title(to: "sortTitle", in: RDF::PULItemWorks) do |index|
       index.as :sortable
       index.type :string
     end

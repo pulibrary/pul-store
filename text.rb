@@ -1,15 +1,14 @@
-class Text < Work
-  has_metadata 'text_rdf_metadata', type: TextRdfMetadata
+class Text < Item
 
   has_many :pages, property: :is_part_of
 
-  validates :type, exclusion: { 
-    in: ['Text'],
-    message: "%{value} is not a valid value for type"
-  }
+  has_metadata 'descMetadata', type: TextRdfMetadata # seems to override
 
-  delegate :description, to: 'text_rdf_metadata', multiple: true
-  delegate :subject, to: 'text_rdf_metadata', multiple: true
-  delegate :language, to: 'text_rdf_metadata', multiple: true
-
+  # Should eventually be `validates_associated` once we have an
+  # AR model for language
+  
+  delegate :toc, to: 'descMetadata', multiple: false
+  delegate :description, to: 'descMetadata', multiple: true
+  delegate :subject, to: 'descMetadata', multiple: true
+  delegate :language, to: 'descMetadata', multiple: true
 end
