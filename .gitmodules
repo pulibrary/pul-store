@@ -1,5 +1,5 @@
 [submodule "app/models/afmodels"]
 	path = app/models/afmodels
-	url = git@github.com:pulibrary/activefedora-models.git
+	url = https://github.com/pulibrary/activefedora-models.git
 	branch = development
 
