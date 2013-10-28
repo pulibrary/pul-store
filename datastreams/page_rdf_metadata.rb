@@ -1,4 +1,4 @@
-require File.expand_path('../../../../lib/rdf/page_properties', __FILE__)
+require File.expand_path('../../lib/rdf/page_properties', __FILE__)
 
 class PageRdfMetadata < ActiveFedora::NtriplesRDFDatastream
   map_predicates do |map|

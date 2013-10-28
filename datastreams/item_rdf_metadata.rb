@@ -1,4 +1,4 @@
-require File.expand_path('../../../../lib/rdf/item_properties', __FILE__)
+require File.expand_path('../../lib/rdf/item_properties', __FILE__)
 
 class ItemRdfMetadata < ActiveFedora::NtriplesRDFDatastream
 
