@@ -19,4 +19,30 @@ describe Text do
     t.pages.length.should == expected_page_count
   end
 
+  it 'gets a timestamp on save' do
+    t = FactoryGirl.create(:text)
+    t.date_modified.should_not be_nil
+
+    u = FactoryGirl.build(:text)
+    u.save
+    u.date_modified.should_not be_nil
+  end
+
+  it 'has a date uploaded that does not change' do
+    t = FactoryGirl.create(:text)
+    d = t.date_uploaded
+    t.title ="Changed title"
+    t.save
+    t.date_uploaded.should == d
+
+  end
+
+  it 'has a list of dates when it was modified' do
+    t = FactoryGirl.create(:text)
+    d = t.date_uploaded
+    t.title ="Changed title"
+    t.save
+    t.date_modified.length.should == 2
+  end
+
 end
