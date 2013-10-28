@@ -2,7 +2,6 @@ require File.expand_path('../../lib/rdf/item_properties', __FILE__)
 
 class ItemRdfMetadata < ActiveFedora::NtriplesRDFDatastream
 
-
   map_predicates do |map|
 
     map.identifier({in: RDF::DC}) # what is this? NOID, or Physical id?
@@ -36,14 +35,14 @@ class ItemRdfMetadata < ActiveFedora::NtriplesRDFDatastream
       index.as :stored_searchable
     end
     
-    map.date_uploaded(:to => "dateSubmitted", :in => RDF::DC) do |index|
-      index.type :date
-      index.as :stored_sortable
-    end
-    map.date_modified(:to => "modified", :in => RDF::DC) do |index|
-      index.type :date
-      index.as :stored_sortable
-    end
+    # map.date_uploaded(:to => "dateSubmitted", :in => RDF::DC) do |index|
+    #   index.type :date
+    #   index.as :stored_sortable
+    # end
+    # map.date_modified(:to => "modified", :in => RDF::DC) do |index|
+    #   index.type :date
+    #   index.as :stored_sortable
+    # end
 
   end
 end

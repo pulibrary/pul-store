@@ -1,5 +1,5 @@
 class Page < ActiveFedora::Base
-
+  include Timestamp
   # Some of this may move into a superclass eventually. Should also be saveable.
 
   validates :type, inclusion: { 
@@ -12,6 +12,7 @@ class Page < ActiveFedora::Base
 
   has_metadata 'descMetadata', type: PageRdfMetadata
 
+
   has_file_datastream 'master_image'
   has_file_datastream 'master_image_fits'
   has_file_datastream 'deliverable_image'
@@ -21,9 +22,4 @@ class Page < ActiveFedora::Base
   delegate :sort_order, to: 'descMetadata', multiple: false
   delegate :type, to: 'descMetadata', multiple: false
 
-  # TODO: these should move into a separate stream (needed by, e.g. page, 
-  # and not really descriptive)
-  # see http://stackoverflow.com/a/11464418/714478
-  delegate :date_uploaded, to: 'page_rdf_metadata', multiple: false
-  delegate :date_modified, to: 'page_rdf_metadata', multiple: false
 end

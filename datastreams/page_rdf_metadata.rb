@@ -19,15 +19,15 @@ class PageRdfMetadata < ActiveFedora::NtriplesRDFDatastream
       index.as :stored_searchable, :facetable
     end
 
-    map.date_uploaded(:to => "dateSubmitted", :in => RDF::DC) do |index|
-      index.type :date
-      index.as :stored_sortable
-    end
+    # map.date_uploaded(:to => "dateSubmitted", :in => RDF::DC) do |index|
+    #   index.type :date
+    #   index.as :stored_sortable
+    # end
 
-    map.date_modified(:to => "modified", :in => RDF::DC) do |index|
-      index.type :date
-      index.as :stored_sortable
-    end
+    # map.date_modified(:to => "modified", :in => RDF::DC) do |index|
+    #   index.type :date
+    #   index.as :stored_sortable
+    # end
 
     map.part_of(:to => "isPartOf", :in => RDF::DC) 
     # index, eg. if is part of a Collection
