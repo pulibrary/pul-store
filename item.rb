@@ -4,8 +4,7 @@ class Item  < ActiveFedora::Base
   validates :title, presence: true
   validates :sort_title, presence: true
 
-  # Should eventually be `validates_associated` once we have a 
-  # type AR model
+  # Will need a custom validator once we have a type AR model
   validates :type, presence: true
 
   #  BROKEN: validates_with CreatorContributorValidator

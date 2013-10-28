@@ -4,8 +4,8 @@ class Text < Item
 
   has_metadata 'descMetadata', type: TextRdfMetadata # seems to override
 
-  # Should eventually be `validates_associated` once we have an
-  # AR model for language
+  # Language should have a validator once we have an AR model for language 
+  # (note that `validates_associated` doesn't seem to be impl for ActiveFedora)
   
   delegate :toc, to: 'descMetadata', multiple: false
   delegate :description, to: 'descMetadata', multiple: true
