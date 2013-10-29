@@ -5,8 +5,9 @@ class Page < ActiveFedora::Base
   include Timestamp
   has_metadata 'descMetadata', type: PageRdfMetadata
   has_metadata 'provMetadata', type: ProvRdfMetadata
+  # has_metadata 'techMetadata', type: TechRdfMetadata
 
-  # Delegate attribs
+  # Delegate attributes
   delegate :display_label, to: 'descMetadata', multiple: false
   delegate :sort_order, to: 'descMetadata', multiple: false
   delegate :type, to: 'descMetadata', multiple: false
@@ -22,9 +23,20 @@ class Page < ActiveFedora::Base
   validates :sort_order, numericality: true
 
   # Streams
-  has_file_datastream 'master_image'
-  has_file_datastream 'master_image_fits'
-  has_file_datastream 'deliverable_image'
-  has_file_datastream 'page_text_content'
+  has_file_datastream 'masterImage'
+  has_file_datastream 'masterImageFits'
+  has_file_datastream 'deliverableImage'
+  has_file_datastream 'pageTextContent'
+
+
+  # Not yet sure how this will work. Presumably the controller will need to
+  # let a master_image through, then it goes to a staging area, then what?
+  def master_image=(path)
+    self.masterImage.content=File.open(path)
+  end
+
+  def master_image
+    self.masterImage.content
+  end
 
 end
