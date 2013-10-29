@@ -1,5 +1,6 @@
 defaults: &defaults
   fits_sh: /usr/local/bin/fits.sh
+  stage_root: /tmp/pulstore-staging
 
 development:
   <<: *defaults
