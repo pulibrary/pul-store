@@ -1,5 +1,5 @@
 class Page < ActiveFedora::Base
-  # Some of this may move into a superclass eventually. Should also be saveable.
+  # Some of this may move into a superclass eventually.
 
   # Metadata
   include Timestamp
@@ -37,6 +37,18 @@ class Page < ActiveFedora::Base
 
   def master_image
     self.masterImage.content
+  end
+
+  # Not sure what this needs to do yet. For now it takes a file and the original
+  # name.
+  def self.upload_to_stage(io, name)
+    # will need some exception handling
+    path = File.join(PUL_STORE_CONFIG['stage_root'], SecureRandom.hex, name)
+    FileUtils.mkdir_p(File.dirname(path))
+    File.open(path, 'w') do |file|
+      file.write(io.read)
+    end
+    path
   end
 
 end
