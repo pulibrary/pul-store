@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 describe TextsController do
-  before(:each) { Text.delete_all }
-
   # This should return the minimal set of attributes required to create a valid
   # Text. As you add validations to Text, be sure to
   # adjust the attributes here as well.
@@ -15,6 +13,7 @@ describe TextsController do
 
   describe "GET index" do
     it "assigns all texts as @texts" do
+      Text.delete_all # empty the repo
       text = Text.create! valid_attributes
       get :index, {}, valid_session
       assigns(:texts).should eq([text])

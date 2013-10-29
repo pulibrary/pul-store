@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe PagesController do
-  before(:each) { Page.delete_all }
 
   let(:valid_attributes) { FactoryGirl.attributes_for :page }
 
@@ -9,6 +8,7 @@ describe PagesController do
 
   describe "GET index" do
     it "assigns all pages as @pages" do
+      Page.delete_all # empty the repo
       page = Page.create! valid_attributes
       get :index, {}, valid_session
       assigns(:pages).should eq([page])
