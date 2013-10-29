@@ -120,6 +120,8 @@ GEM
       hydra-access-controls (= 6.4.0.rc4)
       jettywrapper (>= 1.4.1)
       rails (>= 3.2.3, < 5)
+    hydra-file_characterization (0.3.1)
+      activesupport (>= 3.0.0)
     hydra-head (6.4.0.rc4)
       hydra-access-controls (= 6.4.0.rc4)
       hydra-core (= 6.4.0.rc4)
@@ -280,6 +282,7 @@ DEPENDENCIES
   factory_girl_rails
   faker
   hydra (~> 6.1.0.rc7)
+  hydra-file_characterization (~> 0.3.1)
   jbuilder (~> 1.2)
   jettywrapper
   jquery-rails

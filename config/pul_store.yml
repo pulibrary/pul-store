@@ -1,0 +1,11 @@
+defaults: &defaults
+  fits_sh: /usr/local/bin/fits.sh
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults

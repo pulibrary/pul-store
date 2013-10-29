@@ -29,6 +29,8 @@ gem 'jbuilder', '~> 1.2'
 
 gem "hydra", "~> 6.1.0.rc7"
 
+gem "hydra-file_characterization", "~> 0.3.1"
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
