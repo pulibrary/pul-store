@@ -1,10 +1,10 @@
 module TestTemps
-  class CharacterizationDouble
-    include Characterization
+  class CharacterizationSupportDouble
+    include CharacterizationSupport
   end
 end
 
-describe Characterization do
+describe CharacterizationSupport do
   context "when included in a class" do
     it_behaves_like "supports characterization"
   end
