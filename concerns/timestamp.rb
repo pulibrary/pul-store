@@ -4,7 +4,6 @@ module Timestamp
   included do
     before_save { self.apply_timestamps } 
 
-    has_metadata 'provMetadata', type: ProvRdfMetadata
     delegate :date_uploaded, to: 'provMetadata', multiple: false
     delegate :date_modified, to: 'provMetadata', multiple: true
     # TODO: consider events, of which date_modified would be an attribute/property.
