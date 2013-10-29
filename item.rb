@@ -2,6 +2,7 @@ class Item  < ActiveFedora::Base
   include Timestamp
 
   has_metadata 'descMetadata', type: ItemRdfMetadata
+  has_metadata 'provMetadata', type: ProvRdfMetadata
 
   validates :title, presence: true
   validates :sort_title, presence: true
