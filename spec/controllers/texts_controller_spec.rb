@@ -58,6 +58,7 @@ describe TextsController do
       end
 
       it "redirects to the created text" do
+        Text.delete_all
         post :create, {:text => valid_attributes}, valid_session
         response.should redirect_to(Text.last)
       end

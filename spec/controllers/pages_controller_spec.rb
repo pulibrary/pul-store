@@ -53,6 +53,7 @@ describe PagesController do
       end
 
       it "redirects to the created page" do
+        Page.delete_all
         post :create, {:page => valid_attributes}, valid_session
         response.should redirect_to(Page.last)
       end

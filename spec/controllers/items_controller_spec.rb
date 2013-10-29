@@ -53,6 +53,7 @@ describe ItemsController do
       end
 
       it "redirects to the created item" do
+        Item.delete_all # not sure why we need to do this
         post :create, {item: valid_attributes}, valid_session
         response.should redirect_to(Item.last)
       end
