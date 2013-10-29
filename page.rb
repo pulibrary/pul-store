@@ -1,8 +1,8 @@
 class Page < ActiveFedora::Base
-  include Timestamp
   # Some of this may move into a superclass eventually. Should also be saveable.
 
   # Metadata
+  include Timestamp
   has_metadata 'descMetadata', type: PageRdfMetadata
   has_metadata 'provMetadata', type: ProvRdfMetadata
 
