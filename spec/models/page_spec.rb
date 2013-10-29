@@ -29,4 +29,12 @@ describe Page do
     FactoryGirl.build(:page, sort_order: 4.1).should be_valid
   end
 
+  it "can take a master image" do
+    p = FactoryGirl.build(:page)
+    p.master_image = RSpec.configuration.fixture_path + "/files/00000001.tif"
+    p.save
+    p.datastreams.keys.include?('masterImage').should be_true
+  end
+
+
 end
