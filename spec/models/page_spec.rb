@@ -36,5 +36,6 @@ describe Page do
     p.datastreams.keys.include?('masterImage').should be_true
   end
 
+  it_behaves_like "supports characterization"
 
 end
