@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe ItemsController do
-  before(:each) { Item.delete_all }
 
   let(:valid_attributes) { FactoryGirl.attributes_for(:item) }
 
@@ -9,6 +8,7 @@ describe ItemsController do
 
   describe "GET index" do
     it "assigns all items as @items" do
+      Item.delete_all # empty the repo for expected results
       item = Item.create! valid_attributes
       get :index, {}, valid_session
       assigns(:items).should eq([item])
