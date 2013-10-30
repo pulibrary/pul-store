@@ -8,9 +8,10 @@ class Page < ActiveFedora::Base
   # has_metadata 'techMetadata', type: TechRdfMetadata
 
   # Delegate attributes
-  delegate :display_label, to: 'descMetadata', multiple: false
-  delegate :sort_order, to: 'descMetadata', multiple: false
-  delegate :type, to: 'descMetadata', multiple: false
+  
+  has_attributes :display_label, :datastream => 'descMetadata', multiple: false
+  has_attributes :sort_order, :datastream => 'descMetadata', multiple: false
+  has_attributes :type, :datastream => 'descMetadata', multiple: false
 
   # Associations
   belongs_to :text, property: :is_part_of

@@ -5,13 +5,16 @@ class Item  < ActiveFedora::Base
   has_metadata 'descMetadata', type: ItemRdfMetadata
   has_metadata 'provMetadata', type: ProvRdfMetadata
 
+#   has_attributes :event_series, :datastream => :descMetadata, :at => [:series],
+# :multiple => true
+
   # Delegate attribs
-  delegate :type, to: 'descMetadata', multiple: false
-  delegate :title, to: 'descMetadata', multiple: false
-  delegate :sort_title, to: 'descMetadata', multiple: false
-  delegate :creator, to: 'descMetadata', multiple: false
-  delegate :contributor, to: 'descMetadata', multiple: true
-  delegate :date_created, to: 'descMetadata', multiple: false
+  has_attributes :type, :datastream => 'descMetadata', multiple: false
+  has_attributes :title, :datastream => 'descMetadata', multiple: false
+  has_attributes :sort_title, :datastream => 'descMetadata', multiple: false
+  has_attributes :creator, :datastream => 'descMetadata', multiple: false
+  has_attributes :contributor, :datastream => 'descMetadata', multiple: true
+  has_attributes :date_created, :datastream => 'descMetadata', multiple: false
 
   # Associations
 

@@ -4,10 +4,10 @@ class Text < Item
   has_metadata 'descMetadata', type: TextRdfMetadata # seems to override
 
   # Delegate attribs
-  delegate :toc, to: 'descMetadata', multiple: false
-  delegate :description, to: 'descMetadata', multiple: true
-  delegate :subject, to: 'descMetadata', multiple: true
-  delegate :language, to: 'descMetadata', multiple: true
+  has_attributes :toc, :datastream => 'descMetadata', multiple: false
+  has_attributes :description, :datastream => 'descMetadata', multiple: true
+  has_attributes :subject, :datastream => 'descMetadata', multiple: true
+  has_attributes :language, :datastream => 'descMetadata', multiple: true
 
   # Associations
   has_many :pages, property: :is_part_of
