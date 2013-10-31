@@ -24,7 +24,7 @@
        <str name="defType">edismax</str>
        <str name="echoParams">explicit</str>
        <str name="q.alt">*:*</str>
-       <str name="mm">2&lt;-1 5&lt;-2 6&lt;90%</str>
+       <!-- <str name="mm">2&lt;-1 5&lt;-2 6&lt;90%</str> -->
        <int name="qs">1</int>
        <int name="ps">2</int>
        <float name="tie">0.01</float>
@@ -38,9 +38,12 @@
         <str name="qf">
           id
           active_fedora_model_ssi
+          type_tesim
           title_tesim
-          author_tesim
-          subject_tesim
+          creator_tesim
+          contributor_tesim
+          description_tesim
+          toc_tesim
         </str>
         <str name="pf">
           all_text_timv^10
@@ -71,7 +74,19 @@
        <str name="facet.mincount">1</str>
        <str name="facet.limit">10</str>
        <str name="facet.field">active_fedora_model_ssi</str>
+       <str name="facet.field">contributor_sim</str>
+       <str name="facet.field">creator_sim</str>
+       <str name="facet.field">language_sim</str>
+       <str name="facet.field">master_capture_device_sim</str>
+       <str name="facet.field">master_image_producer_sim</str>
+       <str name="facet.field">master_mime_type_sim</str>
+       <str name="facet.field">master_scanning_software_sim</str>
+       <str name="facet.field">master_valid_sim</str>
+       <str name="facet.field">master_well_formed_sim</str>
        <str name="facet.field">subject_sim</str>
+       <str name="facet.field">type_sim</str>
+
+       <!-- <str name="facet.field">subject_sim</str> -->
        
        <str name="spellcheck">true</str>
        <str name="spellcheck.dictionary">default</str>

@@ -5,16 +5,18 @@ class CatalogController < ApplicationController
 
   include Blacklight::Catalog
   include Hydra::Controller::ControllerBehavior
+
   # These before_filters apply the hydra access controls
-  before_filter :enforce_show_permissions, :only=>:show
+  # before_filter :enforce_show_permissions, :only=>:show
   # This applies appropriate access controls to all solr queries
-  CatalogController.solr_search_params_logic += [:add_access_controls_to_solr_params]
+  # CatalogController.solr_search_params_logic += [:add_access_controls_to_solr_params]
   # This filters out objects that you want to exclude from search results, like FileAssets
   CatalogController.solr_search_params_logic += [:exclude_unwanted_models]
 
 
   configure_blacklight do |config|
     config.default_solr_params = {
+      :qf => 'title_tesim creator_tesim',
       :qt => 'search',
       :rows => 10
     }
@@ -47,13 +49,26 @@ class CatalogController < ApplicationController
     #
     # :show may be set to false if you don't want the facet to be drawn in the
     # facet bar
-    config.add_facet_field solr_name('object_type', :facetable), :label => 'Format'
-    config.add_facet_field solr_name('pub_date', :facetable), :label => 'Publication Year'
-    config.add_facet_field solr_name('subject_topic', :facetable), :label => 'Topic', :limit => 20
-    config.add_facet_field solr_name('language', :facetable), :label => 'Language', :limit => true
-    config.add_facet_field solr_name('lc1_letter', :facetable), :label => 'Call Number'
-    config.add_facet_field solr_name('subject_geo', :facetable), :label => 'Region'
-    config.add_facet_field solr_name('subject_era', :facetable), :label => 'Era'
+    # config.add_facet_field solr_name('object_type', :facetable), :label => 'Format'
+    # config.add_facet_field solr_name('pub_date', :facetable), :label => 'Publication Year'
+    # config.add_facet_field solr_name('subject_topic', :facetable), :label => 'Topic', :limit => 20
+    # config.add_facet_field solr_name('language', :facetable), :label => 'Language', :limit => true
+    # config.add_facet_field solr_name('lc1_letter', :facetable), :label => 'Call Number'
+    # config.add_facet_field solr_name('subject_geo', :facetable), :label => 'Region'
+    # config.add_facet_field solr_name('subject_era', :facetable), :label => 'Era'
+
+
+    config.add_facet_field solr_name('master_mime_type', :facetable), :label => 'MIME Type'
+    config.add_facet_field solr_name('master_well_formed', :facetable), :label => 'Well Formed'
+    config.add_facet_field solr_name('master_valid', :facetable), :label => 'Valid'
+    config.add_facet_field solr_name('master_image_producer', :facetable), :label => 'Image Producer'
+    config.add_facet_field solr_name('master_capture_device', :facetable), :label => 'Capture Device'
+    config.add_facet_field solr_name('master_scanning_software', :facetable), :label => 'Scanning Software'
+    config.add_facet_field solr_name('type', :facetable), :label => 'Resource Type'
+    config.add_facet_field solr_name('language', :facetable), :label => 'Lanuguage'
+    config.add_facet_field solr_name('subject', :facetable), :label => 'Subject'
+    config.add_facet_field solr_name('creator', :facetable), :label => 'Creator'
+    config.add_facet_field solr_name('contributor', :facetable), :label => 'Contributor'
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
@@ -65,6 +80,7 @@ class CatalogController < ApplicationController
 
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
+    config.add_index_field solr_name('master_mime_type', :stored_searchable, type: :string), :label => 'MIME Type:'
     config.add_index_field solr_name('title', :stored_searchable, type: :string), :label => 'Title:'
     config.add_index_field solr_name('title_vern', :stored_searchable, type: :string), :label => 'Title:'
     config.add_index_field solr_name('author', :stored_searchable, type: :string), :label => 'Author:'

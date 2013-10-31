@@ -1,0 +1,64 @@
+<fits xmlns="http://hul.harvard.edu/ois/xml/ns/fits/fits_output" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/fits/fits_output http://hul.harvard.edu/ois/xml/xsd/fits/fits_output.xsd" version="0.6.2" timestamp="10/31/13 10:56 AM">
+  <identification>
+    <identity format="Tagged Image File Format" mimetype="image/tiff" toolname="FITS" toolversion="0.6.2">
+      <tool toolname="Jhove" toolversion="1.5"/>
+      <tool toolname="file utility" toolversion="5.11"/>
+      <tool toolname="Exiftool" toolversion="9.06"/>
+      <tool toolname="Droid" toolversion="3.0"/>
+      <tool toolname="NLNZ Metadata Extractor" toolversion="3.4GA"/>
+      <tool toolname="ffident" toolversion="0.2"/>
+      <version toolname="Jhove" toolversion="1.5" status="CONFLICT">6.0</version>
+      <version toolname="Droid" toolversion="3.0" status="CONFLICT">3</version>
+      <version toolname="Droid" toolversion="3.0" status="CONFLICT">4</version>
+      <version toolname="Droid" toolversion="3.0" status="CONFLICT">5</version>
+      <externalIdentifier toolname="Droid" toolversion="3.0" type="puid">fmt/7</externalIdentifier>
+      <externalIdentifier toolname="Droid" toolversion="3.0" type="puid">fmt/8</externalIdentifier>
+      <externalIdentifier toolname="Droid" toolversion="3.0" type="puid">fmt/9</externalIdentifier>
+      <externalIdentifier toolname="Droid" toolversion="3.0" type="puid">fmt/10</externalIdentifier>
+    </identity>
+  </identification>
+  <fileinfo>
+    <size toolname="Jhove" toolversion="1.5">689338</size>
+    <creatingApplicationName toolname="Jhove" toolversion="1.5">Omniscan 12.4 SR3 Build1759</creatingApplicationName>
+    <lastmodified toolname="Exiftool" toolversion="9.06" status="SINGLE_RESULT">2013:10:31 10:56:15-04:00</lastmodified>
+    <filepath toolname="OIS File Information" toolversion="0.1" status="SINGLE_RESULT">/tmp/00000001.tif20131031-14215-ued6dk.tif</filepath>
+    <filename toolname="OIS File Information" toolversion="0.1" status="SINGLE_RESULT">/tmp/00000001.tif20131031-14215-ued6dk.tif</filename>
+    <md5checksum toolname="OIS File Information" toolversion="0.1" status="SINGLE_RESULT">5c0bf3ba418a9cd9d8f9fe3eed3109a8</md5checksum>
+    <fslastmodified toolname="OIS File Information" toolversion="0.1" status="SINGLE_RESULT">1383231375000</fslastmodified>
+  </fileinfo>
+  <filestatus>
+    <well-formed toolname="Jhove" toolversion="1.5" status="SINGLE_RESULT">true</well-formed>
+    <valid toolname="Jhove" toolversion="1.5" status="SINGLE_RESULT">true</valid>
+  </filestatus>
+  <metadata>
+    <image>
+      <byteOrder toolname="Jhove" toolversion="1.5" status="SINGLE_RESULT">little endian</byteOrder>
+      <compressionScheme toolname="Jhove" toolversion="1.5">Uncompressed</compressionScheme>
+      <imageWidth toolname="Jhove" toolversion="1.5">66</imageWidth>
+      <imageHeight toolname="Jhove" toolversion="1.5">100</imageHeight>
+      <colorSpace toolname="Jhove" toolversion="1.5">RGB</colorSpace>
+      <referenceBlackWhite toolname="Jhove" toolversion="1.5" status="SINGLE_RESULT">0.0 255.0 0.0 255.0 0.0 255.0</referenceBlackWhite>
+      <iccProfileName toolname="Exiftool" toolversion="9.06" status="SINGLE_RESULT">OS14000_A2_B8_mG</iccProfileName>
+      <orientation toolname="Jhove" toolversion="1.5">normal*</orientation>
+      <samplingFrequencyUnit toolname="Jhove" toolversion="1.5" status="CONFLICT">in.</samplingFrequencyUnit>
+      <samplingFrequencyUnit toolname="Exiftool" toolversion="9.06" status="CONFLICT">inches</samplingFrequencyUnit>
+      <xSamplingFrequency toolname="Jhove" toolversion="1.5">300</xSamplingFrequency>
+      <ySamplingFrequency toolname="Jhove" toolversion="1.5">300</ySamplingFrequency>
+      <bitsPerSample toolname="Jhove" toolversion="1.5">8 8 8</bitsPerSample>
+      <samplesPerPixel toolname="Jhove" toolversion="1.5">3</samplesPerPixel>
+      <whitePointXValue toolname="Jhove" toolversion="1.5" status="CONFLICT">1343036288/4294967295</whitePointXValue>
+      <whitePointXValue toolname="Exiftool" toolversion="9.06" status="CONFLICT">0.3127000035</whitePointXValue>
+      <whitePointYValue toolname="Jhove" toolversion="1.5" status="CONFLICT">1343036288/4294967295</whitePointYValue>
+      <whitePointYValue toolname="Exiftool" toolversion="9.06" status="CONFLICT">0.3289999963</whitePointYValue>
+      <primaryChromaticitiesRedX toolname="Jhove" toolversion="1.5" status="SINGLE_RESULT">2748779008/4294967295</primaryChromaticitiesRedX>
+      <primaryChromaticitiesRedY toolname="Jhove" toolversion="1.5" status="SINGLE_RESULT">1417339264/4294967295</primaryChromaticitiesRedY>
+      <primaryChromaticitiesGreenX toolname="Jhove" toolversion="1.5" status="SINGLE_RESULT">1288490240/4294967295</primaryChromaticitiesGreenX>
+      <primaryChromaticitiesGreenY toolname="Jhove" toolversion="1.5" status="SINGLE_RESULT">2576980480/4294967295</primaryChromaticitiesGreenY>
+      <primaryChromaticitiesBlueX toolname="Jhove" toolversion="1.5" status="SINGLE_RESULT">644245120/4294967295</primaryChromaticitiesBlueX>
+      <primaryChromaticitiesBlueY toolname="Jhove" toolversion="1.5" status="SINGLE_RESULT">257698032/4294967295</primaryChromaticitiesBlueY>
+      <imageProducer toolname="Jhove" toolversion="1.5" status="SINGLE_RESULT">OS14000_A2 #56308</imageProducer>
+      <scanningSoftwareName toolname="Jhove" toolversion="1.5">Omniscan 12.4 SR3 Build1759</scanningSoftwareName>
+      <iccProfileVersion toolname="Exiftool" toolversion="9.06" status="SINGLE_RESULT">2.4.0</iccProfileVersion>
+    </image>
+  </metadata>
+</fits>

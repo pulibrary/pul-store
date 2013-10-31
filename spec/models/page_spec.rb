@@ -1,6 +1,9 @@
 require 'spec_helper'
 
 describe Page do
+
+  it_behaves_like "supports characterization"
+
   it "has a valid factory" do
     FactoryGirl.create(:page).should be_valid
   end
@@ -31,11 +34,15 @@ describe Page do
 
   it "can take a master image" do
     p = FactoryGirl.build(:page)
-    p.master_image = RSpec.configuration.fixture_path + "/files/00000001.tif"
     p.save
     p.datastreams.keys.include?('masterImage').should be_true
   end
 
-  it_behaves_like "supports characterization"
+  it "can populate its master_* fields from fits XML" do
+    sample_fits_fp = File.join(RSpec.configuration.fixture_path, 'files', 'fits.xml')
+    p = FactoryGirl.build(:page)
+    p.master_tech_md = File.read(sample_fits_fp)
+    p.master_mime_type.should == "image/tiff"
+  end
 
 end

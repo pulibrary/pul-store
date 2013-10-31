@@ -10,8 +10,8 @@ module Timestamp
   end
 
   def apply_timestamps
-    if self.date_uploaded == nil
-      self.date_uploaded = DateTime.now.utc
+    if [[], nil].any? { |v| self.date_uploaded == v }
+      self.date_uploaded << DateTime.now.utc # << even though multiple: false
     end
     self.date_modified << DateTime.now.utc
   end
