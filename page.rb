@@ -1,17 +1,35 @@
 class Page < ActiveFedora::Base
   # Some of this may move into a superclass eventually.
+  include Timestamp
+  include CharacterizationSupport
+  include Stage
 
   # Metadata
-  include Timestamp
   has_metadata 'descMetadata', type: PageRdfMetadata
   has_metadata 'provMetadata', type: ProvRdfMetadata
-  # has_metadata 'techMetadata', type: TechRdfMetadata
+  has_metadata 'masterTechMetadata', type: MasterImageFitsDatastream
 
   # Delegate attributes
   
   has_attributes :display_label, :datastream => 'descMetadata', multiple: false
   has_attributes :sort_order, :datastream => 'descMetadata', multiple: false
   has_attributes :type, :datastream => 'descMetadata', multiple: false
+
+  # We keep these here (instead of with the CharacterizationSupport mixin)
+  # because other types might have different datastreams in which they want to 
+  # store their tech metadata. At least for now....
+  has_attributes :master_mime_type, :datastream => 'masterTechMetadata', multiple: false
+  has_attributes :master_well_formed, :datastream => 'masterTechMetadata', multiple: false
+  has_attributes :master_valid, :datastream => 'masterTechMetadata', multiple: false
+  has_attributes :master_last_modified, :master_format_label, :master_file_size, 
+    :master_last_modified, :master_filename, :master_md5checksum, 
+    :master_status_message, :master_byte_order, :master_compression, 
+    :master_width, :master_height, :master_color_space, :master_profile_name, 
+    :master_profile_version, :master_orientation, :master_color_map, 
+    :master_image_producer, :master_capture_device, :master_scanning_software, 
+    :master_exif_version, :master_gps_timestamp, :master_latitude, 
+    :master_longitude,
+    :datastream => 'masterTechMetadata', multiple: true
 
   # Associations
   belongs_to :text, property: :is_part_of
@@ -25,7 +43,6 @@ class Page < ActiveFedora::Base
 
   # Streams
   has_file_datastream 'masterImage'
-  has_file_datastream 'masterImageFits'
   has_file_datastream 'deliverableImage'
   has_file_datastream 'pageTextContent'
 
@@ -40,16 +57,12 @@ class Page < ActiveFedora::Base
     self.masterImage.content
   end
 
-  # Not sure what this needs to do yet. For now it takes a file and the original
-  # name.
-  def self.upload_to_stage(io, name)
-    # will need some exception handling
-    path = File.join(PUL_STORE_CONFIG['stage_root'], SecureRandom.hex, name)
-    FileUtils.mkdir_p(File.dirname(path))
-    File.open(path, 'w') do |file|
-      file.write(io.read)
-    end
-    path
+  def master_tech_md=(io)
+    self.masterTechMetadata.content=io
+  end
+
+  def master_tech_md
+    self.masterTechMetadata.content
   end
 
 end
