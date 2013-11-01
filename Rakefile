@@ -8,6 +8,9 @@ require 'rspec/core/rake_task'
 PulStore::Application.load_tasks
 
 task :ci do
+  # install fits
+  Rake::Task['fits:download'].invoke
+
   require 'jettywrapper'
   jetty_params = Jettywrapper.load_config.merge(
       {:jetty_home => File.expand_path(File.dirname(__FILE__) + '/jetty'),
@@ -23,8 +26,6 @@ task :ci do
     Rake::Task['spec'].invoke
   end
 
-  # install fits
-  Rake::Task['pulstore:fits:download'].invoke
 
   raise "test failures: #{error}" if error
 end
