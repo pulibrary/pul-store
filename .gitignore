@@ -20,3 +20,6 @@
 
 # Ignore jetty server, solr, fedora, associated data directories
 jetty/*
+
+# Ignore fits
+fits/*

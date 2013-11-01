@@ -4,6 +4,7 @@
 require File.expand_path('../config/application', __FILE__)
 require 'rspec/core/rake_task'
 
+
 PulStore::Application.load_tasks
 
 task :ci do
@@ -21,6 +22,10 @@ task :ci do
   error = Jettywrapper.wrap(jetty_params) do
     Rake::Task['spec'].invoke
   end
+
+  # install fits
+  Rake::Task['pulstore:fits:download'].invoke
+
   raise "test failures: #{error}" if error
 end
 

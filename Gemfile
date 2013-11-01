@@ -31,6 +31,8 @@ gem "hydra", "~> 6.1.0.rc8"
 
 gem "hydra-file_characterization", "~> 0.3.1"
 
+gem "rubyzip"
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false

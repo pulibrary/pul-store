@@ -1,6 +1,7 @@
 defaults: &defaults
-  fits_sh: /usr/local/bin/fits.sh
   stage_root: /tmp/pulstore-staging
+  fits_download: https://fits.googlecode.com/files/fits-0.6.2.zip
+  fits_dir: fits
 
 development:
   <<: *defaults
