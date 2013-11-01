@@ -14,5 +14,6 @@ open(PUL_STORE_CONFIG['fits_download'], 'rb') do |tmp|
       zipfile.extract(e, fpath){ true }
     end
     FileUtils.mv(unzip_root, final_dir)
+    File.chmod(0755, File.join(final_dir, 'fits.sh'))
   end
 end
