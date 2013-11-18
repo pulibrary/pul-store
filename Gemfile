@@ -33,6 +33,8 @@ gem "hydra-file_characterization", "~> 0.3.1"
 
 gem "rubyzip"
 
+gem 'mysql2'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false

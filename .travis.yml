@@ -3,6 +3,9 @@ rvm:
   - "2.0.0"
 before_install:
   - git submodule update --init --recursive
+before_script:
+  - cp config/travis.database.yml config/database.yml
+  - mysql -e 'create database pulstore_test'
 notifications:
   email:
     recipients:
