@@ -1,0 +1,10 @@
+test:
+  user: root
+  database: pulstore_test
+  password:
+  adapter: mysql2
+  collation: utf8_bin
+  encoding: utf8
+  pool: 5
+  timeout: 5000
+  host: localhost
