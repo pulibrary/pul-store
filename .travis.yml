@@ -9,7 +9,7 @@ before_script:
 script: 
   - bundle exec rake db:test:prepare
   - bundle exec rake db:seed
-  - bundle exec rspec spec/
+  - bundle exec rake spec
 notifications:
   email:
     recipients:
