@@ -17,7 +17,7 @@ $ git clone --recursive git@github.com:pulibrary/pul-store.git
 $ rake fits:download
 ```
 
-The databases has a couple of models that needed to be seeded, so in addition to `create`, `migrate`, etc. do
+The database has a couple of models that needed to be seeded, so in addition to `create`, `migrate`, etc. do
 
 ```bash
 $ rake db:seed

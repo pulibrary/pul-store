@@ -24,8 +24,6 @@ module ExternalMetadataSource
   # end
 
 
-
-
   module ClassMethods
 
     def get_marcxml(dmd_source_id)
