@@ -45,7 +45,7 @@ describe Text do
     t.date_modified.length.should == 2
   end
 
-  it 'can get marc xml' do
+  it 'can get marcxml' do
     doc_id = '345682'
     mrx = Nokogiri::XML(Text.get_marcxml '345682')
     xp = '//marc:controlfield[@tag="001"][parent::marc:record[@type="Bibliographic"]]'
@@ -62,11 +62,25 @@ describe Text do
     t_from_repo = Text.find(t.pid)
     mrx = Nokogiri::XML(t_from_repo.src_metadata)
     xp = '//marc:controlfield[@tag="001"][parent::marc:record[@type="Bibliographic"]]'
-    
+
     id_from_mrx = mrx.xpath(xp)[0].content
     id_from_mrx.should == t_from_repo.dmd_source_id
-
   end
 
+  it 'can populate some descMetadata fields from its srcMetadata' do
+    it 'can add a title'
+    end
+
+    it 'can add a creator'
+    end
+
+    it 'can add contributors'
+    end
+
+    it 'gets a language from the language table'
+    end
+
+    # ...
+  end
 
 end
