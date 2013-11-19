@@ -6,6 +6,7 @@ class Text < Item
   # Metadata
   has_metadata 'descMetadata', type: TextRdfMetadata
   has_metadata 'provMetadata', type: ProvRdfMetadata
+  has_metadata 'srcMetadata', type: ExternalXmlMetadata
 
 
 
@@ -22,5 +23,13 @@ class Text < Item
 
   # TODO: validations of :dmd_source, :dmd_source_id
   # TODO: validator for language
+
+  def src_metadata=(io)
+    self.srcMetadata.content=io
+  end
+
+  def src_metadata
+    self.srcMetadata.content
+  end
   
 end
