@@ -67,17 +67,17 @@ describe Text do
     id_from_mrx.should == t_from_repo.dmd_source_id
   end
 
-  it 'can populate some descMetadata fields from its srcMetadata' do
-    it 'can add a title'
+  describe 'populate some descMetadata fields from it srcMetadata' do
+    it 'can add a title' do
     end
 
-    it 'can add a creator'
+    it 'can add a creator' do
     end
 
-    it 'can add contributors'
+    it 'can add contributors' do
     end
 
-    it 'gets a language from the language table'
+    it 'gets a language from the language table' do
     end
 
     # ...
