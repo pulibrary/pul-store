@@ -45,4 +45,10 @@ describe Text do
     t.date_modified.length.should == 2
   end
 
+  # it 'can get marc xml about itself' do
+  #   t = FactoryGirl.create(:text)
+    
+  #   # 345682
+  # end
+
 end
