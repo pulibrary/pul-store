@@ -25,6 +25,11 @@ class TextsController < ApplicationController
   # POST /texts.json
   def create
     @text = Text.new(text_params)
+    uploaded_pages = params[:text][:pages]
+
+    uploaded_pages.each do |uploaded_io|
+      stage_path = Page.upload_to_stage(uploaded_io, uploaded_io.original_filename)
+    end
 
     respond_to do |format|
       if @text.save
@@ -71,6 +76,6 @@ class TextsController < ApplicationController
     # white list through.
     def text_params
       params.require(:text).permit(:type, :title, :sort_title, :creator, 
-        :contributor, :date_created, :description, :subject, :language, :toc)
+        :contributor, :date_created, :description, :subject, :language, :toc, :pages)
     end
 end
