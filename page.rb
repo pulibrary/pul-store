@@ -9,6 +9,8 @@ class Page < ActiveFedora::Base
   has_metadata 'provMetadata', type: ProvRdfMetadata
   has_metadata 'masterTechMetadata', type: MasterImageFitsDatastream
 
+
+
   # Delegate attributes
   
   has_attributes :display_label, :datastream => 'descMetadata', multiple: false

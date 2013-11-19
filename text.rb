@@ -1,7 +1,15 @@
 class Text < Item
 
+  include Timestamp
+  include ExternalMetadataSource
+
   # Metadata
-  has_metadata 'descMetadata', type: TextRdfMetadata # seems to override
+  has_metadata 'descMetadata', type: TextRdfMetadata
+  has_metadata 'provMetadata', type: ProvRdfMetadata
+
+
+
+  # TODO: Add srcMetadata, which is just a copy of the marcxml
 
   # Delegate attribs
   has_attributes :toc, :datastream => 'descMetadata', multiple: false
@@ -12,10 +20,7 @@ class Text < Item
   # Associations
   has_many :pages, property: :is_part_of
 
-  # Validations
-  # Language should have a validator once we have an AR model for language 
-  # (note that `validates_associated` doesn't seem to be impl for ActiveFedora)
-
-  # Streams
+  # TODO: validations of :dmd_source, :dmd_source_id
+  # TODO: validator for language
   
 end

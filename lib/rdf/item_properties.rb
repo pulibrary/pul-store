@@ -1,5 +1,5 @@
 module RDF
-  class PULItemWorks < Vocabulary("http://princeton.edu/pulstore/works/")
+  class PULStoreItems < Vocabulary("http://princeton.edu/pulstore/items/")
     property :sortTitle
   end
 end

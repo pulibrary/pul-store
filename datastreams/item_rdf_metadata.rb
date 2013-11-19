@@ -18,7 +18,7 @@ class ItemRdfMetadata < ActiveFedora::NtriplesRDFDatastream
       index.as :stored_searchable
     end
 
-    map.sort_title(to: "sortTitle", in: RDF::PULItemWorks) do |index|
+    map.sort_title(to: "sortTitle", in: RDF::PULStoreItems) do |index|
       index.as :sortable
       index.type :string
     end
