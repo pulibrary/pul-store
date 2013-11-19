@@ -2,7 +2,8 @@ defaults: &defaults
   stage_root: /tmp/pulstore-staging
   fits_download: https://fits.googlecode.com/files/fits-0.6.2.zip
   fits_dir: fits
-  voyager_datasource: http://diglib.princeton.edu/tools/v2m
+  voyager_datasource: http://diglib.princeton.edu/tools/v2m/
+  pulfa_datasource: http://findingaids.princeton.edu/collections/
 
 development:
   <<: *defaults
