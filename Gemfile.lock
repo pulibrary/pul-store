@@ -289,6 +289,7 @@ DEPENDENCIES
   jbuilder (~> 1.2)
   jettywrapper
   jquery-rails
+  marc
   mysql2
   rails (= 4.0.0)
   rspec-rails

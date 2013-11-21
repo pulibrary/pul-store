@@ -46,6 +46,24 @@ describe Item do
     end
   end
 
+  describe "can get some of its descriptive metadata from MARCXML" do
+    sample_marcxml_fp1 = File.join(RSpec.configuration.fixture_path, 'files', '1160682.mrx')
+    sample_marcxml_fp2 = File.join(RSpec.configuration.fixture_path, 'files', '345682.mrx')
+    sample_marcxml_fp3 = File.join(RSpec.configuration.fixture_path, 'files', '4854502.mrx')
+
+    it "can get a title" do
+      ti = ["El desastre! Memorias de un voluntario en la campaña de Cuba."]
+      Item.title_from_marc(sample_marcxml_fp1).should == ti
+
+      ti = ["Opportunity in crisis : money and power in world politics 1986-88"]
+      Item.title_from_marc(sample_marcxml_fp2).should == ti
+
+      ti = ["Fawāʼid fiqhīyah", "فوائد فقهية"]
+      Item.title_from_marc(sample_marcxml_fp3).should == ti
+    end
+
+  end
+
   # it "may have zero or one creators"  do
   #   FactoryGirl.create(:item, creator: "Stroop, Jon").should be_valid
   # end
