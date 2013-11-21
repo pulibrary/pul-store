@@ -61,16 +61,27 @@ module ExternalMetadataSource
 
   # Some mappings inspired by:
   # https://github.com/ruby-marc/ruby-marc/blob/master/lib/marc/dublincore.rb
-    def title_from_marc(record)
+    def title_from_marc(record, include_initial_article=true)
       record = bib_record_from_marc_collection(record)
 
       titles=[]
 
       if record['245']
-        titles << format_field(record['245']).split(' / ')[0]
-        if record['245']['6']
-          titles << format_field(get_linked_field(record, record['245'])).split(' / ')[0]
+        ti = format_field(record['245']).split(' / ')[0]
+        if !include_initial_article
+          chop = record['245'].indicator2.to_i
+          ti = ti[chop,ti.length-chop]
         end
+        if record['245']['6']
+          linked_field = get_linked_field(record, record['245'])
+          vern_ti = format_field(linked_field).split(' / ')[0]
+          if !include_initial_article
+            chop = linked_field.indicator2.to_i
+            vern_ti = vern_ti[chop,ti.length-chop]
+          end
+          titles << vern_ti
+        end
+        titles << ti
       elsif record['240']
         titles << format_field(record['240'])
         if record['240']['6']
@@ -86,6 +97,10 @@ module ExternalMetadataSource
         nil
       end
       titles
+    end
+
+    def sort_title_from_marc(record)
+      title_from_marc(record, false)[0]
     end
 
     private

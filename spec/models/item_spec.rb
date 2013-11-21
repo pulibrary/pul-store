@@ -62,6 +62,11 @@ describe Item do
       Item.title_from_marc(sample_marcxml_fp3).should == ti
     end
 
+    it "can get a sortable title" do
+      ti = "desastre! Memorias de un voluntario en la campaña de Cuba."
+      Item.sort_title_from_marc(sample_marcxml_fp1).should == ti
+    end
+
   end
 
   # it "may have zero or one creators"  do
