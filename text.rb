@@ -1,18 +1,17 @@
 class Text < Item
 
   include Timestamp
-  include ExternalMetadataSource
 
   # Metadata
   has_metadata 'descMetadata', type: TextRdfMetadata
-  has_metadata 'provMetadata', type: ProvRdfMetadata
-  has_metadata 'srcMetadata', type: ExternalXmlMetadata
-
-
-
-  # TODO: Add srcMetadata, which is just a copy of the marcxml
+  
+  # These inherit from Item:
+  # has_metadata 'provMetadata', type: ProvRdfMetadata
+  # has_metadata 'srcMetadata', type: ExternalXmlMetadata
 
   # Delegate attribs
+  
+  has_attributes :alternative_title, :datastream => 'descMetadata', multiple: true
   has_attributes :toc, :datastream => 'descMetadata', multiple: false
   has_attributes :description, :datastream => 'descMetadata', multiple: true
   has_attributes :subject, :datastream => 'descMetadata', multiple: true

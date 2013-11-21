@@ -1,16 +1,17 @@
 class Item  < ActiveFedora::Base
 
-  # Metadata
   include Timestamp
+  include ExternalMetadataSource
+
+  # Metadata
+  has_metadata 'srcMetadata', type: ExternalXmlMetadata
   has_metadata 'descMetadata', type: ItemRdfMetadata
   has_metadata 'provMetadata', type: ProvRdfMetadata
 
-
-
   # Delegate attribs
-
   has_attributes :type, :datastream => 'descMetadata', multiple: false
-  has_attributes :title, :datastream => 'descMetadata', multiple: false
+  # title is only intended to be repeated when there are multiple script versions of the same title
+  has_attributes :title, :datastream => 'descMetadata', multiple: true
   has_attributes :sort_title, :datastream => 'descMetadata', multiple: false
   has_attributes :creator, :datastream => 'descMetadata', multiple: false
   has_attributes :contributor, :datastream => 'descMetadata', multiple: true
