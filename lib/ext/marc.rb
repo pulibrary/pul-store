@@ -16,6 +16,9 @@ module MARC
       end
     end
 
+    def get_best_date
+    end
+
   end
 
   class DataField

@@ -7,7 +7,7 @@ require "action_mailer/railtie"
 require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
-require 'ext/marc'
+require File.expand_path('../../lib/ext/marc', __FILE__)
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
