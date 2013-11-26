@@ -146,6 +146,14 @@ module ExternalMetadataSource
       contributors
     end
 
+    def get_date_from_marc(record)
+      if record.is_a? String # i.e. file path
+        record = bib_record_from_marc_collection(record)
+      end
+      record.get_best_date
+    end
+
+
     private
 
     @@bib_leader06_types = %w(a c d e f g i j k m o p r t)

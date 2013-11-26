@@ -91,13 +91,27 @@ describe Item do
       Item.get_contributors_from_marc(sample_marcxml_fp3).should == con
 
       cre = []
-      con = ["Ghazzālī, 1058-1111.",
+      con = [
+        "Ghazzālī, 1058-1111.",
         "غزالي",
-        "Mawṣilī, Ḥusayn ibn al-Mubārak, d. 1341, copyist.",
+        "Mawṣilī, Ḥusayn ibn al-Mubārak, d. 1341, copyist.", # we'll worry about this later... should probably use the marc relator properties
         "موصلي، حسين بن المبارك"
       ]
       Item.get_creator_from_marc(sample_marcxml_fp4).should == cre
       Item.get_contributors_from_marc(sample_marcxml_fp4).should == con
+    end
+
+
+    no260c_marcxml = File.join(RSpec.configuration.fixture_path, 'files', 'no_260c.mrx')
+    no_date_marcxml = File.join(RSpec.configuration.fixture_path, 'files', 'no_date.mrx')
+
+    it "can get a date from the 008" do
+      d = '1899'
+      Item.get_date_from_marc(no260c_marcxml).should == d
+    end
+
+    it "can't get a date when there isn't one" do
+      Item.get_date_from_marc(no_date_marcxml).should be nil
     end
 
   end

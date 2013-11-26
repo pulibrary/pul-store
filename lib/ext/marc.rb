@@ -16,7 +16,29 @@ module MARC
       end
     end
 
+    # Shamelessly lifted from SolrMARC, with a few enhancements.
+    @@FOUR_DIGIT_PATTERN_BRACES = /\[[12]\d{3,3}\]/
+    @@FOUR_DIGIT_PATTERN_ONE_BRACE = /\[[12]\d{3,3}/
+    @@FOUR_DIGIT_PATTERN_STARTING_WITH_1_2 = /(20|19|18|17|16|15)[0-9][0-9]/
+    @@FOUR_DIGIT_PATTERN_OTHER_1 = /l\d{3}/
+    @@FOUR_DIGIT_PATTERN_OTHER_2 = /\[19\]\d{2,2}/
+    @@FOUR_DIGIT_PATTERN_OTHER_3 = /\[?(20|19|18|17|16|15)([0-9])[-?0-9]\]?/
+    @@FOUR_DIGIT_PATTERN_OTHER_4 = /i\.e\. (20|19|18|17|16|15)[0-9][0-9]/
+    @@FOUR_DIGIT_PATTERN_OTHER_5 = /\[?(\d{2,2})\-\-\??\]?/
+    @@BC_DATE_PATTERN = /[0-9]+ [Bb][.]?[Cc][.]?/
+    @@FOUR_DIGIT_PATTERN = /\d{4,4}/
     def get_best_date
+      date = nil
+      if self['260']['c']
+      else
+        date = self.date_from_008
+      end
+      date
+    end
+
+    def date_from_008
+      d = self['008'].value[7,4].gsub 'u', '0'
+      d if d =~ /^[0-9]{4}$/
     end
 
   end
