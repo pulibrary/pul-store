@@ -59,41 +59,43 @@ module ExternalMetadataSource
       end
     end
 
-  # Some mappings inspired by:
-  # https://github.com/ruby-marc/ruby-marc/blob/master/lib/marc/dublincore.rb
+    # Returns the title and vernacular title if present
     def title_from_marc(record, include_initial_article=true)
       record = bib_record_from_marc_collection(record)
 
       titles=[]
 
       if record['245']
-        ti = format_field(record['245']).split(' / ')[0]
+        ti = record['245'].format.split(' / ')[0]
         if !include_initial_article
           chop = record['245'].indicator2.to_i
           ti = ti[chop,ti.length-chop]
         end
-        if record['245']['6']
-          linked_field = get_linked_field(record, record['245'])
-          vern_ti = format_field(linked_field).split(' / ')[0]
+        titles << ti
+
+        if record['245'].has_linked_field?
+          linked_field = record.get_linked_field(record['245'])
+          vern_ti = linked_field.format.split(' / ')[0]
           if !include_initial_article
             chop = linked_field.indicator2.to_i
             vern_ti = vern_ti[chop,ti.length-chop]
           end
           titles << vern_ti
         end
-        titles << ti
+
+      # todo: these need tests
       elsif record['240']
-        titles << format_field(record['240'])
-        if record['240']['6']
-          titles << format_field(get_linked_field(record, record['240']))
+        titles << record['240'].format
+        if record['240'].has_linked_field?
+          titles << record.get_linked_field(record['240']).format
         end
       elsif record['130']
-        titles << format_field(record['130'])
-        if record['130']['6']
-          titles << format_field(get_linked_field(record, record['130']))
+        titles << record['130'].format
+        if record['130'].has_linked_field?
+          titles << record.get_linked_field(record['130']).format
         end
       else
-        # TODO raise?
+        # TODO raise? or should we handle w/ validations?
         nil
       end
       titles
@@ -103,31 +105,60 @@ module ExternalMetadataSource
       title_from_marc(record, false)[0]
     end
 
+    # 1xx and/or 7xx without ‡t (7xx with ‡t map to contents)
+    def get_creator_from_marc(record)
+      if record.is_a? String # i.e. file path
+        record = bib_record_from_marc_collection(record)
+      end
+
+      creator = []
+      if record.has_1xx? and !record.has_any_7xx_without_t?
+        field = record.fields(['100','110','111'])[0]
+        creator << field.format
+        if field.has_linked_field?
+          creator << record.get_linked_field(field).format
+        end
+      end
+      creator
+    end
+
+    def get_contributors_from_marc(record)
+      if record.is_a? String # i.e. file path
+        record = bib_record_from_marc_collection(record)
+      end
+
+      fields = []
+      contributors = []
+      if get_creator_from_marc(record) == [] && record.has_any_7xx_without_t?
+        fields.push *record.fields(['100','110','111'])
+        fields.push *record.fields(['700', '710', '711']).select { |df| !df['t'] }
+        # fields.flatten
+        # By getting all of the fields first and then formatting them we keep 
+        # the linked field values adjacent to the romanized values. It's a small
+        # thing, but may be useful.
+        fields.each do |field| 
+          contributors << field.format
+          if field.has_linked_field?
+            contributors << record.get_linked_field(field).format
+          end
+        end
+      end
+      contributors
+    end
+
     private
-    # Returns the first bib record from a marc:collection
+
+    @@bib_leader06_types = %w(a c d e f g i j k m o p r t)
+    # Returns the first bib record from a marc:collection (e.g. in case holdings 
+    # are included)
     def bib_record_from_marc_collection(records)
-      bib_types = %w(a c d e f g i j k m o p r t)
       reader = MARC::XMLReader.new(records)
-      reader.select { |r| r.leader[6].in? bib_types }[0]
-    end
-
-    @@alpha = %w(a b c d e f g h i j k l m n o p q r s t u v w x y z)
-    def format_field(field, codes=@@alpha, separator=' ')
-      # codes ||= %w(a b c d e f g h i j k l m n o p q r s t u v w x y z)
-      subfield_values = []
-      field.select { |sf| codes.include? sf.code }.each do |sf|
-        subfield_values << sf.value
-      end
-      subfield_values.join(separator)
-    end
-
-    def get_linked_field(record, src_field)
-      if src_field['6']
-        idx = src_field['6'].split('-')[1].split('/')[0].to_i - 1
-        record.select { |df| df.tag == '880' }[idx]
-      end
+      reader.select { |r| r.leader[6].in? @@bib_leader06_types }[0]
     end
 
   end
 
+
 end
+
+

@@ -19,7 +19,9 @@
     <% @items.each do |item| %>
       <tr>
         <td><%= item.type %></td>
-        <td><%= item.title %></td>
+        <%= item.title.each do |ti| %>
+          <td><%= ti %></td>
+        <% end %>
         <td><%= item.sort_title %></td>
         <td><%= item.creator %></td>
         <td><%= item.contributor %></td>

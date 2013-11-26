@@ -50,6 +50,7 @@ describe Item do
     sample_marcxml_fp1 = File.join(RSpec.configuration.fixture_path, 'files', '1160682.mrx')
     sample_marcxml_fp2 = File.join(RSpec.configuration.fixture_path, 'files', '345682.mrx')
     sample_marcxml_fp3 = File.join(RSpec.configuration.fixture_path, 'files', '4854502.mrx')
+    sample_marcxml_fp4 = File.join(RSpec.configuration.fixture_path, 'files', '5325028.mrx')
 
     it "can get a title" do
       ti = ["El desastre! Memorias de un voluntario en la campaña de Cuba."]
@@ -63,8 +64,40 @@ describe Item do
     end
 
     it "can get a sortable title" do
-      ti = "desastre! Memorias de un voluntario en la campaña de Cuba."
-      Item.sort_title_from_marc(sample_marcxml_fp1).should == ti
+      sort_ti = "desastre! Memorias de un voluntario en la campaña de Cuba."
+      Item.sort_title_from_marc(sample_marcxml_fp1).should == sort_ti
+
+      sort_ti = "Opportunity in crisis : money and power in world politics 1986-88"
+      Item.sort_title_from_marc(sample_marcxml_fp2).should == sort_ti
+
+      sort_ti = "Fawāʼid fiqhīyah"
+      Item.sort_title_from_marc(sample_marcxml_fp3).should == sort_ti
+    end
+
+    it "can get a creator or contributors" do
+      cre = ["Corral, Manuel."]
+      con = []
+      Item.get_creator_from_marc(sample_marcxml_fp1).should == cre
+      Item.get_contributors_from_marc(sample_marcxml_fp1).should == con
+
+      cre = []
+      con = ["White, Michael M.", "Smith, Bob F."]
+      Item.get_creator_from_marc(sample_marcxml_fp2).should == cre
+      Item.get_contributors_from_marc(sample_marcxml_fp2).should == con
+
+      cre = ["Sharīshī, Muḥammad ibn Aḥmad, 1294?-1368?", "شريشي، محمد بن احمد"]
+      con = []
+      Item.get_creator_from_marc(sample_marcxml_fp3).should == cre
+      Item.get_contributors_from_marc(sample_marcxml_fp3).should == con
+
+      cre = []
+      con = ["Ghazzālī, 1058-1111.",
+        "غزالي",
+        "Mawṣilī, Ḥusayn ibn al-Mubārak, d. 1341, copyist.",
+        "موصلي، حسين بن المبارك"
+      ]
+      Item.get_creator_from_marc(sample_marcxml_fp4).should == cre
+      Item.get_contributors_from_marc(sample_marcxml_fp4).should == con
     end
 
   end
