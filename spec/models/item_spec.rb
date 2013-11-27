@@ -51,6 +51,7 @@ describe Item do
     sample_marcxml_fp2 = File.join(RSpec.configuration.fixture_path, 'files', '345682.mrx')
     sample_marcxml_fp3 = File.join(RSpec.configuration.fixture_path, 'files', '4854502.mrx')
     sample_marcxml_fp4 = File.join(RSpec.configuration.fixture_path, 'files', '5325028.mrx')
+    sample_marcxml_fp5 = File.join(RSpec.configuration.fixture_path, 'files', '7214786.mrx')
 
     it "can get a title" do
       ti = ["El desastre! Memorias de un voluntario en la campaña de Cuba."]
@@ -104,16 +105,42 @@ describe Item do
 
     no260c_marcxml = File.join(RSpec.configuration.fixture_path, 'files', 'no_260c.mrx')
     no_date_marcxml = File.join(RSpec.configuration.fixture_path, 'files', 'no_date.mrx')
-
+    bracket_century_marcxml = File.join(RSpec.configuration.fixture_path, 'files', 'bracket_century.mrx')
+    unknown_annum_marcxml = File.join(RSpec.configuration.fixture_path, 'files', 'unknown_annum.mrx')
+    unknown_decade_marcxml = File.join(RSpec.configuration.fixture_path, 'files', 'unknown_decade.mrx')
+    
     it "can get a date from the 008" do
-      d = '1899'
-      Item.get_date_from_marc(no260c_marcxml).should == d
+      Item.get_date_from_marc(no260c_marcxml).should == '1899'
     end
 
     it "can't get a date when there isn't one" do
       Item.get_date_from_marc(no_date_marcxml).should be nil
     end
 
+    it "can get a date from e.g. '1899.'" do
+      Item.get_date_from_marc(sample_marcxml_fp1).should == '1899'
+    end
+
+    it "can get a date from e.g. '[1305]'" do
+      Item.get_date_from_marc(sample_marcxml_fp4).should == '1305'
+    end
+
+    it "can get a date from e.g. '[19]25'" do
+      Item.get_date_from_marc(bracket_century_marcxml).should == '1925'
+    end
+
+    it "can get a date from e.g. '192x'" do
+      Item.get_date_from_marc(unknown_annum_marcxml).should == '1920'
+    end
+
+    it "can get a gregorian date from e.g. '[772, i.e., 2012]'" do
+      Item.get_date_from_marc(sample_marcxml_fp5).should == '2012'
+    end
+
+    it "can get a gregorian date from e.g. '[19--]'" do
+      Item.get_date_from_marc(unknown_decade_marcxml).should == '1900'
+    end
+    
   end
 
   # it "may have zero or one creators"  do
