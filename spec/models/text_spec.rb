@@ -55,7 +55,7 @@ describe Text do
 
   it 'can save marcxml to its srcMetadata stream' do
     t = FactoryGirl.build(:text)
-    t.dmd_source_id = '345682'
+    t.dmd_system_id = '345682'
     t.src_metadata = Text.get_marcxml '345682'
     t.save
 
@@ -64,7 +64,7 @@ describe Text do
     xp = '//marc:controlfield[@tag="001"][parent::marc:record[@type="Bibliographic"]]'
 
     id_from_mrx = mrx.xpath(xp)[0].content
-    id_from_mrx.should == t_from_repo.dmd_source_id
+    id_from_mrx.should == t_from_repo.dmd_system_id
   end
 
   describe 'populate some descMetadata fields from it srcMetadata' do

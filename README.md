@@ -49,3 +49,15 @@ p.master_image = stage_path
 p.master_tech_md = fits
 p.save
 ```
+
+## How to instantiate an Item with metadata from Voyager
+
+```
+i = Item.new
+i.type = "Item"
+dmd_src = MetadataSource.where(label: 'Voyager')[0]
+i.harvest_external_metadata(dmd_src, '4854502')
+i.populate_attributes_from_external_metadata
+i.save
+```
+

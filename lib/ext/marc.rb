@@ -19,7 +19,7 @@ module MARC
 
     # Shamelessly lifted from SolrMARC, with a few changes.
     @@THREE_OR_FOUR_DIGITS = /^(20|19|18|17|16|15|14|13|12|11|10|9|8|7|6|5|4|3|2|1)(\d{2})\.?$/
-    @@FOUR_DIGIT_PATTERN_BRACES = /^\[([12]\d{3})\]\.?$/
+    @@FOUR_DIGIT_PATTERN_BRACES = /^\[([12]\d{3})\??\]\.?$/
     @@FOUR_DIGIT_PATTERN_ONE_BRACE = /^\[(20|19|18|17|16|15|14|13|12|11|10)(\d{2})/
     @@FOUR_DIGIT_PATTERN_OTHER_1 = /^l(\d{3})/
     @@FOUR_DIGIT_PATTERN_OTHER_2 = /^\[(20|19|18|17|16|15|14|13|12|11|10)\](\d{2})/

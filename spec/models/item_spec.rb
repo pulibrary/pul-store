@@ -78,18 +78,18 @@ describe Item do
     it "can get a creator or contributors" do
       cre = ["Corral, Manuel."]
       con = []
-      Item.get_creator_from_marc(sample_marcxml_fp1).should == cre
-      Item.get_contributors_from_marc(sample_marcxml_fp1).should == con
+      Item.creator_from_marc(sample_marcxml_fp1).should == cre
+      Item.contributors_from_marc(sample_marcxml_fp1).should == con
 
       cre = []
       con = ["White, Michael M.", "Smith, Bob F."]
-      Item.get_creator_from_marc(sample_marcxml_fp2).should == cre
-      Item.get_contributors_from_marc(sample_marcxml_fp2).should == con
+      Item.creator_from_marc(sample_marcxml_fp2).should == cre
+      Item.contributors_from_marc(sample_marcxml_fp2).should == con
 
       cre = ["Sharīshī, Muḥammad ibn Aḥmad, 1294?-1368?", "شريشي، محمد بن احمد"]
       con = []
-      Item.get_creator_from_marc(sample_marcxml_fp3).should == cre
-      Item.get_contributors_from_marc(sample_marcxml_fp3).should == con
+      Item.creator_from_marc(sample_marcxml_fp3).should == cre
+      Item.contributors_from_marc(sample_marcxml_fp3).should == con
 
       cre = []
       con = [
@@ -98,8 +98,8 @@ describe Item do
         "Mawṣilī, Ḥusayn ibn al-Mubārak, d. 1341, copyist.", # we'll worry about this later... should probably use the marc relator properties
         "موصلي، حسين بن المبارك"
       ]
-      Item.get_creator_from_marc(sample_marcxml_fp4).should == cre
-      Item.get_contributors_from_marc(sample_marcxml_fp4).should == con
+      Item.creator_from_marc(sample_marcxml_fp4).should == cre
+      Item.contributors_from_marc(sample_marcxml_fp4).should == con
     end
 
 
@@ -110,35 +110,40 @@ describe Item do
     unknown_decade_marcxml = File.join(RSpec.configuration.fixture_path, 'files', 'unknown_decade.mrx')
     
     it "can get a date from the 008" do
-      Item.get_date_from_marc(no260c_marcxml).should == '1899'
+      Item.date_from_marc(no260c_marcxml).should == '1899'
     end
 
     it "can't get a date when there isn't one" do
-      Item.get_date_from_marc(no_date_marcxml).should be nil
+      Item.date_from_marc(no_date_marcxml).should be nil
     end
 
     it "can get a date from e.g. '1899.'" do
-      Item.get_date_from_marc(sample_marcxml_fp1).should == '1899'
+      Item.date_from_marc(sample_marcxml_fp1).should == '1899'
     end
 
     it "can get a date from e.g. '[1305]'" do
-      Item.get_date_from_marc(sample_marcxml_fp4).should == '1305'
+      Item.date_from_marc(sample_marcxml_fp4).should == '1305'
     end
 
+    it "can get a date from e.g. '[1345?]'" do
+      Item.date_from_marc(sample_marcxml_fp3).should == '1345'
+    end
+
+
     it "can get a date from e.g. '[19]25'" do
-      Item.get_date_from_marc(bracket_century_marcxml).should == '1925'
+      Item.date_from_marc(bracket_century_marcxml).should == '1925'
     end
 
     it "can get a date from e.g. '192x'" do
-      Item.get_date_from_marc(unknown_annum_marcxml).should == '1920'
+      Item.date_from_marc(unknown_annum_marcxml).should == '1920'
     end
 
     it "can get a gregorian date from e.g. '[772, i.e., 2012]'" do
-      Item.get_date_from_marc(sample_marcxml_fp5).should == '2012'
+      Item.date_from_marc(sample_marcxml_fp5).should == '2012'
     end
 
     it "can get a gregorian date from e.g. '[19--]'" do
-      Item.get_date_from_marc(unknown_decade_marcxml).should == '1900'
+      Item.date_from_marc(unknown_decade_marcxml).should == '1900'
     end
     
   end

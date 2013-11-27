@@ -23,7 +23,9 @@
           <td><%= ti %></td>
         <% end %>
         <td><%= item.sort_title %></td>
-        <td><%= item.creator %></td>
+        <%= item.creator.each do |cr| %>
+          <td><%= cr %></td>
+        <% end %>
         <td><%= item.contributor %></td>
         <td><%= item.date_created %></td>
         <td><%= link_to 'Show', item %></td>
