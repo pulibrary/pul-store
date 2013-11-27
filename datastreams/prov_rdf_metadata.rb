@@ -20,7 +20,7 @@ class ProvRdfMetadata < ActiveFedora::NtriplesRDFDatastream
       index.as :stored_searchable, :facetable
     end
 
-    map.dmd_source_id(to: "dmdSourceId", in: RDF::PULStoreProv) do |index|
+    map.dmd_system_id(to: "dmdSystemId", in: RDF::PULStoreProv) do |index|
       # The identifier for the metadata within its host system
       index.as :stored_searchable
     end
@@ -29,6 +29,8 @@ class ProvRdfMetadata < ActiveFedora::NtriplesRDFDatastream
       # The identifier for the metadata within its host system
       index.as :stored_searchable, :facetable
     end
+
+
 
   end
 end
