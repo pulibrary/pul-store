@@ -6,6 +6,8 @@ before_install:
 before_script:
   - cp config/travis.database.yml config/database.yml
   - mysql -e 'create database pulstore_test'
+  - rake db:test:prepare
+  - rake db:seed
 notifications:
   email:
     recipients:

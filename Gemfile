@@ -35,6 +35,8 @@ gem "rubyzip"
 
 gem 'mysql2'
 
+gem 'marc'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false

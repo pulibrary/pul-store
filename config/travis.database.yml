@@ -1,5 +1,5 @@
 test:
-  user: root
+  username: root
   database: pulstore_test
   password:
   adapter: mysql2
