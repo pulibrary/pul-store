@@ -293,6 +293,7 @@ DEPENDENCIES
   jettywrapper
   jquery-fileupload-rails
   jquery-rails
+  marc
   mysql2
   rails (= 4.0.0)
   rspec-rails
