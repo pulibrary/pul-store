@@ -44,8 +44,9 @@ module ExternalMetadataSource
         self.date_created = self.class.date_from_marc(self.src_metadata)
       end
       # Do more if we're a more specific class
-      # if self.instance_of? Text
-      # end
+      if self.instance_of? Text
+        alternative_title = self.class.alternative_titles_from_marc(self.src_metadata)
+      end
       self
     end
   end
@@ -92,25 +93,30 @@ module ExternalMetadataSource
       end
     end
 
+
+
+
     # Returns the title and vernacular title if present
     def title_from_marc(record, include_initial_article=true)
       # TODO: record should already be a MARC::Record when it comes in,
       # or check...is it a MARC::Record, is it a String that points to a file?, 
       # can we parse it?
       record = negotiate_record(record)
+      title_tag = determine_primary_title_field(record)
+      ti_field = record.fields(title_tag)[0]
+      titles = []
 
-      titles=[]
 
-      if record['245']
-        ti = record['245'].format.split(' / ')[0]
+      if title_tag == '245'
+        ti = ti_field.format.split(' / ')[0]
         if !include_initial_article
           chop = record['245'].indicator2.to_i
           ti = ti[chop,ti.length-chop]
         end
         titles << ti
 
-        if record['245'].has_linked_field?
-          linked_field = record.get_linked_field(record['245'])
+        if ti_field.has_linked_field?
+          linked_field = record.get_linked_field(ti_field)
           vern_ti = linked_field.format.split(' / ')[0]
           if !include_initial_article
             chop = linked_field.indicator2.to_i
@@ -119,26 +125,35 @@ module ExternalMetadataSource
           titles << vern_ti
         end
 
-      # todo: these need tests
-      elsif record['240']
-        titles << record['240'].format
-        if record['240'].has_linked_field?
-          titles << record.get_linked_field(record['240']).format
-        end
-      elsif record['130']
-        titles << record['130'].format
-        if record['130'].has_linked_field?
-          titles << record.get_linked_field(record['130']).format
-        end
+      # todo: else need tests
       else
-        # TODO raise? or should we handle w/ validations?
-        nil
+        # todo: exclude 'i' when 246
+        titles << ti_field.format
+        if ti_field.has_linked_field?
+          titles << record.get_linked_field(ti_field).format
+        end
       end
-      titles
+      titles # what if empty?? catch here or with validations?
     end
 
     def sort_title_from_marc(record)
       title_from_marc(record, false)[0]
+    end
+
+    def alternative_titles_from_marc(record)
+      record = negotiate_record(record)
+      alt_title_field_tags = determine_alt_title_fields(record)
+      alt_titles = []
+      alt_title_field_tags.each do |tag| 
+        record.fields(tag).each do |field| # some of these tags are repeatable
+          exclude_subfields = tag == '246' ? ['i'] : []
+          alt_titles << field.format(exclude_alpha: exclude_subfields)
+          if field.has_linked_field?
+            alt_titles << record.get_linked_field(field).format(exclude_alpha: exclude_subfields)
+          end
+        end
+      end
+      alt_titles
     end
 
     # 1xx and/or 7xx without ‡t (7xx with ‡t map to contents)
@@ -161,10 +176,9 @@ module ExternalMetadataSource
 
       fields = []
       contributors = []
-      if creator_from_marc(record) == [] && record.has_any_7xx_without_t?
+      if creator_from_marc(record).empty? && record.has_any_7xx_without_t?
         fields.push *record.fields(['100','110','111'])
         fields.push *record.fields(['700', '710', '711']).select { |df| !df['t'] }
-        # fields.flatten
         # By getting all of the fields first and then formatting them we keep 
         # the linked field values adjacent to the romanized values. It's a small
         # thing, but may be useful.
@@ -180,7 +194,7 @@ module ExternalMetadataSource
 
     def date_from_marc(record)
       record = negotiate_record(record)
-      record.get_best_date
+      record.best_date
     end
 
 
@@ -209,9 +223,26 @@ module ExternalMetadataSource
       end
     end
 
+    @@title_fields_by_pref = %w(245 240 130 246 222 210 242 243 247)
+
+    def determine_primary_title_field(record)
+      (@@title_fields_by_pref & negotiate_record(record).tags)[0]
+    end
+
+    def determine_alt_title_fields(record)
+      record = negotiate_record(record)
+      other_title_fields = *@@title_fields_by_pref
+      while !other_title_fields.empty? && !found_title_tag ||=false
+        # the first one we find will be the title, the rest we want
+        found_title_tag = record.tags.include? other_title_fields.shift
+      end
+      other_title_fields
+    end
+
+
+
   end
 
 
 end
-
 

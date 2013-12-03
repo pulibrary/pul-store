@@ -1,7 +1,5 @@
 require 'spec_helper'
 require 'nokogiri'
-# start here:
-# http://everydayrails.com/2012/03/19/testing-series-rspec-models-factory-girl.html
 
 describe Text do
   it 'has a valid factory' do
@@ -67,20 +65,22 @@ describe Text do
     id_from_mrx.should == t_from_repo.dmd_system_id
   end
 
-  describe 'populate some descMetadata fields from it srcMetadata' do
-    it 'can add a title' do
+  sample_marcxml_fp1 = File.join(RSpec.configuration.fixture_path, 'files', '4854502.mrx')
+  sample_marcxml_fp2 = File.join(RSpec.configuration.fixture_path, 'files', '1160682.mrx')
+
+  describe 'populate some descMetadata fields from MARC' do
+    it 'can add alternative titles' do
+      alt_tis = ["Fawāʼid al-fiqhīyah.", "الفوائد الفقهية"]
+      Text.alternative_titles_from_marc(sample_marcxml_fp1).should == alt_tis
     end
 
-    it 'can add a creator' do
-    end
-
-    it 'can add contributors' do
+    it 'doesn\'t choke when there are no alternative titles' do
+      Text.alternative_titles_from_marc(sample_marcxml_fp2).should be_empty
     end
 
     it 'gets a language from the language table' do
     end
 
-    # ...
   end
 
 end
