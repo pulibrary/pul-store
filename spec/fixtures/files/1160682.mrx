@@ -35,6 +35,12 @@
             <marc:subfield code="a">236, [3] p.</marc:subfield>
             <marc:subfield code="c">19 cm.</marc:subfield>
         </marc:datafield>
+        <marc:datafield tag="505" ind1="0" ind2=" ">
+            <marc:subfield code="a">Contents / foo.</marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="505" ind1="0" ind2=" ">
+            <marc:subfield code="a">Contents / bar -- Contents / baz</marc:subfield>
+        </marc:datafield>
         <marc:datafield tag="651" ind1=" " ind2="0">
             <marc:subfield code="a">Cuba</marc:subfield>
             <marc:subfield code="x">History</marc:subfield>

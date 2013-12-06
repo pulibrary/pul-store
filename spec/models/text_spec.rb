@@ -67,6 +67,10 @@ describe Text do
 
   sample_marcxml_fp1 = File.join(RSpec.configuration.fixture_path, 'files', '4854502.mrx')
   sample_marcxml_fp2 = File.join(RSpec.configuration.fixture_path, 'files', '1160682.mrx')
+  sample_marcxml_fp3 = File.join(RSpec.configuration.fixture_path, 'files', '345682.mrx')
+  sample_marcxml_fp4 = File.join(RSpec.configuration.fixture_path, 'files', '5325028.mrx')
+  sample_marcxml_fp5 = File.join(RSpec.configuration.fixture_path, 'files', '6139836.mrx')
+  sample_marcxml_fp6 = File.join(RSpec.configuration.fixture_path, 'files', '7910599.mrx')
 
   describe 'populate some descMetadata fields from MARC' do
     it 'can add alternative titles' do
@@ -78,7 +82,73 @@ describe Text do
       Text.alternative_titles_from_marc(sample_marcxml_fp2).should be_empty
     end
 
-    it 'gets a language from the language table' do
+    it 'can get a hasPart from a 7xx with a ‡t' do
+      c = ["Jones, Mary. Book by Mary."]
+      Text.has_parts_from_marc(sample_marcxml_fp3).should == c
+    end
+
+    it 'can get many hasParts from a many 7xxs with a ‡t' do
+      c = ["Ghazzālī, 1058-1111. Durrah al-fākhirah fī kashf ʻulūm al-Ākhirah. Fragments.",
+          "غزالي. درة الفاخرة في كشف علوم الاخرة",
+          "Ghazzālī, 1058-1111. Kāfī fī al-ʻaqd al-ṣāfī. Fragments.",
+          "غزالي. كافي في العقد الصافي",
+          "Ghazzālī, 1058-1111. Qusṭās al-mustaqīm.",
+          "غزالي. قسطاس المستقيم",
+          "Ghazzālī, 1058-1111. ʻAqīdat ahl al-sunnah.",
+          "غزالي. عقيدة اهل السنة",
+          "Ghazzālī, 1058-1111. Iḥyāʾ ʻulūm al-dīn. Book 2, Faṣl 1.",
+          "غزالي. احياء علوم الدين. كتاب 2، فصل 1",
+          "Ghazzālī, 1058-1111. Iljām al-ʻawāmm ʻan ʻilm al-kalām.",
+          "غزالي. الجام العوام عن علم الكلام",
+          "Ghazzālī, 1058-1111. Munqidh min al-ḍalāl.",
+          "غزالي. منقذ من الضلال",
+          "Ghazzālī, 1058-1111. Jawāhir al-Qurʾān. Fragments.",
+          "غزالي. جواهر القرآن",
+          "Ghazzālī, 1058-1111. Mishkāt al-anwār.",
+          "غزالي. مشكاة الانوار"
+        ]
+      Text.has_parts_from_marc(sample_marcxml_fp4).should == c
+    end
+
+    it 'can get a toc' do
+      c = "Contents / foo. ; Contents / bar -- Contents / baz"
+      Text.toc_from_marc(sample_marcxml_fp2).should == c
+    end
+
+    it 'is OK with no publisher' do
+      Text.publisher_from_marc(sample_marcxml_fp4).should be_empty
+    end
+
+    it 'can get a publisher' do
+      Text.publisher_from_marc(sample_marcxml_fp2).should == ['A. Martínez,']
+    end
+
+    it 'is OK with no extent' do
+    end
+
+    it 'can get extent' do
+      e = ['i, 113, i leaves : paper ; 165 x 123 (140 x 100) mm. bound to 165 x 140 mm.']
+      Text.extent_from_marc(sample_marcxml_fp4).should == e
+    end
+
+    it 'can get abstract' do
+      s = ["Collection of several treatises, some fragmentary or defective, by al-Ghazzālī."]
+      Text.abstract_from_marc(sample_marcxml_fp4).should == s
+    end
+
+    it 'can get languages crammed into one 041a' do
+      l = ["German", "Italian"]
+      Text.language_from_marc(sample_marcxml_fp5).should == l
+    end
+
+    it 'can get languages from separate 041as' do
+      l = ["Italian", "Spanish | Castilian", "English", "French", "German"]
+      Text.language_from_marc(sample_marcxml_fp6).should == l
+    end
+
+    it 'can get a language from 008 35:37' do
+      l = ['Arabic']
+      Text.language_from_marc(sample_marcxml_fp1).should == l
     end
 
   end

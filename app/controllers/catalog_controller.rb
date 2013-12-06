@@ -8,6 +8,7 @@ class CatalogController < ApplicationController
 
   # These before_filters apply the hydra access controls
   # before_filter :enforce_show_permissions, :only=>:show
+
   # This applies appropriate access controls to all solr queries
   # CatalogController.solr_search_params_logic += [:add_access_controls_to_solr_params]
   # This filters out objects that you want to exclude from search results, like FileAssets
@@ -81,7 +82,7 @@ class CatalogController < ApplicationController
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
     config.add_index_field solr_name('master_mime_type', :stored_searchable, type: :string), :label => 'MIME Type:'
-    config.add_index_field solr_name('title', :stored_searchable, type: :string), :label => 'Title:'
+    config.add_index_field solr_name('title_tesim', :stored_searchable, type: :string), :label => 'Title:'
     config.add_index_field solr_name('title_vern', :stored_searchable, type: :string), :label => 'Title:'
     config.add_index_field solr_name('author', :stored_searchable, type: :string), :label => 'Author:'
     config.add_index_field solr_name('author_vern', :stored_searchable, type: :string), :label => 'Author:'

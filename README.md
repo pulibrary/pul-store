@@ -50,7 +50,7 @@ p.master_tech_md = fits
 p.save
 ```
 
-## How to instantiate an Item with metadata from Voyager
+## How to instantiate an Title with metadata from Voyager
 
 ```
 i = Item.new
