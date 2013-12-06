@@ -10,11 +10,15 @@ class ItemRdfMetadata < ActiveFedora::NtriplesRDFDatastream
     # facetable
     map.part_of(:to => "isPartOf", :in => RDF::DC) 
 
-    map.type(in: RDF::DC) do |index|
+    map.contributor(in: RDF::DC) do |index|
       index.as :stored_searchable, :facetable
     end
-    
-    map.title(in: RDF::DC) do |index|
+
+    map.creator(in: RDF::DC) do |index|
+      index.as :stored_searchable, :facetable
+    end
+
+    map.date_created(:to => "created", :in => RDF::DC) do |index|
       index.as :stored_searchable
     end
 
@@ -23,16 +27,12 @@ class ItemRdfMetadata < ActiveFedora::NtriplesRDFDatastream
       index.type :string
     end
 
-    map.creator(in: RDF::DC) do |index|
-      index.as :stored_searchable, :facetable
-    end
-
-    map.contributor(in: RDF::DC) do |index|
-      index.as :stored_searchable, :facetable
-    end
-
-    map.date_created(:to => "created", :in => RDF::DC) do |index|
+    map.title(in: RDF::DC) do |index|
       index.as :stored_searchable
+    end
+
+    map.type(in: RDF::DC) do |index|
+      index.as :stored_searchable, :facetable
     end
 
   end

@@ -9,10 +9,9 @@ class Item  < ActiveFedora::Base
 
   # Delegate attribs
   has_attributes :type, :datastream => 'descMetadata', multiple: false
-  # title is only intended to be repeated when there are multiple script versions of the same title
   has_attributes :title, :datastream => 'descMetadata', multiple: true
   has_attributes :sort_title, :datastream => 'descMetadata', multiple: false
-  has_attributes :creator, :datastream => 'descMetadata', multiple: true # multiple scripts
+  has_attributes :creator, :datastream => 'descMetadata', multiple: true
   has_attributes :contributor, :datastream => 'descMetadata', multiple: true
   has_attributes :date_created, :datastream => 'descMetadata', multiple: false
 
