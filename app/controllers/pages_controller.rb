@@ -1,3 +1,5 @@
+require 'json'
+
 class PagesController < ApplicationController
   before_action :set_page, only: [:show, :edit, :update, :destroy]
 
@@ -24,12 +26,38 @@ class PagesController < ApplicationController
   # POST /pages
   # POST /pages.json
   def create
-    @page = Page.new(page_params)
+
+    r = {}
+    r[:files] = []
+
+    params[:text][:pages].each do |p|
+
+      @page = Page.new(type:"Page", sort_order:1)
+
+
+      uploaded_io = p
+
+      stage_path = Page.upload_to_stage(uploaded_io, uploaded_io.original_filename)
+
+      filesize = File.size(stage_path)
+
+      r[:files] << {
+          :name => p.original_filename,
+          :type => p.content_type,
+          :size => filesize,
+          :url => url_for(@page),
+          :delete_url => '',
+          :delete_type => ''
+      }
+
+    end
+
 
     respond_to do |format|
       if @page.save
         format.html { redirect_to @page, notice: 'Page was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @page }
+        format.json { render text: r.to_json, status: :created, location: @page }
+        #format.json { render action: 'show', status: :created, location: @page }
       else
         format.html { render action: 'new' }
         format.json { render json: @page.errors, status: :unprocessable_entity }
@@ -61,6 +89,7 @@ class PagesController < ApplicationController
     end
   end
 
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_page
@@ -69,6 +98,9 @@ class PagesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def page_params
-      params.require(:page).permit(:label, :type, :sort_order)
+      params.require(:page).permit(:label, :type, :sort_order, :date_created, :tempfile, :pages, :files)
     end
+
+
+
 end
