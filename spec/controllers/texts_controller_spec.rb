@@ -89,8 +89,8 @@ describe TextsController do
         # specifies that the Text created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
-        Text.any_instance.should_receive(:update).with({ "description" => "" })
-        put :update, {:id => text.to_param, :text => { "description" => "" }}, valid_session
+        Text.any_instance.should_receive(:update).with({ "description" => [] })
+        put :update, {:id => text.to_param, :text => { "description" => [] }}, valid_session
       end
 
       it "assigns the requested text as @text" do

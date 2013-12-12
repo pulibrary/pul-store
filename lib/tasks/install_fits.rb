@@ -2,6 +2,8 @@ require 'open-uri'
 require 'zip'
 require 'fileutils'
 
+PUL_STORE_CONFIG = YAML.load_file(Rails.root.join('config', 'pul_store.yml'))[Rails.env]
+
 final_dir = Rails.root.join(PUL_STORE_CONFIG['fits_dir'])
 
 open(PUL_STORE_CONFIG['fits_download'], 'rb') do |tmp|
