@@ -17,7 +17,8 @@ module MARC
       end
     end
 
-    # Shamelessly lifted from SolrMARC, with a few changes.
+    # Shamelessly lifted from SolrMARC, with a few changes; no doubt there will
+    # be more.
     @@THREE_OR_FOUR_DIGITS = /^(20|19|18|17|16|15|14|13|12|11|10|9|8|7|6|5|4|3|2|1)(\d{2})\.?$/
     @@FOUR_DIGIT_PATTERN_BRACES = /^\[([12]\d{3})\??\]\.?$/
     @@FOUR_DIGIT_PATTERN_ONE_BRACE = /^\[(20|19|18|17|16|15|14|13|12|11|10)(\d{2})/
@@ -27,7 +28,7 @@ module MARC
     @@FOUR_DIGIT_PATTERN_OTHER_4 = /i\.e\.\,? (20|19|18|17|16|15|14|13|12|11|10)(\d{2})/
     @@FOUR_DIGIT_PATTERN_OTHER_5 = /^\[?(\d{2})\-\-\??\]?/
     @@BC_DATE_PATTERN = /[0-9]+ [Bb]\.?[Cc]\.?/
-    def get_best_date
+    def best_date
       date = nil
       if self['260']['c']
         field_260c = self['260']['c']
@@ -52,7 +53,7 @@ module MARC
             date = nil
         end
       end
-      date ||= self.date_from_008 #date = self.date_from_008
+      date ||= self.date_from_008
     end
 
     def date_from_008
@@ -72,7 +73,13 @@ module MARC
 
     @@alpha = %w(a b c d e f g h i j k l m n o p q r s t u v w x y z)
 
-    def format(codes=@@alpha, separator=' ')
+    def format(hsh={})
+      codes = hsh.has_key?(:codes) ? hsh[:codes] : @@alpha
+      separator = hsh.has_key?(:separator) ? hsh[:separator] : ' '
+      exclude_alpha = hsh.has_key?(:exclude_alpha) ? hsh[:exclude_alpha] : []
+
+      exclude_alpha.each { |ex| codes.delete ex }
+
       subfield_values = []
       self.select { |sf| codes.include? sf.code }.each do |sf|
         subfield_values << sf.value

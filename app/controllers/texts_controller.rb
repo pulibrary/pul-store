@@ -69,8 +69,12 @@ class TextsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the 
     # white list through.
+
     def text_params
-      params.require(:text).permit(:type, :title, :sort_title, :creator, 
-        :contributor, :date_created, :description, :subject, :language, :toc)
+      params.require(:text).permit(:type,:sort_title, :date_created, 
+        abstract:[], alternative_title:[], audience:[], citation:[], 
+        contributor:[], creator:[], description:[], extent:[], has_part:[], 
+        language:[], provenance:[], publisher:[], rights:[], series:[], 
+        subject:[], title:[], toc:[])
     end
 end

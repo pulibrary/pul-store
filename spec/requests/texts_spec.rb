@@ -2,8 +2,12 @@ require 'spec_helper'
 
 describe "Texts" do
   describe "GET /texts" do
-    it "works! (now write some real specs)" do
-      # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
+
+    # TODO: These are Integration tests and we should probably prefer them over
+    # straight view testing. 
+    # See http://everydayrails.com/2012/04/24/testing-series-rspec-requests.html
+
+    it "works!" do
       get texts_path
       response.status.should be(200)
     end
