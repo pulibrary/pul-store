@@ -24,7 +24,7 @@ class TextRdfMetadata < ItemRdfMetadata
     end
 
     map.extent(in: RDF::DC) do |index|
-      index.as :stored_searchable, :facetable
+      index.as :stored_searchable
     end
 
     map.has_part(to: 'hasPart', in: RDF::DC) do |index|
