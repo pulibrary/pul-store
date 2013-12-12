@@ -11,6 +11,7 @@ class CatalogController < ApplicationController
 
   # This applies appropriate access controls to all solr queries
   # CatalogController.solr_search_params_logic += [:add_access_controls_to_solr_params]
+  
   # This filters out objects that you want to exclude from search results, like FileAssets
   CatalogController.solr_search_params_logic += [:exclude_unwanted_models]
 
@@ -65,11 +66,11 @@ class CatalogController < ApplicationController
     config.add_facet_field solr_name('master_image_producer', :facetable), :label => 'Image Producer'
     config.add_facet_field solr_name('master_capture_device', :facetable), :label => 'Capture Device'
     config.add_facet_field solr_name('master_scanning_software', :facetable), :label => 'Scanning Software'
-    config.add_facet_field solr_name('type', :facetable), :label => 'Resource Type'
-    config.add_facet_field solr_name('language', :facetable), :label => 'Lanuguage'
-    config.add_facet_field solr_name('subject', :facetable), :label => 'Subject'
-    config.add_facet_field solr_name('creator', :facetable), :label => 'Creator'
-    config.add_facet_field solr_name('contributor', :facetable), :label => 'Contributor'
+    config.add_facet_field solr_name('active_fedora_model', :stored_sortable), :label => 'Model'
+    config.add_facet_field solr_name('desc_metadata__language', :facetable), :label => 'Language'
+    config.add_facet_field solr_name('desc_metadata__subject', :facetable), :label => 'Subject'
+    config.add_facet_field solr_name('desc_metadata__creator', :facetable), :label => 'Creator'
+    config.add_facet_field solr_name('desc_metadata__contributor', :stored_searchable), :label => 'Contributor'
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
@@ -81,33 +82,29 @@ class CatalogController < ApplicationController
 
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
+    config.add_index_field solr_name('active_fedora_model', :stored_sortable), :label => 'Model:'
+    config.add_index_field solr_name('prov_metadata__date_modified', :stored_sortable, type: :date), :label => 'Last Modified:'
+    # Item
+    config.add_index_field solr_name('desc_metadata__title', :stored_searchable, type: :string), :label => 'Title:'
+    config.add_index_field solr_name('desc_metadata__creator', :stored_searchable, type: :string), :label => 'Creator:'
+    # Page
+    config.add_index_field solr_name('desc_metadata__display_label', :displayable, type: :string), :label => 'Label:'
     config.add_index_field solr_name('master_mime_type', :stored_searchable, type: :string), :label => 'MIME Type:'
-    config.add_index_field solr_name('title_tesim', :stored_searchable, type: :string), :label => 'Title:'
-    config.add_index_field solr_name('title_vern', :stored_searchable, type: :string), :label => 'Title:'
-    config.add_index_field solr_name('author', :stored_searchable, type: :string), :label => 'Author:'
-    config.add_index_field solr_name('author_vern', :stored_searchable, type: :string), :label => 'Author:'
-    config.add_index_field solr_name('format', :symbol), :label => 'Format:'
-    config.add_index_field solr_name('language', :stored_searchable, type: :string), :label => 'Language:'
-    config.add_index_field solr_name('published', :stored_searchable, type: :string), :label => 'Published:'
-    config.add_index_field solr_name('published_vern', :stored_searchable, type: :string), :label => 'Published:'
-    config.add_index_field solr_name('lc_callnum', :stored_searchable, type: :string), :label => 'Call number:'
+    # config.add_index_field solr_name('language', :stored_searchable, type: :string), :label => 'Language:'
+    # config.add_index_field solr_name('published', :stored_searchable, type: :string), :label => 'Published:'
+    # config.add_index_field solr_name('published_vern', :stored_searchable, type: :string), :label => 'Published:'
+    # config.add_index_field solr_name('lc_callnum', :stored_searchable, type: :string), :label => 'Call number:'
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
-    config.add_show_field solr_name('title', :stored_searchable, type: :string), :label => 'Title:'
-    config.add_show_field solr_name('title_vern', :stored_searchable, type: :string), :label => 'Title:'
-    config.add_show_field solr_name('subtitle', :stored_searchable, type: :string), :label => 'Subtitle:'
-    config.add_show_field solr_name('subtitle_vern', :stored_searchable, type: :string), :label => 'Subtitle:'
-    config.add_show_field solr_name('author', :stored_searchable, type: :string), :label => 'Author:'
-    config.add_show_field solr_name('author_vern', :stored_searchable, type: :string), :label => 'Author:'
-    config.add_show_field solr_name('format', :symbol), :label => 'Format:'
-    config.add_show_field solr_name('url_fulltext_tsim', :stored_searchable, type: :string), :label => 'URL:'
-    config.add_show_field solr_name('url_suppl_tsim', :stored_searchable, type: :string), :label => 'More Information:'
-    config.add_show_field solr_name('language', :stored_searchable, type: :string), :label => 'Language:'
-    config.add_show_field solr_name('published', :stored_searchable, type: :string), :label => 'Published:'
-    config.add_show_field solr_name('published_vern', :stored_searchable, type: :string), :label => 'Published:'
-    config.add_show_field solr_name('lc_callnum', :stored_searchable, type: :string), :label => 'Call number:'
-    config.add_show_field solr_name('isbn', :stored_searchable, type: :string), :label => 'ISBN:'
+    config.add_show_field solr_name('active_fedora_model', :stored_sortable), :label => 'Model:'
+    config.add_show_field solr_name('prov_metadata__date_modified', :stored_sortable, type: :date), :label => 'Last Modified:'
+    # Item
+    config.add_show_field solr_name('desc_metadata__title', :stored_searchable, type: :string), :label => 'Title:'
+    config.add_show_field solr_name('desc_metadata__creator', :stored_searchable, type: :string), :label => 'Creator:'
+    # Page
+    config.add_show_field solr_name('desc_metadata__display_label', :displayable, type: :string), :label => 'Label:'
+    config.add_show_field solr_name('master_mime_type', :stored_searchable, type: :string), :label => 'MIME Type:'
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields

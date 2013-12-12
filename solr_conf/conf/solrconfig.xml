@@ -49,7 +49,7 @@
           all_text_timv^10
         </str>
 
-       <str name="author_qf">
+       <!--<str name="author_qf">
           author_tesim
        </str>
        <str name="author_pf">
@@ -63,7 +63,7 @@
           subject_tesim
        </str>
        <str name="subject_pf">
-       </str>
+       </str>-->
        
        <str name="fl">
          *, 
@@ -74,16 +74,18 @@
        <str name="facet.mincount">1</str>
        <str name="facet.limit">10</str>
        <str name="facet.field">active_fedora_model_ssi</str>
-       <str name="facet.field">contributor_sim</str>
-       <str name="facet.field">creator_sim</str>
-       <str name="facet.field">language_sim</str>
+       <str name="facet.field">contributor_tesim</str>
+       <str name="facet.field">creator_tesim</str>
+       <str name="facet.field">language_tesim</str>
        <str name="facet.field">master_capture_device_sim</str>
        <str name="facet.field">master_image_producer_sim</str>
        <str name="facet.field">master_mime_type_sim</str>
        <str name="facet.field">master_scanning_software_sim</str>
        <str name="facet.field">master_valid_sim</str>
        <str name="facet.field">master_well_formed_sim</str>
-       <str name="facet.field">subject_sim</str>
+       <str name="facet.field">subject_tesim</str>
+
+
        <str name="facet.field">type_sim</str>
 
        <!-- <str name="facet.field">subject_sim</str> -->
