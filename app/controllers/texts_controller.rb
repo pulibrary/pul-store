@@ -24,12 +24,7 @@ class TextsController < ApplicationController
   # POST /texts
   # POST /texts.json
   def create
-    @text = Text.new(type:"Text", title:"Unknown", sort_title:"Unknown")
-
-    uploaded_io = params[:text][:pages]
-
-    stage_path = Page.upload_to_stage(uploaded_io, uploaded_io.original_filename)
-
+    @text = Text.new(text_params)
 
     respond_to do |format|
       if @text.save
