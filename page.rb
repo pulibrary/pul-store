@@ -1,3 +1,5 @@
+require File.expand_path('../lib/active_fedora/pid', __FILE__)
+
 class Page < ActiveFedora::Base
   # Some of this may move into a superclass eventually.
   include Timestamp

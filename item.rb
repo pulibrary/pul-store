@@ -1,3 +1,5 @@
+require File.expand_path('../lib/active_fedora/pid', __FILE__)
+
 class Item  < ActiveFedora::Base
 
   include Timestamp
