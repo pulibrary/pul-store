@@ -8,6 +8,11 @@ describe Page do
     FactoryGirl.create(:page).should be_valid
   end
 
+  it "gets a pid that is a NOID" do
+    p = FactoryGirl.create(:page)
+    p.pid.start_with?(PUL_STORE_CONFIG['id_namespace']).should be_true
+  end
+
   it "is not valid without a type" do
     FactoryGirl.build(:page, type: nil).should_not be_valid
 

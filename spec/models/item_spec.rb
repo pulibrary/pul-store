@@ -5,6 +5,11 @@ describe Item do
     FactoryGirl.create(:item).should be_valid
   end
 
+  it "gets a pid that is a NOID" do
+    i = FactoryGirl.create(:item)
+    i.pid.start_with?(PUL_STORE_CONFIG['id_namespace']).should be_true
+  end
+
   it "is invalid without a title" do
     w = FactoryGirl.build(:item, title: nil)
     w.should_not be_valid

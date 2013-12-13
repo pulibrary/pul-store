@@ -6,6 +6,11 @@ describe Text do
     FactoryGirl.create(:text).should be_valid
   end
 
+  it "gets a pid that is a NOID" do
+    t = FactoryGirl.create(:text)
+    t.pid.start_with?(PUL_STORE_CONFIG['id_namespace']).should be_true
+  end
+
   it 'can have many pages' do
     expected_page_count = rand(2..5)
     t = FactoryGirl.create(:text)
