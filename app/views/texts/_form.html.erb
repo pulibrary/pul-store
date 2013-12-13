@@ -18,9 +18,9 @@
         <span class="btn btn-success fileinput-button">
           <i class="icon-plus icon-white"></i>
           <span>Add files...</span>
-          <%= f.file_field :pages, :multiple => true %>
+          <%= f.file_field :pages, :label => "pageimages", :multiple => true %>
         </span>
-        <button type="submit" class="btn btn-primary start">
+        <button type="submit" name="submit" class="btn btn-primary start">
           <i class="icon-upload icon-white"></i>
           <span>Start upload</span>
         </button>
