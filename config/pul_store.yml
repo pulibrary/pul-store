@@ -4,12 +4,18 @@ defaults: &defaults
   fits_dir: fits
   voyager_datasource: http://diglib.princeton.edu/tools/v2m/
   pulfa_datasource: http://findingaids.princeton.edu/collections/
+  noid_template: .zdeeek # .reeddeeddk <- Sufia
+  minter_statefile: /tmp/minter-state
+  id_namespace: puls
 
 development:
   <<: *defaults
+  noid_template: d.zdeeek
 
 test:
   <<: *defaults
+  noid_template: t.zdeeek
 
 production:
   <<: *defaults
+  noid_template: .zdeeek

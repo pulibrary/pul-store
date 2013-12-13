@@ -35,6 +35,8 @@ gem "rubyzip"
 
 gem 'mysql2'
 
+gem 'noid'
+
 gem 'marc'
 
 group :doc do
