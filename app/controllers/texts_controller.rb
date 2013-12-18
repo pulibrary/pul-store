@@ -14,7 +14,7 @@ class TextsController < ApplicationController
 
   # GET /texts/new
   def new
-    @text = Text.new
+   @text = Text.new
   end
 
   # GET /texts/1/edit
@@ -71,10 +71,12 @@ class TextsController < ApplicationController
     # white list through.
 
     def text_params
+
       params.require(:text).permit(:type,:sort_title, :date_created, 
         abstract:[], alternative_title:[], audience:[], citation:[], 
         contributor:[], creator:[], description:[], extent:[], has_part:[], 
         language:[], provenance:[], publisher:[], rights:[], series:[], 
         subject:[], title:[], toc:[])
+
     end
 end

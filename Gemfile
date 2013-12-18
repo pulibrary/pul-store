@@ -69,6 +69,10 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+#for bulk upload ui
+gem 'jquery-fileupload-rails'
+#gem 'paperclip'
+
 gem "bootstrap-sass"
 gem "devise"
 gem "devise-guests", "~> 0.3"
