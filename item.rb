@@ -18,6 +18,7 @@ class Item  < ActiveFedora::Base
   has_attributes :date_created, :datastream => 'descMetadata', multiple: false
 
   # Associations
+  belongs_to :project, property: :is_part_of_project
 
   # Validations
   validates :title, presence: true

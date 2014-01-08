@@ -4,11 +4,11 @@ class ItemRdfMetadata < ActiveFedora::NtriplesRDFDatastream
 
   map_predicates do |map|
 
-    map.identifier({in: RDF::DC}) # what is this? NOID, or Physical id?
+    map.identifier({in: RDF::DC})
 
-    # TODO: split into isPartOfCollection and isPartOfProject and index as 
-    # facetable
-    map.part_of(:to => "isPartOf", :in => RDF::DC) 
+    # # TODO: split into isPartOfCollection and isPartOfProject and index as 
+    # # facetable
+    # map.part_of(:to => "isPartOf", :in => RDF::DC) 
 
     map.contributor(in: RDF::DC) do |index|
       index.as :stored_searchable, :facetable
