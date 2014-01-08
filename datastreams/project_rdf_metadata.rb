@@ -1,4 +1,4 @@
-require File.expand_path('../../lib/rdf/item_properties', __FILE__)
+require File.expand_path('../../lib/rdf/pul_store_terms', __FILE__)
 
 class ProjectRdfMetadata < ActiveFedora::NtriplesRDFDatastream
   map_predicates do |map|
@@ -13,7 +13,7 @@ class ProjectRdfMetadata < ActiveFedora::NtriplesRDFDatastream
       index.as :displayable, :facetable
     end
 
-    map.project_identifier(to: 'projectIdentifier', in: RDF::PULStoreItems) do |index|
+    map.project_identifier(to: 'projectIdentifier', in: RDF::PulStoreTerms) do |index|
       index.as :displayable
     end
 

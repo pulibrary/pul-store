@@ -1,4 +1,4 @@
-require File.expand_path('../../lib/rdf/text_properties', __FILE__)
+require File.expand_path('../../lib/rdf/pul_store_terms', __FILE__)
 class TextRdfMetadata < ItemRdfMetadata
 
   map_predicates do |map|
@@ -47,7 +47,7 @@ class TextRdfMetadata < ItemRdfMetadata
       index.as :stored_searchable
     end
 
-    map.series(to: 'isPartOfSeries', in: RDF::PULStoreTexts) do |index|
+    map.series(to: 'isPartOfSeries', in: RDF::PulStoreTerms) do |index|
       index.as :stored_searchable
     end
 

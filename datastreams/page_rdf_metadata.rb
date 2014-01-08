@@ -1,4 +1,4 @@
-require File.expand_path('../../lib/rdf/page_properties', __FILE__)
+require File.expand_path('../../lib/rdf/pul_store_terms', __FILE__)
 
 class PageRdfMetadata < ActiveFedora::NtriplesRDFDatastream
   map_predicates do |map|
@@ -10,7 +10,7 @@ class PageRdfMetadata < ActiveFedora::NtriplesRDFDatastream
       index.type :string
     end
 
-    map.sort_order(to: "sortOrder", in: RDF::PULStorePages) do |index|
+    map.sort_order(to: "sortOrder", in: RDF::PulStoreTerms) do |index|
       index.as :sortable
       index.type :integer
     end
