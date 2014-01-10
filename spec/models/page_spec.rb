@@ -13,22 +13,6 @@ describe Page do
     p.pid.start_with?(PUL_STORE_CONFIG['id_namespace']).should be_true
   end
 
-  it "is not valid without a type" do
-    FactoryGirl.build(:page, type: nil).should_not be_valid
-
-    expect { 
-      FactoryGirl.create(:page, type: nil) 
-    }.to raise_error ActiveFedora::RecordInvalid
-
-    expect { 
-      FactoryGirl.create(:page, type: 'NotAPage') 
-    }.to raise_error ActiveFedora::RecordInvalid
-
-    expect { 
-      FactoryGirl.create(:page, type: 'Page') 
-    }.to_not raise_error
-  end
-
   it "has a sort_order" do
     FactoryGirl.build(:page, sort_order: nil).should_not be_valid
   end

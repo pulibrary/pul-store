@@ -4,7 +4,6 @@
   <thead>
     <tr>
       <th>Label</th>
-      <th>Type</th>
       <th>Sort order</th>
       <th></th>
       <th></th>
@@ -16,7 +15,6 @@
     <% @pages.each do |page| %>
       <tr>
         <td><%= page.label %></td>
-        <td><%= page.type %></td>
         <td><%= page.sort_order %></td>
         <td><%= link_to 'Show', page %></td>
         <td><%= link_to 'Edit', edit_page_path(page) %></td>

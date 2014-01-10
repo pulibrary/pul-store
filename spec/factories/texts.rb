@@ -27,7 +27,6 @@ FactoryGirl.define do
     t.subject { Array.new(rand(0..7)) { Faker::Lorem.sentence(1,true,3) } }
     t.title { Array.new(rand(1..2)) { Faker::Lorem.sentence(3,true,5) } }
     t.toc { Array.new(rand(0..2)) { Faker::Lorem.sentence(5,true,3) } }
-    t.type "Text"
   end
 
 end
