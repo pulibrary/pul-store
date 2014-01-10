@@ -1,6 +1,13 @@
 require 'spec_helper'
 
 describe Item do
+
+  before(:all) do
+     # We need to make sure there's at least one Project in the repo so that 
+     # Item and it's subclasses have something to use
+    FactoryGirl.create(:project)
+  end
+
   it "has a valid factory" do
     FactoryGirl.create(:item).should be_valid
   end

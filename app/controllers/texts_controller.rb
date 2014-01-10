@@ -41,7 +41,7 @@ class TextsController < ApplicationController
   # PATCH/PUT /texts/1.json
   def update
     respond_to do |format|
-      if @text.update(text_params)
+      if @text.update(text_params.except('project_pid'))
         format.html { redirect_to @text, notice: 'Text was successfully updated.' }
         format.json { head :no_content }
       else
@@ -72,7 +72,7 @@ class TextsController < ApplicationController
 
     def text_params
 
-      params.require(:text).permit(:type,:sort_title, :date_created, 
+      params.require(:text).permit(:type, :sort_title, :date_created, :project_id,
         abstract:[], alternative_title:[], audience:[], citation:[], 
         contributor:[], creator:[], description:[], extent:[], has_part:[], 
         language:[], provenance:[], publisher:[], rights:[], series:[], 

@@ -11,6 +11,10 @@
     </div>
   <% end %>
 
+  <p>Select Project</p>
+  <%= f.collection_select :project_id, Project.all, :pid, :display_label  %> 
+
+
     <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
     <div class="row fileupload-buttonbar">
       <div class="span8">

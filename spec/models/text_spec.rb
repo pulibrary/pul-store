@@ -2,6 +2,7 @@ require 'spec_helper'
 require 'nokogiri'
 
 describe Text do
+
   it 'has a valid factory' do
     FactoryGirl.create(:text).should be_valid
   end
