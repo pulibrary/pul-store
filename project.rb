@@ -14,6 +14,7 @@ class Project < ActiveFedora::Base
   has_attributes :project_identifier, :datastream => 'descMetadata', multiple: false
 
   # Relationships
+  # Note that `dependent: :restrict_with_exception` does absolutely nothing right now!
   has_many :items, dependent: :restrict_with_exception, property: :is_part_of_project, :class_name => 'Item' # subclasses ok?
 
   # Validations
