@@ -8,15 +8,15 @@ describe "Texts" do
     # See http://everydayrails.com/2012/04/24/testing-series-rspec-requests.html
 
     it "works!" do
-      get texts_path
+      get pul_store_texts_path
       response.status.should be(200)
     end
 
     it "uploads file" do
-      visit new_text_path
+      visit new_pul_store_text_path
 
       within('form#fileupload') do
-        attach_file('text_pages', File.join(Rails.root, 'spec/fixtures/files/00000001.tif'))
+        attach_file('pul_store_text_pages', File.join(Rails.root, 'spec/fixtures/files/00000001.tif'))
         click_on('upload')
       end
 

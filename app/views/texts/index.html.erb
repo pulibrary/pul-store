@@ -22,7 +22,7 @@
         <td><%= text.date_modified.last %></td>
 
         <td><%= link_to 'Show', text %></td>
-        <td><%= link_to 'Edit', edit_text_path(text) %></td>
+        <td><%= link_to 'Edit', edit_pul_store_text_path(text) %></td>
         <td><%= link_to 'Destroy', text, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
@@ -31,4 +31,4 @@
 
 <br>
 
-<%= link_to 'New Text', new_text_path %>
+<%= link_to 'New Text', new_pul_store_text_path %>

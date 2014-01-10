@@ -17,7 +17,7 @@
         <td><%= page.label %></td>
         <td><%= page.sort_order %></td>
         <td><%= link_to 'Show', page %></td>
-        <td><%= link_to 'Edit', edit_page_path(page) %></td>
+        <td><%= link_to 'Edit', edit_pul_store_page_path(page) %></td>
         <td><%= link_to 'Destroy', page, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
@@ -26,4 +26,4 @@
 
 <br>
 
-<%= link_to 'New Page', new_page_path %>
+<%= link_to 'New Page', new_pul_store_page_path %>

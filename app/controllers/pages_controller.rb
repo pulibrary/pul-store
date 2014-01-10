@@ -6,7 +6,7 @@ class PagesController < ApplicationController
   # GET /pages
   # GET /pages.json
   def index
-    @pages = Page.all
+    @pages = PulStore::Page.all
   end
 
   # GET /pages/1
@@ -16,7 +16,7 @@ class PagesController < ApplicationController
 
   # GET /pages/new
   def new
-    @page = Page.new
+    @page = PulStore::Page.new
   end
 
   # GET /pages/1/edit
@@ -29,7 +29,7 @@ class PagesController < ApplicationController
 
     respond_to do |format|
         format.html do
-          @page = Page.new(page_params)
+          @page = PulStore::Page.new(page_params)
           if @page.save
             redirect_to @page, notice: 'Page was successfully created.'
           else
@@ -38,21 +38,14 @@ class PagesController < ApplicationController
         end
 
         format.json do
-
           r = {}
           r[:files] = []
-
           params[:text][:pages].each do |p|
-
-            @page = Page.new(type:"Page", sort_order:1)
-
-
+            # TODO: needs label, and sort_order based on filename
+            @page = PulStore::Page.new(sort_order:1)
             uploaded_io = p
-
-            stage_path = Page.upload_to_stage(uploaded_io, uploaded_io.original_filename)
-
+            stage_path = PulStore::Page.upload_to_stage(uploaded_io, uploaded_io.original_filename)
             filesize = File.size(stage_path)
-
             r[:files] << {
                 :name => p.original_filename,
                 :type => p.content_type,
@@ -75,7 +68,7 @@ class PagesController < ApplicationController
   def update
     respond_to do |format|
       if @page.update(page_params)
-        format.html { redirect_to @page, notice: 'Page was successfully updated.' }
+        format.html { redirect_to @page, notice: 'PulStore::Page was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -89,7 +82,7 @@ class PagesController < ApplicationController
   def destroy
     @page.destroy
     respond_to do |format|
-      format.html { redirect_to pages_url }
+      format.html { redirect_to pul_store_pages_url }
       format.json { head :no_content }
     end
   end
@@ -98,14 +91,12 @@ class PagesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_page
-      @page = Page.find(params[:id])
+      @page = PulStore::Page.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def page_params
-      params.require(:page).permit(:label, :type, :sort_order)
+      params.require(:pul_store_page).permit(:label, :type, :sort_order)
     end
-
-
 
 end

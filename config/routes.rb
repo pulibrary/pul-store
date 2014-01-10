@@ -1,9 +1,12 @@
 PulStore::Application.routes.draw do
-  resources :pages
+  # resources :pages
 
-  resources :texts
+  # resources :texts
 
-  resources :items
+  # resources :items
+
+  resources :pages, as: 'pul_store_pages'
+   resources :texts, as: 'pul_store_texts'
 
   root :to => "catalog#index"
   Blacklight.add_routes(self)

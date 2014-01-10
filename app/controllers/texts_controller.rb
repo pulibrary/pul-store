@@ -4,7 +4,7 @@ class TextsController < ApplicationController
   # GET /texts
   # GET /texts.json
   def index
-    @texts = Text.all
+    @texts = PulStore::Text.all
   end
 
   # GET /texts/1
@@ -14,7 +14,7 @@ class TextsController < ApplicationController
 
   # GET /texts/new
   def new
-   @text = Text.new
+   @text = PulStore::Text.new
   end
 
   # GET /texts/1/edit
@@ -24,7 +24,7 @@ class TextsController < ApplicationController
   # POST /texts
   # POST /texts.json
   def create
-    @text = Text.new(text_params)
+    @text = PulStore::Text.new(text_params)
 
     respond_to do |format|
       if @text.save
@@ -56,7 +56,7 @@ class TextsController < ApplicationController
   def destroy
     @text.destroy
     respond_to do |format|
-      format.html { redirect_to texts_url }
+      format.html { redirect_to pul_store_texts_url }
       format.json { head :no_content }
     end
   end
@@ -64,7 +64,7 @@ class TextsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_text
-      @text = Text.find(params[:id])
+      @text = PulStore::Text.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the 
@@ -72,7 +72,7 @@ class TextsController < ApplicationController
 
     def text_params
 
-      params.require(:text).permit(:type, :sort_title, :date_created, :project_id,
+      params.require(:pul_store_text).permit(:sort_title, :date_created, :project_id,
         abstract:[], alternative_title:[], audience:[], citation:[], 
         contributor:[], creator:[], description:[], extent:[], has_part:[], 
         language:[], provenance:[], publisher:[], rights:[], series:[], 
