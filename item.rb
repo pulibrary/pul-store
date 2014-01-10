@@ -10,7 +10,6 @@ class Item  < ActiveFedora::Base
   has_metadata 'provMetadata', type: ProvRdfMetadata
 
   # Delegate attribs
-  has_attributes :type, :datastream => 'descMetadata', multiple: false
   has_attributes :title, :datastream => 'descMetadata', multiple: true
   has_attributes :sort_title, :datastream => 'descMetadata', multiple: false
   has_attributes :creator, :datastream => 'descMetadata', multiple: true
@@ -25,7 +24,6 @@ class Item  < ActiveFedora::Base
   validates :sort_title, presence: true
   validates :project, presence: true
 
-  validates :type, presence: true
   #  BROKEN: validates_with CreatorContributorValidator
 
 

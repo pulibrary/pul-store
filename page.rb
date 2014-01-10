@@ -14,7 +14,6 @@ class Page < ActiveFedora::Base
   # Delegate attributes
   has_attributes :display_label, :datastream => 'descMetadata', multiple: false
   has_attributes :sort_order, :datastream => 'descMetadata', multiple: false
-  has_attributes :type, :datastream => 'descMetadata', multiple: false
 
   # We keep these here (instead of with the CharacterizationSupport mixin)
   # because other types might have different datastreams in which they want to 
@@ -36,10 +35,6 @@ class Page < ActiveFedora::Base
   belongs_to :text, property: :is_part_of
 
   # Validations
-  validates :type, inclusion: { 
-    in: %w(Page),
-    message: "type must be 'Page'"
-  }
   validates :sort_order, numericality: true
 
   # Streams
