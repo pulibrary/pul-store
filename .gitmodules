@@ -1,5 +1,4 @@
-[submodule "app/models/afmodels"]
-	path = app/models/afmodels
-	url = https://github.com/pulibrary/activefedora-models.git
-	branch = development
-
+[submodule "app/models/pul_store"]
+	path = app/models/pul_store
+	url = https://github.com/pulibrary/pul-store-models.git
+  branch = development
