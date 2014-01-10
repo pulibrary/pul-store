@@ -14,8 +14,12 @@ class Project < ActiveFedora::Base
   has_attributes :project_identifier, :datastream => 'descMetadata', multiple: false
 
   # Relationships
-  has_many :items, :property => :is_part_of_project, :class_name => 'Item'
+  has_many :items, dependent: :restrict_with_exception, property: :is_part_of_project, :class_name => 'Item' # subclasses ok?
 
   # Validations
+  validates :description, presence: true
+  validates :display_label, presence: true
+  validates :project_identifier, presence: true
+
 
 end

@@ -18,14 +18,16 @@ class Item  < ActiveFedora::Base
   has_attributes :date_created, :datastream => 'descMetadata', multiple: false
 
   # Associations
-  belongs_to :project, property: :is_part_of_project
+  belongs_to :project, property: :is_part_of_project, :class_name => 'Project'
 
   # Validations
   validates :title, presence: true
   validates :sort_title, presence: true
-  # Below will need a custom validator once we have a type AR model
+  validates :project, presence: true
+
   validates :type, presence: true
   #  BROKEN: validates_with CreatorContributorValidator
+
 
   def <=>(another)
     if sort_title.is_a? Array # should never be multiple, but is still a list; this is expected to change
