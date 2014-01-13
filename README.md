@@ -1,4 +1,4 @@
-hydra-models
-============
+PUL Store Models
+================
 
-Models to  be used across heads
+Models to be used across heads PUL Hydra projects.
