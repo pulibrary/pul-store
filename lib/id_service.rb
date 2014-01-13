@@ -1,5 +1,7 @@
 require 'noid'
 
+# Shamelessly lifted from Sufia/ScholarSphere
+
 class IdService
 
   def self.noid_template
