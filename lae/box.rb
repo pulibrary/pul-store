@@ -3,6 +3,7 @@ require Rails.root.join('app/models/pul_store/lib/active_fedora/pid')
 class PulStore::Lae::Box < ActiveFedora::Base
   include Timestamp
   include Validations
+  include PulStore::Lae::Provenance
 
   # Callbacks
   before_save :_defaults
@@ -13,9 +14,6 @@ class PulStore::Lae::Box < ActiveFedora::Base
   # Delegate attributes
   has_attributes :full, :datastream => 'provMetadata', multiple: false
   has_attributes :tracking_number, :datastream => 'provMetadata', multiple: false
-  has_attributes :error_note, :datastream => 'provMetadata', multiple: false
-  has_attributes :barcode, :datastream => 'provMetadata', multiple: false
-  has_attributes :state, :datastream => 'provMetadata', multiple: false
   # For dates, UI should let a bool through and then set the date (DateTime.now.utc)
   has_attributes :shipped_date, :datastream => 'provMetadata', multiple: false
   has_attributes :received_date, :datastream => 'provMetadata', multiple: false
@@ -84,15 +82,17 @@ class PulStore::Lae::Box < ActiveFedora::Base
     self.received? && self.folders.all? { |f| f.in_production? }
   end
 
-  def error?
-    self.error_note.blank?
-  end
-
   # TODO: state tests, once we have enough of Folder. We'll probably want a factory at that point
   # TODO: hard_drive tests, once we have enough of HardDrive
 
 
   protected
+
+  def _defaults
+    self.full = self.full?
+    self.state = self._infer_state
+    nil
+  end
 
   def _infer_state
     # See https://github.com/pulibrary/pul-store/wiki/LAE-Workflow-and-&quot;States&quot;#box-states
@@ -114,11 +114,6 @@ class PulStore::Lae::Box < ActiveFedora::Base
     end
   end
 
-  def _defaults
-    self.full = self.full?
-    self.state = self._infer_state
-    nil
-  end
 
 
 

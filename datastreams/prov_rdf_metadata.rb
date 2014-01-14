@@ -41,6 +41,12 @@ class ProvRdfMetadata < ActiveFedora::NtriplesRDFDatastream
       index.as :stored_searchable
     end
 
+    map.passed_qc(to: "passedQc", in: RDF::PulStoreTerms) do |index|
+      # The identifier for the metadata within its host system
+      index.type :boolean
+      index.as :stored_searchable
+    end
+
     map.shipped_date(to: "shippedDate", in: RDF::PulStoreTerms) do |index|
       # The identifier for the metadata within its host system
       index.type :date
@@ -51,6 +57,12 @@ class ProvRdfMetadata < ActiveFedora::NtriplesRDFDatastream
       # The identifier for the metadata within its host system
       index.type :string
       index.as :stored_searchable, :facetable
+    end
+
+    map.suppressed(to: "suppressed", in: RDF::PulStoreTerms) do |index|
+      # The identifier for the metadata within its host system
+      index.type :boolean
+      index.as :stored_searchable
     end
 
 
