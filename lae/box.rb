@@ -13,20 +13,16 @@ class PulStore::Lae::Box < ActiveFedora::Base
   # Delegate attributes
   has_attributes :full, :datastream => 'provMetadata', multiple: false
   has_attributes :tracking_number, :datastream => 'provMetadata', multiple: false
-
+  has_attributes :error_note, :datastream => 'provMetadata', multiple: false
+  has_attributes :barcode, :datastream => 'provMetadata', multiple: false
+  has_attributes :state, :datastream => 'provMetadata', multiple: false
   # For dates, UI should let a bool through and then set the date (DateTime.now.utc)
   has_attributes :shipped_date, :datastream => 'provMetadata', multiple: false
   has_attributes :received_date, :datastream => 'provMetadata', multiple: false
 
-  has_attributes :error_note, :datastream => 'provMetadata', multiple: false
-  has_attributes :barcode, :datastream => 'provMetadata', multiple: false
-
-  has_attributes :state, :datastream => 'provMetadata', multiple: false
-
   # Associations
   has_many :folders, property: :in_box, :class_name => 'PulStore::Lae::Folder'
   # has_one hard_drive
-
 
   # Validations
   validates_presence_of :barcode, 
@@ -95,7 +91,10 @@ class PulStore::Lae::Box < ActiveFedora::Base
   # TODO: state tests, once we have enough of Folder. We'll probably want a factory at that point
   # TODO: hard_drive tests, once we have enough of HardDrive
 
-  def state
+
+  protected
+
+  def _infer_state
     # See https://github.com/pulibrary/pul-store/wiki/LAE-Workflow-and-&quot;States&quot;#box-states
     # These labels should go in a config, eventually
     if error?
@@ -115,9 +114,9 @@ class PulStore::Lae::Box < ActiveFedora::Base
     end
   end
 
-  protected
   def _defaults
     self.full = self.full?
+    self.state = self._infer_state
     nil
   end
 
