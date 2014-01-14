@@ -1,6 +1,5 @@
 require 'spec_helper'
 
-
 describe PulStore::Lae::Box do
   before(:all) do
     @valid_barcode = "32101067700821"

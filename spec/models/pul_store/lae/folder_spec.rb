@@ -41,4 +41,49 @@ describe PulStore::Lae::Folder do
       f.valid?.should be_false
     end
   end
+
+  describe "suppress" do
+    it "is false by default" do
+      f = FactoryGirl.create(:lae_folder)
+      f.suppressed?.should be_false
+    end
+
+    it "responds to suppressed? as true when set" do
+      f = FactoryGirl.build(:lae_folder)
+      f.suppressed = true
+      f.save!
+      f.suppressed?.should be_true
+    end
+
+    it "responds to suppressed? as false when not set" do
+      f = FactoryGirl.create(:lae_folder)
+      f.suppressed = false
+      f.save!
+      f.suppressed?.should be_false
+    end
+  end
+
+  describe "passed_qc" do
+    it "is false by default" do
+      f = FactoryGirl.create(:lae_folder)
+      f.passed_qc?.should be_false
+    end
+
+    it "responds to passed_qc? as true when set" do
+      f = FactoryGirl.build(:lae_folder)
+      f.passed_qc = true
+      f.save!
+      f.passed_qc?.should be_true
+    end
+
+    it "responds to passed_qc? as false when not set" do
+      f = FactoryGirl.create(:lae_folder)
+      f.passed_qc = false
+      f.save!
+      f.passed_qc?.should be_false
+    end
+  end
+
+
+
 end
