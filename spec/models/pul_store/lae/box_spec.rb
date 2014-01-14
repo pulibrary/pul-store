@@ -31,7 +31,7 @@ describe PulStore::Lae::Box do
     end
 
     it "start with 32101" do
-      b = PulStore::Lae::Box.new(barcode: @short_barcode)
+      b = PulStore::Lae::Box.new(barcode: @bad_prefix_barcode)
       b.valid?.should be_false
     end
   end
