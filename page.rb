@@ -2,7 +2,6 @@ require File.expand_path('../lib/active_fedora/pid', __FILE__)
 
 module PulStore
   class Page < ActiveFedora::Base
-    # Some of this may move into a superclass eventually.
     include Timestamp
     include CharacterizationSupport
     include Stage
