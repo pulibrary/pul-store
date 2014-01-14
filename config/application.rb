@@ -21,6 +21,8 @@ module PulStore
       g.fixture_replacement :factory_girl, :dir => "spec/factories"
     end
 
+    config.i18n.enforce_available_locales = true
+
     config.autoload_paths += Dir["#{config.root}/app/models/**/"]
     config.autoload_paths += Dir["#{config.root}/lib/**/"]
 
