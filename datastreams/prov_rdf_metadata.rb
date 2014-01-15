@@ -47,6 +47,11 @@ class ProvRdfMetadata < ActiveFedora::NtriplesRDFDatastream
       index.as :stored_searchable
     end
 
+    map.physical_location(to: "physicalLocation", in: RDF::PulStoreTerms) do |index|
+      index.type :date
+      index.as :stored_sortable
+    end
+
     map.shipped_date(to: "shippedDate", in: RDF::PulStoreTerms) do |index|
       # The identifier for the metadata within its host system
       index.type :date

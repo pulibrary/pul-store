@@ -19,11 +19,12 @@ module PulStore
 
     # Associations
     belongs_to :project, property: :is_part_of_project, :class_name => 'PulStore::Project'
-
+    
+    
     # Validations
-    validates :title, presence: true
-    validates :sort_title, presence: true
-    validates :project, presence: true
+    validates_presence_of :title, :unless => "self.instance_of?(PulStore::Lae::Folder)"
+    validates_presence_of :sort_title, :unless => "self.instance_of?(PulStore::Lae::Folder)"
+    validates_presence_of :project
 
     #  BROKEN: validates_with CreatorContributorValidator
 

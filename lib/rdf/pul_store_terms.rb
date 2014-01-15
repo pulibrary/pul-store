@@ -10,6 +10,7 @@ module RDF
     property :isPartOfSeries # subproperty of dct:isPartOf
     property :passedQc # sub of dc:description (??)
     property :projectIdentifier # sub of dc:indentifier
+    property :physicalLocation # sub of (??)
     property :receivedDate # sub of dc:date
     property :shippedDate # sub of dc:date
     property :state # sub of dc:description

@@ -13,6 +13,7 @@ class PulStore::Lae::Box < ActiveFedora::Base
 
   # Delegate attributes
   has_attributes :full, :datastream => 'provMetadata', multiple: false
+  has_attributes :physical_location, :datastream => 'provMetadata', multiple: false
   has_attributes :tracking_number, :datastream => 'provMetadata', multiple: false
   # For dates, UI should let a bool through and then set the date (DateTime.now.utc)
   has_attributes :shipped_date, :datastream => 'provMetadata', multiple: false
@@ -53,6 +54,8 @@ class PulStore::Lae::Box < ActiveFedora::Base
     message: "Received date must be after shipped date.",
     if: :received?
 
+  validates_presence_of :physical_location, message: "Physical Location is required"
+
   def full?
     self.full = false if self.full.nil?
     ["true", 1, true].include? self.full # Not cool. We want an actual boolean!
@@ -91,6 +94,7 @@ class PulStore::Lae::Box < ActiveFedora::Base
   def _defaults
     self.full = self.full?
     self.state = self._infer_state
+    self.physical_location = PUL_STORE_CONFIG[:lae_recap_code] if self.physical_location.blank?
     nil
   end
 

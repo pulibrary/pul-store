@@ -11,7 +11,7 @@ module PulStore::Lae::Provenance
   end
 
   def error?
-    self.error_note.blank?
+    !self.error_note.blank?
   end
 
   module ClassMethods

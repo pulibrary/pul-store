@@ -32,7 +32,8 @@ module PulStore
       :datastream => 'masterTechMetadata', multiple: true
 
     # Associations
-    belongs_to :text, property: :is_part_of, :class_name => 'PulStore::Text'
+    # belongs_to :item, property: :is_part_of, :class_name => 'PulStore::Text'
+    belongs_to :page_container, polymorphic: true, property: :is_part_of
 
     # Validations
     validates :sort_order, numericality: true
