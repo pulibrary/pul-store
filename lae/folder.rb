@@ -27,16 +27,16 @@ class PulStore::Lae::Folder < PulStore::Item
 
   # Delegate attributes
   #   Provenance
-  has_attributes :suppressed, :datastream => 'provMetadata', multiple: false
-  has_attributes :passed_qc, :datastream => 'provMetadata', multiple: false
+  has_attributes :suppressed, :passed_qc, 
+    :datastream => 'provMetadata', multiple: false
+
   # Descriptive
   # See https://github.com/pulibrary/pul-store/wiki/LAE-Descriptive-Elements
-  has_attributes :alternative_title, :datastream => 'descMetadata', multiple: true
-  has_attributes :extent, :datastream => 'descMetadata', multiple: false
-  has_attributes :rights, :datastream => 'descMetadata', multiple: false
-  has_attributes :series, :datastream => 'descMetadata', multiple: true
-  has_attributes :description, :datastream => 'descMetadata', multiple: false
-  has_attributes :publisher, :datastream => 'descMetadata', multiple: true
+  has_attributes :alternative_title, :series, :description, :publisher,
+    :datastream => 'descMetadata', multiple: true
+
+  has_attributes :extent, :rights,
+    :datastream => 'descMetadata', multiple: false
 
   # TODO: https://github.com/projecthydra/questioning_authority
   # Dropdown: https://github.com/curationexperts/tufts/blob/5856e409d743fbc2e6fc026274972f5e10d4fb4e/app/helpers/contribute_helper.rb#L10
@@ -49,7 +49,7 @@ class PulStore::Lae::Folder < PulStore::Item
 
   # Associations
   belongs_to :box, property: :in_box, :class_name => 'PulStore::Lae::Box'
-  has_many :pages, as: :page_container, property: :is_part_of, :class_name => 'PulStore::Page'
+  has_many :pages, property: :is_part_of, :class_name => 'PulStore::Page'
 
   # Validations
   # Would like to DRY-up the barcode validations and put them in PulStore::Lae::Provenance
@@ -76,8 +76,6 @@ class PulStore::Lae::Folder < PulStore::Item
   # validates_presence_of :language, message: "At least one language term is required"
   # validates_presence_of :rights, message: "A rights statement is required"
   
-
-
   def suppressed?
     self.suppressed = false if self.suppressed.blank?
     ["true", 1, true].include? self.suppressed # Not cool. We want an actual boolean!
@@ -89,10 +87,7 @@ class PulStore::Lae::Folder < PulStore::Item
   end
 
   def needs_qc?
-    self.has_core_metadata? && 
-    !self.passed_qc? #&&
-    #!pages.blank? && 
-    # && self.pages.all? { |p| p.valid? }
+    self.has_core_metadata? && !self.passed_qc? && !pages.blank? && self.pages.all? { |p| p.valid? }
   end
 
   def has_prelim_metadata?
@@ -104,13 +99,11 @@ class PulStore::Lae::Folder < PulStore::Item
   end
 
   def in_production?
-    false
-    #all([#needs_qc?, passed_qc?, !suppress?])
+    self.passed_qc? && !(self.suppressed? || self.error?)
   end
 
-
-
   protected
+
   def _defaults
     self.suppressed = self.suppressed?
     self.passed_qc = self.passed_qc?
@@ -127,7 +120,7 @@ class PulStore::Lae::Folder < PulStore::Item
       "Suppressed"
     else
       if in_production?
-        "Production"
+        "In Production"
       elsif needs_qc?
         "Needs QC"
       elsif has_core_metadata?

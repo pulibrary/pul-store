@@ -1,5 +1,5 @@
 module PulStore
-  class Text < Item
+  class Text < PulStore::Item
 
     include Timestamp
 
@@ -22,7 +22,7 @@ module PulStore
     has_attributes :subject, :datastream => 'descMetadata', multiple: true
     has_attributes :toc, :datastream => 'descMetadata', multiple: true
 
-    has_many :pages, as: :page_container, property: :is_part_of, :class_name => 'PulStore::Page'
+    has_many :pages, property: :is_part_of, :class_name => 'PulStore::Page'
 
     # TODO: validations of :dmd_source, :dmd_source_id
     # TODO: validator for language
