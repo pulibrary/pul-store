@@ -196,9 +196,60 @@ describe PulStore::Lae::Folder do
   end
 
   describe "needs_qc?" do
-    it "responds to true when we have our core elements, (valid) pages, and passed_qc is false" do
+    it "responds with true when we have our core elements, (valid) pages, and passed_qc is false" do
       f = FactoryGirl.build(:lae_core_folder)
+      2.times do
+        f.pages << FactoryGirl.create(:page)
+      end
+      f.save!
       f.needs_qc?.should be_true
+    end
+
+    describe "responds with false" do
+      it "when there are no pages" do
+        f = FactoryGirl.build(:lae_core_folder)
+        f.needs_qc?.should be_false
+      end
+
+      it "when one of the pages is invalid" do
+        f = FactoryGirl.build(:lae_core_folder_with_pages)
+        f.pages << FactoryGirl.build(:page, sort_order: nil)
+        f.needs_qc?.should be_false
+      end
+
+    end
+  end
+
+  describe "in_production?" do
+    it "responds with true when we qc_passed is true, there are no errors, and the suppressed is false" do
+      f = FactoryGirl.build(:lae_core_folder_with_pages)
+      f.passed_qc = true
+      f.in_production?.should be_true
+    end
+
+    describe "responds with false" do
+      it "when passed_qc is false" do
+        f = FactoryGirl.build(:lae_core_folder_with_pages)
+        f.passed_qc = false
+        f.needs_qc?.should be_true
+        f.in_production?.should be_false
+      end
+
+      it "there is an error note present" do
+        f = FactoryGirl.build(:lae_core_folder_with_pages)
+        f.error_note = "HELP!"
+        f.passed_qc = true
+        f.needs_qc?.should be_false
+        f.in_production?.should be_false
+      end
+
+      it "suppressed is true" do
+        f = FactoryGirl.build(:lae_core_folder_with_pages)
+        f.passed_qc = true
+        f.suppressed = true
+        f.needs_qc?.should be_false
+        f.in_production?.should be_false
+      end
     end
   end
 
@@ -222,12 +273,22 @@ describe PulStore::Lae::Folder do
     end
 
     it "is 'Needs QC' when we have core metadata, we have valid pages, and qc_passed is false" do
+      f = FactoryGirl.build(:lae_core_folder_with_pages)
+      f.save!
+      f.state.should == 'Needs QC'
     end
 
+    it "is 'In Production' when in_production? is true" do
+      f = FactoryGirl.build(:lae_core_folder_with_pages)
+      f.passed_qc = true
+      f.save!
+      f.state.should == 'In Production'
+    end
+
+    # Error
+    # Suppressed
+
   end
-
-
-# State
 
 
 ## THESE WILL NEED ADDITIONAL TESTS after we do QA impl.
@@ -238,8 +299,8 @@ describe PulStore::Lae::Folder do
 
 # TOMORROW: 
 # * Folder states
-# * Figure out what to do with lists (lang, genre, county, subject) (subject is extra complex)
 # * Revisit box states, write state tests (now w/ folders)
+# * Figure out what to do with lists (lang, genre, county, subject) (subject is extra complex)
 # * hard_drive
 
 
