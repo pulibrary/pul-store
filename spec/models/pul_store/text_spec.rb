@@ -18,6 +18,7 @@ describe PulStore::Text do
     expected_page_count.times do
       p = FactoryGirl.build(:page)
       p.text = t
+      # t.pages << p
       p.save
     end
     t.pages.length.should == expected_page_count
@@ -38,7 +39,6 @@ describe PulStore::Text do
     t.title ="Changed title"
     t.save
     t.date_uploaded.should == d
-
   end
 
   it 'has a list of dates when it was modified' do

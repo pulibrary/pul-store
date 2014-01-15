@@ -58,6 +58,13 @@ describe PulStore::Lae::Box do
 
   end
 
+  describe "physical location" do
+    it "is added when we save" do
+      b = PulStore::Lae::Box.new(barcode: @valid_barcode)
+      b.physical_location.should == PUL_STORE_CONFIG[:lae_recap_code]
+    end
+  end
+
   describe "shipment dates" do
 
     it "has shipped? that is true when the box is full there is a shipped_date" do
