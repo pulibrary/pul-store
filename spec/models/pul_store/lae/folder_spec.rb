@@ -298,8 +298,6 @@ describe PulStore::Lae::Folder do
 # Subject
 
 # TOMORROW: 
-# * Folder states
-# * Revisit box states, write state tests (now w/ folders)
 # * Figure out what to do with lists (lang, genre, county, subject) (subject is extra complex)
 # * hard_drive
 

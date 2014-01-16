@@ -15,8 +15,8 @@ csv_fp = Rails.root.join('db', 'fixtures', 'metadata_sources.csv')
 csv = CSV.parse(File.read(csv_fp), headers: true)
 csv.each { |row|  MetadataSource.create!(row.to_hash) }
 
-# # Languages
-# Language.delete_all
-# csv_fp = Rails.root.join('db', 'fixtures', 'iso639-2.csv')
-# csv = CSV.parse(File.read(csv_fp), headers: true)
-# csv.each { |row|  Language.create!(row.to_hash) }
+# Languages
+Language.delete_all
+csv_fp = Rails.root.join('db', 'fixtures', 'iso639-2.csv')
+csv = CSV.parse(File.read(csv_fp), headers: true)
+csv.each { |row|  Language.create!(row.to_hash) }
