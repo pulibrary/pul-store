@@ -1,6 +1,6 @@
 language: ruby
 rvm:
-  - "2.0.0"
+  - "2.1.0"
 before_install:
   - git submodule update --init --recursive
 before_script:
@@ -16,6 +16,7 @@ notifications:
     recipients:
       - "shaune@princeton.edu"
       - "jstroop@princeton.edu"
+      - "kr2@princeton.edu"
     on_success: "change"
     on_failure: "always"
     template:
