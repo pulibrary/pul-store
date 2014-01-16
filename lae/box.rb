@@ -1,7 +1,6 @@
 require Rails.root.join('app/models/pul_store/lib/active_fedora/pid')
 
-class PulStore::Lae::Box < ActiveFedora::Base
-  include PulStore::Timestamp
+class PulStore::Lae::Box < PulStore::Base
   include PulStore::Validations
   include PulStore::Lae::Provenance
 
@@ -10,9 +9,6 @@ class PulStore::Lae::Box < ActiveFedora::Base
   before_validation do 
     self.physical_location = PUL_STORE_CONFIG['lae_recap_code'] if self.physical_location.blank?
   end
-
-  # Metadata
-  has_metadata 'provMetadata', type: PulStore::ProvRdfMetadata
 
   # Delegate attributes
   has_attributes :full, :physical_location, :tracking_number, 
