@@ -107,24 +107,45 @@ describe PulStore::Lae::Folder do
   end
 
   describe "passed_qc" do
-    it "is false by default" do
-      f = FactoryGirl.create(:lae_folder)
-      f.passed_qc?.should be_false
+
+    describe "is false" do
+      it "by default" do
+        f = FactoryGirl.create(:lae_folder)
+        f.passed_qc?.should be_false
+      end
+      it "passed_qc? responds as such when set" do
+        f = FactoryGirl.create(:lae_folder)
+        f.passed_qc = false
+        f.save!
+        f.passed_qc?.should be_false
+      end
+      it "passed_qc? responds as such by default" do
+        f = FactoryGirl.create(:lae_folder)
+        f.passed_qc?.should be_false
+      end
     end
 
-    it "responds to passed_qc? as true when set" do
-      f = FactoryGirl.build(:lae_folder)
+    describe "raises errors when setting to true" do
+      it "without core elements" do
+        f = FactoryGirl.build(:lae_folder)
+        f.passed_qc = true
+        expect { f.save! }.to raise_error ActiveFedora::RecordInvalid
+      end
+      it "without pages" do
+        f = FactoryGirl.build(:lae_core_folder_with_pages)
+        f.pages = []
+        f.passed_qc = true
+        expect { f.save! }.to raise_error ActiveFedora::RecordInvalid
+      end
+    end
+
+    it "can only be set to true when we have core elements and pages" do
+      f = FactoryGirl.build(:lae_core_folder_with_pages)
       f.passed_qc = true
       f.save!
       f.passed_qc?.should be_true
     end
 
-    it "responds to passed_qc? as false when not set" do
-      f = FactoryGirl.create(:lae_folder)
-      f.passed_qc = false
-      f.save!
-      f.passed_qc?.should be_false
-    end
   end
 
   describe "suppress" do
