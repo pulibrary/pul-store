@@ -1,6 +1,6 @@
 module TestTemps
   class CharacterizationSupportDouble
-    include CharacterizationSupport
+    include PulStore::CharacterizationSupport
   end
 end
 # This is a little wierd, but it does what we need for now.
