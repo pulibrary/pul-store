@@ -48,7 +48,7 @@ class ProvRdfMetadata < ActiveFedora::NtriplesRDFDatastream
     end
 
     map.physical_location(to: "physicalLocation", in: RDF::PulStoreTerms) do |index|
-      index.type :date
+      index.type :string
       index.as :stored_sortable
     end
 

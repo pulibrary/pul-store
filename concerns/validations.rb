@@ -3,6 +3,15 @@ module Validations
   extend ActiveSupport::Concern
   include ActiveModel::Validations
 
+  def validate_shipped_before_received
+    unless [shipped_date.blank?, received_date.blank?].any?
+      if shipped_date > received_date
+        errors.add(:received_date, 'must be later that shipped date')
+      end
+    end
+  end
+
+
   def validate_barcode
     unless self.send(:barcode).blank?
       calc_check_digit = calculate_barcode_checkdigit(:barcode)

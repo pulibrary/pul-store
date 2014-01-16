@@ -7,19 +7,22 @@ class PulStore::Lae::Box < ActiveFedora::Base
 
   # Callbacks
   before_save :_defaults
+  before_validation do 
+    self.physical_location = PUL_STORE_CONFIG['lae_recap_code'] if self.physical_location.blank?
+  end
 
   # Metadata
   has_metadata 'provMetadata', type: ProvRdfMetadata
 
   # Delegate attributes
-  has_attributes :full, :datastream => 'provMetadata', multiple: false
-  has_attributes :physical_location, :datastream => 'provMetadata', multiple: false
-  has_attributes :tracking_number, :datastream => 'provMetadata', multiple: false
-  # For dates, UI should let a bool through and then set the date (DateTime.now.utc)
-  has_attributes :shipped_date, :datastream => 'provMetadata', multiple: false
-  has_attributes :received_date, :datastream => 'provMetadata', multiple: false
+  has_attributes :full, :physical_location, :tracking_number, 
+    :datastream => 'provMetadata', multiple: false
+  # For dates, UI should let a bool through and then set the date (Date.current)
+  has_attributes :shipped_date, :received_date, 
+    :datastream => 'provMetadata', multiple: false
 
   # Associations
+  belongs_to :project, property: :is_part_of_project, :class_name => 'PulStore::Project'
   has_many :folders, property: :in_box, :class_name => 'PulStore::Lae::Folder'
   # has_one hard_drive
 
@@ -35,7 +38,6 @@ class PulStore::Lae::Box < ActiveFedora::Base
     with: /\A32101/, 
     message: "Barcode must start with '32101'"
 
-  validate :validate_barcode
 
   validates_presence_of :shipped_date, 
     message: "A shipped date is required in order for something to be received", 
@@ -49,12 +51,11 @@ class PulStore::Lae::Box < ActiveFedora::Base
     message: "A tracking number can only be supplied is the box is marked 'Shipped'",
     if: :shipped?
 
-  validates_numericality_of :received_date,
-    greater_than: :shipped_date, 
-    message: "Received date must be after shipped date.",
-    if: :received?
+  validate :validate_barcode
+  validate :validate_shipped_before_received
 
-  validates_presence_of :physical_location, message: "Physical Location is required"
+  validates_presence_of :physical_location
+  validates_presence_of :project
 
   def full?
     self.full = false if self.full.nil?
@@ -70,7 +71,7 @@ class PulStore::Lae::Box < ActiveFedora::Base
   end
 
   def shipped?
-    self.ready_to_ship? && self.shipped_date? 
+    self.ready_to_ship? && self.shipped_date? && !self.tracking_number.blank?
   end
 
   def received_date?
@@ -85,7 +86,6 @@ class PulStore::Lae::Box < ActiveFedora::Base
     self.received? && self.folders.all? { |f| f.in_production? }
   end
 
-  # TODO: state tests, once we have enough of Folder. We'll probably want a factory at that point
   # TODO: hard_drive tests, once we have enough of HardDrive
 
 
@@ -94,7 +94,6 @@ class PulStore::Lae::Box < ActiveFedora::Base
   def _defaults
     self.full = self.full?
     self.state = self._infer_state
-    self.physical_location = PUL_STORE_CONFIG[:lae_recap_code] if self.physical_location.blank?
     nil
   end
 
@@ -108,9 +107,9 @@ class PulStore::Lae::Box < ActiveFedora::Base
         "All in Production"
       elsif self.received?
         "Received"
-      elsif self._shipped?
+      elsif self.shipped?
         "Shipped"
-      elsif self._ready_to_ship?
+      elsif self.ready_to_ship?
         "Ready to Ship"
       else
         "New"
