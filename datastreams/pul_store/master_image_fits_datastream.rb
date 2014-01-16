@@ -1,6 +1,6 @@
 # Lifted shamelessly from 
 # https://github.com/projecthydra/sufia/blob/master/sufia-models/app/models/datastreams/fits_datastream.rb
-class MasterImageFitsDatastream < ActiveFedora::OmDatastream
+class PulStore::MasterImageFitsDatastream < ActiveFedora::OmDatastream
   include OM::XML::Document
 
   set_terminology do |t|

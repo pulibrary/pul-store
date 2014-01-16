@@ -1,8 +1,8 @@
 require Rails.root.join('app/models/pul_store/lib/active_fedora/pid')
 
 class PulStore::Lae::Box < ActiveFedora::Base
-  include Timestamp
-  include Validations
+  include PulStore::Timestamp
+  include PulStore::Validations
   include PulStore::Lae::Provenance
 
   # Callbacks
@@ -12,7 +12,7 @@ class PulStore::Lae::Box < ActiveFedora::Base
   end
 
   # Metadata
-  has_metadata 'provMetadata', type: ProvRdfMetadata
+  has_metadata 'provMetadata', type: PulStore::ProvRdfMetadata
 
   # Delegate attributes
   has_attributes :full, :physical_location, :tracking_number, 

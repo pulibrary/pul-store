@@ -1,8 +1,8 @@
 require Rails.root.join('app/models/pul_store/lib/active_fedora/pid')
 
 class PulStore::Lae::Folder < PulStore::Item
-  include Timestamp
-  include Validations
+  include PulStore::Timestamp
+  include PulStore::Validations
   include PulStore::Lae::Provenance
 
   @@prelim_elements = [:barcode, :extent, :genre]
@@ -22,7 +22,7 @@ class PulStore::Lae::Folder < PulStore::Item
   before_save :_defaults
 
   # Metadata
-  has_metadata 'provMetadata', type: ProvRdfMetadata
+  has_metadata 'provMetadata', type: PulStore::ProvRdfMetadata
   has_metadata 'descMetadata', type: PulStore::Lae::FolderRdfMetadata
 
   # Delegate attributes

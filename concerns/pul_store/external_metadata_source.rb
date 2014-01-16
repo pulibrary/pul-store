@@ -3,7 +3,7 @@ require 'net/http'
 require 'uri'
 require 'rdf'
 
-module ExternalMetadataSource
+module PulStore::ExternalMetadataSource
   extend ActiveSupport::Concern
   
   included do

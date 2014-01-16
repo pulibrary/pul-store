@@ -1,10 +1,10 @@
 module PulStore
   class Text < PulStore::Item
 
-    include Timestamp
+    include PulStore::Timestamp
 
     # Metadata
-    has_metadata 'descMetadata', type: TextRdfMetadata
+    has_metadata 'descMetadata', type: PulStore::TextRdfMetadata
 
     # Delegate attribs
     has_attributes :abstract, :datastream => 'descMetadata', multiple: true

@@ -1,5 +1,5 @@
 # "32101067700821"
-module Validations 
+module PulStore::Validations 
   extend ActiveSupport::Concern
   include ActiveModel::Validations
 

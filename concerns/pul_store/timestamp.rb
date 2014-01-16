@@ -1,4 +1,4 @@
-module Timestamp
+module PulStore::Timestamp
   extend ActiveSupport::Concern
 
   included do

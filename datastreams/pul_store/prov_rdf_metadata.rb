@@ -1,6 +1,6 @@
-require File.expand_path('../../lib/rdf/pul_store_terms', __FILE__)
+require File.expand_path('../../../lib/rdf/pul_store_terms', __FILE__)
 
-class ProvRdfMetadata < ActiveFedora::NtriplesRDFDatastream
+class PulStore::ProvRdfMetadata < ActiveFedora::NtriplesRDFDatastream
   # http://www.w3.org/2005/Incubator/prov/wiki/What_Is_Provenance
   # For us, this is mostly anything to do with workflow.
 

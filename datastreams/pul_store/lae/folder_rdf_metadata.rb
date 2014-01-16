@@ -1,6 +1,6 @@
 require File.expand_path('../../../../lib/rdf/pul_store_terms', __FILE__)
 
-class PulStore::Lae::FolderRdfMetadata < ItemRdfMetadata
+class PulStore::Lae::FolderRdfMetadata < PulStore::ItemRdfMetadata
 
   map_predicates do |map|
 

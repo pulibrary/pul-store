@@ -2,14 +2,14 @@ require File.expand_path('../lib/active_fedora/pid', __FILE__)
 
 module PulStore
   class Page < ActiveFedora::Base
-    include Timestamp
-    include CharacterizationSupport
-    include Stage
+    include PulStore::Timestamp
+    include PulStore::CharacterizationSupport
+    include PulStore::Stage
 
     # Metadata
-    has_metadata 'descMetadata', type: PageRdfMetadata
-    has_metadata 'provMetadata', type: ProvRdfMetadata
-    has_metadata 'masterTechMetadata', type: MasterImageFitsDatastream
+    has_metadata 'descMetadata', type: PulStore::PageRdfMetadata
+    has_metadata 'provMetadata', type: PulStore::ProvRdfMetadata
+    has_metadata 'masterTechMetadata', type: PulStore::MasterImageFitsDatastream
 
     # Delegate attributes
     has_attributes :display_label, :datastream => 'descMetadata', multiple: false

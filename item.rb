@@ -3,12 +3,12 @@ require File.expand_path('../lib/active_fedora/pid', __FILE__)
 module PulStore
   class Item  < ActiveFedora::Base
 
-    include Timestamp
-    include ExternalMetadataSource
+    include PulStore::Timestamp
+    include PulStore::ExternalMetadataSource
 
     # Metadata
-    has_metadata 'descMetadata', type: ItemRdfMetadata
-    has_metadata 'provMetadata', type: ProvRdfMetadata
+    has_metadata 'descMetadata', type: PulStore::ItemRdfMetadata
+    has_metadata 'provMetadata', type: PulStore::ProvRdfMetadata
 
     # Delegate attribs
     has_attributes :title, :datastream => 'descMetadata', multiple: true

@@ -1,4 +1,4 @@
-module CharacterizationSupport
+module PulStore::CharacterizationSupport
   extend ActiveSupport::Concern
 
   # included do

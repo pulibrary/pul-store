@@ -1,4 +1,4 @@
-module Stage
+module PulStore::Stage
   extend ActiveSupport::Concern
 
   # included do

@@ -1,6 +1,6 @@
-require File.expand_path('../../lib/rdf/pul_store_terms', __FILE__)
+require File.expand_path('../../../lib/rdf/pul_store_terms', __FILE__)
 
-class PageRdfMetadata < ActiveFedora::NtriplesRDFDatastream
+class PulStore::PageRdfMetadata < ActiveFedora::NtriplesRDFDatastream
   map_predicates do |map|
 
     map.identifier({in: RDF::DC})
