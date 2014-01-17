@@ -1,5 +1,6 @@
 require Rails.root.join('app/models/pul_store/lib/active_fedora/pid')
 
+
 class PulStore::Lae::Box < PulStore::Base
   include PulStore::Validations
   include PulStore::Lae::Provenance
@@ -113,9 +114,5 @@ class PulStore::Lae::Box < PulStore::Base
     end
   end
 
-
-
-
 end
-
 

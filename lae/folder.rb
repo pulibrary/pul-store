@@ -1,5 +1,4 @@
 require Rails.root.join('app/models/pul_store/lib/active_fedora/pid')
-
 class PulStore::Lae::Folder < PulStore::Item
   include PulStore::Validations
   include PulStore::Lae::Provenance
@@ -10,8 +9,8 @@ class PulStore::Lae::Folder < PulStore::Item
   end
 
   @@required_elements = (
-    [:date_created, :rights, :sort_title, :subject, :title, :geographic, :language] << @@prelim_elements
-  ).flatten
+    [:date_created, :rights, :sort_title, :subject, :title, :geographic, 
+      :language] << @@prelim_elements).flatten
 
   def self.required_elements
     @@required_elements
