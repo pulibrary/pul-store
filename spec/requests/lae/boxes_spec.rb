@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe "Pages" do
+describe "Lae::Boxes" do
 
-  describe "GET /pages" do
+  describe "GET /lae/boxes" do
     it "works!" do
       # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-      get pul_store_pages_path
+      get lae_boxes_path
       response.status.should be(200)
     end
 

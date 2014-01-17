@@ -6,8 +6,8 @@ PulStore::Application.routes.draw do
   # Or something. TBD. If there's ultimately going to be one editor, then
   # The route for creating may be different from the route for discovering.
   namespace :lae do
-    resources :folders, as: 'lae_folders'
-    resources :boxes, as: 'lae_boxes'
+    resources :folders
+    resources :boxes
   end
 
 
