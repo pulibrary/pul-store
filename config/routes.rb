@@ -1,7 +1,7 @@
 PulStore::Application.routes.draw do
 
-  resources :pages, as: 'pul_store_pages'
-  resources :texts, as: 'pul_store_texts'
+  resources :pages
+  resources :texts
 
   # Or something. TBD. If there's ultimately going to be one editor, then
   # The route for creating may be different from the route for discovering.

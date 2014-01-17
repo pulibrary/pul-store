@@ -82,7 +82,7 @@ class PagesController < ApplicationController
   def destroy
     @page.destroy
     respond_to do |format|
-      format.html { redirect_to pul_store_pages_url }
+      format.html { redirect_to pages_url }
       format.json { head :no_content }
     end
   end
@@ -96,7 +96,7 @@ class PagesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def page_params
-      params.require(:pul_store_page).permit(:label, :type, :sort_order, :project_id)
+      params.require(:page).permit(:label, :type, :sort_order, :project_id)
     end
 
 end

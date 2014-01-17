@@ -1,1 +1,21 @@
 <h1>Listing Boxes</h1>
+
+<%= render 'quick_lookup' %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Barcode</th>
+      <th>PID</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @boxes.each do |box| %>
+      <tr>
+        <td><%= box.barcode %></td>
+        <td><%= box.pid %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

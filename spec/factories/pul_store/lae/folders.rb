@@ -39,6 +39,15 @@ FactoryGirl.define do
     f.sort_title { Faker::Lorem.sentence(2, true, 5) }
     f.subject  { Array.new(rand(1..3)) { Faker::Lorem.sentence(1,true,3) } }
     f.title { Faker::Lorem.sentence(3, true, 5) }
+    # Rspec wants this:
     f.pages { Array.new(2) { FactoryGirl.create(:page) } }
+    # Console wants this:
+    # after(:create) do |folder|
+    #   2.times do 
+    #     folder.pages << FactoryGirl.create(:page)
+    #   end
+    # end
+    
+
   end
 end

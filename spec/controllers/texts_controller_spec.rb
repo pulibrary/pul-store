@@ -47,19 +47,19 @@ describe TextsController do
     describe "with valid params" do
       it "creates a new PulStore::Text" do
         expect {
-          post :create, {:pul_store_text => valid_attributes}, valid_session
+          post :create, {:text => valid_attributes}, valid_session
         }.to change(PulStore::Text, :count).by(1)
       end
 
       it "assigns a newly created text as @text" do
-        post :create, {:pul_store_text => valid_attributes}, valid_session
+        post :create, {:text => valid_attributes}, valid_session
         assigns(:text).should be_a(PulStore::Text)
         assigns(:text).should be_persisted
       end
 
       it "redirects to the created text" do
         PulStore::Text.delete_all
-        post :create, {:pul_store_text => valid_attributes}, valid_session
+        post :create, {:text => valid_attributes}, valid_session
         response.should redirect_to(PulStore::Text.last)
       end
     end
@@ -68,14 +68,14 @@ describe TextsController do
       it "assigns a newly created but unsaved text as @text" do
         # Trigger the behavior that occurs when invalid params are submitted
         PulStore::Text.any_instance.stub(:save).and_return(false)
-        post :create, {:pul_store_text => { "description" => "invalid value" }}, valid_session
+        post :create, {:text => { "description" => "invalid value" }}, valid_session
         assigns(:text).should be_a_new(PulStore::Text)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         PulStore::Text.any_instance.stub(:save).and_return(false)
-        post :create, {:pul_store_text => { "description" => "invalid value" }}, valid_session
+        post :create, {:text => { "description" => "invalid value" }}, valid_session
         response.should render_template("new")
       end
     end
@@ -90,18 +90,18 @@ describe TextsController do
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
         PulStore::Text.any_instance.should_receive(:update).with({ "description" => [] })
-        put :update, {:id => text.to_param, :pul_store_text => { "description" => [] }}, valid_session
+        put :update, {:id => text.to_param, :text => { "description" => [] }}, valid_session
       end
 
       it "assigns the requested text as @text" do
         text = PulStore::Text.create! valid_attributes
-        put :update, {:id => text.to_param, :pul_store_text => valid_attributes}, valid_session
+        put :update, {:id => text.to_param, :text => valid_attributes}, valid_session
         assigns(:text).should eq(text)
       end
 
       it "redirects to the text" do
         text = PulStore::Text.create! valid_attributes
-        put :update, {:id => text.to_param, :pul_store_text => valid_attributes}, valid_session
+        put :update, {:id => text.to_param, :text => valid_attributes}, valid_session
         response.should redirect_to(text)
       end
     end
@@ -111,7 +111,7 @@ describe TextsController do
         text = PulStore::Text.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         PulStore::Text.any_instance.stub(:save).and_return(false)
-        put :update, {:id => text.to_param, :pul_store_text => { "description" => "invalid value" }}, valid_session
+        put :update, {:id => text.to_param, :text => { "description" => "invalid value" }}, valid_session
         assigns(:text).should eq(text)
       end
 
@@ -119,7 +119,7 @@ describe TextsController do
         text = PulStore::Text.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         PulStore::Text.any_instance.stub(:save).and_return(false)
-        put :update, {:id => text.to_param, :pul_store_text => { "description" => "invalid value" }}, valid_session
+        put :update, {:id => text.to_param, :text => { "description" => "invalid value" }}, valid_session
         response.should render_template("edit")
       end
     end
@@ -136,7 +136,7 @@ describe TextsController do
     it "redirects to the texts list" do
       text = PulStore::Text.create! valid_attributes
       delete :destroy, {:id => text.to_param}, valid_session
-      response.should redirect_to(pul_store_texts_url)
+      response.should redirect_to(texts_url)
     end
   end
 

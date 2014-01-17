@@ -1,10 +1,17 @@
 class Lae::BoxesController < ApplicationController
   before_action :set_box, only: [:show, :edit, :update, :destroy]
 
-  # GET /boxes
-  # GET /boxes.json
   def index
-    @boxes = PulStore::Lae::Box.all
+    if params[:barcode]
+      @box = get_box_by_barcode
+      if @box
+        redirect_to(@box)
+      else
+        redirect_to :back, notice: "No Box with barcode &quot;#{params[:barcode]}&quot; found."
+      end
+    else
+        @boxes = PulStore::Lae::Box.all
+    end
   end
 
   # GET /boxes/1
@@ -14,7 +21,7 @@ class Lae::BoxesController < ApplicationController
 
   # GET /boxes/new
   # def new
-  #  @box = PulStore::Text.new
+  #  @box = PulStore::Box.new
   # end
 
   # # GET /boxes/1/edit
@@ -24,11 +31,11 @@ class Lae::BoxesController < ApplicationController
   # # POST /boxes
   # # POST /boxes.json
   # def create
-  #   @box = PulStore::Text.new(box_params)
+  #   @box = PulStore::Box.new(box_params)
 
   #   respond_to do |format|
   #     if @box.save
-  #       format.html { redirect_to @box, notice: 'Text was successfully created.' }
+  #       format.html { redirect_to @box, notice: 'Box was successfully created.' }
   #       format.json { render action: 'show', status: :created, location: @box }
   #     else
   #       format.html { render action: 'new' }
@@ -42,7 +49,7 @@ class Lae::BoxesController < ApplicationController
   # def update
   #   respond_to do |format|
   #     if @box.update(box_params.except('project_pid'))
-  #       format.html { redirect_to @box, notice: 'Text was successfully updated.' }
+  #       format.html { redirect_to @box, notice: 'Box was successfully updated.' }
   #       format.json { head :no_content }
   #     else
   #       format.html { render action: 'edit' }
@@ -67,13 +74,18 @@ class Lae::BoxesController < ApplicationController
       @box = PulStore::Lae::Box.find(params[:id])
     end
 
+    def get_box_by_barcode
+      PulStore::Lae::Box.where(prov_metadata__barcode_tesim: params[:barcode]).first
+    end
+
     # Never trust parameters from the scary internet, only allow the 
     # white list through.
 
     def box_params
 
-      params.require(:pul_store_lae_box).permit(:full, :physical_location, 
-        :tracking_number, :shipped_date, :received_date, :project_id)
+      params.require(:lae_box).permit(:full, :barcode, :error_note, 
+        :physical_location, :tracking_number, :shipped_date, :received_date, 
+        :project_id)
 
     end
 end

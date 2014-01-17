@@ -56,7 +56,7 @@ class TextsController < ApplicationController
   def destroy
     @text.destroy
     respond_to do |format|
-      format.html { redirect_to pul_store_texts_url }
+      format.html { redirect_to texts_url }
       format.json { head :no_content }
     end
   end
@@ -72,7 +72,7 @@ class TextsController < ApplicationController
 
     def text_params
 
-      params.require(:pul_store_text).permit(:sort_title, :date_created, :project_id,
+      params.require(:text).permit(:sort_title, :date_created, :project_id,
         abstract:[], alternative_title:[], audience:[], citation:[], 
         contributor:[], creator:[], description:[], extent:[], has_part:[], 
         language:[], provenance:[], publisher:[], rights:[], series:[], 
