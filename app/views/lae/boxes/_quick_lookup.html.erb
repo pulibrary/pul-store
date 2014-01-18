@@ -1,5 +1,5 @@
-<%= form_tag("/lae/boxes", method: "get") do %>
+<%= form_tag("/lae/boxes", method: "get", id: "quick_lookup") do %>
   <%= label_tag(:barcode, "Find a Box by Barcode:") %>
   <%= text_field_tag(:barcode) %>
-  <%= submit_tag("Search") %>
+  <%= submit_tag("Lookup", id: "quick_lookup_submit") %>
 <% end %>

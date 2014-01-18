@@ -7,7 +7,7 @@ class Lae::BoxesController < ApplicationController
       if @box
         redirect_to(@box)
       else
-        redirect_to :back, notice: "No Box with barcode &quot;#{params[:barcode]}&quot; found."
+        redirect_to :back, notice: "No Box with barcode \"#{params[:barcode]}\" found."
       end
     else
         @boxes = PulStore::Lae::Box.all
