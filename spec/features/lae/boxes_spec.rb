@@ -3,8 +3,7 @@ require 'spec_helper'
 feature "quick lookup by barcode" do
   before(:all) do
     PulStore::Lae::Box.delete_all
-    barcodes_fp = Rails.root.join('spec/fixtures/test_barcodes.yml')
-    @test_barcodes = YAML.load_file(barcodes_fp)
+    @test_barcodes = Rails.application.config.barcode_list
   end
 
   scenario "finds the correct box" do
@@ -34,4 +33,18 @@ feature "quick lookup by barcode" do
     current_url.should == lae_boxes_url
     page.should have_selector ".alert"
   end
-end
+
+  scenario "offers a link to the existing box when a duplicate barcode is entered" do
+    bad_barcode = 'not a barcode'
+    visit lae_boxes_path
+
+    within('form#quick_lookup') do
+      fill_in 'barcode', with: bad_barcode
+      click_on('quick_lookup_submit')
+    end
+    current_url.should == lae_boxes_url
+    page.should have_selector ".alert"
+  end
+
+
+end 
