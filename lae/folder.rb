@@ -61,6 +61,7 @@ class PulStore::Lae::Folder < PulStore::Item
     message: "Barcode must start with '32101'"
 
   validate :validate_barcode
+  validate :validate_barcode_uniqueness, on: :create
 
   validates_presence_of @@required_elements, if: :passed_qc?
   validates_presence_of :pages, if: :passed_qc?

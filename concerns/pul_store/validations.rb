@@ -6,11 +6,20 @@ module PulStore::Validations
   def validate_shipped_before_received
     unless [shipped_date.blank?, received_date.blank?].any?
       if shipped_date > received_date
-        errors.add(:received_date, 'must be later that shipped date')
+        errors.add(:received_date, 'must be later that shipped date.')
       end
     end
   end
 
+  def validate_barcode_uniqueness
+    if self.kind_of?(PulStore::Base) && self.respond_to?(:barcode) && !self.send(:barcode).blank?
+      # TODO: if it is a PulStore::Base and has responds to barcode??
+      o = self.class.where(prov_metadata__barcode_tesim: self.send(:barcode))
+      unless o.count == 0
+        errors.add(:barcode, "Barcode \"#{self.send(:barcode)}\" already exists in the system.")
+      end
+    end
+  end
 
   def validate_barcode
     unless self.send(:barcode).blank?

@@ -1,6 +1,5 @@
 require Rails.root.join('app/models/pul_store/lib/active_fedora/pid')
 
-
 class PulStore::Lae::Box < PulStore::Base
   include PulStore::Validations
   include PulStore::Lae::Provenance
@@ -35,7 +34,6 @@ class PulStore::Lae::Box < PulStore::Base
     with: /\A32101/, 
     message: "Barcode must start with '32101'"
 
-
   validates_presence_of :shipped_date, 
     message: "A shipped date is required in order for something to be received", 
     if: :received_date?
@@ -49,6 +47,7 @@ class PulStore::Lae::Box < PulStore::Base
     if: :shipped?
 
   validate :validate_barcode
+  validate :validate_barcode_uniqueness, on: :create
   validate :validate_shipped_before_received
 
   validates_presence_of :physical_location
