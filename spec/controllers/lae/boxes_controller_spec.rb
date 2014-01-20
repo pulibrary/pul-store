@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe Lae::BoxesController do
+  before(:all) { PulStore::Lae::Box.delete_all }
+  after(:all) { PulStore::Lae::Box.delete_all }
 
   let(:valid_attributes) { FactoryGirl.attributes_for :lae_box }
 
