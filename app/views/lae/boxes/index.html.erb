@@ -7,6 +7,9 @@
     <tr>
       <th>Barcode</th>
       <th>PID</th>
+      <th></th>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
 
@@ -15,6 +18,10 @@
       <tr>
         <td><%= box.barcode %></td>
         <td><%= box.pid %></td>
+        <td><%= link_to 'Show', box %></td>
+        <td><%= link_to 'Edit', edit_lae_box_path(box) %></td>
+        <td><%= link_to 'Destroy', box, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
       </tr>
     <% end %>
   </tbody>

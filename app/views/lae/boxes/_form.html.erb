@@ -1,0 +1,31 @@
+<%= form_for(@box) do |b| %>
+  <% if @box.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@box.errors.count, "error") %> prohibited this Box from being saved:</h2>
+      <ul>
+      <% @box.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<!-- :full, 
+:tracking_number, 
+:shipped_date, # checkbox, stamp if set
+:received_date, # checkbox, stamp if set
+:barcode, 
+:error_note -->
+
+  <div class="field">
+    <%= b.label :barcode %><br>
+    <%= b.text_field :barcode %>
+  </div>
+  <div class="field">
+    <%= b.label :error_note %><br>
+    <%= b.text_area :error_note %>
+  </div>
+  <div class="actions">
+    <%= b.submit %>
+  </div>
+<% end %>
