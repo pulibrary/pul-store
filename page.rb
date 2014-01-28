@@ -30,17 +30,13 @@ class PulStore::Page < PulStore::Base
 
   # Associations
   belongs_to :page_container, property: :is_part_of, class_name: 'PulStore::Item'
-  
   # WORKS (but not for texts):
-  # belongs_to :folder, property: :is_part_of, class_name: 'PulStore::Lae::Folder'
+  # belongs_to :folder, property: :is_part_of, class_name: 'PulStore::Item'
 
-  # This is a workaround AF's lack of polymorphic associations. Not sure it's working.
   alias :text= :page_container=
   alias :text :page_container
   alias :folder= :page_container=
   alias :folder :page_container
-
-
 
   # Validations
   validates :sort_order, numericality: true
