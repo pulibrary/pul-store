@@ -44,14 +44,23 @@ describe PulStore::Page do
       @project = FactoryGirl.create(:project)
       @box = FactoryGirl.create(:lae_box, project: @project)
       @folder = FactoryGirl.create(:lae_core_folder, box: @box)
+      @text = FactoryGirl.create(:text)
     end
 
-    it "can make the association via an alias" do
-      page = FactoryGirl.create(:page, folder: @folder, project: @project)
-      @folder.reload
-      page.folder.should == @folder
-      @folder.pages.should include(page)
-      @folder.pages.length.should == 1
+    describe "can make the association via an alias" do
+      it "#folder" do
+        page = FactoryGirl.create(:page, folder: @folder, project: @project)
+        @folder.reload
+        page.folder.should == @folder
+        @folder.pages.should include(page)
+      end
+
+      it "#text" do
+        page = FactoryGirl.create(:page, text: @text, project: @project)
+        @text.reload
+        page.text.should == @text
+        @text.pages.should include(page)
+      end
     end
   end
 
