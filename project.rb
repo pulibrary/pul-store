@@ -13,7 +13,7 @@ class PulStore::Project < PulStore::Base
   # Note that `dependent: :restrict_with_exception` does absolutely nothing right now!
   # , dependent: :restrict_with_exception
   has_many :items, property: :is_part_of_project, :class_name => 'PulStore::Item'
-  has_many :boxes, property: :is_part_of_project, :class_name => 'PulStore::Item'
+  has_many :boxes, property: :is_part_of_project, :class_name => 'PulStore::Lae::Box'
 
   # Validations
   validates :description, presence: true

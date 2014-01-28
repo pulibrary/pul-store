@@ -30,24 +30,16 @@ class PulStore::Page < PulStore::Base
 
   # Associations
   belongs_to :page_container, property: :is_part_of, class_name: 'PulStore::Item'
-  # This is a workaround AF's lack of polymorphic associations.
+  
+  # WORKS (but not for texts):
+  # belongs_to :folder, property: :is_part_of, class_name: 'PulStore::Lae::Folder'
+
+  # This is a workaround AF's lack of polymorphic associations. Not sure it's working.
   alias :text= :page_container=
   alias :text :page_container
   alias :folder= :page_container=
   alias :folder :page_container
 
-# 17:33 < jcoyne> belongs_to :page_container, property: :is_part_of, class_name: 'ActiveFedora::Base'
-# 17:34 < jcoyne> Then your #page_container  method contains either the Folder or a Text
-# 17:34 < jcoyne> you wouldn't have to ensure only one is set.
-# 17:34 < jcoyne> but you have to use p.page_container instead of p.text
-# 17:34 -!- acozine [~Adium@2601:2:5d80:e47:1dbe:b76:36d6:54c0] has joined #projecthydra
-# 17:34 < jcoyne> jpstroop ^
-# 17:35 < jpstroop> yeah, I was doing that...it bugged me...
-# 17:36 < jpstroop> think I'll go with the former approach for now...
-# 17:36 < jpstroop> but, again, thanks!
-# 17:36 < jcoyne> you could then create aliases:  alias :text= :page_container=; alias :text :page_container
-# 17:36 < jpstroop> ahh!
-# 17:37  * jpstroop rolls back the rollbacks
 
 
   # Validations
