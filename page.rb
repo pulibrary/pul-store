@@ -30,7 +30,7 @@ class PulStore::Page < PulStore::Base
 
   # Associations
   belongs_to :page_container, property: :is_part_of, class_name: 'PulStore::Item'
-  # WORKS (but not for texts):
+  # WORKS (but not for texts, obviously):
   # belongs_to :folder, property: :is_part_of, class_name: 'PulStore::Item'
 
   alias :text= :page_container=
