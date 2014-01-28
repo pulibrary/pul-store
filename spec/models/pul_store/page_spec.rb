@@ -34,4 +34,26 @@ describe PulStore::Page do
     p.master_mime_type.should == "image/tiff"
   end
 
+  describe "belongs to a parent PulStore::Lae::Folder or PulStore::Text" do
+    before(:all) do
+      PulStore::Project.delete_all
+      PulStore::Page.delete_all
+      PulStore::Lae::Box.delete_all
+      PulStore::Lae::Folder.delete_all
+
+      @project = FactoryGirl.create(:project)
+      @box = FactoryGirl.create(:lae_box, project: @project)
+      @folder = FactoryGirl.create(:lae_core_folder, box: @box)
+    end
+
+    it "can make the association via an alias" do
+      page = FactoryGirl.create(:page, folder: @folder, project: @project)
+      @folder.reload
+      page.folder.should == @folder
+      @folder.pages.should include(page)
+      @folder.pages.length.should == 1
+    end
+  end
+
+
 end
