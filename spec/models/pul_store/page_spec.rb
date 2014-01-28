@@ -43,8 +43,8 @@ describe PulStore::Page do
 
       @project = FactoryGirl.create(:project)
       @box = FactoryGirl.create(:lae_box, project: @project)
-      @folder = FactoryGirl.create(:lae_core_folder, box: @box)
-      @text = FactoryGirl.create(:text)
+      @folder = FactoryGirl.create(:lae_core_folder, box: @box, project: @project)
+      @text = FactoryGirl.create(:text, project: @project)
     end
 
     describe "can make the association via an alias" do
