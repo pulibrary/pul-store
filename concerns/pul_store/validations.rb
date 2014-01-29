@@ -31,6 +31,15 @@ module PulStore::Validations
     end
   end
 
+  def validate_page_belongs_to_exactly_one_item
+    parent_options = [:folder, :text]
+    parent_count = parent_options.select { |po| !self.send(po).nil? }.length
+    unless parent_count == 1
+      msg = "A page must be a part of exactly one Item. This belongs to #{parent_count}."
+      self.errors.add(:base, msg)
+    end
+  end
+
   protected
   def calculate_barcode_checkdigit(barcode)
     # To calculate the checksum:
