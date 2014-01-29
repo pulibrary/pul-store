@@ -13,26 +13,20 @@ namespace :lae do
     puts "Project \"#{project.pid}\""
 
     box_count.times do |bi|
-
-      puts "+-Box #{bi+1}"
-      @box = FactoryGirl.create(:lae_box, project: project)
-
+      box = FactoryGirl.create(:lae_box, project: project)
+      puts "+-Box #{bi+1} \"#{box.pid}\""
       rand(folder_min .. folder_max).times do |fi|
-
-        puts "  +-Folder #{fi+1}"
-        @folder = FactoryGirl.create(:lae_core_folder, box: @box, project: project)
-
+        folder = FactoryGirl.create(:lae_core_folder, box: box, project: project)
+        puts "  +-Folder #{fi+1} \"#{folder.pid}\""
         rand(page_min .. page_max).times do |pi|
           pi+=1
-          puts "    +-Page #{pi}"
-          p = FactoryGirl.create(:page, project: project, sort_order: pi)
-          p.folder = @folder
-          @folder.save
-          p.save
+          page = FactoryGirl.create(:page, project: project, folder: folder, text: nil, sort_order: pi)
+          puts "    +-Page #{pi} \"#{page.pid}\""
+          # folder.save!
+          page.save!
         end
       end
     end
-
   end
 
 end
