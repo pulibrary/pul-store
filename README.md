@@ -61,3 +61,7 @@ i.populate_attributes_from_external_metadata
 i.save
 ```
 
+## How to seed your environment with LAE objects.
+```
+rake lae:see_dev
+```
