@@ -5,11 +5,11 @@ describe PulStore::Project do
     FactoryGirl.create(:project).should be_valid
   end
 
-  # This is behavior a we want but which is not supported by AF
-  # it "can not be deleted if it has associated items" do
-  #   p = FactoryGirl.create(:project)
-  #   i = FactoryGirl.create(:item)
-  #   p.items << i
-  #   expect { Project.find(p.pid).delete }.to raise_error ActiveRecord::DeleteRestrictionError
-  # end
+  it "can not be deleted if it has associated children" do
+    p = FactoryGirl.create(:project)
+    i = FactoryGirl.create(:item)
+    p.parts << i
+    p.save!
+    expect { p.destroy }.to raise_error
+  end
 end
