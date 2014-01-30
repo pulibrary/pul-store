@@ -1,4 +1,3 @@
-
 FactoryGirl.define do
   test_barcodes = Rails.application.config.barcode_list
 

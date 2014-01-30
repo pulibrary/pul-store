@@ -22,7 +22,7 @@ FactoryGirl.define do
     f.extent { Faker::Lorem.sentence(3, true, 4) }
     f.genre { Faker::Lorem.word }
     f.geographic  { Array.new(rand(1..2)) { Faker::Lorem.sentence(1,true,2) } }
-    f.language { Array.new(rand(1..2)) { Faker::Lorem.word } }
+    f.language { Array.new(rand(1..2)) { ['eng','spa','por'].sample } }
     f.rights { Faker::Lorem.sentence(5, true, 12) }
     f.sort_title { Faker::Lorem.sentence(2, true, 5) }
     f.subject  { Array.new(rand(1..3)) { Faker::Lorem.sentence(1,true,3) } }
