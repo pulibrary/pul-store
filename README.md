@@ -1,7 +1,7 @@
 pul-store
 =========
 
-[![Build Status](https://travis-ci.org/pulibrary/pul-store.png)](https://travis-ci.org/pulibrary/pul-store.png)
+[![Build Status](https://travis-ci.org/pulibrary/pul-store.png?branch=development)](https://travis-ci.org/pulibrary/pul-store)
 
 ## Install Notes
 
