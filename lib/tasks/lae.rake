@@ -1,4 +1,4 @@
-Rails.env = 'development'
+# Rails.env = 'development'
 
 namespace :lae do
 
