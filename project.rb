@@ -9,11 +9,8 @@ class PulStore::Project < PulStore::Base
   has_attributes :description, :display_label, :project_identifier,
     :datastream => 'descMetadata', multiple: false
 
-  # Relationships
-  # has_many :items, property: :is_part_of_project, :class_name => 'PulStore::Item'
-
-  # has_many :boxes, property: :is_part_of_project, :class_name => 'PulStore::Lae::Box'
-  has_many :parts, property: :is_part_of_project, :class_name => 'PulStore::Base'
+  # Associations
+  has_many :parts, property: :is_part_of_project, :class_name => 'ActiveFedora::Base'
 
   # Validations
   validates :description, presence: true
