@@ -1,0 +1,17 @@
+<h1>Projects</h1>
+
+<ul>
+  <% @projects.each do |project| %>
+  <li>
+    <h3><strong><%= project.label %></strong></h3>
+    <p><%= project.identifier %></p>
+    <p><%= project.description %></p>
+    <p><%= link_to 'Show', project %> | 
+      <%= link_to 'Edit', edit_project_path(project) %> | 
+      <%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %>
+    </p>
+  </li>
+  <% end %>
+</ul>
+
+<%= link_to 'New Project', new_project_path %>

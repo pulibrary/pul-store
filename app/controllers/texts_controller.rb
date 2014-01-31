@@ -41,7 +41,7 @@ class TextsController < ApplicationController
   # PATCH/PUT /texts/1.json
   def update
     respond_to do |format|
-      if @text.update(text_params.except('project_pid'))
+      if @text.update(text_params.except('project_id'))
         format.html { redirect_to @text, notice: 'Text was successfully updated.' }
         format.json { head :no_content }
       else
@@ -54,10 +54,14 @@ class TextsController < ApplicationController
   # DELETE /texts/1
   # DELETE /texts/1.json
   def destroy
-    @text.destroy
     respond_to do |format|
-      format.html { redirect_to texts_url }
-      format.json { head :no_content }
+      if @text.destroy
+        format.html { redirect_to texts_path, notice: 'Text was successfully deleted.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: 'edit' }
+        format.json { render json: @text.errors, status: :unprocessable_entity }
+      end
     end
   end
 

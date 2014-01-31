@@ -10,6 +10,6 @@ describe PulStore::Project do
     i = FactoryGirl.create(:item)
     p.parts << i
     p.save!
-    expect { p.destroy }.to raise_error
+    p.destroy.should be_false
   end
 end
