@@ -1,0 +1,27 @@
+<%= form_for(@project) do |p| %>
+  <% if @project.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@project.errors.count, "error") %> prohibited this Project from being modified:</h2>
+      <ul>
+      <% @project.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= p.label :label %><br>
+    <%= p.text_field :label %>
+  </div>
+  <div class="field">
+    <%= p.label :identifier %><br>
+    <%= p.text_field :identifier %>
+  </div>
+  <div class="field">
+    <%= p.label :description %><br>
+    <%= p.text_area :description %>
+  </div>
+  <div class="actions">
+    <%= p.submit %>
+  </div>
+<% end %>

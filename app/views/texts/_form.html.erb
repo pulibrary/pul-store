@@ -12,7 +12,7 @@
   <% end %>
 
   <p>Select Project</p>
-  <%= f.collection_select :project_id, PulStore::Project.all, :pid, :display_label  %> 
+  <%= f.collection_select :project_id, PulStore::Project.all, :pid, :label  %> 
 
 
     <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->

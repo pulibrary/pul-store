@@ -61,10 +61,14 @@ class Lae::BoxesController < ApplicationController
   # DELETE /lae/boxes/1
   # DELETE /lae/boxes/1.json
   def destroy
-    @box.destroy
     respond_to do |format|
-      format.html { redirect_to pul_store_boxes_url }
-      format.json { head :no_content }
+      if @box.destroy
+        format.html { redirect_to lae_boxes_path, notice: 'Box was successfully deleted.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: 'edit' }
+        format.json { render json: @box.errors, status: :unprocessable_entity }
+      end
     end
   end
 
