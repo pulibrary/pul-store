@@ -6,7 +6,7 @@ class PulStore::Project < PulStore::Base
   has_metadata 'descMetadata', type: PulStore::ProjectRdfMetadata
 
   # Delegate attributes
-  has_attributes :description, :display_label, :project_identifier,
+  has_attributes :description, :label, :identifier,
     :datastream => 'descMetadata', multiple: false
 
   # Associations
@@ -14,7 +14,7 @@ class PulStore::Project < PulStore::Base
 
   # Validations
   validates :description, presence: true
-  validates :display_label, presence: true
-  validates :project_identifier, presence: true
+  validates :label, presence: true
+  validates :identifier, presence: true
 
 end

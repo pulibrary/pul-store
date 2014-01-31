@@ -6,13 +6,12 @@ module PulStore
 
   class Base < ActiveFedora::Base
     include PulStore::Timestamp
-    include ActionView::Helpers::TextHelper
+
+    before_destroy :check_for_children
 
     has_metadata 'provMetadata', type: PulStore::ProvRdfMetadata
 
     belongs_to :project, property: :is_part_of_project, :class_name => 'PulStore::Project'
-
-    before_destroy :check_for_children
 
     validates_presence_of :project, :unless => "self.instance_of?(PulStore::Project)"
 
@@ -23,6 +22,7 @@ module PulStore
         self.errors.add(:base, msg)
         # is it up to me to raise something here?
       end
+      self.errors.empty?
     end
 
     def self.child_association_names
