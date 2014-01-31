@@ -6,14 +6,14 @@ class PulStore::ProjectRdfMetadata < ActiveFedora::NtriplesRDFDatastream
     # map.identifier({in: RDF::DC})
 
     map.description(in: RDF::DC) do |index|
-      index.as :stored_searchable
+      index.as :displayable
     end
 
-    map.display_label(to: "label", in: RDF::RDFS) do |index|
-      index.as :displayable, :facetable
+    map.label(to: "label", in: RDF::RDFS) do |index|
+      index.as :displayable#, :facetable
     end
 
-    map.project_identifier(to: 'projectIdentifier', in: RDF::PulStoreTerms) do |index|
+    map.identifier(to: 'identifier', in: RDF::DC) do |index|
       index.as :displayable
     end
 

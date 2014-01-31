@@ -6,18 +6,15 @@ class PulStore::Project < PulStore::Base
   has_metadata 'descMetadata', type: PulStore::ProjectRdfMetadata
 
   # Delegate attributes
-  has_attributes :description, :display_label, :project_identifier,
+  has_attributes :description, :label, :identifier,
     :datastream => 'descMetadata', multiple: false
 
-  # Relationships
-  # has_many :items, property: :is_part_of_project, :class_name => 'PulStore::Item'
-
-  # has_many :boxes, property: :is_part_of_project, :class_name => 'PulStore::Lae::Box'
-  has_many :parts, property: :is_part_of_project, :class_name => 'PulStore::Base'
+  # Associations
+  has_many :parts, property: :is_part_of_project, :class_name => 'ActiveFedora::Base'
 
   # Validations
   validates :description, presence: true
-  validates :display_label, presence: true
-  validates :project_identifier, presence: true
+  validates :label, presence: true
+  validates :identifier, presence: true
 
 end
