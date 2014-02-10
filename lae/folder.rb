@@ -29,10 +29,10 @@ class PulStore::Lae::Folder < PulStore::Item
 
   # Descriptive
   # See https://github.com/pulibrary/pul-store/wiki/LAE-Descriptive-Elements
-  has_attributes :alternative_title, :series, :description, :publisher,
+  has_attributes :alternative_title, :series, :publisher,
     :datastream => 'descMetadata', multiple: true
 
-  has_attributes :extent, :rights,
+  has_attributes :extent, :rights, :description,
     :datastream => 'descMetadata', multiple: false
 
   # TODO: https://github.com/projecthydra/questioning_authority
@@ -42,6 +42,8 @@ class PulStore::Lae::Folder < PulStore::Item
   has_attributes :genre, :datastream => 'descMetadata', multiple: false
   has_attributes :language, :datastream => 'descMetadata', multiple: true
   has_attributes :geographic, :datastream => 'descMetadata', multiple: true
+
+
 
   # Associations
   belongs_to :box, property: :in_box, :class_name => 'PulStore::Lae::Box'
