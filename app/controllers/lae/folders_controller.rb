@@ -82,15 +82,11 @@ class Lae::FoldersController < ApplicationController
       PulStore::Lae::Folder.where(prov_metadata__barcode_tesim: params[:barcode]).first
     end
 
-    # Never trust parameters from the scary internet, only allow the 
-    # white list through.
-
     def folder_params
       params.require(:lae_folder).permit(:barcode, :date_created, :description,
         :extent, :genre, :passed_qc, :rights, :sort_title, :suppressed, :title,
-        :box_id,:project_id,
-        alternative_title: [], geographic: [], language: [], publisher: [],
-        series: [], subject: [])
+        :box_id, :project_id, alternative_title: [], geographic: [], 
+        language: [], publisher: [], series: [], subject: [])
 
     end
 end
