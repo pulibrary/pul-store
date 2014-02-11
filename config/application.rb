@@ -5,6 +5,7 @@ require "active_record/railtie"
 require "action_controller/railtie"
 require "action_mailer/railtie"
 require "sprockets/railtie"
+
 # require "rails/test_unit/railtie"
 
 require File.expand_path('../../lib/ext/marc', __FILE__)
@@ -22,8 +23,23 @@ module PulStore
     end
 
     config.i18n.enforce_available_locales = true
-
     config.autoload_paths += Dir["#{config.root}/app/models/**/"]
+
+    # config.autoload_paths += Dir["#{config.root}/app/models/concerns/"]
+    # config.autoload_paths += Dir["#{config.root}/app/models/"]
+    # config.autoload_paths += Dir["#{config.root}/app/models/pul_store/"]
+    # config.autoload_paths += Dir["#{config.root}/app/models/pul_store/lae/"]
+    # config.autoload_paths += Dir["#{config.root}/app/models/pul_store/concerns/"]
+    # config.autoload_paths += Dir["#{config.root}/app/models/pul_store/concerns/pul_store/"]
+    # config.autoload_paths += Dir["#{config.root}/app/models/pul_store/datastreams/"]
+    # config.autoload_paths += Dir["#{config.root}/app/models/pul_store/datastreams/pul_store/"]
+    # config.autoload_paths += Dir["#{config.root}/app/models/pul_store/concerns/pul_store/lae/"]
+    # config.autoload_paths += Dir["#{config.root}/app/models/pul_store/datastreams/pul_store/lae"]
+    # config.autoload_paths += Dir["#{config.root}/app/models/pul_store/concerns"]
+    # config.autoload_paths += Dir["#{config.root}/app/models/pul_store/lib"]
+    # config.autoload_paths += Dir["#{config.root}/app/models/pul_store/lib/active_fedora"]
+    # config.autoload_paths += Dir["#{config.root}/app/models/pul_store/lib/rdf"]
+
     config.autoload_paths += Dir["#{config.root}/lib/**/"]
 
     # Settings in config/environments/* take precedence over those specified here.
