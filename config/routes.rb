@@ -1,5 +1,4 @@
 PulStore::Application.routes.draw do
-
   resources :pages
   resources :texts
   resources :projects
@@ -11,6 +10,8 @@ PulStore::Application.routes.draw do
     resources :boxes
   end
 
+  get 'lae/genres' => 'pul_store/lae/genres#index'
+  get 'lae/genres/:id' => 'pul_store/lae/genres#show'
 
   root :to => "catalog#index"
   Blacklight.add_routes(self)
