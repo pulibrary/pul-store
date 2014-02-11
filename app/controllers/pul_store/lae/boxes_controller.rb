@@ -1,4 +1,4 @@
-class Lae::BoxesController < ApplicationController
+class PulStore::Lae::BoxesController < ApplicationController
   before_action :set_box, only: [:show, :edit, :update, :destroy]
 
   def index

@@ -1,4 +1,4 @@
-class Lae::FoldersController < ApplicationController
+class PulStore::Lae::FoldersController < ApplicationController
   before_action :set_folder, only: [:show, :edit, :update, :destroy]
 
   def index

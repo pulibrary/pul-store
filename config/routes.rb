@@ -3,15 +3,14 @@ PulStore::Application.routes.draw do
   resources :texts
   resources :projects
 
-  # Or something. TBD. If there's ultimately going to be one editor, then
-  # The route for creating may be different from the route for discovering.
-  namespace :lae do
-    resources :folders
-    resources :boxes
+  scope module: 'pul_store' do
+    namespace :lae do
+      resources :boxes
+      resources :folders
+      get 'genres', to: 'genres#index'
+      get 'genres/:id', to: 'genres#show'
+    end
   end
-
-  get 'lae/genres' => 'pul_store/lae/genres#index'
-  get 'lae/genres/:id' => 'pul_store/lae/genres#show'
 
   root :to => "catalog#index"
   Blacklight.add_routes(self)
