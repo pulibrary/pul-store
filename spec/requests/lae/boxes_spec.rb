@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Lae::Boxes" do
+describe "Lae::BoxesController" do
 
   describe "GET /lae/boxes" do
     it "works!" do
