@@ -20,3 +20,10 @@ Language.delete_all
 csv_fp = Rails.root.join('db', 'fixtures', 'iso639-2.csv')
 csv = CSV.parse(File.read(csv_fp), headers: true)
 csv.each { |row|  Language.create!(row.to_hash) }
+
+# LAE Genre terms 
+PulStore::Lae::Genre.delete_all
+fp = Rails.root.join('db', 'fixtures', 'lae_genres.yml')
+YAML.load(File.read(fp)).each do |k,h|
+  PulStore::Lae::Genre.create!(h)
+end
