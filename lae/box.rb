@@ -20,7 +20,7 @@ class PulStore::Lae::Box < PulStore::Base
   # Associations
   belongs_to :project, property: :is_part_of_project, :class_name => 'PulStore::Project'
   has_many :folders, property: :in_box, :class_name => 'PulStore::Lae::Folder'
-  # has_one hard_drive
+  has_many :hard_drives, property: :in_box, :class_name => 'PulStore::Lae::HardDrive' 
 
   # Validations
   validates_presence_of :barcode, 
