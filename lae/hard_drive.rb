@@ -27,7 +27,7 @@ class PulStore::Lae::HardDrive < PulStore::Base
   validate :validate_barcode_uniqueness, on: :create
 
   validates_presence_of :box, unless: :remove_box, 
-    message: "does not exist. Check 'Remove Box' if you meant to disassociate a box from this drive."
+    message: "does not exist. Check 'Remove Box' if you meant to disassociate the box from this drive."
   # Associations
   belongs_to :box, property: :in_box, :class_name => 'PulStore::Lae::Box'
 
