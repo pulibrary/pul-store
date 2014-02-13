@@ -1,9 +1,10 @@
 class PulStore::Lae::BoxesController < ApplicationController
+  include PulStore::Lae::BarcodeLookups
   before_action :set_box, only: [:show, :edit, :update, :destroy]
 
   def index
     if params[:barcode]
-      @box = set_box_by_barcode
+      @box = get_box_by_barcode
       if @box
         redirect_to(@box)
       else
@@ -73,13 +74,8 @@ class PulStore::Lae::BoxesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_box
       @box = PulStore::Lae::Box.find(params[:id])
-    end
-
-    def set_box_by_barcode
-      PulStore::Lae::Box.where(prov_metadata__barcode_tesim: params[:barcode]).first
     end
 
     # Never trust parameters from the scary internet, only allow the 
