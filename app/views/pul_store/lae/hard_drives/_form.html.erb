@@ -1,4 +1,4 @@
-<%= form_for(@hard_drive) do |h| %>
+<%= form_for(@hard_drive, id: 'edit_lae_hard_drive') do |h| %>
   <% if @hard_drive.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@hard_drive.errors.count, "error") %> prohibited this Hard Drive from being saved:</h2>
@@ -33,6 +33,6 @@
     <%= h.text_area :error_note %>
   </div>
   <div class="actions">
-    <%= h.submit %>
+    <%= h.submit id: 'hard_drive_submit'  %>
   </div>
 <% end %>

@@ -50,7 +50,11 @@ class PulStore::Lae::HardDrivesController < ApplicationController
   def update
     @hard_drive.remove_box = hard_drive_params[:remove_box]
     updates = hard_drive_params.except(:lae_box)
-    updates[:box] = get_box_by_barcode(hard_drive_params[:lae_box][:barcode])
+    if @hard_drive.remove_box
+      updates[:box] = nil
+    else
+      updates[:box] = get_box_by_barcode(hard_drive_params[:lae_box][:barcode])
+    end
     respond_to do |format|
       if @hard_drive.update(updates)
         format.html { redirect_to @hard_drive, notice: notice }

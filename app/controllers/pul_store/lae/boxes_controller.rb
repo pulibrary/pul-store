@@ -4,7 +4,7 @@ class PulStore::Lae::BoxesController < ApplicationController
 
   def index
     if params[:barcode]
-      @box = get_box_by_barcode
+      @box = get_box_by_barcode(params[:barcode])
       if @box
         redirect_to(@box)
       else

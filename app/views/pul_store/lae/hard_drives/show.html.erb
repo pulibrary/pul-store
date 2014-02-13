@@ -2,13 +2,13 @@
 
 <dl>
   <dt><strong>Barcode:</strong></dt>
-  <dd><%= @hard_drive.barcode %></dd>
+  <dd id='drive_barcode'><%= @hard_drive.barcode %></dd>
   <dt><strong>Box Barcode:</strong></dt>
-  <dd><%= @hard_drive.box.barcode if !@hard_drive.box.blank? %></dd>
+  <dd id='box_barcode'><%= @hard_drive.box.blank? ? "None" : @hard_drive.box.barcode %></dd>
   <dt><strong>State:</strong></dt>
   <dd><%= @hard_drive.state %></dd>
   <dt><strong>Error Note:</strong></dt>
-  <dd><%= @hard_drive.error_note %></dd>
+  <dd><%= @hard_drive.error_note.blank? ? "All is well." : @hard_drive.error_note %></dd>
 </dl>
 
 <%= link_to 'Edit', edit_lae_hard_drive_path(@hard_drive) %> |
