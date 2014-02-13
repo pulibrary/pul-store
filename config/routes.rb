@@ -7,6 +7,7 @@ PulStore::Application.routes.draw do
     namespace :lae do
       resources :boxes
       resources :folders
+      resources :hard_drives
       get 'genres', to: 'genres#index'
       get 'genres/:id', to: 'genres#show'
     end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140211192913) do
+ActiveRecord::Schema.define(version: 20140212150002) do
 
   create_table "bookmarks", force: true do |t|
     t.integer  "user_id",     null: false
@@ -42,6 +42,12 @@ ActiveRecord::Schema.define(version: 20140211192913) do
     t.string   "dimensions_unit"
     t.string   "uri"
     t.text     "scope_note"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "pul_store_lae_hard_drives", force: true do |t|
+    t.string   "barcode"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
