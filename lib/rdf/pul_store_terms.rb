@@ -1,4 +1,5 @@
 module RDF
+  # See pul-store/lib/vocabs/pul_store.ttl
   class PulStoreTerms < Vocabulary("http://princeton.edu/pulstore/terms/")
     property :barcode # sub of dc:identifier
     property :containerIsFull
@@ -19,5 +20,8 @@ module RDF
     property :sortTitle # sub of dc:title
     property :sourceDmdType # sub of dc:type
     property :trackingNumber # sub of dc:identifier (??)
+    property :heightInCM
+    property :widthInCM
+    property :pageCount
   end
 end
