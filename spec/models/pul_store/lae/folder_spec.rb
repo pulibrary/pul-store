@@ -42,7 +42,7 @@ describe PulStore::Lae::Folder do
   end
 
   describe "repeatable elements" do
-    optional_elements = [
+    repeatable_elements = [
       :alternative_title,
       :contributor,
       :creator,
@@ -52,7 +52,7 @@ describe PulStore::Lae::Folder do
       :series,
       :subject
     ]
-    optional_elements.each do |re|
+    repeatable_elements.each do |re|
       it "#{re} is repeatable" do
         v = []
         rand(1..4).times { v << Faker::Lorem.sentence }
@@ -65,9 +65,6 @@ describe PulStore::Lae::Folder do
   end
 
   describe "barcodes" do
-
-
-    
 
     it "are required" do
       f = FactoryGirl.build(:lae_folder, barcode: nil)
@@ -178,10 +175,83 @@ describe PulStore::Lae::Folder do
     end
   end
 
+  describe "has_extent?" do
+    it "should be false without any extent attributes" do
+      f = FactoryGirl.build(:lae_prelim_folder, width_in_cm: nil, height_in_cm: nil, page_count: nil)
+      f.has_extent?.should be_false
+    end
+
+    it "should be true with a page count" do
+      f = FactoryGirl.build(:lae_prelim_folder, width_in_cm: nil, height_in_cm: nil, page_count: nil)
+      f.page_count = 7
+      f.has_extent?.should be_true
+    end
+
+    it "should be true with a width and height" do
+      f = FactoryGirl.build(:lae_prelim_folder, width_in_cm: nil, height_in_cm: nil, page_count: nil)
+      f.width_in_cm = 5.5
+      f.height_in_cm = 13
+      f.has_extent?.should be_true
+    end
+  end
+
+  describe "extent validation" do
+    it "should not be valid without any extent attributes" do
+      extent_params = { width_in_cm: nil, height_in_cm: nil, page_count: nil }
+      f = FactoryGirl.build(:lae_prelim_folder, width_in_cm: nil, height_in_cm: nil, page_count: nil)
+      expect { f.save! }.to raise_error ActiveFedora::RecordInvalid
+    end
+    it "should not be valid without a height or page count" do
+      extent_params = { width_in_cm: 7, height_in_cm: nil, page_count: nil }
+      f = FactoryGirl.build(:lae_prelim_folder, extent_params)
+      expect { f.save! }.to raise_error ActiveFedora::RecordInvalid
+    end
+    it "should not be valid without a width or page count" do
+      extent_params = { width_in_cm: nil, height_in_cm: 4, page_count: nil }
+      f = FactoryGirl.build(:lae_prelim_folder, extent_params)
+      expect { f.save! }.to raise_error ActiveFedora::RecordInvalid
+    end
+    it "should only allow an integer for page count" do
+      extent_params = { width_in_cm: nil, height_in_cm: nil, page_count: 'q' }
+      f = FactoryGirl.build(:lae_prelim_folder, extent_params)
+      expect { f.save! }.to raise_error ActiveFedora::RecordInvalid
+    end
+    describe "should only allow an integer or decimal for width and height" do
+      it "integer" do
+        extent_params = { width_in_cm: 1, height_in_cm: 1, page_count: nil }
+        f = FactoryGirl.build(:lae_prelim_folder, extent_params)
+        expect { f.save! }.not_to raise_error
+      end
+      it "decimal" do
+        extent_params = { width_in_cm: 1.1, height_in_cm: 1.1, page_count: nil }
+        f = FactoryGirl.build(:lae_prelim_folder, extent_params)
+        expect { f.save! }.not_to raise_error
+      end
+    end
+    it "should be valid with a page count" do
+      extent_params = { width_in_cm: nil, height_in_cm: nil, page_count: 7 }
+      f = FactoryGirl.build(:lae_prelim_folder, extent_params)
+      expect { f.save! }.not_to raise_error
+    end
+    it "should be valid with a width and height" do
+      extent_params = { width_in_cm: 3.5, height_in_cm: 7, page_count: nil }
+      f = FactoryGirl.build(:lae_prelim_folder, extent_params)
+      expect { f.save! }.not_to raise_error
+    end
+  end
+
   describe "has_prelim_metadata?" do
-    it "responds with true when we have #{PulStore::Lae::Folder.prelim_elements}" do
-      f = FactoryGirl.build(:lae_prelim_folder, barcode: @test_barcodes.pop)
-      f.extent = Faker::Lorem.sentence
+    it "responds with true when we have #{PulStore::Lae::Folder.prelim_elements} and page_count" do
+      f = FactoryGirl.build(:lae_prelim_folder, width_in_cm: nil, height_in_cm: nil)
+      f.page_count = Faker::Number.digit
+      f.genre = Faker::Lorem.word
+      f.has_prelim_metadata?.should be_true
+    end
+
+    it "responds with true when we have #{PulStore::Lae::Folder.prelim_elements} and width and height" do
+      f = FactoryGirl.build(:lae_prelim_folder, height_in_cm: nil)
+      f.width_in_cm = Faker::Number.digit
+      f.height_in_cm = Faker::Number.digit
       f.genre = Faker::Lorem.word
       f.has_prelim_metadata?.should be_true
     end
