@@ -10,6 +10,10 @@ patron:
   - patron1@example.com
 admin_policy_object_editor:
   - archivist1@example.com
+all_project_discover:
+  - joetest@university.edu
+lae_project_discover:
+  - joetest@university.edu
 all_project_readers:
   - joetest@university.edu
 all_project_writers:
