@@ -3,7 +3,8 @@ class PulStore::Lae::Folder < PulStore::Item
   include PulStore::Validations
   include PulStore::Lae::Provenance
 
-  @@prelim_elements = [:barcode, :extent, :genre]
+  # Class Constants
+  @@prelim_elements = [:barcode, :genre]
   def self.prelim_elements
     @@prelim_elements
   end
@@ -11,13 +12,20 @@ class PulStore::Lae::Folder < PulStore::Item
   @@required_elements = (
     [:date_created, :rights, :sort_title, :subject, :title, :geographic, 
       :language] << @@prelim_elements).flatten
-
   def self.required_elements
     @@required_elements
   end
 
+  @@extent_elements = [:width_in_cm, :height_in_cm, :page_count]
+  # These are a little difficult because
+  # (width_in_cm AND height_in_cm) OR page_count 
+  # is required. See #has_extent?
+  def self.extent_elements
+    @@extent_elements
+  end
+
   # Callbacks
-  before_save :_defaults
+  before_save :set_defaults
 
   # Metadata
   has_metadata 'descMetadata', type: PulStore::Lae::FolderRdfMetadata
@@ -32,7 +40,8 @@ class PulStore::Lae::Folder < PulStore::Item
   has_attributes :alternative_title, :series, :publisher,
     :datastream => 'descMetadata', multiple: true
 
-  has_attributes :extent, :rights, :description,
+  has_attributes :height_in_cm, :width_in_cm, :page_count, :rights, 
+    :description, 
     :datastream => 'descMetadata', multiple: false
 
   # TODO: https://github.com/projecthydra/questioning_authority
@@ -42,8 +51,6 @@ class PulStore::Lae::Folder < PulStore::Item
   has_attributes :genre, :datastream => 'descMetadata', multiple: false
   has_attributes :language, :datastream => 'descMetadata', multiple: true
   has_attributes :geographic, :datastream => 'descMetadata', multiple: true
-
-
 
   # Associations
   belongs_to :box, property: :in_box, :class_name => 'PulStore::Lae::Box'
@@ -65,8 +72,19 @@ class PulStore::Lae::Folder < PulStore::Item
   validate :validate_barcode
   validate :validate_barcode_uniqueness, on: :create
 
-  validates_presence_of @@required_elements, if: :passed_qc?
-  validates_presence_of :pages, if: :passed_qc?
+  validates_presence_of @@required_elements, 
+    if: :passed_qc?
+
+  validate :validate_lae_folder_extent
+  validates_numericality_of :width_in_cm, :height_in_cm, 
+    allow_nil: true, greater_than: 0
+
+  validates_numericality_of :page_count, 
+    only_integer: true, allow_nil: true, greater_than: 0
+    
+  validates_presence_of :pages, 
+    if: :passed_qc?
+  validates_presence_of :barcode, message: "A barcode is required"
 
   def suppressed?
     self.suppressed = false if self.suppressed.blank?
@@ -83,27 +101,32 @@ class PulStore::Lae::Folder < PulStore::Item
   end
 
   def has_prelim_metadata?
-    @@prelim_elements.all? { |e| !self.send(e).blank? }
+    self.has_extent? && @@prelim_elements.all? { |e| !self.send(e).blank? }
   end
 
   def has_core_metadata?
-    @@required_elements.all? { |e| !self.send(e).blank? }
+    self.has_extent? && @@required_elements.all? { |e| !self.send(e).blank? }
   end
 
   def in_production?
     self.passed_qc? && !(self.suppressed? || self.error?)
   end
 
+  def has_extent?
+    (!self.width_in_cm.blank? && !self.height_in_cm.blank?) || !self.page_count.blank?
+  end
+
   protected
 
-  def _defaults
+  def set_defaults
     self.suppressed = self.suppressed?
     self.passed_qc = self.passed_qc?
-    self.state = self._infer_state
+    self.state = self.infer_state
     nil
   end
 
-  def _infer_state
+
+  def infer_state
     # See https://github.com/pulibrary/pul-store/wiki/LAE-Workflow-and-&quot;States&quot;#folder-states
     # These labels should go in a config, eventually
     if error?

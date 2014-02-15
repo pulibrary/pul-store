@@ -12,7 +12,15 @@ class PulStore::Lae::FolderRdfMetadata < PulStore::ItemRdfMetadata
       index.as :stored_searchable
     end
 
-    map.extent(in: RDF::DC) do |index|
+    map.height_in_cm(to: 'heightInCM', in: RDF::PulStoreTerms) do |index|
+      index.as :stored_searchable
+    end
+
+    map.width_in_cm(to: 'widthInCM', in: RDF::PulStoreTerms) do |index|
+      index.as :stored_searchable
+    end
+
+    map.page_count(to: 'pageCount', in: RDF::PulStoreTerms) do |index|
       index.as :stored_searchable
     end
 
