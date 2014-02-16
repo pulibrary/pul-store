@@ -50,4 +50,8 @@ RSpec.configure do |config|
 
   config.include Capybara::DSL
 
+  ### Include Devise test helpers
+  config.include Devise::TestHelpers, type: :controller
+  config.include Devise::TestHelpers, type: :view
+
 end
