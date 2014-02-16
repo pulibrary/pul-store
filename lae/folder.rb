@@ -2,6 +2,7 @@ require Rails.root.join('app/models/pul_store/lib/active_fedora/pid')
 class PulStore::Lae::Folder < PulStore::Item
   include PulStore::Validations
   include PulStore::Lae::Provenance
+  include PulStore::Lae::Permissions
 
   # Class Constants
   @@prelim_elements = [:barcode, :genre]
@@ -10,7 +11,7 @@ class PulStore::Lae::Folder < PulStore::Item
   end
 
   @@required_elements = (
-    [:date_created, :rights, :sort_title, :subject, :title, :geographic, 
+    [:date_created, :rights, :sort_title, :subject, :title, :geographic,
       :language] << @@prelim_elements).flatten
   def self.required_elements
     @@required_elements
@@ -32,7 +33,7 @@ class PulStore::Lae::Folder < PulStore::Item
 
   # Delegate attributes
   #   Provenance
-  has_attributes :suppressed, :passed_qc, 
+  has_attributes :suppressed, :passed_qc,
     :datastream => 'provMetadata', multiple: false
 
   # Descriptive
@@ -61,12 +62,12 @@ class PulStore::Lae::Folder < PulStore::Item
   # but haven't been able to figure out how.
   validates_presence_of :barcode, message: "A barcode is required"
 
-  validates_length_of :barcode, 
+  validates_length_of :barcode,
     is: 14,
     message: "Barcode must be 14 characters long"
 
-  validates_format_of :barcode, 
-    with: /\A32101/, 
+  validates_format_of :barcode,
+    with: /\A32101/,
     message: "Barcode must start with '32101'"
 
   validate :validate_barcode

@@ -6,6 +6,7 @@ module PulStore
 
   class Base < ActiveFedora::Base
     include PulStore::Timestamp
+    include Hydra::AccessControls::Permissions
 
     before_destroy :check_for_children
 
