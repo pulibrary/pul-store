@@ -11,6 +11,12 @@ module PulStore::Validations
     end
   end
 
+  def validate_lae_folder_extent
+    unless self.send(:has_extent?)
+      errors.add(:base, "Width and height OR a page count is required")
+    end
+  end
+
   def validate_barcode_uniqueness
     if self.kind_of?(PulStore::Base) && self.respond_to?(:barcode) && !self.send(:barcode).blank?
       # TODO: if it is a PulStore::Base and has responds to barcode??
