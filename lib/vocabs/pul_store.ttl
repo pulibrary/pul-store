@@ -1,0 +1,20 @@
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix puls: <http://princeton.edu/pulstore/terms/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+puls:Height rdfs:subClassOf dct:SizeOrDuration .
+puls:Width rdfs:subClassOf dct:SizeOrDuration .
+puls:Pages rdfs:subClassOf dct:SizeOrDuration .
+
+puls:heightInCM rdfs:range puls:Height; 
+# TODO: Also has a range of xsd:decimal
+   rdfs:subPropertyOf dct:extent .
+
+puls:widthInCM rdfs:range puls:Width; 
+# TODO: Also has a range of xsd:decimal
+   rdfs:subPropertyOf dct:extent .
+
+puls:pageCount rdfs:range puls:Pages; 
+# TODO: Also has a range of xsd:positiveInteger
+   rdfs:subPropertyOf dct:extent .
