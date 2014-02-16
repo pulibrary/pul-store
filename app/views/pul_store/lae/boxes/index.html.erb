@@ -19,12 +19,15 @@
         <td><%= box.barcode %></td>
         <td><%= box.pid %></td>
         <td><%= link_to 'Show', box %></td>
-        <td><%= link_to 'Edit', edit_lae_box_path(box) %></td>
-        <td><%= link_to 'Destroy', box, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if can?(:edit, box) %>
+          <td><%= link_to 'Edit', edit_lae_box_path(box) %></td>
+          <td><%= link_to 'Destroy', box, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<%= link_to 'New Box', new_lae_box_path %>
+<% if can?(:create, @box) %>
+  <%= link_to 'New Box', new_lae_box_path %>
+<% end %>
