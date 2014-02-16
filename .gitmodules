@@ -1,4 +1,4 @@
 [submodule "app/models/pul_store"]
 	path = app/models/pul_store
-	url = git@github.com/pulibrary/pul-store-models.git
+	url = https://github.com/pulibrary/pul-store-models.git
   branch = development
