@@ -11,6 +11,7 @@ class PulStore::Lae::BoxesController < ApplicationController
   def index
     if params[:barcode]
       @box = get_box_by_barcode(params[:barcode])
+
       if @box
         redirect_to(@box)
       else
@@ -37,12 +38,18 @@ class PulStore::Lae::BoxesController < ApplicationController
   # GET /lae/boxes/new
   def new
    @box = PulStore::Lae::Box.new
+   ## Assign to the first Project
+   #FIXME Project assigne shoudl come from the content of the Object in PulStore Hierarchy
   end
 
   # # GET /lae/boxes/1/edit
   def edit
     authorize! :edit, params[:id]
     @box = PulStore::Lae::Box.find(params[:id])
+
+    if(@box.folders.size < 1)
+      1.times { @box.folders.build}
+    end
 
     respond_to do |format|
       format.html # show.html.erb
@@ -54,7 +61,8 @@ class PulStore::Lae::BoxesController < ApplicationController
   # POST /lae/boxes.json
   def create
     @box = PulStore::Lae::Box.new(box_params)
-
+    project = PulStore::Project.first
+    @box.project = project
     respond_to do |format|
       if @box.save
         format.html { redirect_to @box, notice: 'Box was successfully created.' }
@@ -107,10 +115,11 @@ class PulStore::Lae::BoxesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the
     # white list through.
 
+    #FIXME confirm that these are the correct params
     def box_params
       params.require(:lae_box).permit(:full, :barcode, :error_note,
         :physical_location, :tracking_number, :shipped_date, :received_date,
-        :project_id)
+        :project, :id, :project, folders_attributes: [:genre, :page_count, :width_in_cm, :height_in_cm, :barcode, :id, :_destoy, :_new] )
 
     end
 end

@@ -14,30 +14,16 @@
     <%= b.label :barcode %><br>
     <%= b.text_field :barcode %>
   </div>
-  <div class="field">
-    <%= b.label :error_note %><br>
-    <%= b.text_area :error_note %>
-  </div>
-  <div id="desc-metadata">
+  <div id="extent-metadata">
     <!-- required metadata goes here -->
-    <% PulStore::Lae::Folder::required_elements.each do |e| %>
-      <% unless e == :date_created %>
+    <% PulStore::Lae::Folder::extent_elements.each do |e| %>
       <div class="field">
         <%= b.label e %><br/>
         <%= b.text_field e %>
       </div>
-      <% end %>
     <% end %>
-    <!-- date picker -->
-    <div class="field date-created">
-      <%= b.label :date_created %><br>
-      <%= b.text_field :date_created, :class => "datepicker" %>
-    </div>
-    <!-- Optional Desc. Elements -->
-  </div>
-  <div class="extent-metadata">
-  <div class="actions">
-    <%= b.submit %>
-  </div>
 
+   <div class="actions">
+      <%= b.submit %>
+   </div>
 <% end %>
