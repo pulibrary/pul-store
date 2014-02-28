@@ -2,7 +2,7 @@
 class PulStore::Lae::BoxesController < CatalogController #ApplicationController
   include PulStore::Lae::BarcodeLookups
   include Hydra::Controller::ControllerBehavior
-  include Blacklight::Catalog
+  # include Blacklight::Catalog
   # include Blacklight::Configurable
 
   # enforce access controls
@@ -21,7 +21,7 @@ class PulStore::Lae::BoxesController < CatalogController #ApplicationController
   PulStore::Lae::BoxesController.solr_search_params_logic += [:limit_to_boxes]
   PulStore::Lae::BoxesController.solr_search_params_logic += [:sort_by_newest_first]
 
-  # Note sure this is correct...is blacklight_config scoped to this controller or global to be app?
+  # Note sure this is correct...global to be app?
   self.blacklight_config.add_sort_field 'prov_metadata__date_uploaded_ssi desc', :label => 'Date Created'
   self.blacklight_config.add_sort_field 'prov_metadata__shipped_date_ssi desc', :label => 'Date Shipped'
   self.blacklight_config.add_sort_field 'prov_metadata__received_date_ssi desc', :label => 'Date Received'
@@ -42,6 +42,7 @@ class PulStore::Lae::BoxesController < CatalogController #ApplicationController
 
   def index
     if params[:barcode]
+      # this is slow...what's a better (Solr-only?) way?
       @box = get_box_by_barcode(params[:barcode])
       if @box
         redirect_to(@box)
@@ -49,13 +50,11 @@ class PulStore::Lae::BoxesController < CatalogController #ApplicationController
         redirect_to :back, notice: "No Box with barcode \"#{params[:barcode]}\" found."
       end
     else
-      (@response, @document_list) = get_search_results #(params, filt)
+      (@response, @document_list) = get_search_results
       @filters = params[:f] || []
       respond_to do |format|
         format.html 
       end
-
-      # @boxes = @response[:response][:docs].map { |d| PulStore::Lae::Box.find(d[:id]) }
     end
   end
 

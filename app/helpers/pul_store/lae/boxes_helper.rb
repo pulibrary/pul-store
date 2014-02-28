@@ -18,8 +18,7 @@ module PulStore::Lae::BoxesHelper
   end
 
   def lae_box_created_datetime(doc)
-    # PulStore::Lae::BoxesHelper.style_date(doc[:prov_metadata__date_uploaded_ssi])
-    doc[:prov_metadata__date_uploaded_ssi]
+    PulStore::Lae::BoxesHelper.style_date(doc[:prov_metadata__date_uploaded_ssi])
   end
 
   def lae_box_last_modified_datetime(doc)
