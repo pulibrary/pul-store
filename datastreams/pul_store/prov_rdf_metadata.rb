@@ -12,7 +12,7 @@ class PulStore::ProvRdfMetadata < ActiveFedora::NtriplesRDFDatastream
     end
 
     map.date_uploaded(to: "dateSubmitted", in: RDF::DC) do |index|
-      index.type :date
+      index.type :datetime
       index.as :stored_sortable
     end
 
@@ -27,7 +27,7 @@ class PulStore::ProvRdfMetadata < ActiveFedora::NtriplesRDFDatastream
     end
 
     map.date_modified(to: "modified", in: RDF::DC) do |index|
-      index.type :date
+      index.type :datetime
       index.as :stored_sortable
     end
 
@@ -54,11 +54,11 @@ class PulStore::ProvRdfMetadata < ActiveFedora::NtriplesRDFDatastream
 
     map.shipped_date(to: "shippedDate", in: RDF::PulStoreTerms) do |index|
       # The identifier for the metadata within its host system
-      index.type :date
+      index.type :datetime
       index.as :stored_sortable
     end
 
-    map.state(to: "state", in: RDF::PulStoreTerms) do |index|
+    map.workflow_state(to: "state", in: RDF::PulStoreTerms) do |index|
       # The identifier for the metadata within its host system
       index.type :string
       index.as :stored_searchable, :facetable
@@ -78,7 +78,7 @@ class PulStore::ProvRdfMetadata < ActiveFedora::NtriplesRDFDatastream
 
     map.received_date(to: "receivedDate", in: RDF::PulStoreTerms) do |index|
       # The identifier for the metadata within its host system
-      index.type :date
+      index.type :datetime
       index.as :stored_sortable
     end
 

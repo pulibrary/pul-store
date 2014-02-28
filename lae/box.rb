@@ -90,7 +90,7 @@ class PulStore::Lae::Box < PulStore::Base
 
   def _defaults
     self.full = self.full?
-    self.state = self._infer_state
+    self.workflow_state = self._infer_state
     nil
   end
 

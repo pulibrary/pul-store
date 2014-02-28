@@ -6,7 +6,7 @@ module PulStore::Lae::Provenance
     
     has_attributes :barcode, :datastream => 'provMetadata', multiple: false
     has_attributes :error_note, :datastream => 'provMetadata', multiple: false
-    has_attributes :state, :datastream => 'provMetadata', multiple: false
+    has_attributes :workflow_state, :datastream => 'provMetadata', multiple: false
     # TODO: consider events, of which date_modified would be an attribute/property.
   end
 

@@ -10,7 +10,7 @@ module PulStore::Lae::Permissions
     if self.permissions.blank?
       self.edit_groups = ["all_project_writers", "lae_project_writers"]
       self.read_groups = ["all_project_readers", "lae_project_readers"]
-      self.discover_groups = ["all_project_discovery", "lae_project_discovery"]
+      self.discover_groups = ["all_project_discover", "lae_project_discover"]
     end
     nil
   end

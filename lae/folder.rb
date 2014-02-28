@@ -122,7 +122,7 @@ class PulStore::Lae::Folder < PulStore::Item
   def set_defaults
     self.suppressed = self.suppressed?
     self.passed_qc = self.passed_qc?
-    self.state = self.infer_state
+    self.workflow_state = self.infer_state
     nil
   end
 

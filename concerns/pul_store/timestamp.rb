@@ -11,6 +11,7 @@ module PulStore::Timestamp
 
   def apply_timestamps
     if self.date_uploaded.nil?
+      # self.date_uploaded = DateTime.now.utc
       self.date_uploaded = DateTime.now.utc
     end
     self.date_modified << DateTime.now.utc
