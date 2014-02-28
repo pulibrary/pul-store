@@ -27,3 +27,5 @@ fits/*
 
 # Ingnore the database config.
 database.yml
+
+*.DS_Store
