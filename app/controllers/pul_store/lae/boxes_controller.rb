@@ -1,12 +1,44 @@
-class PulStore::Lae::BoxesController < ApplicationController
-  include Hydra::Controller::ControllerBehavior
+
+class PulStore::Lae::BoxesController < CatalogController #ApplicationController
   include PulStore::Lae::BarcodeLookups
+  include Hydra::Controller::ControllerBehavior
+  include Blacklight::Catalog
+  # include Blacklight::Configurable
+
   # enforce access controls
+  # before_filter :enforce_show_permissions, only: [:show]
 
   before_action :set_box, only: [:show, :edit, :update, :destroy]
   before_filter :list_all_boxes, only: [:show]
 
+  # This applies appropriate access controls to all solr queries
+  PulStore::Lae::BoxesController.solr_search_params_logic += [:add_access_controls_to_solr_params]
+
+  # This filters out objects that you want to exclude from search results, like FileAssets
+  PulStore::Lae::BoxesController.solr_search_params_logic += [:exclude_unwanted_models]
+
+  # Keep out everything but Boxes, only show state
+  PulStore::Lae::BoxesController.solr_search_params_logic += [:limit_to_boxes]
+  PulStore::Lae::BoxesController.solr_search_params_logic += [:sort_by_newest_first]
+
+  # Note sure this is correct...is blacklight_config scoped to this controller or global to be app?
+  self.blacklight_config.add_sort_field 'prov_metadata__date_uploaded_ssi desc', :label => 'Date Created'
+  self.blacklight_config.add_sort_field 'prov_metadata__shipped_date_ssi desc', :label => 'Date Shipped'
+  self.blacklight_config.add_sort_field 'prov_metadata__received_date_ssi desc', :label => 'Date Received'
+
+
   #load_and_authorize_resource
+
+  def limit_to_boxes(solr_parameters, user_params) 
+      fq = '{!raw f=active_fedora_model_ssi}PulStore::Lae::Box'
+      solr_parameters[:fq] << fq
+      # solr_parameters.append_filter_query << fq # BL 5
+      solr_parameters[:"facet.field"] = ["prov_metadata__workflow_state_sim"]
+  end
+
+  def sort_by_newest_first(solr_parameters, user_params)
+    solr_parameters[:sort] = 'prov_metadata__date_uploaded_ssi desc'
+  end
 
   def index
     if params[:barcode]
@@ -17,13 +49,16 @@ class PulStore::Lae::BoxesController < ApplicationController
         redirect_to :back, notice: "No Box with barcode \"#{params[:barcode]}\" found."
       end
     else
-         #authorize! :edit, params[:id]
-        @boxes = PulStore::Lae::Box.all
+      (@response, @document_list) = get_search_results #(params, filt)
+      @filters = params[:f] || []
+      respond_to do |format|
+        format.html 
+      end
+
+      # @boxes = @response[:response][:docs].map { |d| PulStore::Lae::Box.find(d[:id]) }
     end
   end
 
-  # GET /lae/boxes/1
-  # GET /lae/boxes/1.json
   def show
     authorize! :show, params[:id]
     @box = PulStore::Lae::Box.find(params[:id])
@@ -34,12 +69,10 @@ class PulStore::Lae::BoxesController < ApplicationController
     end
   end
 
-  # GET /lae/boxes/new
   def new
    @box = PulStore::Lae::Box.new
   end
 
-  # # GET /lae/boxes/1/edit
   def edit
     authorize! :edit, params[:id]
     @box = PulStore::Lae::Box.find(params[:id])
@@ -50,8 +83,7 @@ class PulStore::Lae::BoxesController < ApplicationController
     end
   end
 
-  # POST /lae/boxes
-  # POST /lae/boxes.json
+  # POST
   def create
     @box = PulStore::Lae::Box.new(box_params)
 
@@ -66,8 +98,7 @@ class PulStore::Lae::BoxesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /lae/boxes/1
-  # PATCH/PUT /lae/boxes/1.json
+  # PATCH/PUT
   def update
     authorize! :update, params[:id]
     respond_to do |format|
@@ -81,8 +112,7 @@ class PulStore::Lae::BoxesController < ApplicationController
     end
   end
 
-  # DELETE /lae/boxes/1
-  # DELETE /lae/boxes/1.json
+  # DELETE
   def destroy
     authorize! :destroy, params[:id]
     respond_to do |format|
