@@ -29,7 +29,7 @@ class PulStore::Lae::BoxesController < CatalogController #ApplicationController
 
   #load_and_authorize_resource
 
-  def limit_to_boxes(solr_parameters, user_params) 
+  def limit_to_boxes(solr_parameters, user_params)
       fq = '{!raw f=active_fedora_model_ssi}PulStore::Lae::Box'
       solr_parameters[:fq] << fq
       # solr_parameters.append_filter_query << fq # BL 5
@@ -54,7 +54,7 @@ class PulStore::Lae::BoxesController < CatalogController #ApplicationController
       (@response, @document_list) = get_search_results
       @filters = params[:f] || []
       respond_to do |format|
-        format.html 
+        format.html
       end
     end
   end
@@ -71,6 +71,7 @@ class PulStore::Lae::BoxesController < CatalogController #ApplicationController
 
   def new
    @box = PulStore::Lae::Box.new
+   1.times { @box.folders.build}
    ## Assign to the first Project
    #FIXME Project assigne shoudl come from the content of the Object in PulStore Hierarchy
   end
@@ -148,7 +149,7 @@ class PulStore::Lae::BoxesController < CatalogController #ApplicationController
     def box_params
       params.require(:lae_box).permit(:full, :barcode, :error_note,
         :physical_location, :tracking_number, :shipped_date, :received_date,
-        :project, :id, :project, folders_attributes: [:genre, :page_count, :width_in_cm, :height_in_cm, :barcode, :id, :_destoy, :_new] )
+        :project, :id, :project, folders_attributes: [:genre, :page_count, :width_in_cm, :height_in_cm, :barcode, :id, :_destroy] )
 
     end
 end
