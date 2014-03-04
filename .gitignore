@@ -28,4 +28,9 @@ fits/*
 # Ingnore the database config.
 database.yml
 
-noid-minter-state
+onoid-minter-state
+
+# ignore compiled assets and bundled gems
+public/assets
+vendor/bundle
+
