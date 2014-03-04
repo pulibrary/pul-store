@@ -7,7 +7,7 @@ module PulStore::ExternalMetadataSource
   extend ActiveSupport::Concern
   
   included do
-    has_metadata 'srcMetadata', type: ExternalXmlMetadata
+    has_metadata 'srcMetadata', type: PulStore::ExternalXmlMetadata
     # these two should probably have model MetadataSource that also includes a label, e.g. Voyager, PULFA
     has_attributes :dmd_source, :datastream => 'provMetadata', multiple: false
     has_attributes :source_dmd_type, :datastream => 'provMetadata', multiple: false
