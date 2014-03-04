@@ -44,6 +44,11 @@ gem "bootstrap-sass"
 gem "devise"
 gem "devise-guests", "~> 0.3"
 
+# Use Capistrano for deployment
+gem 'capistrano'
+gem 'capistrano-rails'
+gem 'capistrano-bundler'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
@@ -68,8 +73,6 @@ end
 # Use unicorn as the app server
 # gem 'unicorn'
 
-# Use Capistrano for deployment
-# gem 'capistrano', group: :development
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
