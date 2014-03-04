@@ -5,7 +5,7 @@ defaults: &defaults
   voyager_datasource: http://diglib.princeton.edu/tools/v2m/
   pulfa_datasource: http://findingaids.princeton.edu/collections/
   noid_template: .zdeeek # .reeddeeddk <- Sufia
-  minter_statefile: /tmp/minter-state
+  minter_statefile: noid-minter-state #will be in app root
   id_namespace: puls
   lae_recap_code: rcpxr
 

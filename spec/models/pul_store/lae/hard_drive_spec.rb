@@ -8,15 +8,15 @@ describe PulStore::Lae::HardDrive do
 
   it "is Available when it does not have an associated Box" do
     drive = FactoryGirl.create(:lae_hard_drive)
-    drive.state.should == "Available"
+    drive.workflow_state.should == "Available"
   end
 
-  it "is in the same state as its box when it does have an associated Box" do
+  it "is in the same workflow_state as its box when it does have an associated Box" do
     drive = FactoryGirl.create(:lae_hard_drive)
     box = FactoryGirl.create(:lae_box_with_prelim_folders)
     drive.box = box
     drive.save!
-    drive.state.should == box.state
+    drive.workflow_state.should == box.workflow_state
   end
 
 end

@@ -344,35 +344,35 @@ describe PulStore::Lae::Folder do
   end
 
 
-  describe "state" do
+  describe "workflow_state" do
     it "is 'New' when we only have a barcode" do
       f = FactoryGirl.create(:lae_folder, barcode: @test_barcodes.pop)
-      f.state.should == "New"
+      f.workflow_state.should == "New"
     end
 
     it "is 'Has Prelim. Metadata' when we only have #{PulStore::Lae::Folder.prelim_elements}" do
       f = FactoryGirl.build(:lae_prelim_folder, barcode: @test_barcodes.pop)
       f.save!
-      f.state.should == 'Has Prelim. Metadata'
+      f.workflow_state.should == 'Has Prelim. Metadata'
     end
 
     it "is 'Has Core Metadata' when we have #{PulStore::Lae::Folder.required_elements}" do
       f = FactoryGirl.build(:lae_core_folder, barcode: @test_barcodes.pop)
       f.save!
-      f.state.should == 'Has Core Metadata'
+      f.workflow_state.should == 'Has Core Metadata'
     end
 
     it "is 'Needs QC' when we have core metadata, we have valid pages, and qc_passed is false" do
       f = FactoryGirl.build(:lae_core_folder_with_pages, barcode: @test_barcodes.pop)
       f.save!
-      f.state.should == 'Needs QC'
+      f.workflow_state.should == 'Needs QC'
     end
 
     it "is 'In Production' when in_production? is true" do
       f = FactoryGirl.build(:lae_core_folder_with_pages, barcode: @test_barcodes.pop)
       f.passed_qc = true
       f.save!
-      f.state.should == 'In Production'
+      f.workflow_state.should == 'In Production'
     end
 
     # Error
