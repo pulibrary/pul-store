@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-PulStore::Application.config.secret_key_base = '4578038ae6b98f05507150ac5d775350616f119111b0de5357fff602b16c167f8b22d37b1dae6c30c741c0e8dd235571182cefe5d76c001593234b2ea6994846'
+PulStore::Application.config.secret_key_base = '6a7ab6cf91c0c548541631ef377ba9b8f8a2a601888530e9212ddb6fae13fd0ad18b1193bf2e9473afb15c4d8702058ad40472aaf6ab7d83c3e4c6b02748d206'

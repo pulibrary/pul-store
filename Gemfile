@@ -3,9 +3,6 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
 
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
-
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 
@@ -27,12 +24,48 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
+gem "hydra", "~> 6.1.0.rc8"
+
+gem "hydra-file_characterization", "~> 0.3.1"
+
+gem "rubyzip"
+
+gem 'mysql2'
+
+gem 'noid'
+
+gem 'marc'
+
+#for bulk upload ui
+gem 'jquery-fileupload-rails'
+#gem 'paperclip'
+
+gem "bootstrap-sass"
+gem "devise"
+gem "devise-guests", "~> 0.3"
+
+# Use Capistrano for deployment
+gem 'capistrano'
+gem 'capistrano-rails'
+gem 'capistrano-bundler'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
 end
 
-gem 'hydra', '~> 6.0.0', :require => 'hydra6'
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+  gem "jettywrapper"
+end
+
+group :test do 
+  gem 'faker' 
+  gem 'capybara' 
+  # gem 'guard-rspec' 
+  # gem 'launchy' 
+end
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -40,8 +73,6 @@ gem 'hydra', '~> 6.0.0', :require => 'hydra6'
 # Use unicorn as the app server
 # gem 'unicorn'
 
-# Use Capistrano for deployment
-# gem 'capistrano', group: :development
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]

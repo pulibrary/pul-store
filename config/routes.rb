@@ -1,4 +1,22 @@
 PulStore::Application.routes.draw do
+  resources :pages
+  resources :texts
+  resources :projects
+
+  scope module: 'pul_store' do
+    namespace :lae do
+      resources :boxes
+      resources :folders
+      resources :hard_drives
+      get 'genres', to: 'genres#index'
+      get 'genres/:id', to: 'genres#show'
+    end
+  end
+
+  root :to => "catalog#index"
+  Blacklight.add_routes(self)
+  HydraHead.add_routes(self)
+  devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

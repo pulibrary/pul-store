@@ -1,0 +1,38 @@
+<%= form_for(@hard_drive, id: 'edit_lae_hard_drive') do |h| %>
+  <% if @hard_drive.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@hard_drive.errors.count, "error") %> prohibited this Hard Drive from being saved:</h2>
+      <ul>
+      <% @hard_drive.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= h.label :barcode, "Hard Drive Barcode" %>
+    <%= h.text_field :barcode %>
+  </div>
+
+  <%= fields_for :box, @hard_drive.box do |box_fields| %>
+    <div class="field">
+      <%= box_fields.label :barcode, "Box Barcode" %>
+      <%= box_fields.text_field :barcode,  name: 'lae_hard_drive[lae_box[barcode]]'%>
+      
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= h.label :remove_box, "Remove Associated Box" %>
+    <%= h.check_box :remove_box %>
+  </div>
+
+  <div class="field">
+    <%= h.label :error_note %>
+    <%= h.text_area :error_note %>
+  </div>
+  <div class="actions">
+    <%= h.submit id: 'hard_drive_submit'  %>
+  </div>
+<% end %>

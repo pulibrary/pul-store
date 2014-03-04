@@ -1,0 +1,34 @@
+<h1>Listing texts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Date Created</th>
+      <th>Date Uploaded</th>
+      <th>Last Modified</th>
+      <th/>
+      <th/>
+      <th/>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @texts.each do |text| %>
+      <tr>
+        <td><%= text.title.join(' = ') %></td>
+        <td><%= text.date_created %></td>
+        <td><%= text.date_uploaded %></td>
+        <td><%= text.date_modified.last %></td>
+
+        <td><%= link_to 'Show', text %></td>
+        <td><%= link_to 'Edit', edit_text_path(text) %></td>
+        <td><%= link_to 'Destroy', text, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Text', new_text_path %>

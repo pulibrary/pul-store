@@ -1,0 +1,23 @@
+language: ruby
+rvm:
+  - "2.1.0"
+before_install:
+  - git submodule update --init --recursive
+before_script:
+  - cp config/travis.database.yml config/database.yml
+  - mysql -e 'create database pulstore_test'
+  - bundle exec rake db:test:prepare
+  - bundle exec rake db:seed
+branches:
+  only:
+    - development
+notifications:
+  email:
+    recipients:
+      - "shaune@princeton.edu"
+      - "jstroop@princeton.edu"
+      - "kr2@princeton.edu"
+    on_success: "change"
+    on_failure: "always"
+    template:
+      - "%{repository}//%{branch}@%{commit} by %{author}: %{message} - %{build_url}"

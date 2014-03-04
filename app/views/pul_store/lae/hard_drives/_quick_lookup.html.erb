@@ -1,0 +1,5 @@
+<%= form_tag("/lae/hard_drives", method: "get", id: "quick_lookup") do %>
+  <%= label_tag(:barcode, "Find a Hard Drive by Barcode:") %>
+  <%= text_field_tag(:barcode) %>
+  <%= submit_tag("Lookup", id: "quick_lookup_submit") %>
+<% end %>

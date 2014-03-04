@@ -1,3 +1,4 @@
-[submodule "app/models/af-models"]
-	path = app/models/af-models
-	url = git@github.com:pulibrary/hydra-models.git
+[submodule "app/models/pul_store"]
+	path = app/models/pul_store
+	url = https://github.com/pulibrary/pul-store-models.git
+  branch = development

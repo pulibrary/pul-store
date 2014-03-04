@@ -1,0 +1,32 @@
+<h1>Listing Hard Drives</h1>
+
+<%= render 'quick_lookup' %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Barcode</th>
+      <th>State</th>
+      <th>Box Barcode</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @hard_drives.each do |hard_drive| %>
+      <tr>
+        <td><%= hard_drive.barcode %></td>
+        <td><%= hard_drive.state %></td>
+        <td><%= hard_drive.box ? hard_drive.box.barcode : "None" %></td>
+        <td><%= link_to 'Show', hard_drive %></td>
+        <td><%= link_to 'Edit', edit_lae_hard_drive_path(hard_drive) %></td>
+        <td><%= link_to 'Destroy', hard_drive, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'New Hard Drive', new_lae_hard_drive_path %>

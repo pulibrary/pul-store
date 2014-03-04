@@ -13,4 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require jquery-fileupload
+//
+// Required by Blacklight
+//= require blacklight/blacklight
 //= require_tree .

@@ -1,0 +1,169 @@
+record_banners:
+  pul_label: "Banners"
+  tgm_label: "Banners"
+  lcsh_label: null
+  dimensions: 2
+  dimensions_unit: "cm."
+  uri: "http://id.loc.gov/vocabulary/graphicMaterials/tgm000777"
+
+record_brochures:
+  pul_label: "Brochures"
+  tgm_label: "Leaflets"
+  lcsh_label: null
+  dimensions: 2
+  dimensions_unit: "cm." 
+  uri: "http://id.loc.gov/vocabulary/graphicMaterials/tgm005863"
+
+record_business_cards:
+  pul_label: "Business cards"
+  tgm_label: "Business cards"
+  lcsh_label: null
+  dimensions: 2
+  dimensions_unit: "cm."
+  scope_note: ""
+  uri: "http://id.loc.gov/vocabulary/graphicMaterials/tgm001469"
+
+record_calendars:
+  pul_label: "Calendars"
+  tgm_label: "Calendars"
+  lcsh_label: null
+  dimensions: 2
+  dimensions_unit: "cm."
+  scope_note: ""
+  uri: "http://id.loc.gov/vocabulary/graphicMaterials/tgm001550"
+
+record_correspondence :
+  pul_label: "Correspondence"
+  tgm_label: "Correspondence"
+  lcsh_label: null
+  dimensions: 1
+  dimensions_unit: "pages"
+  scope_note: ""
+  uri: "http://id.loc.gov/vocabulary/graphicMaterials/tgm002590"
+
+record_electoral paraphernalia:
+  pul_label: "Electoral paraphernalia"
+  tgm_label: null
+  lcsh_label: "Political collectibles"
+  dimensions: 1
+  dimensions_unit: "pieces"
+  scope_note: ""
+  uri: "http://id.loc.gov/authorities/subjects/sh85104350"
+
+record_flyers:
+  pul_label: "Flyers"
+  tgm_label: "Fliers (Printed matter)"
+  lcsh_label: null
+  dimensions: 1
+  dimensions_unit: "pages"
+  scope_note: ""
+  uri: "http://id.loc.gov/vocabulary/graphicMaterials/tgm004107"
+
+record_forms:
+  pul_label: "Forms"
+  tgm_label: "Forms (Documents)"
+  lcsh_label: null
+  dimensions: 1
+  dimensions_unit: "pages"
+  scope_note: ""
+  uri: "http://id.loc.gov/vocabulary/graphicMaterials/tgm004238"
+
+record_games:
+  pul_label: "Games"
+  tgm_label: "Games"
+  lcsh_label: null
+  dimensions: 1
+  dimensions_unit: "pieces"
+  scope_note: ""
+  uri: "http://id.loc.gov/vocabulary/graphicMaterials/tgm004414"
+
+record_leaflets:
+  pul_label: "Leaflets"
+  tgm_label: "Leaflets"
+  lcsh_label: null
+  dimensions: 2
+  dimensions_unit: "cm."
+  scope_note: ""
+  uri: "http://id.loc.gov/vocabulary/graphicMaterials/tgm005863"
+
+record_manuscripts:
+  pul_label: "Manuscripts"
+  tgm_label: "Manuscripts"
+  lcsh_label: null
+  dimensions: 1
+  dimensions_unit: "pages"
+  scope_note: ""
+  uri: "http://id.loc.gov/vocabulary/graphicMaterials/tgm012286"
+
+record_maps:
+  pul_label: "Maps"
+  tgm_label: "Maps"
+  lcsh_label: null
+  dimensions: 2
+  dimensions_unit: "cm."
+  scope_note: ""
+  uri: "http://id.loc.gov/vocabulary/graphicMaterials/tgm006261"
+
+record_news clippings:
+  pul_label: "News clippings"
+  tgm_label: "Clippings"
+  lcsh_label: null
+  dimensions: 1
+  dimensions_unit: "pages"
+  scope_note: ""
+  uri: "http://id.loc.gov/vocabulary/graphicMaterials/tgm002169"
+
+record_pamphlets:
+  pul_label: "Pamphlets"
+  tgm_label: "Pamphlets"
+  lcsh_label: null
+  dimensions: 1
+  dimensions_unit: "pages"
+  scope_note: ""
+  uri: "http://id.loc.gov/vocabulary/graphicMaterials/tgm007415"
+
+record_pedagogical materials:
+  pul_label: "Pedagogical materials"
+  tgm_label: null
+  lcsh_label: "Teaching--Aids and devices"
+  dimensions: 1
+  dimensions_unit: "pieces"
+  scope_note: ""
+  uri: "http://id.loc.gov/authorities/subjects/sh85133053"
+
+record_postcards:
+  pul_label: "Postcards"
+  tgm_label: "Postcards"
+  lcsh_label: null
+  dimensions: 2
+  dimensions_unit: "cm."
+  scope_note: ""
+  uri: "http://id.loc.gov/vocabulary/graphicMaterials/tgm008103"
+
+record_posters:
+  pul_label: "Posters"
+  tgm_label: "Posters"
+  lcsh_label: null
+  dimensions: 2
+  dimensions_unit: "cm."
+  scope_note: ""
+  uri: "http://id.loc.gov/vocabulary/graphicMaterials/tgm008104"
+
+record_reports:
+  pul_label: "Reports"
+  tgm_label: null
+  lcsh_label: null
+  dimensions: 1
+  dimensions_unit: "pages"
+  scope_note: ""
+  uri: null
+
+record_serials:
+  pul_label: "Serials"
+  tgm_label: "Periodicals"
+  lcsh_label: null
+  dimensions: 1
+  dimensions_unit: "pages"
+  scope_note: ""
+  uri: "http://id.loc.gov/vocabulary/graphicMaterials/tgm007641"
+
