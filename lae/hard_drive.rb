@@ -37,9 +37,9 @@ class PulStore::Lae::HardDrive < PulStore::Base
 
   def set_state
     unless self.box.blank?
-      self.state = self.box.state
+      self.workflow_state = self.box.workflow_state
     else
-      self.state = "Available"
+      self.workflow_state = "Available"
     end
     nil
   end
