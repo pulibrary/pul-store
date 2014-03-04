@@ -30,5 +30,5 @@ task :ci do
   raise "test failures: #{error}" if error
 end
 
-Rake::Task[:default].prerequisites.clear
+# Rake::Task[:default].prerequisites.clear
 task :default => [:ci]
