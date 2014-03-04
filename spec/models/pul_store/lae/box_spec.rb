@@ -157,18 +157,18 @@ describe PulStore::Lae::Box do
 
   end
 
-  describe "state" do
+  describe "workflow_state" do
 
     it "is 'New' when we only have a barcode" do
       b = FactoryGirl.create(:lae_box)
-      b.state.should == 'New'
+      b.workflow_state.should == 'New'
     end
 
     it "is 'Ready to Ship' when all folders have prelim metadata" do
       b = FactoryGirl.create(:lae_box_with_prelim_folders)
       b.full = true
       b.save!
-      b.state.should == 'Ready to Ship'
+      b.workflow_state.should == 'Ready to Ship'
     end
 
     it "is 'Shipped' when all folders have prelim metadata, we have a shipped date, and a tracking no" do
@@ -177,7 +177,7 @@ describe PulStore::Lae::Box do
       b.tracking_number = 'foo'
       b.shipped_date = Date.current
       b.save!
-      b.state.should == 'Shipped'
+      b.workflow_state.should == 'Shipped'
     end
 
 
@@ -189,7 +189,7 @@ describe PulStore::Lae::Box do
       b.shipped_date = now.ago(604800).to_s
       b.received_date = now.to_s
       b.save!
-      b.state.should == 'Received'
+      b.workflow_state.should == 'Received'
     end
 
     it "is 'All in Production' " do
@@ -204,7 +204,7 @@ describe PulStore::Lae::Box do
         f.save!
       end
       b.save!
-      b.state.should == 'All in Production'
+      b.workflow_state.should == 'All in Production'
     end
 
 
