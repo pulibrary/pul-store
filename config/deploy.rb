@@ -29,12 +29,23 @@ set :linked_dirs, %w{tmp/pids tmp/cache tmp/sockets}
 namespace :deploy do
 
   desc 'Restart application'
-  task :restart do
-    on roles(:web), in: :sequence, wait: 5 do
+  after :cleanup, :restart do
+      on roles(:web), in: :sequence, wait: 5 do
       # Your restart mechanism here, for example:
-      execute "touch #{release_path}/tmp/restart.txt"
-    end
+        execute "touch #{release_path}/tmp/restart.txt"
+      end
   end
+
+  #TODO this should part of cap deploy:cold
+  #
+  #desc 'Set Solr Configuration'
+  #after :cleanup, :set_solr_configuration do
+  # whatever you need to do
+  #  on roles(:web), in: :sequence, wait: 5 do
+  #    execute "ln -sf #{release_path}/solr_conf/conf/schema.xml /opt/solr/$HYDRA_NAME/collection1/conf/schema.xml"
+  #    execute "ln -sf #{release_path}/solr_conf/conf/solrconfig.xml /opt/solr/$HYDRA_NAME/collection1/conf/solrconfig.xml"
+  #  end
+  #end
 
 #  after :restart, :kill_resque_pool do
 #    on roles(:web), in: :sequence, wait: 5 do
@@ -49,13 +60,13 @@ namespace :deploy do
 #      execute "cd #{release_path} && bundle exec resque-pool -d -E production -c config/resque_pool.yml -e #{shared_path}/log/resque-pool.stderr.log -o #{shared_path}/log/resque-pool.stdout.log"
 #    end
 #  end
-  
+
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
       # Here we can do anything such as:
-      within release_path do
-        execute :rake, 'cache:clear'
-      end
+      #within release_path do
+      #  execute :rake, 'cache:clear'
+      #end
     end
   end
 
