@@ -60,12 +60,12 @@ group :development, :test, :production do
   gem "jettywrapper"
 end
 
-group :test do
+#group :test do
   gem 'faker'
   gem 'capybara'
   # gem 'guard-rspec'
   # gem 'launchy'
-end
+#end
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
