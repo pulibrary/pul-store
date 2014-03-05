@@ -16,7 +16,11 @@ set :log_level, :debug
 
 # shared_path == :deploy_to + /shared
 set :assets_prefix, '#{shared_path}/public'
-set :linked_files, %w{config/database.yml config/devise.yml config/fedora.yml config/recipients_list.yml config/redis.yml config/resque_pool.yml config/solr.yml config/initializers/secret_token.rb log/resque-pool.stderr.log log/resque-pool.stdout.log}
+
+## removing the following from linked files for the time being
+# config/redis.yml config/devise.yml config/resque_pool.yml, config/recipients_list.yml, log/resque-pool.stderr.log log/resque-pool.stdout.log
+
+set :linked_files, %w{config/database.yml config/fedora.yml config/solr.yml config/initializers/secret_token.rb}
 set :linked_dirs, %w{tmp/pids tmp/cache tmp/sockets}
 
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -32,19 +36,19 @@ namespace :deploy do
     end
   end
 
-  after :restart, :kill_resque_pool do
-    on roles(:web), in: :sequence, wait: 5 do
-      # Shuts down resque_pool master
-      execute "export master_pid=$(cat #{shared_path}/tmp/pids/resque-pool.pid) && kill -QUIT $master_pid"
-    end
-  end
+#  after :restart, :kill_resque_pool do
+#    on roles(:web), in: :sequence, wait: 5 do
+#      # Shuts down resque_pool master
+#      execute "export master_pid=$(cat #{shared_path}/tmp/pids/resque-pool.pid) && kill -QUIT $master_pid"
+#    end
+#  end
 
-  after :kill_resque_pool, :start_resque_pool do
-    on roles(:web), in: :sequence, wait: 5 do
+#  after :kill_resque_pool, :start_resque_pool do
+#    on roles(:web), in: :sequence, wait: 5 do
       # Starts a new resque_pool master
-      execute "cd #{release_path} && bundle exec resque-pool -d -E production -c config/resque_pool.yml -e #{shared_path}/log/resque-pool.stderr.log -o #{shared_path}/log/resque-pool.stdout.log"
-    end
-  end
+#      execute "cd #{release_path} && bundle exec resque-pool -d -E production -c config/resque_pool.yml -e #{shared_path}/log/resque-pool.stderr.log -o #{shared_path}/log/resque-pool.stdout.log"
+#    end
+#  end
   
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
@@ -89,25 +93,25 @@ end
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 
-namespace :deploy do
+#namespace :deploy do
 
-  desc 'Restart application'
-  task :restart do
-    on roles(:app), in: :sequence, wait: 5 do
+#  desc 'Restart application'
+#  task :restart do
+#    on roles(:app), in: :sequence, wait: 5 do
       # Your restart mechanism here, for example:
       # execute :touch, release_path.join('tmp/restart.txt')
-    end
-  end
+#    end
+#  end
 
-  after :publishing, :restart
+#  after :publishing, :restart
 
-  after :restart, :clear_cache do
-    on roles(:web), in: :groups, limit: 3, wait: 10 do
+#  after :restart, :clear_cache do
+#    on roles(:web), in: :groups, limit: 3, wait: 10 do
       # Here we can do anything such as:
       # within release_path do
       #   execute :rake, 'cache:clear'
       # end
-    end
-  end
+#    end
+#  end
 
-end
+#end
