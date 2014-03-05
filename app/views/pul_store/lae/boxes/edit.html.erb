@@ -1,6 +1,14 @@
 <h1>Update Box</h1>
 
-<%= render 'form' %>
+<div id="content" class="span9 show-document">
+  <%= render 'form' %>
+  <%= link_to 'Show', @box %> |
+  <%= link_to 'Back', lae_boxes_path %>
+</div>
+<div id="sidebar" class="span3">
+  <%= render 'box_info' %>
+</div>
 
-<%= link_to 'Show', @box %> |
-<%= link_to 'Back', lae_boxes_path %>
+
+
+

@@ -14,7 +14,15 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require jquery-fileupload
+//= require jquery.ui.all
 //
 // Required by Blacklight
 //= require blacklight/blacklight
 //= require_tree .
+//
+$(function() {
+  $('.datepicker').datepicker({
+    dateFormat: 'yy-mm-dd',
+    showButtonPanel: true
+  });
+});

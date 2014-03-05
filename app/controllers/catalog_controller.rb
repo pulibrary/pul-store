@@ -7,7 +7,7 @@ class CatalogController < ApplicationController
   include Hydra::Controller::ControllerBehavior
 
   # These before_filters apply the hydra access controls
-  before_filter :enforce_show_permissions, :only=>:show
+  # before_filter :enforce_show_permissions, :only=>:show
 
   # This applies appropriate access controls to all solr queries
   CatalogController.solr_search_params_logic += [:add_access_controls_to_solr_params]
@@ -59,7 +59,6 @@ class CatalogController < ApplicationController
     # config.add_facet_field solr_name('subject_geo', :facetable), :label => 'Region'
     # config.add_facet_field solr_name('subject_era', :facetable), :label => 'Era'
 
-
     config.add_facet_field solr_name('master_mime_type', :facetable), :label => 'MIME Type'
     config.add_facet_field solr_name('master_well_formed', :facetable), :label => 'Well Formed'
     config.add_facet_field solr_name('master_valid', :facetable), :label => 'Valid'
@@ -71,6 +70,7 @@ class CatalogController < ApplicationController
     config.add_facet_field solr_name('desc_metadata__subject', :facetable), :label => 'Subject'
     config.add_facet_field solr_name('desc_metadata__creator', :facetable), :label => 'Creator'
     config.add_facet_field solr_name('desc_metadata__contributor', :stored_searchable), :label => 'Contributor'
+    config.add_facet_field solr_name('prov_metadata__workflow_state', :facetable), :label => 'State'
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
@@ -82,7 +82,7 @@ class CatalogController < ApplicationController
 
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
-    config.add_index_field solr_name('active_fedora_model', :stored_sortable), :label => 'Model:'
+    # config.add_index_field solr_name('active_fedora_model', :stored_sortable), :label => 'Model:'
     config.add_index_field solr_name('prov_metadata__date_modified', :stored_sortable, type: :date), :label => 'Last Modified:'
     # Item
     config.add_index_field solr_name('desc_metadata__title', :stored_searchable, type: :string), :label => 'Title:'
@@ -90,6 +90,8 @@ class CatalogController < ApplicationController
     # Page
     config.add_index_field solr_name('desc_metadata__display_label', :displayable, type: :string), :label => 'Label:'
     config.add_index_field solr_name('master_mime_type', :stored_searchable, type: :string), :label => 'MIME Type:'
+    # Box
+    # config.add_index_field solr_name('prov_metadata__barcode', :stored_searchable), :label => 'Barcode:'
     # config.add_index_field solr_name('language', :stored_searchable, type: :string), :label => 'Language:'
     # config.add_index_field solr_name('published', :stored_searchable, type: :string), :label => 'Published:'
     # config.add_index_field solr_name('published_vern', :stored_searchable, type: :string), :label => 'Published:'
@@ -164,10 +166,13 @@ class CatalogController < ApplicationController
     # label in pulldown is followed by the name of the SOLR field to sort by and
     # whether the sort is ascending or descending (it must be asc or desc
     # except in the relevancy case).
-    config.add_sort_field 'score desc, pub_date_dtsi desc, title_tesi asc', :label => 'relevance'
-    config.add_sort_field 'pub_date_dtsi desc, title_tesi asc', :label => 'year'
-    config.add_sort_field 'author_tesi asc, title_tesi asc', :label => 'author'
-    config.add_sort_field 'title_tesi asc, pub_date_dtsi desc', :label => 'title'
+
+    # Set these at a lower level controller, e.g lae/boxes_controller
+
+    # config.add_sort_field 'score desc, pub_date_dtsi desc, title_tesi asc', :label => 'relevance'
+    # config.add_sort_field 'pub_date_dtsi desc, title_tesi asc', :label => 'year'
+    # config.add_sort_field 'author_tesi asc, title_tesi asc', :label => 'author'
+    # config.add_sort_field 'title_tesi asc, pub_date_dtsi desc', :label => 'title'
 
     # If there are more than this many search results, no spelling ("did you
     # mean") suggestion is offered.
