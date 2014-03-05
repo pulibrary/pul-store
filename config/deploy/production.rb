@@ -1,6 +1,6 @@
 set :stage, :production
 set :rails_env, 'production'
-server 'pulstore1', roles: [:web, :app, :db]
+server 'pulstore2', roles: [:web, :app, :db]
 
 # Simple Role Syntax
 # ==================
