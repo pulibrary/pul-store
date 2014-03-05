@@ -27,3 +27,6 @@ fits/*
 
 # Ingnore the database config.
 database.yml
+
+noid-minter-state
+
