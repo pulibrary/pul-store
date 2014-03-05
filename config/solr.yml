@@ -7,4 +7,4 @@ test: &TEST
 cucumber:
   <<: *TEST
 production:
-  url: http://localhost:8080/pul-store
+  url: http://localhost:8080/pul-store/

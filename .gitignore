@@ -34,3 +34,4 @@ noid-minter-state
 public/assets
 vendor/bundle
 
+.DS_Store
