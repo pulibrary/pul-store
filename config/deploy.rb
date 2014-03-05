@@ -15,7 +15,7 @@ set :log_level, :debug
 # set :pty, true
 
 # shared_path == :deploy_to + /shared
-set :assets_prefix, '#{shared_path}/public'
+#set :assets_prefix, '#{shared_path}/public'
 
 ## removing the following from linked files for the time being
 # config/redis.yml config/devise.yml config/resque_pool.yml, config/recipients_list.yml, log/resque-pool.stderr.log log/resque-pool.stdout.log
