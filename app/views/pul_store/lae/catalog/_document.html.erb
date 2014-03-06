@@ -8,6 +8,10 @@
         <dt>State:</dt>
         <dd><%= lae_box_state document %></dd>
         <dt>Created:</dt>
-        <dd><%= lae_box_created_datetime document %></dd>
+          <dd><%= lae_box_created_datetime document %></dd>
       </dl>
+
+
+        <%= link_to 'Edit Box', edit_lae_box_path(document.id) %>
+
     </div>

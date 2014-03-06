@@ -42,25 +42,24 @@
         <th>Options</th>
       </tr>
     </thead>
+    <tbody>
     <% folder_index = 0 %>
     <%= b.fields_for :folders do |folders_form| %>
-    <tbody>
       <tr>
         <td><%= folders_form.text_field :barcode %></td>
         <td><%= folders_form.text_field :genre %></td>
         <td><%= folders_form.text_field :width_in_cm, :size => 5 %></td>
         <td><%= folders_form.text_field :height_in_cm, :size => 5 %></td>
         <td><%= folders_form.text_field :page_count, :size => 5 %></td>
-        <% folder_index = folder_index + 1 %>
         <td>
           <%= link_to "Edit", edit_lae_folder_path(@box.folders[folder_index]) %>
           <%= check_box_tag(:_destroy) %><%= label_tag(:_destroy, "Delete") %>
         </td>
+        <% folder_index = folder_index + 1 %>
       </tr>
-    </tbody>
   <% end %>
+  </tbody>
   </table>
-
   <div class="actions">
     <%= b.submit %>
   </div>
