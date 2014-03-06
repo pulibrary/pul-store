@@ -1,12 +1,19 @@
-.brand {
-    background-image: url(lae/lae-logo-final.png) !important;
+.lae-brand {
+    background-image: url(lae/lae-logo-final.png);
     background-size: 338px 42px;
-    width: 338px !important;
+    width: 338px ;
+    height: 42px;
+    display: inline-block;
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    padding-right:0;
+    padding-left: 0;
 }
 
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
-    .brand {
-        background-image: url(lae/lae-logo-final@2x.png) !important;
+    .lae-brand {
+        background-image: url(lae/lae-logo-final@2x.png);
         background-size: 338px 42px;
         width: 338px !important;
     }
