@@ -2,6 +2,9 @@
 class PulStore::Lae::BoxesController < CatalogController #ApplicationController
   include PulStore::Lae::BarcodeLookups
   include Hydra::Controller::ControllerBehavior
+
+  layout 'lae'
+
   # include Blacklight::Catalog
   # include Blacklight::Configurable
 

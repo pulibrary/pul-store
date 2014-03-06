@@ -1,18 +1,22 @@
+<div class="span9 offset3" id="lae-head">
+  <div class="row">
+    <div class="span6">
+      <h1 class='lae-head'>Boxes</h1>
+    </div>
+    <div class="span3">
+    <% if can?(:create, @box) %>
+      <%= link_to 'Start a New Box', new_lae_box_path, class: 'btn btn-success btn-lg lae-new pull-right' %>
+    <% end %>
+    </div>
+  </div>
+</div>
+
 <div id="sidebar" class="span3">
  <%= render 'search_sidebar' %>
 </div>
 
 <div id="content" class="span9">
-
-<h1>Listing Boxes</h1>
-
-<%= render 'quick_lookup' %>
-
-
-<% if can?(:create, @box) %>
-  <%= link_to 'New Box', new_lae_box_path %>
-<% end %>
-
+  
 
 
   <h2 class="hide-text top-content-title"><%= t('blacklight.search.search_results_header') %></h2>

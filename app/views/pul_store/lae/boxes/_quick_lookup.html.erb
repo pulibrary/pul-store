@@ -1,7 +1,9 @@
-<%= form_tag("/lae/boxes", method: :get, id: "quick_lookup") do %>
-  <%= label_tag(:barcode, "Find a Box by Barcode:") %>
-  <%= text_field_tag(:barcode) %>
-  <%= submit_tag("Lookup", id: "quick_lookup_submit") %>
+<%= form_tag(lae_boxes_path, method: :get, id: 'quick_lookup', :class => 'search-query-form form-inline clearfix') do %>
+  <div class="pull-left">
+    <%= text_field_tag(:barcode, "Find a Box by Barcode") %>
+  </div>
+  <button type="submit" class="btn btn-primary search-btn left-pad-btn" id="quick_lookup_submit">
+    <span class="submit-search-text">Submit</span>
+    <i class="icon-search icon-white"></i>
+  </button>
 <% end %>
-
-
