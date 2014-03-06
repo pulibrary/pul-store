@@ -1,3 +1,18 @@
+.brand {
+    background-image: url(lae/lae-logo-final.png) !important;
+    background-size: 338px 42px;
+    width: 338px !important;
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
+    .brand {
+        background-image: url(lae/lae-logo-final@2x.png) !important;
+        background-size: 338px 42px;
+        width: 338px !important;
+    }
+}
+
+
 .left-pad-btn {
   margin-left: 1em;
 }
