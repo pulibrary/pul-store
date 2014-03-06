@@ -1,5 +1,3 @@
-require File.expand_path('../lib/active_fedora/pid', __FILE__)
-
 class PulStore::Project < PulStore::Base
 
   # Metadata

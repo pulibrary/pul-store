@@ -1,4 +1,4 @@
-require File.expand_path('../../../lib/rdf/pul_store_terms', __FILE__)
+require File.expand_path('../../../../../lib/rdf/pul_store_terms', __FILE__)
 class PulStore::TextRdfMetadata < PulStore::ItemRdfMetadata
 
   map_predicates do |map|

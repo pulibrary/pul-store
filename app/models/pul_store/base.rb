@@ -1,3 +1,5 @@
+require File.expand_path('../../../../lib/active_fedora/pid', __FILE__)
+
 module PulStore
 
   def self.use_relative_model_naming?

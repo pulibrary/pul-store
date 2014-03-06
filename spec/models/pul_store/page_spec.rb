@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe PulStore::Page do
 
-  it_behaves_like "supports characterization"
+  # it_behaves_like "supports characterization"
 
   it "has a valid factory" do
     FactoryGirl.create(:page).should be_valid
@@ -36,6 +36,11 @@ describe PulStore::Page do
     p = FactoryGirl.build(:page)
     p.master_tech_md = File.read(sample_fits_fp)
     p.master_mime_type.should == "image/tiff"
+  end
+
+  it "can characterize an image" do # TODO...no assertions here.
+    fp = RSpec.configuration.fixture_path + "/files/00000001.tif"
+    PulStore::Page.characterize(fp)
   end
 
   describe "belongs to a parent" do

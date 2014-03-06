@@ -1,4 +1,4 @@
-require File.expand_path('../../../lib/rdf/pul_store_terms', __FILE__)
+require File.expand_path('../../../../../lib/rdf/pul_store_terms', __FILE__)
 
 class PulStore::ProvRdfMetadata < ActiveFedora::NtriplesRDFDatastream
   # http://www.w3.org/2005/Incubator/prov/wiki/What_Is_Provenance
