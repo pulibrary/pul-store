@@ -1,0 +1,12 @@
+     
+      <% # header bar for doc items in index view -%>
+      <div class="documentHeader clearfix">
+        
+        <%- # main title container for doc partial view -%>
+         <h5 class="index_title">
+         <% counter = document_counter_with_offset(document_counter) %>
+         <%= t('blacklight.search.documents.counter', :counter => counter) if counter %>
+         <%= link_to_lae_box document, counter: counter %>
+        </h5>
+      </div>
+      

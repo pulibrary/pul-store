@@ -18,7 +18,79 @@
     <%= b.label :error_note %><br>
     <%= b.text_area :error_note %>
   </div>
+  <div id="desc-metadata">
+    <!-- required metadata goes here -->
+    <% PulStore::Lae::Folder::required_elements.each do |e| %>
+      <% unless e == :date_created || e == :subject || e == :geographic || e == :title || e == :language %>
+      <div class="field">
+        <%= b.label e %><br/>
+        <%= b.text_field e %>
+      </div>
+      <% end %>
+    <% end %>
+    <!-- subjects -->
+    <%= b.label :subject, "Subjects" %>
+    <% if @folder.subject.empty? %>
+      <div class="field">
+        <%= text_field_tag "folder[subject][]", nil %>
+      </div>
+    <% end %>
+
+    <% @folder.subject.each do |subject| %>
+      <div class="field">
+        <%= text_field_tag "folder[subject][]", subject %>
+      </div>
+    <% end %>
+    <!-- Geographic -->
+    <%= b.label :geographic, "Geographic" %>
+    <% if @folder.geographic.empty? %>
+      <div class="field">
+        <%= text_field_tag "folder[geographic][]", nil %>
+      </div>
+    <% end %>
+
+    <% @folder.geographic.each do |value| %>
+      <div class="field">
+        <%= text_field_tag "folder[geographic][]", value %>
+      </div>
+    <% end %>
+    <!-- language -->
+    <%= b.label :language, "Language" %>
+    <% if @folder.language.empty? %>
+      <div class="field">
+        <%= text_field_tag "folder[language][]", nil %>
+      </div>
+    <% end %>
+
+    <% @folder.language.each do |subject| %>
+      <div class="field">
+        <%= text_field_tag "folder[language][]", subject %>
+      </div>
+    <% end %>
+    <!-- Title -->
+    <%= b.label :title, "title" %>
+    <% if @folder.title.empty? %>
+      <div class="field">
+        <%= text_field_tag "folder[title][]", nil %>
+      </div>
+    <% end %>
+
+    <% @folder.title.each do |subject| %>
+      <div class="field">
+        <%= text_field_tag "folder[title][]", subject %>
+      </div>
+    <% end %>
+    <!-- end mult-value -->
+    <!-- date picker -->
+    <div class="field date-created">
+      <%= b.label :date_created %><br>
+      <%= b.text_field :date_created, :class => "datepicker" %>
+    </div>
+    <!-- Optional Desc. Elements -->
+  </div>
+  <div class="extent-metadata">
   <div class="actions">
     <%= b.submit %>
   </div>
+
 <% end %>

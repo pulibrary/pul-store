@@ -10,11 +10,11 @@
     </div>
   <% end %>
 
-<!-- :full, 
-:tracking_number, 
+<!-- :full,
+:tracking_number,
 :shipped_date, # checkbox, stamp if set
 :received_date, # checkbox, stamp if set
-:barcode, 
+:barcode,
 :error_note -->
 
   <div class="field">
@@ -25,7 +25,43 @@
     <%= b.label :error_note %><br>
     <%= b.text_area :error_note %>
   </div>
+  <div class="field">
+    <%= check_box_tag(:full) %>
+    <%= label_tag(:full, "Full Box") %>
+
+
+  <h3><%= @box.folders.size %> Current Folders</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Barcode</th>
+        <th>Genre</th>
+        <th>Width</th>
+        <th>Height</th>
+        <th>Pages</th>
+        <th>Options</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% folder_index = 0 %>
+    <%= b.fields_for :folders do |folders_form| %>
+      <tr>
+        <td><%= folders_form.text_field :barcode %></td>
+        <td><%= folders_form.text_field :genre %></td>
+        <td><%= folders_form.text_field :width_in_cm, :size => 5 %></td>
+        <td><%= folders_form.text_field :height_in_cm, :size => 5 %></td>
+        <td><%= folders_form.text_field :page_count, :size => 5 %></td>
+        <td>
+          <%= link_to "Edit", edit_lae_folder_path(@box.folders[folder_index]) %>
+          <%= check_box_tag(:_destroy) %><%= label_tag(:_destroy, "Delete") %>
+        </td>
+        <% folder_index = folder_index + 1 %>
+      </tr>
+  <% end %>
+  </tbody>
+  </table>
   <div class="actions">
     <%= b.submit %>
   </div>
 <% end %>
+
