@@ -1,4 +1,0 @@
-[submodule "app/models/pul_store"]
-	path = app/models/pul_store
-	url = https://github.com/pulibrary/pul-store-models.git
-  branch = development
