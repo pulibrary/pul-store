@@ -1,4 +1,5 @@
 PulStore::Application.configure do
+  config.barcode_list = YAML.load_file(Rails.root.join('spec/fixtures/test_barcodes.yml'))
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
