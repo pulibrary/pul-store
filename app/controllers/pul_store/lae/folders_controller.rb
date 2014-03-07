@@ -1,6 +1,38 @@
-class PulStore::Lae::FoldersController < ApplicationController
+class PulStore::Lae::FoldersController  < CatalogController
   before_action :set_folder, only: [:show, :edit, :update, :destroy]
   before_filter :list_all_folders, only: [:show]
+
+  layout 'lae'
+
+  # This applies appropriate access controls to all solr queries
+  PulStore::Lae::FoldersController.solr_search_params_logic += [:add_access_controls_to_solr_params]
+
+  # This filters out objects that you want to exclude from search results, like FileAssets
+  PulStore::Lae::FoldersController.solr_search_params_logic += [:exclude_unwanted_models]
+
+  # Keep out everything but Boxes, only show state
+  PulStore::Lae::FoldersController.solr_search_params_logic += [:limit_to_folders]
+  PulStore::Lae::FoldersController.solr_search_params_logic += [:set_facets]
+  PulStore::Lae::FoldersController.solr_search_params_logic += [:sort_by_newest_first]
+
+  # Note sure this is correct...global to be app?
+  self.blacklight_config.add_sort_field 'prov_metadata__date_uploaded_ssi desc', :label => 'Date Created'
+  self.blacklight_config.add_sort_field 'prov_metadata__shipped_date_ssi desc', :label => 'Date Shipped'
+  self.blacklight_config.add_sort_field 'prov_metadata__received_date_ssi desc', :label => 'Date Received'
+
+
+  def limit_to_folders(solr_parameters, user_params)
+      fq = '{!raw f=active_fedora_model_ssi}PulStore::Lae::Folder'
+      solr_parameters[:fq] << fq
+  end
+
+  def set_facets(solr_parameters, user_params)
+      solr_parameters[:"facet.field"] = ["prov_metadata__workflow_state_sim"]
+  end
+
+  def sort_by_newest_first(solr_parameters, user_params)
+    solr_parameters[:sort] = 'prov_metadata__date_uploaded_ssi desc'
+  end
 
   def index
     #authorize! :index, params[:id]
@@ -12,7 +44,11 @@ class PulStore::Lae::FoldersController < ApplicationController
         redirect_to :back, notice: "No Folder with barcode \"#{params[:barcode]}\" found."
       end
     else
-        @folders = PulStore::Lae::Folder.all
+      (@response, @document_list) = get_search_results
+      @filters = params[:f] || []
+      respond_to do |format|
+        format.html { render template: 'shared/lae/index' }
+      end
     end
   end
 

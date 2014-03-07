@@ -54,12 +54,9 @@ module PulStore::Lae::BoxesHelper
 
   private
   @tz = Time.now.zone
-
   def self.style_date str
     fmt = '%A, %e %B, %Y. %l:%M%P'
-
     DateTime.parse(str).in_time_zone(@tz).strftime(fmt)
-
   end
 
 end

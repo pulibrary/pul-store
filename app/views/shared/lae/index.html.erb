@@ -1,12 +1,10 @@
 <div class="span9 offset3" id="lae-head">
   <div class="row">
     <div class="span6">
-      <h1 class='lae-head'>Boxes</h1>
+      <h1 class='lae-head'><%= "#{controller_name.classify.pluralize}" %></h1>
     </div>
     <div class="span3">
-    <% if can?(:create, @box) %>
-      <%= link_to 'Start a New Box', new_lae_box_path, class: 'btn btn-success btn-lg lae-new pull-right' %>
-    <% end %>
+      <%= render 'shared/lae/start_new_widget' %>
     </div>
   </div>
 </div>
@@ -16,9 +14,6 @@
 </div>
 
 <div id="content" class="span9">
-  
-
-
   <h2 class="hide-text top-content-title"><%= t('blacklight.search.search_results_header') %></h2>
 
   <% @page_title = t('blacklight.search.title', :application_name => application_name) %>

@@ -5,13 +5,32 @@
       <% # main container for doc partial view -%>
       <% #= render_document_partial document, :index, :document_counter => document_counter %>
       <dl class="document-metadata dl-horizontal dl-invert">
-        <dt>State:</dt>
-        <dd><%= lae_box_state document %></dd>
-        <dt>Created:</dt>
+
+        <% # A hack until we can get all of the functionality of          -%>
+        <% # Blacklight::BlacklightHelperBehavior#render_document_partial: -%>
+        <% if controller.class.to_s == 'PulStore::Lae::BoxesController' %>
+
+          <dt>State:</dt>
+          <dd><%= lae_box_state document %></dd>
+          <dt>Created:</dt>
           <dd><%= lae_box_created_datetime document %></dd>
+
+        <% elsif controller.class.to_s == 'PulStore::Lae::FoldersController' %>
+          <dt>Barcode:</dt>
+          <dd><%= lae_folder_barcode document %></dd>
+          <dt>State:</dt>
+          <dd><%= lae_folder_state document %></dd>
+          <dt>Created:</dt>
+          <dd><%= lae_folder_created_datetime document %></dd>
+
+        <% end %>
+
+
+
       </dl>
 
 
-        <%= link_to 'Edit Box', edit_lae_box_path(document.id) %>
+      <%= link_to "View", url_for(only_path: true, action: 'show', id: document.id) %> |
+      <%= link_to "Edit", url_for(only_path: true, action: 'edit', id: document.id) %> 
 
     </div>

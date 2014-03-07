@@ -29,7 +29,6 @@ class PulStore::Lae::BoxesController < CatalogController #ApplicationController
   self.blacklight_config.add_sort_field 'prov_metadata__shipped_date_ssi desc', :label => 'Date Shipped'
   self.blacklight_config.add_sort_field 'prov_metadata__received_date_ssi desc', :label => 'Date Received'
 
-
   #load_and_authorize_resource
 
   def limit_to_boxes(solr_parameters, user_params)
@@ -57,7 +56,7 @@ class PulStore::Lae::BoxesController < CatalogController #ApplicationController
       (@response, @document_list) = get_search_results
       @filters = params[:f] || []
       respond_to do |format|
-        format.html
+        format.html { render template: 'shared/lae/index' }
       end
     end
   end
