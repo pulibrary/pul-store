@@ -1,4 +1,23 @@
-<%= form_for(@box) do |b| %>
+<!-- start modal -->
+   <div class="form-control">
+    <%= link_to("Add Folder to Box", '#', 'data-target' => "#new-folder-modal", 'data-toggle' => 'modal', :class => "btn btn-primary new-model", :title => "Add a New Folder to Box") %>
+  </div>
+      <div id="new-folder-modal" class="modal fade" data-backdrop="static">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h3>Add a Folder<%= " to #{ @box.id }" unless @box.barcode.nil? %></h3>
+        </div>
+        <div class="modal-body">
+          <%= render :partial => 'pul_store/lae/folders/ajax_form', locals: { box: @box } %>
+        </div>
+        <div class="modal-footer">
+          <button id="cancelButton" type="button" class="btn btn-inverse" data-dismiss="modal" aria-hidden="true" title="Close this screen without adding this Folder.">Cancel</button>
+        </div>
+      </div>
+    </div>
+  <!-- end Modal -->
+
+<%= form_for(@box, :html => {:class => "form form-horizontal"}) do |b| %>
   <% if @box.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@box.errors.count, "error") %> prohibited this Box from being saved:</h2>
@@ -28,10 +47,15 @@
   <div class="field">
     <%= check_box_tag(:full) %>
     <%= label_tag(:full, "Full Box") %>
+  <div>
 
+  <% if(@box.folders.empty?) %>
+    <h3>Create a Folder</h3>
+  <% else %>
+    <h3><%= @box.folders.size %> Current Folders</h3>
+  <% end %>
 
-  <h3><%= @box.folders.size %> Current Folders</h3>
-  <table class="table">
+  <table class="table" id="folders-table">
     <thead>
       <tr>
         <th>Barcode</th>
@@ -52,8 +76,11 @@
         <td><%= folders_form.text_field :height_in_cm, :size => 5 %></td>
         <td><%= folders_form.text_field :page_count, :size => 5 %></td>
         <td>
-          <%= link_to "Edit", edit_lae_folder_path(@box.folders[folder_index]) %>
-          <%= check_box_tag(:_destroy) %><%= label_tag(:_destroy, "Delete") %>
+          <% if(@box.folders.size > 0) %>
+            <% if can?(:edit, @box) %>
+              <%= link_to "Edit Folder", edit_lae_folder_path(@box.folders[folder_index]) %>
+            <% end %>
+          <% end %>
         </td>
         <% folder_index = folder_index + 1 %>
       </tr>
@@ -64,4 +91,7 @@
     <%= b.submit %>
   </div>
 <% end %>
+
+
+
 

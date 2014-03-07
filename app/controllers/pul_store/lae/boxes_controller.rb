@@ -71,7 +71,7 @@ class PulStore::Lae::BoxesController < CatalogController #ApplicationController
 
   def new
    @box = PulStore::Lae::Box.new
-   1.times { @box.folders.build}
+   #1.times { @box.folders.build}
    ## Assign to the first Project
    #FIXME Project assigne shoudl come from the content of the Object in PulStore Hierarchy
   end
@@ -80,9 +80,9 @@ class PulStore::Lae::BoxesController < CatalogController #ApplicationController
     authorize! :edit, params[:id]
     @box = PulStore::Lae::Box.find(params[:id])
 
-    if(@box.folders.size < 1)
-      1.times { @box.folders.build}
-    end
+    #if(@box.folders.size < 1)
+    #  1.times { @box.folders.build}
+    #end
 
     respond_to do |format|
       format.html # show.html.erb
@@ -150,7 +150,7 @@ class PulStore::Lae::BoxesController < CatalogController #ApplicationController
       params.require(:lae_box).permit(:full, :barcode, :error_note,
         :physical_location, :tracking_number, :shipped_date, :received_date,
         :project, :id, :project, folders_attributes: [:genre, :page_count,
-        :width_in_cm, :height_in_cm, :barcode, :folder_id, :_destroy] )
+        :width_in_cm, :height_in_cm, :barcode, :id, :box_id] )
 
     end
 end
