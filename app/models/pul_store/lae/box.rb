@@ -21,6 +21,8 @@ class PulStore::Lae::Box < PulStore::Base
   has_many :folders, property: :in_box, :class_name => 'PulStore::Lae::Folder'
   has_many :hard_drives, property: :in_box, :class_name => 'PulStore::Lae::HardDrive'
 
+  # Accepts Attributes for
+  accepts_nested_attributes_for :folders, reject_if: proc { |attributes| attributes['barcode'].blank? }
   # Validations
   validates_presence_of :barcode,
     message: "A barcode is required"

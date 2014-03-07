@@ -5,5 +5,5 @@
   <%= @folder.barcode %>
 </p>
 
-<%= link_to 'Edit', edit_lae_folder_path(@folder) %> |
-<%= link_to 'Back', lae_folder_path %>
+<%= link_to 'Edit Folder', edit_lae_folder_path(@folder) %> |
+<%= link_to 'Return to Box', edit_lae_box_path(@folder.box_id) %>

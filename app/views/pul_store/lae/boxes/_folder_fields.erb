@@ -1,0 +1,55 @@
+<div id="new-folder-fields" class="modal fade" data-backdrop="static">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>Add a Folder<%= " to #{ @box.id }" unless @box.barcode.nil? %></h3>
+  </div>
+  <div class="modal-body">
+    <fieldset>
+      <div class="control-group">
+        <%= f.label(:barcode, :class => "control-label") %>
+        <div class="controls">
+          <%= f.text_field(:barcode, :class => "input-xlarge field", :data => { :validation => "required validate_max_length length14", "validation-error-msg" => "Barcode is required and cannot be longer than 14 characters." }) %>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <%= f.label(:genre, :class => "control-label") %>
+        <div class="controls">
+          <%= f.text_field(:genre, :class => "input-xlarge field", :data => { :validation => "required validate_max_length length50", "validation-error-msg" => "Genre is required and cannot be longer than 50 characters." }) %>
+        </div>
+      </div>
+
+      <fieldset class="dimensions">
+      <div class="control-group">
+        <%= f.label(:width_in_cm, :class => "control-label") %>
+        <div class="controls">
+          <%= f.text_field(:width_in_cm, :class => "input-xlarge field", :data => { :validation => "validate_length length1-3", "validation-error-msg" => "If dimensions, width is required and cannot be more than a 3 digit number." }) %>
+        </div>
+      </div>
+      <div class="control-group">
+        <%= f.label(:height_in_cm, :class => "control-label") %>
+        <div class="controls">
+          <%= f.text_field(:height_in_cm, :class => "input-xlarge field", :data => { :validation => "validate_length length1-3", "validation-error-msg" => "If dimensions, height is required and cannot be more than a 3 digit number." }) %>
+        </div>
+      </div>
+      </fieldset>
+      <fieldset class="pages">
+        <div class="control-group">
+        <%= f.label(:page_count, :class => "control-label") %>
+        <div class="controls">
+          <%= f.text_field(:page_count, :class => "input-xlarge field", :data => { }) %>
+        </div>
+
+      </fieldset>
+      <%= f.hidden_field(:create, :class => "field") %>
+    </fieldset>
+  </div>
+  <div class="modal-footer">
+    <button id="addButton" type="button" class="btn btn-primary" data-dismiss="modal" aria-hidden="true" title="Add this Folder to the Box.">Add</button>
+    <button id="cancelButton" type="button" class="btn btn-inverse" data-dismiss="modal" aria-hidden="true" title="Close this screen without adding this Folder.">Cancel</button>
+  </div>
+</div>
+
+<script type="text/javascript">
+  folderFieldsUI.init();
+</script>

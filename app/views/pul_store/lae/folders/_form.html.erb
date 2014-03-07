@@ -21,7 +21,7 @@
   <div id="desc-metadata">
     <!-- required metadata goes here -->
     <% PulStore::Lae::Folder::required_elements.each do |e| %>
-      <% unless e == :date_created || e == :subject || e == :geographic || e == :title || e == :language %>
+      <% unless e == :date_created || e == :subject || e == :geographic || e == :title || e == :language || e == :barcode %>
       <div class="field">
         <%= b.label e %><br/>
         <%= b.text_field e %>
@@ -88,7 +88,14 @@
     </div>
     <!-- Optional Desc. Elements -->
   </div>
-  <div class="extent-metadata">
+  <div id="extent-metadata">
+    <!-- required metadata goes here -->
+    <% PulStore::Lae::Folder::extent_elements.each do |e| %>
+      <div class="field">
+        <%= b.label e %><br/>
+        <%= b.text_field e %>
+      </div>
+    <% end %>
   <div class="actions">
     <%= b.submit %>
   </div>
