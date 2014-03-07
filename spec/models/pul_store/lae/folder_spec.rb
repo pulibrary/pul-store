@@ -1,13 +1,13 @@
 require 'spec_helper'
 
+
 describe PulStore::Lae::Folder do
   before(:all) do
-    PulStore::Lae::Folder.delete_all
-    @valid_barcode = "32101067661197"
+    # PulStore::Lae::Folder.delete_all
+    @test_barcodes = Rails.application.config.barcode_list
     @invalid_barcode = "32101067661198"
     @short_barcode = "3210106770082"
     @bad_prefix_barcode = "2210106770082"
-    @test_barcodes = Rails.application.config.barcode_list
     FactoryGirl.create(:project)
   end
 
@@ -16,7 +16,7 @@ describe PulStore::Lae::Folder do
   end
 
   it "has a valid factory" do
-    FactoryGirl.create(:lae_folder, barcode: @test_barcodes.pop).should be_valid
+    FactoryGirl.create(:lae_folder).should be_valid
   end
 
   describe "optional elements" do
@@ -345,10 +345,10 @@ describe PulStore::Lae::Folder do
 
 
   describe "workflow_state" do
-    it "is 'New' when we only have a barcode" do
-      f = FactoryGirl.create(:lae_folder, barcode: @test_barcodes.pop)
-      f.workflow_state.should == "New"
-    end
+    # it "is 'New' when we only have a barcode and genre" do
+    #   f = FactoryGirl.create(:lae_folder, barcode: @test_barcodes.pop, genre: 'xyz')
+    #   f.workflow_state.should == "New"
+    # end
 
     it "is 'Has Prelim. Metadata' when we only have #{PulStore::Lae::Folder.prelim_elements}" do
       f = FactoryGirl.build(:lae_prelim_folder, barcode: @test_barcodes.pop)

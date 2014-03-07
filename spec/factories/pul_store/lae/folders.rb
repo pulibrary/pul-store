@@ -5,6 +5,7 @@ FactoryGirl.define do
 
   factory :lae_folder, :class => 'PulStore::Lae::Folder' do |f|
     f.barcode { test_barcodes.pop }
+    f.genre { Faker::Lorem.word }
     f.width_in_cm { (Faker::Number.digit.to_i+1).to_s }
     f.height_in_cm { (Faker::Number.digit.to_i+1).to_s }
     f.project_id { FactoryGirl.create(:project).pid } # not sure if this is best...

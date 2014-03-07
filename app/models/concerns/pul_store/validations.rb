@@ -22,7 +22,7 @@ module PulStore::Validations
       # TODO: if it is a PulStore::Base and has responds to barcode??
       o = self.class.where(prov_metadata__barcode_tesim: self.send(:barcode))
       unless o.count == 0
-        errors.add(:barcode, "Barcode \"#{self.send(:barcode)}\" already exists in the system.")
+        errors.add(:barcode, "\"#{self.send(:barcode)}\" already exists in the system.")
       end
     end
   end
