@@ -1,4 +1,4 @@
-module PulStore::Lae::BoxesHelper
+module PulStore::Lae::FoldersHelper
 
   # Based on
   # def link_to_document(doc, opts={:label=>nil, :counter => nil})
@@ -8,35 +8,39 @@ module PulStore::Lae::BoxesHelper
   # end
   
 
-  def link_to_lae_box(doc, opts={label: nil, counter: nil})
-    barcode_field = doc['prov_metadata__barcode_tesim']
-    label ||= barcode_field if barcode_field.is_a? String
-    label ||= barcode_field[0] if barcode_field.is_a? Array
-    url = [lae_boxes_path, doc[:id]].join '/'
+  def link_to_lae_folder(doc, opts={label: nil, counter: nil})
+    label = lae_folder_title(doc)
+    url = [lae_folders_path, doc[:id]].join '/'
     link_to(label, url)
     #search_session_params(opts[:counter]).merge(opts.reject { |k,v| [:label, :counter].include? k  })
   end
 
-  def lae_box_created_datetime(doc)
-    PulStore::Lae::BoxesHelper.style_date(doc[:prov_metadata__date_uploaded_ssi])
+  def lae_folder_created_datetime(doc)
+    PulStore::Lae::FoldersHelper.style_date(doc[:prov_metadata__date_uploaded_ssi])
   end
 
-  def lae_box_last_modified_datetime(doc)
+  def lae_folder_last_modified_datetime(doc)
     doc[:prov_metadata__date_modified_ssi]
   end
 
-  def lae_box_shipped_datetime(doc)
-    doc[:prov_metadata__shipped_date_ssi] || "n/a"
+  def lae_folder_barcode(doc)
+    field = doc['prov_metadata__barcode_tesim']
+    field.is_a?(Array) ? field[0] : field
   end
 
-  def lae_box_received_datetime(doc)
-    doc[:prov_metadata__received_date_ssi] || "n/a"
-  end
-
-  def lae_box_state(doc)
+  def lae_folder_state(doc)
     field = doc[:prov_metadata__workflow_state_tesim]
     field.is_a?(Array) ? field[0] : field
   end
+  
+
+  def lae_folder_title(doc)
+    title = doc[:desc_metadata__title_tesim]
+    title = title[0] if title.is_a?(Array)
+    title = '[Title not yet supplied]' if title.blank?
+    title
+  end
+
   
   private
   @tz = Time.now.zone
