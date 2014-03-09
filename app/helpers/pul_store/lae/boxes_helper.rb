@@ -6,7 +6,7 @@ module PulStore::Lae::BoxesHelper
   #   label = render_document_index_label doc, opts
   #   link_to label, doc, search_session_params(opts[:counter]).merge(opts.reject { |k,v| [:label, :counter].include? k  })
   # end
-  
+
 
   def link_to_lae_box(doc, opts={label: nil, counter: nil})
     barcode_field = doc['prov_metadata__barcode_tesim']
@@ -37,15 +37,26 @@ module PulStore::Lae::BoxesHelper
     field = doc[:prov_metadata__workflow_state_tesim]
     field.is_a?(Array) ? field[0] : field
   end
-  
+
+  ### Add or Remove Folders to box Forms
+  def link_to_remove_fields(name, f, options = {})
+    f.hidden_field(:_destroy) + link_to_function(name, "remove_fields(this)", options)
+  end
+
+  def link_to_add_fields(name, f, association, options = {})
+    new_object = f.object.class.reflect_on_association(association).klass.new
+    fields = f.fields_for(association, new_object, :child_index => "new_#{ association }", :onsubmit => "return $(this.)validate();") do |builder|
+      render(association.to_s.singularize + "_fields", :f => builder)
+    end
+
+    link_to_function(name, "add_fields(this, \"#{ association }\", \"#{ escape_javascript(fields) }\")", options)
+  end
+
   private
   @tz = Time.now.zone
-
   def self.style_date str
     fmt = '%A, %e %B, %Y. %l:%M%P'
-    
     DateTime.parse(str).in_time_zone(@tz).strftime(fmt)
-
   end
 
 end

@@ -1,20 +1,19 @@
+<div class="span9 offset3" id="lae-head">
+  <div class="row">
+    <div class="span6">
+      <h1 class='lae-head'><%= "#{controller_name.classify.pluralize}" %></h1>
+    </div>
+    <div class="span3">
+      <%= render 'shared/lae/start_new_widget' %>
+    </div>
+  </div>
+</div>
+
 <div id="sidebar" class="span3">
  <%= render 'search_sidebar' %>
 </div>
 
 <div id="content" class="span9">
-
-<h1>Listing Boxes</h1>
-
-<%= render 'quick_lookup' %>
-
-
-<% if can?(:create, @box) %>
-  <%= link_to 'New Box', new_lae_box_path %>
-<% end %>
-
-
-
   <h2 class="hide-text top-content-title"><%= t('blacklight.search.search_results_header') %></h2>
 
   <% @page_title = t('blacklight.search.title', :application_name => application_name) %>

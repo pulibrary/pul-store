@@ -18,7 +18,7 @@ class PulStore::Lae::Folder < PulStore::Item
 
   @@extent_elements = [:width_in_cm, :height_in_cm, :page_count]
   # These are a little difficult because
-  # (width_in_cm AND height_in_cm) OR page_count 
+  # (width_in_cm AND height_in_cm) OR page_count
   # is required. See #has_extent?
   def self.extent_elements
     @@extent_elements
@@ -40,8 +40,8 @@ class PulStore::Lae::Folder < PulStore::Item
   has_attributes :alternative_title, :series, :publisher,
     :datastream => 'descMetadata', multiple: true
 
-  has_attributes :height_in_cm, :width_in_cm, :page_count, :rights, 
-    :description, 
+  has_attributes :height_in_cm, :width_in_cm, :page_count, :rights,
+    :description,
     :datastream => 'descMetadata', multiple: false
 
   # TODO: https://github.com/projecthydra/questioning_authority
@@ -59,7 +59,10 @@ class PulStore::Lae::Folder < PulStore::Item
   # Validations
   # Would like to DRY-up the barcode validations and put them in PulStore::Lae::Provenance
   # but haven't been able to figure out how.
-  validates_presence_of :barcode, message: "A barcode is required"
+  # validates_presence_of :barcode
+  # validates_presence_of :genre
+
+  validates_presence_of @@prelim_elements
 
   validates_length_of :barcode,
     is: 14,
@@ -70,21 +73,29 @@ class PulStore::Lae::Folder < PulStore::Item
     message: "Barcode must start with '32101'"
 
   validate :validate_barcode
+
   validate :validate_barcode_uniqueness, on: :create
 
-  validates_presence_of @@required_elements, 
+  validates_presence_of @@required_elements,
     if: :passed_qc?
 
   validate :validate_lae_folder_extent
-  validates_numericality_of :width_in_cm, :height_in_cm, 
-    allow_nil: true, greater_than: 0
 
-  validates_numericality_of :page_count, 
-    only_integer: true, allow_nil: true, greater_than: 0
-    
-  validates_presence_of :pages, 
+  validates_presence_of :pages,
     if: :passed_qc?
-  validates_presence_of :barcode, message: "A barcode is required"
+
+  validates_numericality_of :width_in_cm, :height_in_cm,
+    allow_nil: true, greater_than: 0 
+
+  # validates_presence_of :width_in_cm, :height_in_cm, 
+  #   if: "self.page_count.blank?"
+
+  validates_numericality_of :page_count,
+    only_integer: true, allow_nil: true, greater_than: 0 
+
+  # validates_presence_of :page_count, 
+  #   if: "self.width_in_cm.blank? && self.height_in_cm.blank?"
+
 
   def suppressed?
     self.suppressed = false if self.suppressed.blank?
@@ -142,8 +153,8 @@ class PulStore::Lae::Folder < PulStore::Item
         "Has Core Metadata"
       elsif has_prelim_metadata?
         "Has Prelim. Metadata"
-      else
-        "New"
+      # else
+      #   "New"
       end
     end
   end

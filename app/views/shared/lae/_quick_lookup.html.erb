@@ -1,0 +1,9 @@
+<%= form_tag(url_for(only_path: false), method: :get, id: 'quick_lookup', :class => 'search-query-form form-inline clearfix') do %>
+  <div class="pull-left">
+    <%= text_field_tag(:barcode, "Find a #{controller_name.classify} by Barcode") %>
+  </div>
+  <button type="submit" class="btn btn-primary search-btn left-pad-btn" id="quick_lookup_submit">
+    <span class="submit-search-text">Submit</span>
+    <i class="icon-search icon-white"></i>
+  </button>
+<% end %>

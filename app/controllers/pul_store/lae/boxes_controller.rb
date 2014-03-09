@@ -2,6 +2,9 @@
 class PulStore::Lae::BoxesController < CatalogController #ApplicationController
   include PulStore::Lae::BarcodeLookups
   include Hydra::Controller::ControllerBehavior
+
+  layout 'lae'
+
   # include Blacklight::Catalog
   # include Blacklight::Configurable
 
@@ -25,7 +28,6 @@ class PulStore::Lae::BoxesController < CatalogController #ApplicationController
   self.blacklight_config.add_sort_field 'prov_metadata__date_uploaded_ssi desc', :label => 'Date Created'
   self.blacklight_config.add_sort_field 'prov_metadata__shipped_date_ssi desc', :label => 'Date Shipped'
   self.blacklight_config.add_sort_field 'prov_metadata__received_date_ssi desc', :label => 'Date Received'
-
 
   #load_and_authorize_resource
 
@@ -54,7 +56,7 @@ class PulStore::Lae::BoxesController < CatalogController #ApplicationController
       (@response, @document_list) = get_search_results
       @filters = params[:f] || []
       respond_to do |format|
-        format.html
+        format.html { render template: 'shared/lae/index' }
       end
     end
   end
@@ -71,7 +73,7 @@ class PulStore::Lae::BoxesController < CatalogController #ApplicationController
 
   def new
    @box = PulStore::Lae::Box.new
-   1.times { @box.folders.build}
+   #1.times { @box.folders.build}
    ## Assign to the first Project
    #FIXME Project assigne shoudl come from the content of the Object in PulStore Hierarchy
   end
@@ -80,9 +82,9 @@ class PulStore::Lae::BoxesController < CatalogController #ApplicationController
     authorize! :edit, params[:id]
     @box = PulStore::Lae::Box.find(params[:id])
 
-    if(@box.folders.size < 1)
-      1.times { @box.folders.build}
-    end
+    #if(@box.folders.size < 1)
+    #  1.times { @box.folders.build}
+    #end
 
     respond_to do |format|
       format.html # show.html.erb
@@ -150,7 +152,7 @@ class PulStore::Lae::BoxesController < CatalogController #ApplicationController
       params.require(:lae_box).permit(:full, :barcode, :error_note,
         :physical_location, :tracking_number, :shipped_date, :received_date,
         :project, :id, :project, folders_attributes: [:genre, :page_count,
-        :width_in_cm, :height_in_cm, :barcode, :folder_id, :_destroy] )
+        :width_in_cm, :height_in_cm, :barcode, :id, :box_id] )
 
     end
 end
