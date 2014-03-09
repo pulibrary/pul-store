@@ -16,6 +16,13 @@ PulStore::Application.routes.draw do
   root :to => "catalog#index"
   Blacklight.add_routes(self)
   HydraHead.add_routes(self)
+
+  # creates routes for any models defined in
+  # config/initializers/hydra_editor.rb
+  # routes at /records/:id/edit
+  # or /reocords/new
+  mount HydraEditor::Engine => '/'
+
   devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -57,7 +64,7 @@ PulStore::Application.routes.draw do
   #       get 'recent', on: :collection
   #     end
   #   end
-  
+
   # Example resource route with concerns:
   #   concern :toggleable do
   #     post 'toggle'
