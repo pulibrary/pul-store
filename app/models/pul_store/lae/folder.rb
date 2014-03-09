@@ -119,6 +119,12 @@ class PulStore::Lae::Folder < PulStore::Item
     (!self.width_in_cm.blank? && !self.height_in_cm.blank?) || !self.page_count.blank?
   end
 
+  def terms_for_editing
+    [:barcode, :title, :alternative_title, :series, :publisher, :genre,
+      :subject, :geographic, :language, :height_in_cm,
+      :width_in_cm, :page_count, :sort_title, :date_created, :rights]
+  end
+
   protected
 
   def set_defaults
