@@ -53,10 +53,10 @@ module PulStore::Lae::BoxesHelper
   end
 
   private
-  @tz = Time.now.zone
+  @offset = Time.now.gmt_offset
   def self.style_date str
     fmt = '%A, %e %B, %Y. %l:%M%P'
-    DateTime.parse(str).in_time_zone(@tz).strftime(fmt)
+    (DateTime.parse(str) + @offset.seconds).strftime(fmt)
   end
 
 end
