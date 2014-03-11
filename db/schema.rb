@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140211192913) do
+ActiveRecord::Schema.define(version: 20140311201626) do
 
   create_table "bookmarks", force: true do |t|
     t.integer  "user_id",     null: false
@@ -45,6 +45,23 @@ ActiveRecord::Schema.define(version: 20140211192913) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "pul_store_lae_subjects", force: true do |t|
+    t.string "value"
+  end
+
+  add_index "pul_store_lae_subjects", ["value"], name: "index_pul_store_lae_subjects_on_value", unique: true, using: :btree
+
+  create_table "pul_store_lae_subjects_topics", force: true do |t|
+    t.integer "topic_id"
+    t.integer "subject_id"
+  end
+
+  create_table "pul_store_lae_topics", force: true do |t|
+    t.string "value"
+  end
+
+  add_index "pul_store_lae_topics", ["value"], name: "index_pul_store_lae_topics_on_value", unique: true, using: :btree
 
   create_table "searches", force: true do |t|
     t.text     "query_params"
