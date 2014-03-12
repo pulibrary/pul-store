@@ -63,7 +63,6 @@ group :development, :test, :production do
   gem "jettywrapper"
 end
 
-gem "hydra-editor"
 
 #group :test do
   gem 'faker'
