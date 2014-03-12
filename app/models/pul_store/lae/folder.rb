@@ -59,9 +59,10 @@ class PulStore::Lae::Folder < PulStore::Item
   # Validations
   # Would like to DRY-up the barcode validations and put them in PulStore::Lae::Provenance
   # but haven't been able to figure out how.
-  validates_presence_of :barcode, message: "A barcode is required"
+  # validates_presence_of :barcode
+  # validates_presence_of :genre
 
-  validates_presence_of :genre, message: "A Genre is required"
+  validates_presence_of @@prelim_elements
 
   validates_length_of :barcode,
     is: 14,
@@ -72,22 +73,29 @@ class PulStore::Lae::Folder < PulStore::Item
     message: "Barcode must start with '32101'"
 
   validate :validate_barcode
+
   validate :validate_barcode_uniqueness, on: :create
 
   validates_presence_of @@required_elements,
     if: :passed_qc?
 
-  validate :validate_lae_folder_extent  #, on: :create
-  #validate :validate_lae_folder_extent, on: :update
-  validates_numericality_of :width_in_cm, :height_in_cm,
-    allow_nil: true, greater_than: 0, if: "self.page_count.blank?"
-
-  validates_numericality_of :page_count,
-    only_integer: true, allow_nil: true, greater_than: 0, if: "self.width_in_cm.blank? && self.height_in_cm.blank?"
+  validate :validate_lae_folder_extent
 
   validates_presence_of :pages,
     if: :passed_qc?
-  validates_presence_of :barcode, message: "A barcode is required"
+
+  validates_numericality_of :width_in_cm, :height_in_cm,
+    allow_nil: true, greater_than: 0 
+
+  # validates_presence_of :width_in_cm, :height_in_cm, 
+  #   if: "self.page_count.blank?"
+
+  validates_numericality_of :page_count,
+    only_integer: true, allow_nil: true, greater_than: 0 
+
+  # validates_presence_of :page_count, 
+  #   if: "self.width_in_cm.blank? && self.height_in_cm.blank?"
+
 
   def suppressed?
     self.suppressed = false if self.suppressed.blank?
@@ -152,8 +160,8 @@ class PulStore::Lae::Folder < PulStore::Item
         "Has Core Metadata"
       elsif has_prelim_metadata?
         "Has Prelim. Metadata"
-      else
-        "New"
+      # else
+      #   "New"
       end
     end
   end
