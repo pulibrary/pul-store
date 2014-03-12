@@ -6,6 +6,7 @@ before_install:
   - git submodule update --init --recursive
 before_script:
   - cp config/travis.database.yml config/database.yml
+  - cp config/pul_store.yml.tmpl config/pul_store.yml
   - mysql -e 'create database pulstore_test'
   - bundle exec rake db:test:prepare
   - bundle exec rake db:seed
