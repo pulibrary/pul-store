@@ -21,7 +21,6 @@ PulStore::Application.routes.draw do
   # config/initializers/hydra_editor.rb
   # routes at /records/:id/edit
   # or /reocords/new
-  mount HydraEditor::Engine => '/'
 
   devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.

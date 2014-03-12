@@ -8,6 +8,8 @@ defaults: &defaults
   minter_statefile: noid-minter-state #will be in app root
   id_namespace: puls
   lae_recap_code: rcpxr
+  lae_rights_boilerplate: "This digital reproduction is intended to support research, teaching, and private study. Users are responsible for determining any copyright questions."
+
 
 development:
   <<: *defaults

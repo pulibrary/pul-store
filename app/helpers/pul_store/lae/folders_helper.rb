@@ -41,13 +41,6 @@ module PulStore::Lae::FoldersHelper
     title
   end
 
-  #FIXME Should Model actually be providing this?
-  def lae_default_folder_rights
-    return "This digital reproduction is intended to support
-            research, teaching, and private study. Users are responsible
-            for determining any copyright questions."
-  end
-
   private
   @tz = Time.now.zone
   @offset = Time.now.gmt_offset
