@@ -1,22 +1,3 @@
-<!-- start modal -->
-   <div class="form-control">
-    <%= link_to("Add Folder to Box", '#', 'data-target' => "#new-folder-modal", 'data-toggle' => 'modal', :class => "btn btn-primary new-model", :title => "Add a New Folder to Box") %>
-  </div>
-      <div id="new-folder-modal" class="modal fade" data-backdrop="static">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h3>Add a Folder<%= " to #{ @box.id }" unless @box.barcode.nil? %></h3>
-        </div>
-        <div class="modal-body">
-          <%= render :partial => 'pul_store/lae/folders/ajax_form', locals: { box: @box } %>
-        </div>
-        <div class="modal-footer">
-          <button id="cancelButton" type="button" class="btn btn-inverse" data-dismiss="modal" aria-hidden="true" title="Close this screen without adding this Folder.">Cancel</button>
-        </div>
-      </div>
-    </div>
-  <!-- end Modal -->
-
 <%= form_for(@box, :html => {:class => "form form-horizontal"}) do |b| %>
   <% if @box.errors.any? %>
     <div id="error_explanation">
@@ -35,6 +16,7 @@
 :received_date, # checkbox, stamp if set
 :barcode,
 :error_note -->
+  <%= render :partial => 'shared/lae/workflow_state', locals: {object: @box} %>
 
   <div class="field">
     <%= b.label :barcode %><br>
@@ -78,7 +60,7 @@
         <td>
           <% if(@box.folders.size > 0) %>
             <% if can?(:edit, @box) %>
-              <%= link_to "Edit Folder", edit_lae_folder_path(@box.folders[folder_index]) %>
+              <%= link_to "Edit Folder", edit_lae_folder_path(@box.folders[folder_index].id) %>
             <% end %>
           <% end %>
         </td>

@@ -11,8 +11,8 @@ class PulStore::Lae::BoxesController < CatalogController #ApplicationController
   # enforce access controls
   # before_filter :enforce_show_permissions, only: [:show]
 
-  before_action :set_box, only: [:show, :edit, :update, :destroy]
-  before_filter :list_all_boxes, only: [:show]
+  before_action :set_box, only: [:edit, :update, :destroy]
+  #before_filter :list_all_boxes, only: [:show]
 
   # This applies appropriate access controls to all solr queries
   PulStore::Lae::BoxesController.solr_search_params_logic += [:add_access_controls_to_solr_params]
@@ -54,6 +54,9 @@ class PulStore::Lae::BoxesController < CatalogController #ApplicationController
       end
     else
       (@response, @document_list) = get_search_results
+      logger.debug("*" * 40)
+      logger.debug(@document_list)
+      logger.debug("*" * 40)
       @filters = params[:f] || []
       respond_to do |format|
         format.html { render template: 'shared/lae/index' }

@@ -1,4 +1,6 @@
 class PulStore::Lae::FoldersController  < CatalogController
+  #include RecordsControllerBehavior
+
   before_action :set_folder, only: [:show, :edit, :update, :destroy]
   before_filter :list_all_folders, only: [:show]
 
@@ -67,6 +69,7 @@ class PulStore::Lae::FoldersController  < CatalogController
   # GET /lae/folders/new
   def new
    @folder = PulStore::Lae::Folder.new
+   render 'new'
   end
 
   # # GET /lae/folders/1/edit

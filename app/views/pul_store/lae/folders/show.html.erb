@@ -1,9 +1,19 @@
 <p id="notice"><%= notice %></p>
 
+<% if(!@folder.box_id.blank?) %>
+<p>
+  <strong>Part Of Box:</strong>
+  <%= link_to "#{@folder.box_id}", lae_box_path(@folder.box_id) %>
+</p>
+<% end %>
 <p>
   <strong>Barcode:</strong>
   <%= @folder.barcode %>
 </p>
 
+<%= render :partial => 'shared/lae/workflow_state', locals: {object: @folder} %>
+
 <%= link_to 'Edit Folder', edit_lae_folder_path(@folder) %> |
-<%= link_to 'Return to Box', edit_lae_box_path(@folder.box_id) %>
+<% if(!@folder.box_id.blank?) %>
+  <%= link_to 'Return to Box', edit_lae_box_path(@folder.box_id) %>
+<% end %>

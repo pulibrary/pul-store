@@ -131,6 +131,7 @@ class PulStore::Lae::Folder < PulStore::Item
     self.suppressed = self.suppressed?
     self.passed_qc = self.passed_qc?
     self.workflow_state = self.infer_state
+    self.rights ||= "dogs" #||= PUL_STORE_CONFIG['lae_rights_boilerplate']
     nil
   end
 

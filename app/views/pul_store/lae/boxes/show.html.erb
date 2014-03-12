@@ -4,6 +4,7 @@
   <strong>Barcode:</strong>
   <%= @box.barcode %>
 </p>
+<%= render :partial => 'shared/lae/workflow_state', locals: {object: @box} %>
 <% if can?(:edit, @box) %>
   <%= link_to 'Edit', edit_lae_box_path(@box) %> |
 <% end %>

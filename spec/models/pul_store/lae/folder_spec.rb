@@ -99,7 +99,6 @@ describe PulStore::Lae::Folder do
       b = FactoryGirl.build(:lae_folder, barcode: barcode)
       expect { b.save! }.to raise_error ActiveFedora::RecordInvalid
     end
-
   end
 
   describe "passed_qc" do
@@ -380,6 +379,15 @@ describe PulStore::Lae::Folder do
 
   end
 
+  describe "rights statements" do
+
+    it "has the default rights statement after creation" do
+      barcode = @test_barcodes.pop
+      f = FactoryGirl.build(:lae_folder, barcode: barcode)
+      f.rights.should == PUL_STORE_CONFIG['lae_rights_boilerplate']
+    end
+  end
+
 
 ## THESE WILL NEED ADDITIONAL TESTS after we do QA impl.
 # Genre
@@ -387,7 +395,7 @@ describe PulStore::Lae::Folder do
 # Language
 # Subject
 
-# TOMORROW: 
+# TOMORROW:
 # * Figure out what to do with lists (lang, genre, county, subject) (subject is extra complex)
 # * hard_drive
 
