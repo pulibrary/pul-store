@@ -10,6 +10,7 @@ PulStore::Application.routes.draw do
       resources :hard_drives
       get 'genres', to: 'genres#index'
       get 'genres/:id', to: 'genres#show'
+      get 'subjects/:subject_id/topics', to: 'topics#index'
     end
   end
 
