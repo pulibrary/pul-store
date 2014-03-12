@@ -6,7 +6,7 @@ module PulStore::Lae::FoldersHelper
   #   label = render_document_index_label doc, opts
   #   link_to label, doc, search_session_params(opts[:counter]).merge(opts.reject { |k,v| [:label, :counter].include? k  })
   # end
-  
+
 
   def link_to_lae_folder(doc, opts={label: nil, counter: nil})
     label = lae_folder_title(doc)
@@ -32,7 +32,7 @@ module PulStore::Lae::FoldersHelper
     field = doc[:prov_metadata__workflow_state_tesim]
     field.is_a?(Array) ? field[0] : field
   end
-  
+
 
   def lae_folder_title(doc)
     title = doc[:desc_metadata__title_tesim]
@@ -41,12 +41,20 @@ module PulStore::Lae::FoldersHelper
     title
   end
 
-  
+  #FIXME Should Model actually be providing this?
+  def lae_default_folder_rights
+    return "This digital reproduction is intended to support
+            research, teaching, and private study. Users are responsible
+            for determining any copyright questions."
+  end
+
   private
   @tz = Time.now.zone
+  @offset = Time.now.gmt_offset
   def self.style_date str
     fmt = '%A, %e %B, %Y. %l:%M%P'
-    DateTime.parse(str).in_time_zone(@tz).strftime(fmt)
+    #DateTime.parse(str).in_time_zone(@tz).strftime(fmt)
+    (DateTime.parse(str) + @offset.seconds).strftime(fmt)
   end
 
 end
