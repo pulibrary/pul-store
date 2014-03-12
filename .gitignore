@@ -25,8 +25,9 @@ jetty/*
 # Ignore fits
 fits/*
 
-# Ingnore the database config.
+# Ignore the database and pul_store configs
 database.yml
+pul_store.yml
 
 noid-minter-state
 
