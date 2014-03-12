@@ -17,6 +17,10 @@ Bundler.require(:default, Rails.env)
 module PulStore
   class Application < Rails::Application
     
+    config.before_initialize do
+      PUL_STORE_CONFIG = YAML.load_file(Rails.root.join('config', 'pul_store.yml'))[Rails.env]
+    end
+
     config.generators do |g|
       g.test_framework :rspec, :spec => true
       g.fixture_replacement :factory_girl, :dir => "spec/factories"
