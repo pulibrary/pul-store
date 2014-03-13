@@ -1,10 +1,13 @@
-<h1>Update Box</h1>
 
-
-<div id="content" class="span9 show-document">
-  <!-- start modal -->
+<div class="span9" id="lae-head">
+  <div class="row">
+    <div class="span6">
+      <h1 class="lae-head">Update Box <%= @box.id %></h1>
+    </div>
+    <div class="span3">
+      <!-- start modal -->
    <div class="form-control">
-    <%= link_to("Add Folder to Box", '#', 'data-target' => "#new-folder-modal", 'data-toggle' => 'modal', :class => "btn btn-primary new-model", :title => "Add a New Folder to Box") %>
+    <%= link_to("Add Folder to Box", '#', 'data-target' => "#new-folder-modal", 'data-toggle' => 'modal', :class => "btn btn-success btn-lg lae-new pull-right new-model", :title => "Add a New Folder to Box") %>
   </div>
       <div id="new-folder-modal" class="modal fade" data-backdrop="static">
         <div class="modal-header">
@@ -20,6 +23,17 @@
       </div>
     </div>
   <!-- end Modal -->
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div id="content" class="span9 show-document">
+
   <%= render 'form' %>
   <%= link_to 'Show', @box %> |
   <%= link_to 'Back', lae_boxes_path %>

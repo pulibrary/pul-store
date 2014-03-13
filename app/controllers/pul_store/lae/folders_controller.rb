@@ -92,9 +92,11 @@ class PulStore::Lae::FoldersController  < CatalogController
     respond_to do |format|
       if @folder.save
         format.html { redirect_to @folder, notice: 'Folder was successfully created.' }
+        format.js   { render action: 'create', notice: 'Folder was successfully created.' }
         format.json { render action: 'show', notice: 'Folder was successfully created.', status: :created, location: @folder }
       else
         format.html { render action: 'new' }
+        format.js { render action: 'create', notice: 'Unable to save Folder.' }
         format.json { render json: @folder.errors, status: :unprocessable_entity }
       end
     end

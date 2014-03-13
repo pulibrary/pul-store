@@ -1,0 +1,18 @@
+<div id="folder_dialog_messages">
+  <% if @folder.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@folder.errors.count, "error") %> prohibited this Folder from being saved:</h2>
+      <ul>
+      <% @folder.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+    <% else %>
+      <p>Created: <%= @folder.id %></p>
+      <%= link_to 'Edit Folder', edit_lae_folder_path(@folder) %> |
+      <% if(!@folder.box_id.blank?) %>
+        <%= link_to 'Return to Box', edit_lae_box_path(@folder.box_id) %>
+      <% end %>
+  <% end %>
+</div>

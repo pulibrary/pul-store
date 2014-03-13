@@ -34,7 +34,7 @@
   <% if(@box.folders.empty?) %>
     <h3>Create a Folder</h3>
   <% else %>
-    <h3><%= @box.folders.size %> Current Folders</h3>
+    <h3><span id="folder-count"><%= @box.folders.size %></span> Current Folders</h3>
   <% end %>
 
   <table class="table" id="folders-table">
