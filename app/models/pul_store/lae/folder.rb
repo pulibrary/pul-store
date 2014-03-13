@@ -84,17 +84,17 @@ class PulStore::Lae::Folder < PulStore::Item
   validates_presence_of :pages,
     if: :passed_qc?
 
-  validates_numericality_of :width_in_cm, :height_in_cm,
-    allow_nil: true, greater_than: 0 
+  validates_presence_of :width_in_cm, :height_in_cm,
+    if: "self.page_count.blank?"
 
-  # validates_presence_of :width_in_cm, :height_in_cm, 
-  #   if: "self.page_count.blank?"
+  validates_numericality_of :width_in_cm, :height_in_cm,
+    allow_nil: true, greater_than: 0 , unless: "self.width_in_cm.blank? && self.height_in_cm.blank?"
+
+  validates_presence_of :page_count,
+    if: "self.width_in_cm.blank? && self.height_in_cm.blank?"
 
   validates_numericality_of :page_count,
-    only_integer: true, allow_nil: true, greater_than: 0 
-
-  # validates_presence_of :page_count, 
-  #   if: "self.width_in_cm.blank? && self.height_in_cm.blank?"
+    only_integer: true, allow_nil: true, greater_than: 0, unless: "self.page_count.blank?"
 
 
   def suppressed?

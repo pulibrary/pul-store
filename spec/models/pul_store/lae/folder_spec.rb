@@ -175,6 +175,11 @@ describe PulStore::Lae::Folder do
   end
 
   describe "has_extent?" do
+    it "should be a valid model by default" do
+      f = FactoryGirl.build(:lae_prelim_folder)
+      f.should be_valid
+    end
+
     it "should be false without any extent attributes" do
       f = FactoryGirl.build(:lae_prelim_folder, width_in_cm: nil, height_in_cm: nil, page_count: nil)
       f.has_extent?.should be_false
@@ -231,6 +236,18 @@ describe PulStore::Lae::Folder do
       extent_params = { width_in_cm: nil, height_in_cm: nil, page_count: 7 }
       f = FactoryGirl.build(:lae_prelim_folder, extent_params)
       expect { f.save! }.not_to raise_error
+    end
+    it "should be an invalid model with a page count that is not nil or an integer" do
+      extent_params = { width_in_cm: 50, height_in_cm: 50, page_count: "cats" }
+      f = FactoryGirl.build(:lae_prelim_folder, extent_params)
+      #expect { f.save! }.not_to raise_error #ActiveFedora::RecordInvalid
+      f.should_not be_valid
+    end
+    it "should be an invalid model with a height/width that is not nil or an integer" do
+      extent_params = { width_in_cm: 'fifty', height_in_cm: 'thirty', page_count: 25 }
+      f = FactoryGirl.build(:lae_prelim_folder, extent_params)
+      #expect { f.save! }.not_to raise_error #ActiveFedora::RecordInvalid
+      f.should_not be_valid
     end
     it "should be valid with a width and height" do
       extent_params = { width_in_cm: 3.5, height_in_cm: 7, page_count: nil }
