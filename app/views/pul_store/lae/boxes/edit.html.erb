@@ -2,7 +2,7 @@
 <div class="span9" id="lae-head">
   <div class="row">
     <div class="span6">
-      <h1 class="lae-head">Update Box <%= @box.id %></h1>
+      <h1 class="lae-head">Box: <%= @box.barcode %></h1>
     </div>
     <div class="span3">
       <!-- start modal -->
@@ -17,9 +17,6 @@
         <div class="modal-body">
           <%= render :partial => 'pul_store/lae/folders/ajax_form', locals: { box: @box } %>
         </div>
-        <div class="modal-footer">
-          <button id="cancelButton" type="button" class="btn btn-inverse" data-dismiss="modal" aria-hidden="true" title="Close this screen without adding this Folder.">Cancel</button>
-        </div>
       </div>
     </div>
   <!-- end Modal -->
@@ -28,18 +25,10 @@
   </div>
 </div>
 
-
-
-
-
 <div id="content" class="span9 show-document">
-
   <%= render 'form' %>
-  <%= link_to 'Show', @box %> |
-  <%= link_to 'Back', lae_boxes_path %>
-</div>
-<div id="sidebar" class="span3">
-  <%= render 'box_info' %>
+  <%= link_to 'Show Box', @box %> |
+  <%= link_to 'Back to Box List', lae_boxes_path %>
 </div>
 
 

@@ -31,7 +31,8 @@
     <%= f.hidden_field :box_id, :class => "field", :value => box.id %>
 
    <div class="actions">
-      <%= f.submit %>
+      <%= f.submit :value => "Create Folder", :class => 'btn btn-primary' %>
+      <button id="cancelButton" type="button" class="btn btn-inverse" data-dismiss="modal" aria-hidden="true" title="Close this screen without adding this Folder.">Cancel</button>
    </div>
 <% end %>
 </div>

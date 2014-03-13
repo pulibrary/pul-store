@@ -41,6 +41,10 @@ module PulStore::Lae::FoldersHelper
     title
   end
 
+  def lae_folder_date_uploaded(date)
+    PulStore::Lae::FoldersHelper.style_date(date)
+  end
+
   private
   @offset = Time.now.gmt_offset
   def self.style_date str

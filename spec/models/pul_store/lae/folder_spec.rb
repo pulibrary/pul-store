@@ -401,6 +401,7 @@ describe PulStore::Lae::Folder do
     it "has the default rights statement after creation" do
       barcode = @test_barcodes.pop
       f = FactoryGirl.build(:lae_folder, barcode: barcode)
+      f.save!
       f.rights.should == PUL_STORE_CONFIG['lae_rights_boilerplate']
     end
   end

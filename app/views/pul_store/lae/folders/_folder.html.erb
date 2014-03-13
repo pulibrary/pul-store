@@ -8,11 +8,14 @@
       <% end %>
       </ul>
     </div>
-    <% else %>
-      <p>Created: <%= @folder.id %></p>
-      <%= link_to 'Edit Folder', edit_lae_folder_path(@folder) %> |
+  <% else %>
+    <div class="alert alert-success">
+      <a class="close" data-dismiss="alert">&times;</a>
+      <h2>Created: <%= @folder.id %></h2>
+      <%= link_to 'Edit Folder', edit_lae_folder_path(@folder), class: "btn" %> |
       <% if(!@folder.box_id.blank?) %>
-        <%= link_to 'Return to Box', edit_lae_box_path(@folder.box_id) %>
+        <%= link_to 'Return to Box', edit_lae_box_path(@folder.box_id), class: "btn"%>
       <% end %>
+    </div>
   <% end %>
 </div>

@@ -24,6 +24,10 @@ class PulStore::Lae::Folder < PulStore::Item
     @@extent_elements
   end
 
+  # Project
+  #@@project = PulStore::Project.first
+  #@@project = PulStore::Project.where(desc_metadata__identifier_ssm: 'lae').first
+
   # Callbacks
   before_save :set_defaults
 
@@ -128,9 +132,9 @@ class PulStore::Lae::Folder < PulStore::Item
   end
 
   def terms_for_editing
-    [:barcode, :title, :alternative_title, :series, :publisher, :genre,
+    [:barcode, :title, :alternative_title, :sort_title, :series, :publisher, :genre,
       :subject, :geographic, :language, :height_in_cm,
-      :width_in_cm, :page_count, :sort_title, :date_created, :rights]
+      :width_in_cm, :page_count, :date_created, :rights]
   end
 
   protected
@@ -139,7 +143,8 @@ class PulStore::Lae::Folder < PulStore::Item
     self.suppressed = self.suppressed?
     self.passed_qc = self.passed_qc?
     self.workflow_state = self.infer_state
-    self.rights ||= "dogs" #||= PUL_STORE_CONFIG['lae_rights_boilerplate']
+    self.rights ||= PUL_STORE_CONFIG['lae_rights_boilerplate']
+    #self.project ||= self.set_project
     nil
   end
 

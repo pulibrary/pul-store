@@ -35,11 +35,15 @@ ActiveRecord::Schema.define(version: 20140311201626) do
   end
 
   create_table "pul_store_lae_genres", force: true do |t|
-    t.string "pul_label"
-    t.string "tgm_label"
-    t.string "lcsh_label"
-    t.string "uri"
-    t.text   "scope_note"
+    t.string   "pul_label"
+    t.string   "tgm_label"
+    t.string   "lcsh_label"
+    t.integer  "dimensions"
+    t.string   "dimensions_unit"
+    t.string   "uri"
+    t.text     "scope_note"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "pul_store_lae_subjects", force: true do |t|
