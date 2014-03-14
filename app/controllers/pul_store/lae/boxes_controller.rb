@@ -75,6 +75,7 @@ class PulStore::Lae::BoxesController < CatalogController #ApplicationController
   end
 
   def new
+   authorize! :create, params
    @box = PulStore::Lae::Box.new
    #1.times { @box.folders.build}
    ## Assign to the first Project

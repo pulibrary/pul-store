@@ -68,6 +68,7 @@ class PulStore::Lae::FoldersController  < CatalogController
 
   # GET /lae/folders/new
   def new
+   authorize! :create, params
    @folder = PulStore::Lae::Folder.new
    render 'new'
   end
