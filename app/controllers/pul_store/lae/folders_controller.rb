@@ -82,6 +82,8 @@ class PulStore::Lae::FoldersController  < CatalogController
       format.html # show.html.erb
       format.json { render json: @folder }
     end
+    #initialize_fields
+    #render 'records/edit'
   end
 
   # POST /lae/folders
@@ -150,9 +152,8 @@ class PulStore::Lae::FoldersController  < CatalogController
     def folder_params
       params.require(:lae_folder).permit(:barcode, :date_created, :description,
         :width_in_cm, :height_in_cm, :page_count, :genre, :passed_qc, :rights,
-        :sort_title, :suppressed, :title, :box_id, :project_id, :error_note, :box_id,
-        alternative_title: [], geographic: [],
-        language: [], publisher: [], series: [], subject: [] )
-
+        :sort_title, :suppressed,:box_id, :project_id, :error_note,
+        :box_id, alternative_title: [], geographic: [], title: [],
+        language: [], publisher: [], series: [], subject: [], creator: [], contributor: [] )
     end
 end

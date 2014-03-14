@@ -1,8 +1,6 @@
 PulStore::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-  config.before_initialize do
-    PUL_STORE_CONFIG = YAML.load_file(Rails.root.join('config', 'pul_store.yml'))[Rails.env]
-  end
+
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.

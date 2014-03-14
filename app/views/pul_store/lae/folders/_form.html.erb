@@ -1,4 +1,4 @@
-<%= form_for(@folder) do |b| %>
+<%= form_for(@folder, html: {:class => 'form-inline editor'}) do |b| %>
   <% if @folder.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@folder.errors.count, "error") %> prohibited this Folder from being saved:</h2>
@@ -9,95 +9,203 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= b.label :barcode %><br>
-    <%= b.text_field :barcode %>
+<div class="well">
+  <div class="control-group">
+    <%= b.label :barcode, :class=>"control-label" %>
+    <div class="controls">
+      <%= b.text_field :barcode %>
+    </div>
   </div>
-  <div class="field">
-    <%= b.label :error_note %><br>
-    <%= b.text_area :error_note %>
+  <div class="control-group">
+    <%= b.label :error_note, :class=>"control-label" %>
+    <div class="controls">
+      <%= b.text_area :error_note, cols: 50, rows: 3 %>
+    </div>
   </div>
-  <div class="field">
-    <%= b.label :rights %><br>
-    <%= b.text_area :rights, value: @folder.rights %><br>
+  <div class="control-group">
+    <%= b.label :rights, :class=>"control-label" %>
+    <div class="controls">
+      <%= b.text_area :rights, cols: 50, rows: 6 %>
+    </div>
   </div>
   <div id="desc-metadata">
     <!-- required metadata goes here -->
-    <div class="field">
-      <%= b.label :genre %><br>
-      <%= b.select(:genre, options_for_select(list_all_genres_as_select_list, [@folder.genre])) %>
+    <!-- Title -->
+    <div class="control-group">
+    <%= b.label :title, "Title", :class=>"control-label" %>
+    <% if @folder.title.empty? %>
+      <div class="controls">
+        <%= text_field_tag "lae_folder[title][]", nil, :id => 'lae_folder_title' %>
+      </div>
+    <% else %>
+      <% @folder.title.to_ary.each_with_index do |title, index| %>
+        <div class="controls">
+          <%= text_field_tag "lae_folder[title][]", title, :id => 'lae_folder_title' %>
+        </div>
+      <% end %>
+    <% end %>
+    </div>
+    <!-- sort title -->
+    <div class="control-group">
+      <%= b.label :sort_title, :class=>"control-label" %>
+      <div class="controls">
+        <%= b.text_field :sort_title %>
+      </div>
+    </div>
+    <!-- Alternative Title -->
+    <div class="control-group">
+      <%= b.label :alternative_title, "Alternative Title", :class=>"control-label" %>
+      <% if @folder.alternative_title.empty? %>
+      <div class="controls">
+        <%= text_field_tag "lae_folder[alternative_title][]", nil, :id => 'lae_folder_alternative_title' %>
+      </div>
+      <% end %>
+
+      <% @folder.alternative_title.to_ary.each_with_index do |alternative_title, index| %>
+        <div class="controls">
+        <%= text_field_tag "lae_folder[alternative_title][]", alternative_title, :id => 'lae_folder_alternative_title' %>
+        <%= render :partial=>"records/edit_fields/suffix", :locals=>{key: alternative_title, index: index} %>
+        </div>
+      <% end %>
+    </div>
+    <!-- Creator/Contribubtor -->
+    <div class="control-group">
+      <%= b.label :creator, "Creator", :class=>"control-label" %>
+      <% @folder.creator.to_ary.each_with_index do |creator, index| %>
+        <div class="controls">
+        <%= text_field_tag "lae_folder[creator][]", creator, :id =>'lae_folder_creator' %>
+      </div>
+      <% end %>
+      <% if @folder.creator.empty? %>
+      <div class="controls">
+        <%= text_field_tag "lae_folder[creator][]", nil, :id =>'lae_folder_creator' %>
+      </div>
+      <%- end %>
+    </div>
+    <div class="control-group">
+      <%= b.label :contributor, "Contributor", :class=>"control-label" %>
+      <% @folder.contributor.to_ary.each_with_index do |contributor, index| %>
+      <div class="controls">
+        <%= text_field_tag "lae_folder[contributor][]", contributor, :id =>'lae_folder_contributor' %>
+        <%= render :partial=>"records/edit_fields/suffix", :locals=>{key: contributor, index: index} %>
+      </div>
+      <% end %>
+      <% if @folder.contributor.empty? %>
+      <div class="controls">
+        <%= text_field_tag "lae_folder[contributor][]", nil, :id =>'lae_folder_contributor' %>
+      </div>
+      <% end %>
+      </div>
+      <!-- Publisher -->
+      <div class="control-group">
+      <%= b.label :publisher, "Publisher", :class=>"control-label" %>
+      <% @folder.publisher.to_ary.each_with_index do |publisher, index| %>
+      <div class="controls">
+        <%= text_field_tag "lae_folder[publisher][]", publisher, :id =>'lae_folder_publisher' %>
+        <%= render :partial=>"records/edit_fields/suffix", :locals=>{key: publisher, index: index} %>
+      </div>
+      <% end %>
+      <% if @folder.publisher.empty? %>
+      <div class="controls">
+        <%= text_field_tag "lae_folder[publisher][]", nil, :id =>'lae_folder_publisher' %>
+      </div>
+      <% end %>
+      </div>
+      <!-- Series -->
+      <div class="control-group">
+      <%= b.label :series, "Series", :class=>"control-label" %>
+      <% @folder.series.to_ary.each_with_index do |series, index| %>
+      <div class="controls">
+        <%= text_field_tag "lae_folder[series][]", series, :id =>'lae_folder_series' %>
+        <%= render :partial=>"records/edit_fields/suffix", :locals=>{key: "series", index: index} %>
+      </div>
+      <% end %>
+      <% if @folder.series.empty? %>
+      <div class="controls">
+        <%= text_field_tag "lae_folder[series][]", nil, :id =>'lae_folder_series' %>
+      </div>
+      <% end %>
+      </div>
+    <div class="control-group">
+      <%= b.label :genre, :class=>"control-label" %>
+      <div class="controls">
+        <%= b.select(:genre, options_for_select(list_all_genres_as_select_list, [@folder.genre])) %>
+      </div>
     </div>
     <!-- subjects -->
-    <%= b.label :subject, "Subjects" %>
-    <% if @folder.subject.empty? %>
-      <div class="field">
-        <%= b.text_field :subject %>
-      </div>
-    <% end %>
-
+    <div class="control-group">
+    <%= b.label :subject, "Subject", :class=>"control-label" %>
     <% @folder.subject.to_ary.each_with_index do |subject, index| %>
-      <div class="field">
-        <%= b.text_field "lae_folder[subject][]", value: subject %>
-      </div>
-    <% end %>
+    <div class="controls">
+      <%= text_field_tag "lae_folder[subject][]", subject, :id =>'lae_folder_subject' %>
+      <%= render :partial=>"records/edit_fields/suffix", :locals=>{key: "subject", index: index} %>
+    </div>
+    <div id="additional_subject_elements"></div>
+  <% end %>
+  <% if @folder.subject.empty? %>
+    <div class="controls">
+      <%= text_field_tag "lae_folder[subject][]", nil, :id =>'lae_folder_subject' %>
+    </div>
+  <%- end %>
     <!-- Geographic -->
-    <%= b.label :geographic, "Geographic" %>
+    <div class="control-group">
+    <%= b.label :geographic, "Geographic", :class=>"control-label" %>
     <% if @folder.geographic.empty? %>
-      <div class="field">
-        <%= b.text_field :geographic %>
+      <div class="controls">
+        <%= text_field_tag "lae_folder[geographic][]", nil, :id => 'lae_folder_geographic' %>
       </div>
     <% end %>
 
     <% @folder.geographic.to_ary.each_with_index do |geographic, index| %>
-      <div class="field">
-        <%= b.text_field "lae_folder[geographic][]", value: geographic %>
+      <div class="controls">
+        <%= text_field_tag "lae_folder[geographic][]", geographic, :id => 'lae_folder_geographic' %>
+        <%= render :partial=>"records/edit_fields/suffix", :locals=>{key: "geographic", index: index} %>
       </div>
     <% end %>
+    </div>
     <!-- language -->
-    <%= b.label :language, "Language" %>
+    <div class="control-group">
+    <%= b.label :language, "Language", :class=>"control-label" %>
     <% if @folder.language.empty? %>
-      <div class="field">
-        <%= b.text_field :language %>
+      <div class="controls">
+        <%= text_field_tag "lae_folder[language][]", nil, :id => 'lae_folder_lang' %>
       </div>
     <% end %>
 
-    <% @folder.language.each do |lang| %>
-      <div class="field">
-        <%= b.text_field "language[]", value: lang %>
-      </div>
-    <% end %>
-    <!-- Title -->
-    <%= b.label :title, "title" %>
-    <% if @folder.title.empty? %>
-      <div class="field">
-        <%= b.text_field :title %>
-      </div>
-    <% end %>
-
-    <% @folder.title.each do |title| %>
-      <div class="field">
-        <%= b.text_field "title[]", value: title %>
+    <% @folder.language.to_ary.each_with_index do |language, index| %>
+      <div class="controls">
+        <%= text_field_tag "lae_folder[language][]", language, :id => 'lae_folder_lang' %>
+        <%= render :partial=>"records/edit_fields/suffix", :locals=>{key: language, index: index} %>
       </div>
     <% end %>
     <!-- end mult-value -->
-    <!-- date picker -->
-    <div class="field date-created">
-      <%= b.label :date_created %><br>
-      <%= b.text_field :date_created, :class => "datepicker" %>
+    <!-- Decription -->
+    <div class="control-group">
+      <%= b.label :description, :class => 'control-label' %>
+      <div class="controls">
+        <%= b.text_area :description, cols: 50, rows: 6 %>
+      </div>
     </div>
-    <!-- Optional Desc. Elements -->
+    <!-- date created -->
+    <div class="control-group">
+      <%= b.label :date_created, :class=>"control-label" %>
+      <div class="controls">
+        <%= b.text_field :date_created %>
+      </div>
+    </div>
   </div>
-  <div id="extent-metadata">
-    <!-- required metadata goes here -->
+  <div id="extent-metadata" class="control-group">
     <% PulStore::Lae::Folder::extent_elements.each do |e| %>
-      <div class="field">
-        <%= b.label e %><br/>
-        <%= b.text_field e %>
+      <div class="control-group">
+        <%= b.label e, :class=>"control-label" %>
+        <div class="controls">
+          <%= b.text_field e %>
+        </div>
       </div>
     <% end %>
-  <div class="actions">
-    <%= b.submit %>
   </div>
-
+  <div class="actions">
+    <%= b.submit :value => "Update Folder", :class => 'btn btn-primary' %>
+  </div>
+</div>
 <% end %>
