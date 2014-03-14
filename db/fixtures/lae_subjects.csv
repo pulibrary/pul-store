@@ -1,393 +1,461 @@
-"subject","topic","lcsh","geog_subdiv_position"
-"Agrarian and rural issues","Agricultural laws and legislation","Agricultural laws and legislation","before"
-"Agrarian and rural issues","Agricultural technology","Agricultural technology","before"
-"Agrarian and rural issues","Handbooks, manuals, etc.","Agriculture--Handbooks, manuals, etc.","before"
-"Agrarian and rural issues","Festivals and fairs","Festivals; Fairs","after"
-"Agrarian and rural issues","Genetically modified foods","Genetically modified foods","after"
-"Agrarian and rural issues","Globalization","Globalization","before"
-"Agrarian and rural issues","Government and policies","Agriculture and state","before"
-"Agrarian and rural issues","International organizations","International agencies","before"
-"Agrarian and rural issues","Land reform","Land reform","before"
-"Agrarian and rural issues","Non-governmental organizations","Non-governmental organizations","before"
-"Agrarian and rural issues","Organic farming","Organic farming","before"
-"Agrarian and rural issues","Politics, activism and advocacy","Agriculture and politics","before"
-"Agrarian and rural issues","Rural development projects","Agricultural development projects; Rural development projects","before"
-"Agrarian and rural issues","Rural women","Rural women","before"
-"Agrarian and rural issues","Sustainable agriculture","Sustainable agriculture","before"
-"Agrarian and rural issues","Traditional and indigenous practices","Traditional farming","before"
-"Agrarian and rural issues","Transgenic plants","Transgenic plants","before"
-"Arts and culture","Architecture","Architecture","before"
-"Arts and culture","Cinema","Motion pictures","before"
-"Arts and culture","Education","Education","before"
-"Arts and culture","Festivals and fairs","Festivals; Fairs","before"
-"Arts and culture","Folk art","Folk art","before"
-"Arts and culture","Gastronomy","Gastronomy","before"
-"Arts and culture","Government, policies, legislation","Arts-political aspects; Politics and culture","before"
-"Arts and culture","Indigenous and ethnic art","Indigenous art; Ethnic art","before"
-"Arts and culture","Intellectuals","Intellectuals","before"
-"Arts and culture","International organizations","International agencies","before"
-"Arts and culture","Language and languages","Language and languages","before"
-"Arts and culture","Literature","Literature","before"
-"Arts and culture","Museums","Museums","before"
-"Arts and culture","Music","Music","before"
-"Arts and culture","Non-governmental organizations","Non-governmental organizations","before"
-"Arts and culture","Performing arts","Performing arts","before"
-"Arts and culture","Politics, activism and advocacy","Arts--Political aspects","before"
-"Arts and culture","Popular culture","Popular culture","before"
-"Arts and culture","Radio and television","Radio programs; Television programs","before"
-"Arts and culture","Sports and recreation","Recreation; Leisure","before"
-"Arts and culture","Visual arts","Art","before"
-"Children and youth","Abandoned and street children","Abandoned children; Street children","before"
-"Children and youth","Adolescents","Teenagers","before"
-"Children and youth","Alcohol abuse","Alcoholism","before"
-"Children and youth","Abuse","Child abuse; Children--Crimes against","before"
-"Children and youth","Child care","Child care","before"
-"Children and youth","Child labor","Child labor","before"
-"Children and youth","Government policy","Children--Government policy","before"
-"Children and youth","Legal status, laws, etc.","Children--Legal status, laws, etc.","before"
-"Children and youth","Children's rights","Children's rights","before"
-"Children and youth","Crime","Juvenile delinquency","before"
-"Children and youth","Crime prevention","Crime prevention","before"
-"Children and youth","Drug abuse","Drug abuse; Substance abuse","before"
-"Children and youth","Drug traffic","Drug traffic","before"
-"Children and youth","Education","Education","before"
-"Children and youth","Employment","Youth employment","before"
-"Children and youth","Family and community action","Education--Parent participation","before"
-"Children and youth","Gangs","Gangs","before"
-"Children and youth","Health","Health","before"
-"Children and youth","International organizations","International agencies","before"
-"Children and youth","Literacy","Literacy","before"
-"Children and youth","Non-governmental organizations","Non-governmental organizations","before"
-"Children and youth","Nutrition","Nutrition","before"
-"Children and youth","Politics, activism and advocacy","Children and politics","before"
-"Children and youth","Poverty","Poor children","before"
-"Children and youth","Sexual education","Sex instruction","before"
-"Children and youth","Sexual exploitation","Child sexual abuse","before"
-"Children and youth","Sexuality","Sex","before"
-"Children and youth","Youth culture"," Youth--Conduct of life; Youth--Attitudes","before"
-"Economics","Agriculture and agribusiness","Agricultural industries; Agriculture--Economic aspects","before"
-"Economics","Business","Business","before"
-"Economics","Communication and media","Communication; Mass media","before"
-"Economics","Consumer rights","Consumer protection--Political aspects.","before"
-"Economics","Cooperatives","Cooperative societies","before"
-"Economics","Debts, External","Debts, External","before"
-"Economics","Drug traffic","Drug traffic","before"
-"Economics","Economic analysis","Economics--Research","before"
-"Economics","Economic conditions","Economic conditions","before"
-"Economics","Economic development","Economic development","before"
-"Economics","Economic policy","Economic policy","before"
-"Economics","Energy; Power Resources","Power resources","before"
-"Economics","Finance","Finance","before"
-"Economics","Fishing and fisheries","Fishing; Fisheries","before"
-"Economics","Globalization","Globalization","before"
-"Economics","Government, policies, legislation","Economic policy","before"
-"Economics","Industries","Industries","before"
-"Economics","Inflation","Inflation","before"
-"Economics","Informal sector","Informal sector (Economics)","before"
-"Economics","Infrastructure","Infrastructure (Economics)","before"
-"Economics","International organizations","International agencies","before"
-"Economics","Investments, Foreign","Investments, Foreign","before"
-"Economics","Local government","Local government--Economic aspects","before"
-"Economics","Mines and mineral resources","Mines and mineral resources","before"
-"Economics","Multinationals","International business enterprises","before"
-"Economics","National economy","Economy","before"
-"Economics","Natural resources","Natural resources","before"
-"Economics","Non-governmental organizations","Non-governmental organizations","before"
-"Economics","Oil industries","Oil industries","before"
-"Economics","Politics, activism and advocacy","Economics--Political aspects; Economic policy--Social aspects","before"
-"Economics","Population and demography","Population; Demography","before"
-"Economics","Poverty","Poverty","before"
-"Economics","Science","Science","before"
-"Economics","Small business","Small business","before"
-"Economics","State, province or regional economy","Economy","before"
-"Economics","Taxation","Taxation","before"
-"Economics","Technology","Technology","before"
-"Economics","Trade","Commerce","before"
-"Economics","Trade associations","Trade associations","before"
-"Education","Adult education","Adult education","before"
-"Education","Bilingual education","Education, Bilingual","before"
-"Education","Dropouts","Dropouts","before"
-"Education","Education for ethnic and racial minorities","Minorities--Education; Multicultural education","before"
-"Education","Education for the poor","Poor-Education","before"
-"Education","Educational law and legislation","Educational law and legislation","before"
-"Education","Educational system","Educational system","before"
-"Education","Government, policies","Education and state","before"
-"Education","Higher education","Education, Higher","before"
-"Education","International organizations","International agencies","before"
-"Education","Literacy","Literacy","before"
-"Education","Non-governmental organizations","Non-governmental organizations","before"
-"Education","Pedagogical materials","Teaching--Aids and devices","before"
-"Education","Politics, activism and advocacy","Educational change; Education--Political aspects","before"
-"Education","Popular education","Popular education","before"
-"Education","Primary education","Education, Primary","before"
-"Education","Rural education","Education, Rural","before"
-"Education","Schools","Schools","before"
-"Education","Secondary education","Education, Secondary","before"
-"Education","Student activism and protests","Student movements; Students--Political activity","before"
-"Education","Student unions","Student unions","before"
-"Education","Teachers and teaching","Teachers; Education--Study and teaching","before"
-"Education","Teachers' unions","Teachers' unions","before"
-"Education","Vocational education","Vocational education","before"
-"Environment and ecology","Community initiatives","Community development--Environmental aspects.","before"
-"Environment and ecology","Ecotourism","Ecotourism","before"
-"Environment and ecology","Environmental education","Environmental education","before"
-"Environment and ecology","Environmental laws and legislation","Environmental law","before"
-"Environment and ecology","Environmental protection","Environmental protection","before"
-"Environment and ecology","Fishing","Fishing","before"
-"Environment and ecology","Forests and forestry","Forests and forestry","before"
-"Environment and ecology","Global warming","Global warming","before"
-"Environment and ecology","Government, policies","Environmental policy","before"
-"Environment and ecology","Health and the environment","Environmental health","before"
-"Environment and ecology","International and transnational organizations","International agencies","before"
-"Environment and ecology","Marine resources","Marine resources","before"
-"Environment and ecology","Mining","Mineral industries--environmental aspects","before"
-"Environment and ecology","Natural disasters","Natural disasters","before"
-"Environment and ecology","Natural gas","Natural gas","before"
-"Environment and ecology","Natural resources","Natural resources","before"
-"Environment and ecology","Nature conservation","Nature conservation","before"
-"Environment and ecology","Non-governmental organizations","Non-governmental organizations","before"
-"Environment and ecology","Oil industry","Petroleum industry and trade","before"
-"Environment and ecology","Parks","Parks","before"
-"Environment and ecology","Politics, activism and advocacy","Environmentalism; Environmental protection","before"
-"Environment and ecology","Pollution","Pollution","before"
-"Environment and ecology","Power","Power resources--Environmental aspects; Energy conservation","before"
-"Environment and ecology","Rain forests","Rain forests","before"
-"Environment and ecology","Sustainable development","Sustainable development","before"
-"Environment and ecology","Urban policy--Environmental aspects","Urban policy--Environmental aspects","before"
-"Environment and ecology","Urban renewal","Urban renewal","before"
-"Environment and ecology","Waste disposal and recycling","Recycling (Waste, etc.); Waste disposal","before"
-"Environment and ecology","Water use and resources","Water use; Water resources development","before"
-"Environment and ecology","Wildlife management and conservation","Wildlife management; Wildlife conservation","before"
-"Gay and lesbian","Arts and culture","Gay culture; Lesbian culture","before"
-"Gay and lesbian","Bisexual, transgender, transvestite","Bisexuals; Transgender people; Transvestites","before"
-"Gay and lesbian","Celebrities","Celebrities","before"
-"Gay and lesbian","Discrimination","Homophobia; Sex discrimination","before"
-"Gay and lesbian","Gay rights","Gay rights","before"
-"Gay and lesbian","Legal status, laws, etc.","Gays--Legal status, laws, etc.","before"
-"Gay and lesbian","Government, policies","Homosexuality--Government policy","before"
-"Gay and lesbian","Health","Health","before"
-"Gay and lesbian","HIV/AIDS","AIDS (Disease); HIV infections","before"
-"Gay and lesbian","International organizations","International agencies","before"
-"Gay and lesbian","Non-governmental organizations","Non-governmental organizations","before"
-"Gay and lesbian","Politics, activism and advocacy"," Gay rights","before"
-"Health","Alternative medicine","Alternative medicine","before"
-"Health","Birth control, contraception","Birth control; Contraception","before"
-"Health","Family planning","Family planning","before"
-"Health","Government, policies, legislation","Health policy","before"
-"Health","Health and the environment","Health--Environmental aspects","before"
-"Health","Health care","Health care","before"
-"Health","Health education","Health education","before"
-"Health","HIV/AIDS","AIDS (Disease); HIV infections","before"
-"Health","Immunization","Immunization","before"
-"Health","Infants","Infants","before"
-"Health","International organizations","International agencies","before"
-"Health","Medical infrastructure and resources","Health facilities","before"
-"Health","Medicines","Drugs--Therapeutic use","before"
-"Health","Mental health","Mental health","before"
-"Health","Non-governmental organizations","Non-governmental organizations","before"
-"Health","Nutrition","Nutrition","before"
-"Health","People with disabilities","People with disabilities","before"
-"Health","Pests","Pests","before"
-"Health","Politics, activism and advocacy","Public health--Citizenship participation","before"
-"Health","Sanitation","Sanitation","before"
-"Health","Sexual and reproductive health","Sexual health; Reproductive health","before"
-"Health","Substance abuse","Substance abuse","before"
-"Health","Traditional and indigenous practices","Traditional medicine","before"
-"Health","Water use and resources","Water use","before"
-"Human and civil rights","Archives","Archives","before"
-"Human and civil rights","Armed conflicts","War","before"
-"Human and civil rights","Children of prisoners","Children's rights","before"
-"Human and civil rights","Children's rights","Children's rights","before"
-"Human and civil rights","Consumer rights","Consumer protection","before"
-"Human and civil rights","Disappeared persons","Disappeared persons","before"
-"Human and civil rights","Documentation","Documentation","before"
-"Human and civil rights","Freedom of expression","Freedom of expression","before"
-"Human and civil rights","Freedom of the press","Freedom of the press","before"
-"Human and civil rights","Guerrillas; Paramilitaries","Guerrillas; Paramilitaries","before"
-"Human and civil rights","Government policy","Human rights--Government policy; Social rights--Government policy","before"
-"Human and civil rights","Human rights--Law and legislation","Human rights--Law and legislation","before"
-"Human and civil rights","Immigrants","Immigrants","before"
-"Human and civil rights","Indigenous, ethnic and racial minorities","Indigenous peoples--Civil rights; Minorities--Civil rights","before"
-"Human and civil rights","International and transnational organizations","International agencies","before"
-"Human and civil rights","Massacres","Massacres","before"
-"Human and civil rights","Memory","Collective memory","before"
-"Human and civil rights","Missing children","Missing children","before"
-"Human and civil rights","Non-governmental organizations","Non-governmental organizations","before"
-"Human and civil rights","People with disabilities","People with disabilities","before"
-"Human and civil rights","Police brutality","Police brutality","before"
-"Human and civil rights","Political prisoners","Political prisoners","before"
-"Human and civil rights","Political violence","Political violence","before"
-"Human and civil rights","Politics, activism and advocacy","Human rights advocacy","before"
-"Human and civil rights","Prisons","Prisons","before"
-"Human and civil rights","Refugees; Forced migration","Refugees; Forced migration","before"
-"Human and civil rights","Senior citizens","Older people","before"
-"Human and civil rights","Sexual minorities","Sexual minorities","before"
-"Human and civil rights","State violence","State-sponsored terrorism","before"
-"Human and civil rights","Terrorism","Terrorism","before"
-"Human and civil rights","Torture","Torture","before"
-"Human and civil rights","Truth commissions","Truth commissions","before"
-"Human and civil rights","Women","Women's rights","before"
-"Human and civil rights","Youth","Youth","before"
-"Minorities, ethnic and racial groups","Affirmative action","Affirmative action","before"
-"Minorities, ethnic and racial groups","Afro-descendants","Blacks","before"
-"Minorities, ethnic and racial groups","Arabs","Arabs","before"
-"Minorities, ethnic and racial groups","Asians","Asians","before"
-"Minorities, ethnic and racial groups","Europeans","Europeans","before"
-"Minorities, ethnic and racial groups","Folklore","Folklore","before"
-"Minorities, ethnic and racial groups","Government and policies","Minorities--Politics and government","before"
-"Minorities, ethnic and racial groups","Immigrants","Immigrants","before"
-"Minorities, ethnic and racial groups","Indigenous peoples","Indigenous peoples","before"
-"Minorities, ethnic and racial groups","Indigenous peoples --Legal status, laws, etc.","Indigenous peoples--Legal status, laws, etc.","before"
-"Minorities, ethnic and racial groups","International organizations","International agencies","before"
-"Minorities, ethnic and racial groups","Jews","Jews","before"
-"Minorities, ethnic and racial groups","Minorities--Legal status, laws, etc.","Minorities--Legal status, laws, etc.","before"
-"Minorities, ethnic and racial groups","Non-governmental organizations","Non-governmental organizations","before"
-"Minorities, ethnic and racial groups","Politics, activism and advocacy","Political participation; Political activity","before"
-"Minorities, ethnic and racial groups","Population and demography","Demography","before"
-"Minorities, ethnic and racial groups","Racism and discrimination","Racism; Discrimination","before"
-"Minorities, ethnic and racial groups","Rites, ceremonies and traditions","Rites and ceremonies","before"
-"Minorities, ethnic and racial groups","Territory and homeland","Land tenure--Social aspects; Self-determination, National","before"
-"Labor","Agricultural workers","Agricultural workers","before"
-"Labor","Employment policies and analysis","Employment","before"
-"Labor","International and transnational organizations","International agencies","before"
-"Labor","Labor market","Labor market","before"
-"Labor","Labor unions","Labor unions","before"
-"Labor","Laws and legislation","Labor laws and legislation","before"
-"Labor","Migrant Labor","Migrant Labor","before"
-"Labor","Pensions","Pensions","before"
-"Labor","Politics, activism and advocacy","Labor unions--Political activity","before"
-"Labor","Protests and strikes","Strikes and lockouts; Protest movements","before"
-"Labor","Unemployed workers and unemployment","Unemployed; Unemployment","before"
-"Politics and government","Armed conflicts","War","before"
-"Politics and government","Constitutions","Constitutions","before"
-"Politics and government","Corruption","Political corruption","before"
-"Politics and government","Decentralization","Decentralization in government","before"
-"Politics and government","Democracy and democratization","Democracy","before"
-"Politics and government","Elections and voting","Voting","before"
-"Politics and government","Foreign relations","Foreign relations","before"
-"Politics and government","Freedom of the press","Freedom of the press","before"
-"Politics and government","Globalization","Globalization","before"
-"Politics and government","Government and policies","Government policy","before"
-"Politics and government","Infrastructure projects","Infrastructure (Economics)","before"
-"Politics and government","International organizations","International agencies","before"
-"Politics and government","Laws and regulations","Laws; Regulations","before"
-"Politics and government","Legislative elections","Elections","before"
-"Politics and government","Local and municipal politics","Local government; Municipal government","before"
-"Politics and government","Military","Armed Forces","before"
-"Politics and government","Municipal or local elections","Local elections","before"
-"Politics and government","Non-governmental organizations (NGOs)","Non-governmental organizations","before"
-"Politics and government","Paramilitary forces","Paramilitary forces","before"
-"Politics and government","Peace negotiations and agreements","Peace negotiations; Peace agreements","before"
-"Politics and government","Police and policing","Police","before"
-"Politics and government","Political campaigns","Political campaigns","before"
-"Politics and government","Political opinion and analysis","Policy analysis","before"
-"Politics and government","Political participation","Political participation","before"
-"Politics and government","Political parties","Political parties","before"
-"Politics and government","Politics, activism and advocacy","Politics and government--Citizen participation","before"
-"Politics and government","Presidential elections","Presidents--Election","before"
-"Politics and government","Privatization","Privatization","before"
-"Politics and government","Revolutionary organizations","Revolutionaries","before"
-"Politics and government","Self-determination, National","Self-determination, National","before"
-"Politics and government","Social movements","Social movements","before"
-"Politics and government","Social policy and policy implementation","Social policy","before"
-"Politics and government","State or provincial elections","Elections","before"
-"Politics and government","Taxation","Fiscal policy","before"
-"Politics and government","Transportation","Transportation","before"
-"Politics and government","U.S. – Latin American relations","United States--Relations--Latin America","before"
-"Politics and government","Universities and students","Universities and colleges; College students","before"
-"Politics and government","Urban planning","City planning","before"
-"Religion","African origin religions","Afro-Caribbean cults; Afro-Brazilian cults","before"
-"Religion","Anglicans","Anglicans","before"
-"Religion","Atheism","Atheism","before"
-"Religion","Bible","Bible","before"
-"Religion","Catholics and Catholicism","Catholic Church; Catholics","before"
-"Religion","Christians","Christians","before"
-"Religion","Church and state relations","Church and state","before"
-"Religion","Cults","Cults","before"
-"Religion","Ecumenical movement","Ecumenical movement","before"
-"Religion","Episcopals","Episcopal Church; Episcopalians","before"
-"Religion","Evangelicalism","Evangelicalism","before"
-"Religion","Indigenous religions and beliefs","Indians--Religion","before"
-"Religion","Islam and Muslims","Islam; Muslims","before"
-"Religion","Jehova's Witnesses","Jehova's Witnesses","before"
-"Religion","Jews and Judaism","Jews; Judaism","before"
-"Religion","Liberation theology","Liberation theology","before"
-"Religion","Missionaries","Missionaries","before"
-"Religion","Non-denominational Christian organizations","Independent churches","before"
-"Religion","Politics, activism and advocacy","Religion and politics","before"
-"Religion","Protestants and Protestantism","Protestants; Protestant churches","before"
-"Religion","Religious art and architecture","Religious art; Religious architecture","before"
-"Religion","Religious education","Religious education","before"
-"Religion","Rituals","Rites and ceremonies","before"
-"Religion","Spiritualism","Spiritualism","before"
-"Socioeconomic conditions and development","Community and local development","Community development","before"
-"Socioeconomic conditions and development","Drug traffic","Drug traffic","before"
-"Socioeconomic conditions and development","Economic and technical assitance","Economic assistance; Technical assistance","before"
-"Socioeconomic conditions and development","Economic development","Economic development","before"
-"Socioeconomic conditions and development","Economic development projects","Economic development projects","before"
-"Socioeconomic conditions and development","Globalization","Globalization","before"
-"Socioeconomic conditions and development","Government and policies","Economic policy; Social policy","before"
-"Socioeconomic conditions and development","Housing","Housing","before"
-"Socioeconomic conditions and development","Infrastructure","Infrastructure (Economics)","before"
-"Socioeconomic conditions and development","International organizations","International agencies","before"
-"Socioeconomic conditions and development","Micro-enterprises and credit","Small business; Microfinance","before"
-"Socioeconomic conditions and development","Natural gas and hydrocarbons","Natural gas; Hydrocarbons","before"
-"Socioeconomic conditions and development","Natural resources","Natural resources","before"
-"Socioeconomic conditions and development","Non-governmental organizations (NGOs)","Non-governmental organizations","before"
-"Socioeconomic conditions and development","Politics, activism and advocacy","Economic policy--citizen participation; Social policy--citizen participation","before"
-"Socioeconomic conditions and development","Power resources","Power resources","before"
-"Tourism","Advertisements","Advertising--Tourism","before"
-"Tourism","Archaeological sites","Archaeological sites","before"
-"Tourism","Ecotourism","Ecotourism","before"
-"Tourism","Events and attractions","Tourism","before"
-"Tourism","Facilities","Tourist camps, hostels, etc.","before"
-"Tourism","Festivals, fairs","Festivals; Fairs","before"
-"Tourism","Guides","Guidebooks","before"
-"Tourism","Monuments","Monuments","before"
-"Tourism","Tourism and art","Tourism and art","before"
-"Tourism","Tourism and gastronomy","Tourism and gastronomy","before"
-"Tourism","Economic aspects","Tourism--Economic aspects","before"
-"Tourism","Social aspects","Tourism--Social aspects","before"
-"Tourism","Tourist maps","Tourist maps","before"
-"Urban issues","Architecture","Architecture","before"
-"Urban issues","City planning","City planning","before"
-"Urban issues","Crime and violence","Crime; Violence","before"
-"Urban issues","Drug traffic","Drug traffic","before"
-"Urban issues","Housing policy","Housing policy","before"
-"Urban issues","Infrastructure","Infrastructure (Economics)","before"
-"Urban issues","International and transnational organizations","International organizations","before"
-"Urban issues","Land use, urban","Land use, urban","before"
-"Urban issues","Non-governmental organizations","Non-governmental organizations","before"
-"Urban issues","Politics, activism and advocacy","Political activists; Political participation","before"
-"Urban issues","Population and demography","Urban population; Demography","before"
-"Urban issues","Public works and investments","Public works; Public investments","before"
-"Urban issues","Real estate business","Real estate business","before"
-"Urban issues","Squatter settlements","Squatter settlements","before"
-"Urban issues","Transportation","Urban transportation","before"
-"Urban issues","Urban-rural migration","Urban-rural migration","before"
-"Urban issues","Water use and conservation","Water use; Water conservation","before"
-"Women","Abortion","Abortion","before"
-"Women","Arts and culture","Women in art","before"
-"Women","Birth control, contraception, reproductive rights","Birth control; Contraception; Reproductive rights","before"
-"Women","Child care","Child care","before"
-"Women","Discrimination","Sex discrimination against women","before"
-"Women","Domestic workers","Women household employees","before"
-"Women","Education","Women--Education","before"
-"Women","Employment and unemployment","Women--Employment","before"
-"Women","Family","Family","before"
-"Women","Feminism","Feminism","before"
-"Women","Health","Women--Health and hygiene","before"
-"Women","HIV/AIDS","HIV-positive women; AIDS (Disease)","before"
-"Women","Indigenous women","Indigenous women","before"
-"Women","International and transnational organizations","International agencies","before"
-"Women","Non-governmental organizations","Non-governmental organizations","before"
-"Women","Political representation","Women--Political activity","before"
-"Women","Politics, activism and advocacy","Women--Political activity","before"
-"Women","Prostitution","Prostitution","before"
-"Women","Reproductive health","Reproductive health","before"
-"Women","Rural women","Rural women","before"
-"Women","Sexuality","Women--identity; Women--Sexual behavior","before"
-"Women","Violence against","Women--Crimes against","before"
-"Women","Government policy","Women--Government policy","before"
-"Women","Legal status, laws, etc.","Women--Legal status, laws, etc.","before"
-"Women","Women's rights","Women's rights","before"
+lae_category,lae_subject,lae_concept_string,lcsh_label,lcsh_uri
+Agrarian and rural issues,Agricultural laws and legislation,Agrarian and rural issues##Agricultural laws and legislation,Agricultural laws and legislation,http://id.loc.gov/authorities/subjects/sh85002349
+Agrarian and rural issues,Agricultural technology,Agrarian and rural issues##Agricultural technology,Agricultural technology,
+Agrarian and rural issues,"Handbooks, manuals, etc.","Agrarian and rural issues##Handbooks, manuals, etc.","Agriculture--Handbooks, manuals, etc.",
+Agrarian and rural issues,Festivals and fairs,Agrarian and rural issues##Festivals and fairs,Festivals,http://id.loc.gov/authorities/subjects/sh85047932
+Agrarian and rural issues,Festivals and fairs,Agrarian and rural issues##Festivals and fairs,Fairs,http://id.loc.gov/authorities/subjects/sh85046910
+Agrarian and rural issues,Genetically modified foods,Agrarian and rural issues##Genetically modified foods,Genetically modified foods,http://id.loc.gov/authorities/subjects/sh00006274
+Agrarian and rural issues,Globalization,Agrarian and rural issues##Globalization,Globalization,http://id.loc.gov/authorities/subjects/sh99010179
+Agrarian and rural issues,Government and policies,Agrarian and rural issues##Government and policies,Agriculture and state,http://id.loc.gov/authorities/subjects/sh85002484
+Agrarian and rural issues,International organizations,Agrarian and rural issues##International organizations,International agencies,http://id.loc.gov/authorities/subjects/sh85067357
+Agrarian and rural issues,Land reform,Agrarian and rural issues##Land reform,Land reform,http://id.loc.gov/authorities/subjects/sh85074300
+Agrarian and rural issues,Non-governmental organizations,Agrarian and rural issues##Non-governmental organizations,Non-governmental organizations,http://id.loc.gov/authorities/subjects/sh86007360
+Agrarian and rural issues,Organic farming,Agrarian and rural issues##Organic farming,Organic farming,http://id.loc.gov/authorities/subjects/sh85095504
+Agrarian and rural issues,"Politics, activism and advocacy","Agrarian and rural issues##Politics, activism and advocacy",Agriculture and politics,http://id.loc.gov/authorities/subjects/sh85002483
+Agrarian and rural issues,Rural development projects,Agrarian and rural issues##Rural development projects,Agricultural development projects,http://id.loc.gov/authorities/subjects/sh85002306
+Agrarian and rural issues,Rural development projects,Agrarian and rural issues##Rural development projects,Rural development projects,http://id.loc.gov/authorities/subjects/sh85115909
+Agrarian and rural issues,Rural women,Agrarian and rural issues##Rural women,Rural women,http://id.loc.gov/authorities/subjects/sh85115935
+Agrarian and rural issues,Sustainable agriculture,Agrarian and rural issues##Sustainable agriculture,Sustainable agriculture,http://id.loc.gov/authorities/subjects/sh87004216
+Agrarian and rural issues,Traditional and indigenous practices,Agrarian and rural issues##Traditional and indigenous practices,Traditional farming,http://id.loc.gov/authorities/subjects/sh85002480
+Agrarian and rural issues,Transgenic plants,Agrarian and rural issues##Transgenic plants,Transgenic plants,http://id.loc.gov/authorities/subjects/sh90003137
+Arts and culture,Architecture,Arts and culture##Architecture,Architecture,http://id.loc.gov/authorities/subjects/sh85006611
+Arts and culture,Cinema,Arts and culture##Cinema,Motion pictures,http://id.loc.gov/authorities/subjects/sh85088084
+Arts and culture,Education,Arts and culture##Education,Education,http://id.loc.gov/authorities/subjects/sh85040989
+Arts and culture,Festivals and fairs,Arts and culture##Festivals and fairs,Festivals,http://id.loc.gov/authorities/subjects/sh85047932
+Arts and culture,Festivals and fairs,Arts and culture##Festivals and fairs,Fairs,http://id.loc.gov/authorities/subjects/sh85046910
+Arts and culture,Folk art,Arts and culture##Folk art,Folk art,http://id.loc.gov/authorities/subjects/sh85049650
+Arts and culture,Gastronomy,Arts and culture##Gastronomy,Gastronomy,http://id.loc.gov/authorities/subjects/sh85053492
+Arts and culture,"Government, policies, legislation","Arts and culture##Government, policies, legislation",Arts--Political aspects,http://id.loc.gov/authorities/subjects/sh2009113916
+Arts and culture,"Government, policies, legislation","Arts and culture##Government, policies, legislation",Politics and culture,http://id.loc.gov/authorities/subjects/sh85104468
+Arts and culture,Indigenous and ethnic art,Arts and culture##Indigenous and ethnic art,Indigenous art,http://id.loc.gov/authorities/subjects/sh2006008419
+Arts and culture,Indigenous and ethnic art,Arts and culture##Indigenous and ethnic art,Ethnic art,http://id.loc.gov/authorities/subjects/sh85045163
+Arts and culture,Intellectuals,Arts and culture##Intellectuals,Intellectuals,http://id.loc.gov/authorities/subjects/sh85067169
+Arts and culture,International organizations,Arts and culture##International organizations,International agencies,http://id.loc.gov/authorities/subjects/sh85067357
+Arts and culture,Language and languages,Arts and culture##Language and languages,Language and languages,http://id.loc.gov/authorities/subjects/sh85074518
+Arts and culture,Literature,Arts and culture##Literature,Literature,http://id.loc.gov/authorities/subjects/sh85077507
+Arts and culture,Museums,Arts and culture##Museums,Museums,http://id.loc.gov/authorities/subjects/sh85088723
+Arts and culture,Music,Arts and culture##Music,Music,http://id.loc.gov/authorities/subjects/sh85088762
+Arts and culture,Non-governmental organizations,Arts and culture##Non-governmental organizations,Non-governmental organizations,http://id.loc.gov/authorities/subjects/sh86007360
+Arts and culture,Performing arts,Arts and culture##Performing arts,Performing arts,http://id.loc.gov/authorities/subjects/sh85099818
+Arts and culture,"Politics, activism and advocacy","Arts and culture##Politics, activism and advocacy",Arts--Political aspects,http://id.loc.gov/authorities/subjects/sh2009113916
+Arts and culture,Popular culture,Arts and culture##Popular culture,Popular culture,http://id.loc.gov/authorities/subjects/sh85104904
+Arts and culture,Radio and television,Arts and culture##Radio and television,Radio programs,http://id.loc.gov/authorities/subjects/sh85110557
+Arts and culture,Radio and television,Arts and culture##Radio and television,Television programs,http://id.loc.gov/authorities/subjects/sh85133602
+Arts and culture,Sports and recreation,Arts and culture##Sports and recreation,Recreation,http://id.loc.gov/authorities/subjects/sh85111945
+Arts and culture,Sports and recreation,Arts and culture##Sports and recreation,Leisure,http://id.loc.gov/authorities/subjects/sh85075925
+Arts and culture,Visual arts,Arts and culture##Visual arts,Art,http://id.loc.gov/authorities/subjects/sh85007461
+Children and youth,Abandoned and street children,Children and youth##Abandoned and street children,Abandoned children,http://id.loc.gov/authorities/subjects/sh85000048
+Children and youth,Abandoned and street children,Children and youth##Abandoned and street children,Street children,http://id.loc.gov/authorities/subjects/sh91006120
+Children and youth,Adolescents,Children and youth##Adolescents,Teenagers,http://id.loc.gov/authorities/subjects/sh87006824
+Children and youth,Alcohol abuse,Children and youth##Alcohol abuse,Alcoholism,http://id.loc.gov/authorities/subjects/sh85003292
+Children and youth,Abuse,Children and youth##Abuse,Child abuse,http://id.loc.gov/authorities/subjects/sh85023348
+Children and youth,Abuse,Children and youth##Abuse,Children--Crimes against,http://id.loc.gov/authorities/subjects/sh95007375
+Children and youth,Child care,Children and youth##Child care,Child care,http://id.loc.gov/authorities/subjects/sh85023354
+Children and youth,Child labor,Children and youth##Child labor,Child labor,http://id.loc.gov/authorities/subjects/sh85023444
+Children and youth,Government policy,Children and youth##Government policy,Children--Government policy,
+Children and youth,"Legal status, laws, etc.","Children and youth##Legal status, laws, etc.","Children--Legal status, laws, etc.",
+Children and youth,Children's rights,Children and youth##Children's rights,Children's rights,http://id.loc.gov/authorities/subjects/sh85023773
+Children and youth,Crime,Children and youth##Crime,Juvenile delinquency,http://id.loc.gov/authorities/subjects/sh85071166
+Children and youth,Crime prevention,Children and youth##Crime prevention,Crime prevention,http://id.loc.gov/authorities/subjects/sh85034011
+Children and youth,Drug abuse,Children and youth##Drug abuse,Drug abuse,http://id.loc.gov/authorities/subjects/sh85039675
+Children and youth,Drug abuse,Children and youth##Drug abuse,Substance abuse,http://id.loc.gov/authorities/subjects/sh85129539
+Children and youth,Drug traffic,Children and youth##Drug traffic,Drug traffic,http://id.loc.gov/authorities/subjects/sh88000332
+Children and youth,Education,Children and youth##Education,Education,http://id.loc.gov/authorities/subjects/sh85040989
+Children and youth,Employment,Children and youth##Employment,Youth employment,
+Children and youth,Family and community action,Children and youth##Family and community action,Education--Parent participation,http://id.loc.gov/authorities/subjects/sh87002284
+Children and youth,Gangs,Children and youth##Gangs,Gangs,http://id.loc.gov/authorities/subjects/sh85053026
+Children and youth,Health,Children and youth##Health,Health,http://id.loc.gov/authorities/subjects/sh85059518
+Children and youth,International organizations,Children and youth##International organizations,International agencies,http://id.loc.gov/authorities/subjects/sh85067357
+Children and youth,Literacy,Children and youth##Literacy,Literacy,http://id.loc.gov/authorities/subjects/sh85077482
+Children and youth,Non-governmental organizations,Children and youth##Non-governmental organizations,Non-governmental organizations,http://id.loc.gov/authorities/subjects/sh86007360
+Children and youth,Nutrition,Children and youth##Nutrition,Nutrition,http://id.loc.gov/authorities/subjects/sh85093451
+Children and youth,"Politics, activism and advocacy","Children and youth##Politics, activism and advocacy",Children and politics,http://id.loc.gov/authorities/subjects/sh85023516
+Children and youth,Poverty,Children and youth##Poverty,Poor children,http://id.loc.gov/authorities/subjects/sh85104852
+Children and youth,Sexual education,Children and youth##Sexual education,Sex instruction,http://id.loc.gov/authorities/subjects/sh85120630
+Children and youth,Sexual exploitation,Children and youth##Sexual exploitation,Child sexual abuse,http://id.loc.gov/authorities/subjects/sh85023376
+Children and youth,Sexuality,Children and youth##Sexuality,Sex,http://id.loc.gov/authorities/subjects/sh85120549
+Children and youth,Youth culture,Children and youth##Youth culture,Youth--Conduct of life,http://id.loc.gov/authorities/subjects/sh85149315
+Children and youth,Youth culture,Children and youth##Youth culture,Youth--Attitudes,http://id.loc.gov/authorities/subjects/sh2008114052
+Economics,Agriculture and agribusiness,Economics##Agriculture and agribusiness,Agricultural industries,http://id.loc.gov/authorities/subjects/sh85002331
+Economics,Agriculture and agribusiness,Economics##Agriculture and agribusiness,Agriculture--Economic aspects,http://id.loc.gov/authorities/subjects/sh85002427
+Economics,Business,Economics##Business,Business,http://id.loc.gov/authorities/subjects/sh85018260
+Economics,Communication and media,Economics##Communication and media,Communication,http://id.loc.gov/authorities/subjects/sh85029027
+Economics,Communication and media,Economics##Communication and media,Mass media,http://id.loc.gov/authorities/subjects/sh85081863
+Economics,Consumer rights,Economics##Consumer rights,Consumer protection,http://id.loc.gov/authorities/subjects/sh85031486
+Economics,Cooperatives,Economics##Cooperatives,Cooperative societies,http://id.loc.gov/authorities/subjects/sh85032217
+Economics,"Debts, External","Economics##Debts, External","Debts, External",http://id.loc.gov/authorities/subjects/sh85036140
+Economics,Drug traffic,Economics##Drug traffic,Drug traffic,http://id.loc.gov/authorities/subjects/sh88000332
+Economics,Economic analysis,Economics##Economic analysis,Economics--Research,http://id.loc.gov/authorities/subjects/sh2008102636
+Economics,Economic conditions,Economics##Economic conditions,Economic conditions,http://id.loc.gov/authorities/subjects/sh85040802
+Economics,Economic development,Economics##Economic development,Economic development,http://id.loc.gov/authorities/subjects/sh85040804
+Economics,Economic policy,Economics##Economic policy,Economic policy,http://id.loc.gov/authorities/subjects/sh85040837
+Economics,Energy; Power Resources,Economics##Energy; Power Resources,Power resources,http://id.loc.gov/authorities/subjects/sh85105992
+Economics,Finance,Economics##Finance,Finance,http://id.loc.gov/authorities/subjects/sh85048256
+Economics,Fishing and fisheries,Economics##Fishing and fisheries,Fishing,http://id.loc.gov/authorities/subjects/sh85048830
+Economics,Fishing and fisheries,Economics##Fishing and fisheries,Fisheries,http://id.loc.gov/authorities/subjects/sh85048666
+Economics,Globalization,Economics##Globalization,Globalization,http://id.loc.gov/authorities/subjects/sh99010179
+Economics,"Government, policies, legislation","Economics##Government, policies, legislation",Economic policy,http://id.loc.gov/authorities/subjects/sh85040837
+Economics,Industries,Economics##Industries,Industries,http://id.loc.gov/authorities/subjects/sh85065960
+Economics,Inflation,Economics##Inflation,Inflation,
+Economics,Informal sector,Economics##Informal sector,Informal sector (Economics),http://id.loc.gov/authorities/subjects/sh85066135
+Economics,Infrastructure,Economics##Infrastructure,Infrastructure (Economics),http://id.loc.gov/authorities/subjects/sh85066333
+Economics,International organizations,Economics##International organizations,International agencies,http://id.loc.gov/authorities/subjects/sh85067357
+Economics,"Investments, Foreign","Economics##Investments, Foreign","Investments, Foreign",http://id.loc.gov/authorities/subjects/sh85067736
+Economics,Local government,Economics##Local government,Local government--Economic aspects,
+Economics,Mines and mineral resources,Economics##Mines and mineral resources,Mines and mineral resources,http://id.loc.gov/authorities/subjects/sh85085614
+Economics,Multinationals,Economics##Multinationals,International business enterprises,http://id.loc.gov/authorities/subjects/sh85067372
+Economics,National economy,Economics##National economy,Economy,
+Economics,Natural resources,Economics##Natural resources,Natural resources,http://id.loc.gov/authorities/subjects/sh85090254
+Economics,Non-governmental organizations,Economics##Non-governmental organizations,Non-governmental organizations,http://id.loc.gov/authorities/subjects/sh86007360
+Economics,Oil industries,Economics##Oil industries,Oil industries,http://id.loc.gov/authorities/subjects/sh85094337
+Economics,"Politics, activism and advocacy","Economics##Politics, activism and advocacy",Economics--Political aspects,
+Economics,"Politics, activism and advocacy","Economics##Politics, activism and advocacy",Economic policy--Social aspects,
+Economics,Population and demography,Economics##Population and demography,Population,http://id.loc.gov/authorities/subjects/sh85104910
+Economics,Population and demography,Economics##Population and demography,Demography,http://id.loc.gov/authorities/subjects/sh85036659
+Economics,Poverty,Economics##Poverty,Poverty,http://id.loc.gov/authorities/subjects/sh85105939
+Economics,Science,Economics##Science,Science,http://id.loc.gov/authorities/subjects/sh85118553
+Economics,Small business,Economics##Small business,Small business,http://id.loc.gov/authorities/subjects/sh85123568
+Economics,"State, province or regional economy","Economics##State, province or regional economy",Economy,
+Economics,Taxation,Economics##Taxation,Taxation,http://id.loc.gov/authorities/subjects/sh85132846
+Economics,Technology,Economics##Technology,Technology,http://id.loc.gov/authorities/subjects/sh85133147
+Economics,Trade,Economics##Trade,Commerce,http://id.loc.gov/authorities/subjects/sh85028901
+Economics,Trade associations,Economics##Trade associations,Trade associations,http://id.loc.gov/authorities/subjects/sh95006344
+Education,Adult education,Education##Adult education,Adult education,http://id.loc.gov/authorities/subjects/sh85001028
+Education,Bilingual education,Education##Bilingual education,"Education, Bilingual",http://id.loc.gov/authorities/subjects/sh85041053
+Education,Dropouts,Education##Dropouts,Dropouts,http://id.loc.gov/authorities/subjects/sh85039629
+Education,Education for ethnic and racial minorities,Education##Education for ethnic and racial minorities,Minorities--Education,http://id.loc.gov/authorities/subjects/sh85085794
+Education,Education for ethnic and racial minorities,Education##Education for ethnic and racial minorities,Multicultural education,http://id.loc.gov/authorities/subjects/sh85067223
+Education,Education for the poor,Education##Education for the poor,Poor-Education,
+Education,Educational law and legislation,Education##Educational law and legislation,Educational law and legislation,http://id.loc.gov/authorities/subjects/sh85041128
+Education,Educational system,Education##Educational system,Educational system,
+Education,"Government, policies","Education##Government, policies",Education and state,http://id.loc.gov/authorities/subjects/sh85041091
+Education,Higher education,Education##Higher education,"Education, Higher",http://id.loc.gov/authorities/subjects/sh85041065
+Education,International organizations,Education##International organizations,International agencies,http://id.loc.gov/authorities/subjects/sh85067357
+Education,Literacy,Education##Literacy,Literacy,http://id.loc.gov/authorities/subjects/sh85077482
+Education,Non-governmental organizations,Education##Non-governmental organizations,Non-governmental organizations,http://id.loc.gov/authorities/subjects/sh86007360
+Education,Pedagogical materials,Education##Pedagogical materials,Teaching--Aids and devices,http://id.loc.gov/authorities/subjects/sh85133053
+Education,"Politics, activism and advocacy","Education##Politics, activism and advocacy",Educational change,http://id.loc.gov/authorities/subjects/sh90003113
+Education,"Politics, activism and advocacy","Education##Politics, activism and advocacy",Education--Political aspects,http://id.loc.gov/authorities/subjects/sh85104469
+Education,Popular education,Education##Popular education,Popular education,http://id.loc.gov/authorities/subjects/sh91005791
+Education,Primary education,Education##Primary education,"Education, Primary",http://id.loc.gov/authorities/subjects/sh85041077
+Education,Rural education,Education##Rural education,"Education, Rural",http://id.loc.gov/authorities/subjects/sh85041081
+Education,Schools,Education##Schools,Schools,http://id.loc.gov/authorities/subjects/sh85118451
+Education,Secondary education,Education##Secondary education,"Education, Secondary",http://id.loc.gov/authorities/subjects/sh85041082
+Education,Student activism and protests,Education##Student activism and protests,Student movements,http://id.loc.gov/authorities/subjects/sh85129276
+Education,Student activism and protests,Education##Student activism and protests,Students--Political activity,http://id.loc.gov/authorities/subjects/sh85129306
+Education,Student unions,Education##Student unions,Student unions,http://id.loc.gov/authorities/subjects/sh85129292
+Education,Teachers and teaching,Education##Teachers and teaching,Teachers,http://id.loc.gov/authorities/subjects/sh85132964
+Education,Teachers and teaching,Education##Teachers and teaching,Education--Study and teaching,http://id.loc.gov/authorities/subjects/sh85041021
+Education,Teachers' unions,Education##Teachers' unions,Teachers' unions,http://id.loc.gov/authorities/subjects/sh85133046
+Education,Vocational education,Education##Vocational education,Vocational education,http://id.loc.gov/authorities/subjects/sh85144178
+Environment and ecology,Community initiatives,Environment and ecology##Community initiatives,Community development--Environmental aspects.,
+Environment and ecology,Ecotourism,Environment and ecology##Ecotourism,Ecotourism,http://id.loc.gov/authorities/subjects/sh92003403
+Environment and ecology,Environmental education,Environment and ecology##Environmental education,Environmental education,http://id.loc.gov/authorities/subjects/sh85044169
+Environment and ecology,Environmental laws and legislation,Environment and ecology##Environmental laws and legislation,Environmental law,http://id.loc.gov/authorities/subjects/sh85044184
+Environment and ecology,Environmental protection,Environment and ecology##Environmental protection,Environmental protection,http://id.loc.gov/authorities/subjects/sh85044203
+Environment and ecology,Fishing,Environment and ecology##Fishing,Fishing,http://id.loc.gov/authorities/subjects/sh85048830
+Environment and ecology,Forests and forestry,Environment and ecology##Forests and forestry,Forests and forestry,http://id.loc.gov/authorities/subjects/sh85050707
+Environment and ecology,Global warming,Environment and ecology##Global warming,Global warming,http://id.loc.gov/authorities/subjects/sh89000812
+Environment and ecology,"Government, policies","Environment and ecology##Government, policies",Environmental policy,http://id.loc.gov/authorities/subjects/sh85044197
+Environment and ecology,Health and the environment,Environment and ecology##Health and the environment,Environmental health,http://id.loc.gov/authorities/subjects/sh85044173
+Environment and ecology,International and transnational organizations,Environment and ecology##International and transnational organizations,International agencies,http://id.loc.gov/authorities/subjects/sh85067357
+Environment and ecology,Marine resources,Environment and ecology##Marine resources,Marine resources,http://id.loc.gov/authorities/subjects/sh85081257
+Environment and ecology,Mining,Environment and ecology##Mining,Mineral industries--environmental aspects,http://id.loc.gov/authorities/subjects/sh85085556
+Environment and ecology,Natural disasters,Environment and ecology##Natural disasters,Natural disasters,http://id.loc.gov/authorities/subjects/sh85090214
+Environment and ecology,Natural gas,Environment and ecology##Natural gas,Natural gas,http://id.loc.gov/authorities/subjects/sh85053223
+Environment and ecology,Natural resources,Environment and ecology##Natural resources,Natural resources,http://id.loc.gov/authorities/subjects/sh85090254
+Environment and ecology,Nature conservation,Environment and ecology##Nature conservation,Nature conservation,http://id.loc.gov/authorities/subjects/sh85090284
+Environment and ecology,Non-governmental organizations,Environment and ecology##Non-governmental organizations,Non-governmental organizations,http://id.loc.gov/authorities/subjects/sh86007360
+Environment and ecology,Oil industry,Environment and ecology##Oil industry,Petroleum industry and trade,http://id.loc.gov/authorities/subjects/sh85100430
+Environment and ecology,Parks,Environment and ecology##Parks,Parks,http://id.loc.gov/authorities/subjects/sh85098119
+Environment and ecology,"Politics, activism and advocacy","Environment and ecology##Politics, activism and advocacy",Environmentalism,http://id.loc.gov/authorities/subjects/sh93004752
+Environment and ecology,"Politics, activism and advocacy","Environment and ecology##Politics, activism and advocacy",Environmental protection,http://id.loc.gov/authorities/subjects/sh85044203
+Environment and ecology,Pollution,Environment and ecology##Pollution,Pollution,http://id.loc.gov/authorities/subjects/sh85104530
+Environment and ecology,Power,Environment and ecology##Power,Power resources--Environmental aspects,http://id.loc.gov/authorities/subjects/sh2008109911
+Environment and ecology,Power,Environment and ecology##Power,Energy conservation,http://id.loc.gov/authorities/subjects/sh85043124
+Environment and ecology,Rain forests,Environment and ecology##Rain forests,Rain forests,http://id.loc.gov/authorities/subjects/sh85111193
+Environment and ecology,Sustainable development,Environment and ecology##Sustainable development,Sustainable development,http://id.loc.gov/authorities/subjects/sh92005743
+Environment and ecology,Urban policy--Environmental aspects,Environment and ecology##Urban policy--Environmental aspects,Urban policy--Environmental aspects,
+Environment and ecology,Urban renewal,Environment and ecology##Urban renewal,Urban renewal,http://id.loc.gov/authorities/subjects/sh85141324
+Environment and ecology,Waste disposal and recycling,Environment and ecology##Waste disposal and recycling,"Recycling (Waste, etc.)",http://id.loc.gov/authorities/subjects/sh85112020
+Environment and ecology,Waste disposal and recycling,Environment and ecology##Waste disposal and recycling,Waste disposal,http://id.loc.gov/authorities/subjects/sh85145407
+Environment and ecology,Water use and resources,Environment and ecology##Water use and resources,Water use,http://id.loc.gov/authorities/subjects/sh85145666
+Environment and ecology,Water use and resources,Environment and ecology##Water use and resources,Water resources development,http://id.loc.gov/authorities/subjects/sh85145612
+Environment and ecology,Wildlife management and conservation,Environment and ecology##Wildlife management and conservation,Wildlife management,http://id.loc.gov/authorities/subjects/sh85146737
+Environment and ecology,Wildlife management and conservation,Environment and ecology##Wildlife management and conservation,Wildlife conservation,http://id.loc.gov/authorities/subjects/sh85146731
+Gay and lesbian,Arts and culture,Gay and lesbian##Arts and culture,Gay culture,http://id.loc.gov/authorities/subjects/sh2004003369
+Gay and lesbian,Arts and culture,Gay and lesbian##Arts and culture,Lesbian culture,http://id.loc.gov/authorities/subjects/sh2004003370
+Gay and lesbian,"Bisexual, transgender, transvestite","Gay and lesbian##Bisexual, transgender, transvestite",Bisexuals,http://id.loc.gov/authorities/subjects/sh93003390
+Gay and lesbian,"Bisexual, transgender, transvestite","Gay and lesbian##Bisexual, transgender, transvestite",Transgender people,http://id.loc.gov/authorities/subjects/sh2007003708
+Gay and lesbian,"Bisexual, transgender, transvestite","Gay and lesbian##Bisexual, transgender, transvestite",Transvestites,http://id.loc.gov/authorities/subjects/sh89002495
+Gay and lesbian,Celebrities,Gay and lesbian##Celebrities,Celebrities,http://id.loc.gov/authorities/subjects/sh85021618
+Gay and lesbian,Discrimination,Gay and lesbian##Discrimination,Homophobia,http://id.loc.gov/authorities/subjects/sh88006552
+Gay and lesbian,Discrimination,Gay and lesbian##Discrimination,Sex discrimination,http://id.loc.gov/authorities/subjects/sh85120591
+Gay and lesbian,Gay rights,Gay and lesbian##Gay rights,Gay rights,http://id.loc.gov/authorities/subjects/sh94009215
+Gay and lesbian,"Legal status, laws, etc.","Gay and lesbian##Legal status, laws, etc.","Gays--Legal status, laws, etc.",
+Gay and lesbian,"Government, policies","Gay and lesbian##Government, policies",Homosexuality--Government policy,
+Gay and lesbian,Health,Gay and lesbian##Health,Health,http://id.loc.gov/authorities/subjects/sh85059518
+Gay and lesbian,HIV/AIDS,Gay and lesbian##HIV/AIDS,AIDS (Disease),http://id.loc.gov/authorities/subjects/sh85002541
+Gay and lesbian,HIV/AIDS,Gay and lesbian##HIV/AIDS,HIV infections,http://id.loc.gov/authorities/subjects/sh91004036
+Gay and lesbian,International organizations,Gay and lesbian##International organizations,International agencies,http://id.loc.gov/authorities/subjects/sh85067357
+Gay and lesbian,Non-governmental organizations,Gay and lesbian##Non-governmental organizations,Non-governmental organizations,http://id.loc.gov/authorities/subjects/sh86007360
+Gay and lesbian,"Politics, activism and advocacy","Gay and lesbian##Politics, activism and advocacy",Gay rights,http://id.loc.gov/authorities/subjects/sh94009215
+Health,Alternative medicine,Health##Alternative medicine,Alternative medicine,http://id.loc.gov/authorities/subjects/sh85134721
+Health,"Birth control, contraception","Health##Birth control, contraception",Birth control,http://id.loc.gov/authorities/subjects/sh85014367
+Health,"Birth control, contraception","Health##Birth control, contraception",Contraception,http://id.loc.gov/authorities/subjects/sh85031589
+Health,Family planning,Health##Family planning,Family planning,http://id.loc.gov/authorities/subjects/sh2009005770
+Health,"Government, policies, legislation","Health##Government, policies, legislation",Health policy,http://id.loc.gov/authorities/subjects/sh85083002
+Health,Health and the environment,Health##Health and the environment,Health--Environmental aspects,http://id.loc.gov/authorities/subjects/sh85044173
+Health,Health care,Health##Health care,Health care,http://id.loc.gov/authorities/subjects/sh85082871
+Health,Health education,Health##Health education,Health education,http://id.loc.gov/authorities/subjects/sh85059537
+Health,HIV/AIDS,Health##HIV/AIDS,AIDS (Disease),http://id.loc.gov/authorities/subjects/sh85002541
+Health,HIV/AIDS,Health##HIV/AIDS,HIV infections,http://id.loc.gov/authorities/subjects/sh91004036
+Health,Immunization,Health##Immunization,Immunization,http://id.loc.gov/authorities/subjects/sh85064545
+Health,Infants,Health##Infants,Infants,http://id.loc.gov/authorities/subjects/sh85066022
+Health,International organizations,Health##International organizations,International agencies,http://id.loc.gov/authorities/subjects/sh85067357
+Health,Medical infrastructure and resources,Health##Medical infrastructure and resources,Health facilities,http://id.loc.gov/authorities/subjects/sh85059543
+Health,Medicines,Health##Medicines,Drugs--Therapeutic use,
+Health,Mental health,Health##Mental health,Mental health,http://id.loc.gov/authorities/subjects/sh85083615
+Health,Non-governmental organizations,Health##Non-governmental organizations,Non-governmental organizations,http://id.loc.gov/authorities/subjects/sh86007360
+Health,Nutrition,Health##Nutrition,Nutrition,http://id.loc.gov/authorities/subjects/sh85093451
+Health,People with disabilities,Health##People with disabilities,People with disabilities,http://id.loc.gov/authorities/subjects/sh85058663
+Health,Pests,Health##Pests,Pests,http://id.loc.gov/authorities/subjects/sh85100293
+Health,"Politics, activism and advocacy","Health##Politics, activism and advocacy",Public health--Citizenship participation,
+Health,Sanitation,Health##Sanitation,Sanitation,http://id.loc.gov/authorities/subjects/sh85117296
+Health,Sexual and reproductive health,Health##Sexual and reproductive health,Sexual health,http://id.loc.gov/authorities/subjects/sh85063528
+Health,Sexual and reproductive health,Health##Sexual and reproductive health,Reproductive health,http://id.loc.gov/authorities/subjects/sh98006709
+Health,Substance abuse,Health##Substance abuse,Substance abuse,http://id.loc.gov/authorities/subjects/sh85129539
+Health,Traditional and indigenous practices,Health##Traditional and indigenous practices,Traditional medicine,http://id.loc.gov/authorities/subjects/sh85083164
+Health,Water use and resources,Health##Water use and resources,Water use,http://id.loc.gov/authorities/subjects/sh85145666
+Human and civil rights,Archives,Human and civil rights##Archives,Archives,http://id.loc.gov/authorities/subjects/sh85006913
+Human and civil rights,Armed conflicts,Human and civil rights##Armed conflicts,War,http://id.loc.gov/authorities/subjects/sh85145114
+Human and civil rights,Children of prisoners,Human and civil rights##Children of prisoners,Children's rights,http://id.loc.gov/authorities/subjects/sh85023773
+Human and civil rights,Children's rights,Human and civil rights##Children's rights,Children's rights,http://id.loc.gov/authorities/subjects/sh85023773
+Human and civil rights,Consumer rights,Human and civil rights##Consumer rights,Consumer protection,http://id.loc.gov/authorities/subjects/sh85031486
+Human and civil rights,Disappeared persons,Human and civil rights##Disappeared persons,Disappeared persons,http://id.loc.gov/authorities/subjects/sh89002409
+Human and civil rights,Documentation,Human and civil rights##Documentation,Documentation,http://id.loc.gov/authorities/subjects/sh85038731
+Human and civil rights,Freedom of expression,Human and civil rights##Freedom of expression,Freedom of expression,http://id.loc.gov/authorities/subjects/sh2003012251
+Human and civil rights,Freedom of the press,Human and civil rights##Freedom of the press,Freedom of the press,http://id.loc.gov/authorities/subjects/sh85051711
+Human and civil rights,Guerrillas; Paramilitaries,Human and civil rights##Guerrillas; Paramilitaries,Guerrillas,http://id.loc.gov/authorities/subjects/sh85057696
+Human and civil rights,Guerrillas; Paramilitaries,Human and civil rights##Guerrillas; Paramilitaries,Paramilitaries,http://id.loc.gov/authorities/subjects/sh85097857
+Human and civil rights,Government policy,Human and civil rights##Government policy,Human rights--Government policy,
+Human and civil rights,Government policy,Human and civil rights##Government policy,Social rights--Government policy,
+Human and civil rights,Human rights--Law and legislation,Human and civil rights##Human rights--Law and legislation,Human rights--Law and legislation,http://id.loc.gov/authorities/subjects/sh85026379
+Human and civil rights,Immigrants,Human and civil rights##Immigrants,Immigrants,http://id.loc.gov/authorities/subjects/sh85064517
+Human and civil rights,"Indigenous, ethnic and racial minorities","Human and civil rights##Indigenous, ethnic and racial minorities",Indigenous peoples--Civil rights,http://id.loc.gov/authorities/subjects/sh2001006129
+Human and civil rights,"Indigenous, ethnic and racial minorities","Human and civil rights##Indigenous, ethnic and racial minorities",Minorities--Civil rights,http://id.loc.gov/authorities/subjects/sh98005421
+Human and civil rights,International and transnational organizations,Human and civil rights##International and transnational organizations,International agencies,http://id.loc.gov/authorities/subjects/sh85067357
+Human and civil rights,Massacres,Human and civil rights##Massacres,Massacres,http://id.loc.gov/authorities/subjects/sh85081954
+Human and civil rights,Memory,Human and civil rights##Memory,Collective memory,http://id.loc.gov/authorities/subjects/sh2006002444
+Human and civil rights,Missing children,Human and civil rights##Missing children,Missing children,http://id.loc.gov/authorities/subjects/sh85086009
+Human and civil rights,Non-governmental organizations,Human and civil rights##Non-governmental organizations,Non-governmental organizations,http://id.loc.gov/authorities/subjects/sh86007360
+Human and civil rights,People with disabilities,Human and civil rights##People with disabilities,People with disabilities,http://id.loc.gov/authorities/subjects/sh85058663
+Human and civil rights,Police brutality,Human and civil rights##Police brutality,Police brutality,http://id.loc.gov/authorities/subjects/sh95010616
+Human and civil rights,Political prisoners,Human and civil rights##Political prisoners,Political prisoners,http://id.loc.gov/authorities/subjects/sh85104422
+Human and civil rights,Political violence,Human and civil rights##Political violence,Political violence,http://id.loc.gov/authorities/subjects/sh95005727
+Human and civil rights,"Politics, activism and advocacy","Human and civil rights##Politics, activism and advocacy",Human rights advocacy,http://id.loc.gov/authorities/subjects/sh94008953
+Human and civil rights,Prisons,Human and civil rights##Prisons,Prisons,http://id.loc.gov/authorities/subjects/sh85106996
+Human and civil rights,Refugees; Forced migration,Human and civil rights##Refugees; Forced migration,Refugees,http://id.loc.gov/authorities/subjects/sh85112299
+Human and civil rights,Refugees; Forced migration,Human and civil rights##Refugees; Forced migration,Forced migration,http://id.loc.gov/authorities/subjects/sh88005789
+Human and civil rights,Senior citizens,Human and civil rights##Senior citizens,Older people,http://id.loc.gov/authorities/subjects/sh85002087
+Human and civil rights,Sexual minorities,Human and civil rights##Sexual minorities,Sexual minorities,http://id.loc.gov/authorities/subjects/sh2004003385
+Human and civil rights,State violence,Human and civil rights##State violence,State-sponsored terrorism,http://id.loc.gov/authorities/subjects/sh91004326
+Human and civil rights,Terrorism,Human and civil rights##Terrorism,Terrorism,http://id.loc.gov/authorities/subjects/sh85134112
+Human and civil rights,Torture,Human and civil rights##Torture,Torture,http://id.loc.gov/authorities/subjects/sh85136190
+Human and civil rights,Truth commissions,Human and civil rights##Truth commissions,Truth commissions,http://id.loc.gov/authorities/subjects/sh2001002255
+Human and civil rights,Women,Human and civil rights##Women,Women's rights,http://id.loc.gov/authorities/subjects/sh85147765
+Human and civil rights,Youth,Human and civil rights##Youth,Youth,http://id.loc.gov/authorities/subjects/sh85149310
+"Minorities, ethnic and racial groups",Affirmative action,"Minorities, ethnic and racial groups##Affirmative action",Affirmative action,
+"Minorities, ethnic and racial groups",Afro-descendants,"Minorities, ethnic and racial groups##Afro-descendants",Blacks,http://id.loc.gov/authorities/subjects/sh85014672
+"Minorities, ethnic and racial groups",Arabs,"Minorities, ethnic and racial groups##Arabs",Arabs,http://id.loc.gov/authorities/subjects/sh85006349
+"Minorities, ethnic and racial groups",Asians,"Minorities, ethnic and racial groups##Asians",Asians,http://id.loc.gov/authorities/subjects/sh85008657
+"Minorities, ethnic and racial groups",Europeans,"Minorities, ethnic and racial groups##Europeans",Europeans,http://id.loc.gov/authorities/subjects/sh85045859
+"Minorities, ethnic and racial groups",Folklore,"Minorities, ethnic and racial groups##Folklore",Folklore,http://id.loc.gov/authorities/subjects/sh85050104
+"Minorities, ethnic and racial groups",Government and policies,"Minorities, ethnic and racial groups##Government and policies",Minorities--Politics and government,
+"Minorities, ethnic and racial groups",Immigrants,"Minorities, ethnic and racial groups##Immigrants",Immigrants,http://id.loc.gov/authorities/subjects/sh85064517
+"Minorities, ethnic and racial groups",Indigenous peoples,"Minorities, ethnic and racial groups##Indigenous peoples",Indigenous peoples,
+"Minorities, ethnic and racial groups","Indigenous peoples --Legal status, laws, etc.","Minorities, ethnic and racial groups##Indigenous peoples --Legal status, laws, etc.","Indigenous peoples--Legal status, laws, etc.",
+"Minorities, ethnic and racial groups",International organizations,"Minorities, ethnic and racial groups##International organizations",International agencies,http://id.loc.gov/authorities/subjects/sh85067357
+"Minorities, ethnic and racial groups",Jews,"Minorities, ethnic and racial groups##Jews",Jews,http://id.loc.gov/authorities/subjects/sh85070361
+"Minorities, ethnic and racial groups","Minorities--Legal status, laws, etc.","Minorities, ethnic and racial groups##Minorities--Legal status, laws, etc.","Minorities--Legal status, laws, etc.",
+"Minorities, ethnic and racial groups",Non-governmental organizations,"Minorities, ethnic and racial groups##Non-governmental organizations",Non-governmental organizations,http://id.loc.gov/authorities/subjects/sh86007360
+"Minorities, ethnic and racial groups","Politics, activism and advocacy","Minorities, ethnic and racial groups##Politics, activism and advocacy",Political participation,http://id.loc.gov/authorities/subjects/sh85104370
+"Minorities, ethnic and racial groups","Politics, activism and advocacy","Minorities, ethnic and racial groups##Politics, activism and advocacy",Political activity,http://id.loc.gov/authorities/subjects/sh2002011434
+"Minorities, ethnic and racial groups",Population and demography,"Minorities, ethnic and racial groups##Population and demography",Demography,http://id.loc.gov/authorities/subjects/sh85036659
+"Minorities, ethnic and racial groups",Racism and discrimination,"Minorities, ethnic and racial groups##Racism and discrimination",Racism,http://id.loc.gov/authorities/subjects/sh85110266
+"Minorities, ethnic and racial groups",Racism and discrimination,"Minorities, ethnic and racial groups##Racism and discrimination",Discrimination,http://id.loc.gov/authorities/subjects/sh85038376
+"Minorities, ethnic and racial groups","Rites, ceremonies and traditions","Minorities, ethnic and racial groups##Rites, ceremonies and traditions",Rites and ceremonies,http://id.loc.gov/authorities/subjects/sh85114211
+"Minorities, ethnic and racial groups",Territory and homeland,"Minorities, ethnic and racial groups##Territory and homeland",Land tenure--Social aspects,
+"Minorities, ethnic and racial groups",Territory and homeland,"Minorities, ethnic and racial groups##Territory and homeland","Self-determination, National",http://id.loc.gov/authorities/subjects/sh85119735
+Labor,Agricultural workers,Labor##Agricultural workers,Agricultural workers,http://id.loc.gov/authorities/subjects/sh85002338
+Labor,Employment policies and analysis,Labor##Employment policies and analysis,Employment,http://id.loc.gov/authorities/subjects/sh99005236
+Labor,International and transnational organizations,Labor##International and transnational organizations,International agencies,http://id.loc.gov/authorities/subjects/sh85067357
+Labor,Labor market,Labor##Labor market,Labor market,
+Labor,Labor unions,Labor##Labor unions,Labor unions,http://id.loc.gov/authorities/subjects/sh85136516
+Labor,Laws and legislation,Labor##Laws and legislation,Labor laws and legislation,http://id.loc.gov/authorities/subjects/sh85073691
+Labor,Migrant Labor,Labor##Migrant Labor,Migrant Labor,http://id.loc.gov/authorities/subjects/sh85085067
+Labor,Pensions,Labor##Pensions,Pensions,http://id.loc.gov/authorities/subjects/sh85099592
+Labor,"Politics, activism and advocacy","Labor##Politics, activism and advocacy",Labor unions--Political activity,http://id.loc.gov/authorities/subjects/sh85136669
+Labor,Protests and strikes,Labor##Protests and strikes,Strikes and lockouts,http://id.loc.gov/authorities/subjects/sh85128731
+Labor,Protests and strikes,Labor##Protests and strikes,Protest movements,http://id.loc.gov/authorities/subjects/sh91005953
+Labor,Unemployed workers and unemployment,Labor##Unemployed workers and unemployment,Unemployed,http://id.loc.gov/authorities/subjects/sh85139639
+Labor,Unemployed workers and unemployment,Labor##Unemployed workers and unemployment,Unemployment,http://id.loc.gov/authorities/subjects/sh85139643
+Politics and government,Armed conflicts,Politics and government##Armed conflicts,War,http://id.loc.gov/authorities/subjects/sh85145114
+Politics and government,Constitutions,Politics and government##Constitutions,Constitutions,http://id.loc.gov/authorities/subjects/sh85031336
+Politics and government,Corruption,Politics and government##Corruption,Political corruption,http://id.loc.gov/authorities/subjects/sh85033057
+Politics and government,Decentralization,Politics and government##Decentralization,Decentralization in government,http://id.loc.gov/authorities/subjects/sh85036185
+Politics and government,Democracy and democratization,Politics and government##Democracy and democratization,Democracy,http://id.loc.gov/authorities/subjects/sh85036647
+Politics and government,Elections and voting,Politics and government##Elections and voting,Voting,http://id.loc.gov/authorities/subjects/sh85144418
+Politics and government,Foreign relations,Politics and government##Foreign relations,Foreign relations,http://id.loc.gov/authorities/subjects/sh85050519
+Politics and government,Freedom of the press,Politics and government##Freedom of the press,Freedom of the press,http://id.loc.gov/authorities/subjects/sh85051711
+Politics and government,Globalization,Politics and government##Globalization,Globalization,http://id.loc.gov/authorities/subjects/sh99010179
+Politics and government,Government and policies,Politics and government##Government and policies,Government policy,http://id.loc.gov/authorities/subjects/sh85056091
+Politics and government,Infrastructure projects,Politics and government##Infrastructure projects,Infrastructure (Economics),http://id.loc.gov/authorities/subjects/sh85066333
+Politics and government,International organizations,Politics and government##International organizations,International agencies,http://id.loc.gov/authorities/subjects/sh85067357
+Politics and government,Laws and regulations,Politics and government##Laws and regulations,Laws,
+Politics and government,Laws and regulations,Politics and government##Laws and regulations,Regulations,http://id.loc.gov/authorities/subjects/sh99002105
+Politics and government,Legislative elections,Politics and government##Legislative elections,Elections,http://id.loc.gov/authorities/subjects/sh85041557
+Politics and government,Local and municipal politics,Politics and government##Local and municipal politics,Local government,http://id.loc.gov/authorities/subjects/sh85077923
+Politics and government,Local and municipal politics,Politics and government##Local and municipal politics,Municipal government,http://id.loc.gov/authorities/subjects/sh85088468
+Politics and government,Military,Politics and government##Military,Armed Forces,http://id.loc.gov/authorities/subjects/sh85007241
+Politics and government,Municipal or local elections,Politics and government##Municipal or local elections,Local elections,http://id.loc.gov/authorities/subjects/sh85077914
+Politics and government,Non-governmental organizations (NGOs),Politics and government##Non-governmental organizations (NGOs),Non-governmental organizations,http://id.loc.gov/authorities/subjects/sh86007360
+Politics and government,Paramilitary forces,Politics and government##Paramilitary forces,Paramilitary forces,http://id.loc.gov/authorities/subjects/sh85097857
+Politics and government,Peace negotiations and agreements,Politics and government##Peace negotiations and agreements,Peace negotiations,
+Politics and government,Peace negotiations and agreements,Politics and government##Peace negotiations and agreements,Peace agreements,
+Politics and government,Police and policing,Politics and government##Police and policing,Police,http://id.loc.gov/authorities/subjects/sh85104183
+Politics and government,Political campaigns,Politics and government##Political campaigns,Political campaigns,http://id.loc.gov/authorities/subjects/sh85041555
+Politics and government,Political opinion and analysis,Politics and government##Political opinion and analysis,Policy analysis,
+Politics and government,Political participation,Politics and government##Political participation,Political participation,http://id.loc.gov/authorities/subjects/sh85104370
+Politics and government,Political parties,Politics and government##Political parties,Political parties,http://id.loc.gov/authorities/subjects/sh85104371
+Politics and government,"Politics, activism and advocacy","Politics and government##Politics, activism and advocacy",Politics and government--Citizen participation,
+Politics and government,Presidential elections,Politics and government##Presidential elections,Presidents--Election,http://id.loc.gov/authorities/subjects/sh85106460
+Politics and government,Privatization,Politics and government##Privatization,Privatization,
+Politics and government,Revolutionary organizations,Politics and government##Revolutionary organizations,Revolutionaries,http://id.loc.gov/authorities/subjects/sh85113502
+Politics and government,"Self-determination, National","Politics and government##Self-determination, National","Self-determination, National",http://id.loc.gov/authorities/subjects/sh85119735
+Politics and government,Social movements,Politics and government##Social movements,Social movements,http://id.loc.gov/authorities/subjects/sh85123979
+Politics and government,Social policy and policy implementation,Politics and government##Social policy and policy implementation,Social policy,http://id.loc.gov/authorities/subjects/sh85123985
+Politics and government,State or provincial elections,Politics and government##State or provincial elections,Elections,http://id.loc.gov/authorities/subjects/sh85041557
+Politics and government,Taxation,Politics and government##Taxation,Fiscal policy,http://id.loc.gov/authorities/subjects/sh85048601
+Politics and government,Transportation,Politics and government##Transportation,Transportation,http://id.loc.gov/authorities/subjects/sh85137027
+Politics and government,U.S. – Latin American relations,Politics and government##U.S. – Latin American relations,United States--Relations--Latin America,http://id.loc.gov/authorities/subjects/sh2007100013
+Politics and government,Universities and students,Politics and government##Universities and students,Universities and colleges,http://id.loc.gov/authorities/subjects/sh85141086
+Politics and government,Universities and students,Politics and government##Universities and students,College students,http://id.loc.gov/authorities/subjects/sh85028356
+Politics and government,Urban planning,Politics and government##Urban planning,City planning,http://id.loc.gov/authorities/subjects/sh85026282
+Religion,African origin religions,Religion##African origin religions,Afro-Caribbean cults,http://id.loc.gov/authorities/subjects/sh96010511
+Religion,African origin religions,Religion##African origin religions,Afro-Brazilian cults,http://id.loc.gov/authorities/subjects/sh88007804
+Religion,Anglicans,Religion##Anglicans,Anglicans,http://id.loc.gov/authorities/subjects/sh85005054
+Religion,Atheism,Religion##Atheism,Atheism,http://id.loc.gov/authorities/subjects/sh85009109
+Religion,Bible,Religion##Bible,Bible,http://id.loc.gov/authorities/subjects/sh85013576
+Religion,Catholics and Catholicism,Religion##Catholics and Catholicism,Catholic Church,http://id.loc.gov/authorities/subjects/sh85021043
+Religion,Catholics and Catholicism,Religion##Catholics and Catholicism,Catholics,http://id.loc.gov/authorities/subjects/sh85021228
+Religion,Christians,Religion##Christians,Christians,http://id.loc.gov/authorities/subjects/sh85025293
+Religion,Church and state relations,Religion##Church and state relations,Church and state,http://id.loc.gov/authorities/subjects/sh85025534
+Religion,Cults,Religion##Cults,Cults,http://id.loc.gov/authorities/subjects/sh85034719
+Religion,Ecumenical movement,Religion##Ecumenical movement,Ecumenical movement,http://id.loc.gov/authorities/subjects/sh85040933
+Religion,Episcopals,Religion##Episcopals,Episcopal Church,http://id.loc.gov/authorities/subjects/sh85044442
+Religion,Episcopals,Religion##Episcopals,Episcopalians,http://id.loc.gov/authorities/subjects/sh85044446
+Religion,Evangelicalism,Religion##Evangelicalism,Evangelicalism,http://id.loc.gov/authorities/subjects/sh85045933
+Religion,Indigenous religions and beliefs,Religion##Indigenous religions and beliefs,Indians--Religion,http://id.loc.gov/authorities/subjects/sh85065067
+Religion,Islam and Muslims,Religion##Islam and Muslims,Islam,http://id.loc.gov/authorities/subjects/sh85068390
+Religion,Islam and Muslims,Religion##Islam and Muslims,Muslims,http://id.loc.gov/authorities/subjects/sh85089077
+Religion,Jehova's Witnesses,Religion##Jehova's Witnesses,Jehovah's Witnesses,http://id.loc.gov/authorities/subjects/sh85069870
+Religion,Jews and Judaism,Religion##Jews and Judaism,Jews,http://id.loc.gov/authorities/subjects/sh85070361
+Religion,Jews and Judaism,Religion##Jews and Judaism,Judaism,http://id.loc.gov/authorities/subjects/sh85070835
+Religion,Liberation theology,Religion##Liberation theology,Liberation theology,http://id.loc.gov/authorities/subjects/sh85076447
+Religion,Missionaries,Religion##Missionaries,Missionaries,http://id.loc.gov/authorities/subjects/sh85086017
+Religion,Non-denominational Christian organizations,Religion##Non-denominational Christian organizations,Independent churches,http://id.loc.gov/authorities/subjects/sh85064846
+Religion,"Politics, activism and advocacy","Religion##Politics, activism and advocacy",Religion and politics,http://id.loc.gov/authorities/subjects/sh85112577
+Religion,Protestants and Protestantism,Religion##Protestants and Protestantism,Protestants,http://id.loc.gov/authorities/subjects/sh85107724
+Religion,Protestants and Protestantism,Religion##Protestants and Protestantism,Protestant churches,http://id.loc.gov/authorities/subjects/sh85107712
+Religion,Religious art and architecture,Religion##Religious art and architecture,Religious art,http://id.loc.gov/authorities/subjects/sh85112607
+Religion,Religious art and architecture,Religion##Religious art and architecture,Religious architecture,http://id.loc.gov/authorities/subjects/sh2004000703
+Religion,Religious education,Religion##Religious education,Religious education,http://id.loc.gov/authorities/subjects/sh85112630
+Religion,Rituals,Religion##Rituals,Rites and ceremonies,http://id.loc.gov/authorities/subjects/sh85114211
+Religion,Spiritualism,Religion##Spiritualism,Spiritualism,http://id.loc.gov/authorities/subjects/sh85126775
+Socioeconomic conditions and development,Community and local development,Socioeconomic conditions and development##Community and local development,Community development,http://id.loc.gov/authorities/subjects/sh85029215
+Socioeconomic conditions and development,Drug traffic,Socioeconomic conditions and development##Drug traffic,Drug traffic,http://id.loc.gov/authorities/subjects/sh88000332
+Socioeconomic conditions and development,Economic and technical assitance,Socioeconomic conditions and development##Economic and technical assitance,Economic assistance,http://id.loc.gov/authorities/subjects/sh85040767
+Socioeconomic conditions and development,Economic and technical assitance,Socioeconomic conditions and development##Economic and technical assitance,Technical assistance,http://id.loc.gov/authorities/subjects/sh85133088
+Socioeconomic conditions and development,Economic development,Socioeconomic conditions and development##Economic development,Economic development,http://id.loc.gov/authorities/subjects/sh85040804
+Socioeconomic conditions and development,Economic development projects,Socioeconomic conditions and development##Economic development projects,Economic development projects,http://id.loc.gov/authorities/subjects/sh85040810
+Socioeconomic conditions and development,Globalization,Socioeconomic conditions and development##Globalization,Globalization,http://id.loc.gov/authorities/subjects/sh99010179
+Socioeconomic conditions and development,Government and policies,Socioeconomic conditions and development##Government and policies,Economic policy,http://id.loc.gov/authorities/subjects/sh85040837
+Socioeconomic conditions and development,Government and policies,Socioeconomic conditions and development##Government and policies,Social policy,http://id.loc.gov/authorities/subjects/sh85123985
+Socioeconomic conditions and development,Housing,Socioeconomic conditions and development##Housing,Housing,http://id.loc.gov/authorities/subjects/sh85062603
+Socioeconomic conditions and development,Infrastructure,Socioeconomic conditions and development##Infrastructure,Infrastructure (Economics),http://id.loc.gov/authorities/subjects/sh85066333
+Socioeconomic conditions and development,International organizations,Socioeconomic conditions and development##International organizations,International agencies,http://id.loc.gov/authorities/subjects/sh85067357
+Socioeconomic conditions and development,Micro-enterprises and credit,Socioeconomic conditions and development##Micro-enterprises and credit,Small business,http://id.loc.gov/authorities/subjects/sh85123568
+Socioeconomic conditions and development,Micro-enterprises and credit,Socioeconomic conditions and development##Micro-enterprises and credit,Microfinance,http://id.loc.gov/authorities/subjects/sh97007705
+Socioeconomic conditions and development,Natural gas and hydrocarbons,Socioeconomic conditions and development##Natural gas and hydrocarbons,Natural gas,http://id.loc.gov/authorities/subjects/sh85053223
+Socioeconomic conditions and development,Natural gas and hydrocarbons,Socioeconomic conditions and development##Natural gas and hydrocarbons,Hydrocarbons,http://id.loc.gov/authorities/subjects/sh85063372
+Socioeconomic conditions and development,Natural resources,Socioeconomic conditions and development##Natural resources,Natural resources,http://id.loc.gov/authorities/subjects/sh85090254
+Socioeconomic conditions and development,Non-governmental organizations (NGOs),Socioeconomic conditions and development##Non-governmental organizations (NGOs),Non-governmental organizations,http://id.loc.gov/authorities/subjects/sh86007360
+Socioeconomic conditions and development,"Politics, activism and advocacy","Socioeconomic conditions and development##Politics, activism and advocacy",Economic policy--citizen participation,
+Socioeconomic conditions and development,"Politics, activism and advocacy","Socioeconomic conditions and development##Politics, activism and advocacy",Social policy--citizen participation,
+Socioeconomic conditions and development,Power resources,Socioeconomic conditions and development##Power resources,Power resources,http://id.loc.gov/authorities/subjects/sh85105992
+Tourism,Advertisements,Tourism##Advertisements,Advertising--Tourism,http://id.loc.gov/authorities/subjects/sh88000359
+Tourism,Archaeological sites,Tourism##Archaeological sites,Archaeological sites,http://id.loc.gov/authorities/subjects/sh2004001339
+Tourism,Ecotourism,Tourism##Ecotourism,Ecotourism,http://id.loc.gov/authorities/subjects/sh92003403
+Tourism,Events and attractions,Tourism##Events and attractions,Tourism,http://id.loc.gov/authorities/subjects/sh85136255
+Tourism,Facilities,Tourism##Facilities,"Tourist camps, hostels, etc.",
+Tourism,"Festivals, fairs","Tourism##Festivals, fairs",Festivals,http://id.loc.gov/authorities/subjects/sh85047932
+Tourism,"Festivals, fairs","Tourism##Festivals, fairs",Fairs,http://id.loc.gov/authorities/subjects/sh85046910
+Tourism,Guides,Tourism##Guides,Guidebooks,http://id.loc.gov/authorities/subjects/sh85057716
+Tourism,Monuments,Tourism##Monuments,Monuments,http://id.loc.gov/authorities/subjects/sh85087089
+Tourism,Tourism and art,Tourism##Tourism and art,Tourism and art,http://id.loc.gov/authorities/subjects/sh85136266
+Tourism,Tourism and gastronomy,Tourism##Tourism and gastronomy,Tourism and gastronomy,http://id.loc.gov/authorities/subjects/sh2003000021
+Tourism,Economic aspects,Tourism##Economic aspects,Tourism--Economic aspects,http://id.loc.gov/authorities/subjects/sh85136255
+Tourism,Social aspects,Tourism##Social aspects,Tourism--Social aspects,http://id.loc.gov/authorities/subjects/sh2008112808
+Tourism,Tourist maps,Tourism##Tourist maps,Tourist maps,http://id.loc.gov/authorities/subjects/sh85080873
+Urban issues,Architecture,Urban issues##Architecture,Architecture,http://id.loc.gov/authorities/subjects/sh85006611
+Urban issues,City planning,Urban issues##City planning,City planning,http://id.loc.gov/authorities/subjects/sh85026282
+Urban issues,Crime and violence,Urban issues##Crime and violence,Crime,http://id.loc.gov/authorities/subjects/sh85033993
+Urban issues,Crime and violence,Urban issues##Crime and violence,Violence,http://id.loc.gov/authorities/subjects/sh85143514
+Urban issues,Drug traffic,Urban issues##Drug traffic,Drug traffic,http://id.loc.gov/authorities/subjects/sh88000332
+Urban issues,Housing policy,Urban issues##Housing policy,Housing policy,http://id.loc.gov/authorities/subjects/sh85062639
+Urban issues,Infrastructure,Urban issues##Infrastructure,Infrastructure (Economics),http://id.loc.gov/authorities/subjects/sh85066333
+Urban issues,International and transnational organizations,Urban issues##International and transnational organizations,International organizations,http://id.loc.gov/authorities/subjects/sh85067357
+Urban issues,"Land use, urban","Urban issues##Land use, urban","Land use, urban",http://id.loc.gov/authorities/subjects/sh85074353
+Urban issues,Non-governmental organizations,Urban issues##Non-governmental organizations,Non-governmental organizations,http://id.loc.gov/authorities/subjects/sh86007360
+Urban issues,"Politics, activism and advocacy","Urban issues##Politics, activism and advocacy",Political activists,http://id.loc.gov/authorities/subjects/sh88005959
+Urban issues,"Politics, activism and advocacy","Urban issues##Politics, activism and advocacy",Political participation,http://id.loc.gov/authorities/subjects/sh85104370
+Urban issues,Population and demography,Urban issues##Population and demography,Urban population,http://id.loc.gov/authorities/subjects/sh96010384
+Urban issues,Population and demography,Urban issues##Population and demography,Demography,http://id.loc.gov/authorities/subjects/sh85036659
+Urban issues,Public works and investments,Urban issues##Public works and investments,Public works,http://id.loc.gov/authorities/subjects/sh85108858
+Urban issues,Public works and investments,Urban issues##Public works and investments,Public investments,http://id.loc.gov/authorities/subjects/sh85108691
+Urban issues,Real estate business,Urban issues##Real estate business,Real estate business,http://id.loc.gov/authorities/subjects/sh85111712
+Urban issues,Squatter settlements,Urban issues##Squatter settlements,Squatter settlements,http://id.loc.gov/authorities/subjects/sh85127101
+Urban issues,Transportation,Urban issues##Transportation,Urban transportation,http://id.loc.gov/authorities/subjects/sh85141331
+Urban issues,Urban-rural migration,Urban issues##Urban-rural migration,Urban-rural migration,http://id.loc.gov/authorities/subjects/sh85141328
+Urban issues,Water use and conservation,Urban issues##Water use and conservation,Water use,http://id.loc.gov/authorities/subjects/sh85145666
+Urban issues,Water use and conservation,Urban issues##Water use and conservation,Water conservation,http://id.loc.gov/authorities/subjects/sh85145542
+Women,Abortion,Women##Abortion,Abortion,http://id.loc.gov/authorities/subjects/sh85000196
+Women,Arts and culture,Women##Arts and culture,Women in art,http://id.loc.gov/authorities/subjects/sh85147554
+Women,"Birth control, contraception, reproductive rights","Women##Birth control, contraception, reproductive rights",Birth control,http://id.loc.gov/authorities/subjects/sh85014367
+Women,"Birth control, contraception, reproductive rights","Women##Birth control, contraception, reproductive rights",Contraception,http://id.loc.gov/authorities/subjects/sh85031589
+Women,"Birth control, contraception, reproductive rights","Women##Birth control, contraception, reproductive rights",Reproductive rights,http://id.loc.gov/authorities/subjects/sh2008005212
+Women,Child care,Women##Child care,Child care,http://id.loc.gov/authorities/subjects/sh85023354
+Women,Discrimination,Women##Discrimination,Sex discrimination against women,http://id.loc.gov/authorities/subjects/sh85120595
+Women,Domestic workers,Women##Domestic workers,Women household employees,http://id.loc.gov/authorities/subjects/sh85147520
+Women,Education,Women##Education,Women--Education,http://id.loc.gov/authorities/subjects/sh85147291
+Women,Employment and unemployment,Women##Employment and unemployment,Women--Employment,http://id.loc.gov/authorities/subjects/sh85147294
+Women,Family,Women##Family,Family,http://id.loc.gov/authorities/subjects/sh00005743
+Women,Feminism,Women##Feminism,Feminism,http://id.loc.gov/authorities/subjects/sh85047741
+Women,Health,Women##Health,Women--Health and hygiene,http://id.loc.gov/authorities/subjects/sh85147301
+Women,HIV/AIDS,Women##HIV/AIDS,HIV-positive women,http://id.loc.gov/authorities/subjects/sh95003227
+Women,HIV/AIDS,Women##HIV/AIDS,AIDS (Disease),http://id.loc.gov/authorities/subjects/sh85002541
+Women,Indigenous women,Women##Indigenous women,Indigenous women,http://id.loc.gov/authorities/subjects/sh00007362
+Women,International and transnational organizations,Women##International and transnational organizations,International agencies,http://id.loc.gov/authorities/subjects/sh85067357
+Women,Non-governmental organizations,Women##Non-governmental organizations,Non-governmental organizations,http://id.loc.gov/authorities/subjects/sh86007360
+Women,Political representation,Women##Political representation,Women--Political activity,http://id.loc.gov/authorities/subjects/sh85147597
+Women,"Politics, activism and advocacy","Women##Politics, activism and advocacy",Women--Political activity,http://id.loc.gov/authorities/subjects/sh85147597
+Women,Prostitution,Women##Prostitution,Prostitution,http://id.loc.gov/authorities/subjects/sh85107626
+Women,Reproductive health,Women##Reproductive health,Reproductive health,http://id.loc.gov/authorities/subjects/sh98006709
+Women,Rural women,Women##Rural women,Rural women,http://id.loc.gov/authorities/subjects/sh85115935
+Women,Sexuality,Women##Sexuality,Women--identity,http://id.loc.gov/authorities/subjects/sh95001570
+Women,Sexuality,Women##Sexuality,Women--Sexual behavior,http://id.loc.gov/authorities/subjects/sh85147339
+Women,Violence against,Women##Violence against,Women--Crimes against,http://id.loc.gov/authorities/subjects/sh85147284
+Women,Government policy,Women##Government policy,Women--Government policy,
+Women,"Legal status, laws, etc.","Women##Legal status, laws, etc.","Women--Legal status, laws, etc.",
+Women,Women's rights,Women##Women's rights,Women's rights,http://id.loc.gov/authorities/subjects/sh85147765
