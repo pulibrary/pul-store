@@ -11,5 +11,6 @@
  *= require_self
  *= require jquery.fileupload-ui
  *= require jquery.ui.all
+ *= require hydra-editor/hydra-editor
  *= require_tree .
  */

@@ -1,11 +1,8 @@
-<p id="notice"><%= notice %></p>
-
-
 <h1 class="folder-title lae-head">
   <% if !@folder.title.empty? %>
-    <%= @folder.title %>
+    <%= @folder.title.first %>
   <% else %>
-    [Not Yet Titled]
+    [Title not yet supplied]
   <% end %>
 </h1>
 
@@ -29,10 +26,6 @@
 
 <%= render :partial => 'shared/lae/workflow_state', locals: {object: @folder} %>
 
-<% if !@folder.title.empty? %>
-      <div class="field">
-        <%= @folder.title %>
-      </div>
-    <% end %>
+<!-- other fields to display -->
 
 

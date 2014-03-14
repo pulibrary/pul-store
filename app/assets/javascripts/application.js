@@ -15,6 +15,7 @@
 //= require turbolinks
 //= require jquery-fileupload
 //= require jquery.ui.all
+//= require hydra-editor/hydra-editor
 //
 // Required by Blacklight
 //= require blacklight/blacklight
