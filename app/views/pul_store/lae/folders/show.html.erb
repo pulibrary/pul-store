@@ -1,9 +1,38 @@
 <p id="notice"><%= notice %></p>
 
+
+<h1 class="folder-title lae-head">
+  <% if !@folder.title.empty? %>
+    <%= @folder.title %>
+  <% else %>
+    [Not Yet Titled]
+  <% end %>
+</h1>
+
+<div class="btn-group">
+  <%= link_to 'Edit This Folder', edit_lae_folder_path(@folder), class: "btn btn-success" %> |
+  <% if(!@folder.box_id.blank?) %>
+    <%= link_to 'Return to Box', edit_lae_box_path(@folder.box_id), class: "btn btn-success" %>
+  <% end %>
+</div>
+
+<% if(!@folder.box_id.blank?) %>
+<p>
+  <strong>Part Of Box:</strong>
+  <%= link_to "#{@folder.box_id}", lae_box_path(@folder.box_id) %>
+</p>
+<% end %>
 <p>
   <strong>Barcode:</strong>
   <%= @folder.barcode %>
 </p>
 
-<%= link_to 'Edit Folder', edit_lae_folder_path(@folder) %> |
-<%= link_to 'Return to Box', edit_lae_box_path(@folder.box_id) %>
+<%= render :partial => 'shared/lae/workflow_state', locals: {object: @folder} %>
+
+<% if !@folder.title.empty? %>
+      <div class="field">
+        <%= @folder.title %>
+      </div>
+    <% end %>
+
+

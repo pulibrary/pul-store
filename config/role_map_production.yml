@@ -1,2 +1,21 @@
-uva-only:
-public:
+admin_policy_object_editor:
+  - kr2@princeton.edu
+  - jpstroop@princeton.edu
+all_project_discover:
+  - kr2@princeton.edu
+  - jpstroop@princeton.edu
+lae_project_discover:
+  - joyceb@princeton.edu
+  - facosta@princeton.eduity.edu
+all_project_readers:
+  - kr2@princeton.edu
+  - jpstroop@princeton.edu
+all_project_writers:
+  - kr2@princeton.edu
+  - jpstroop@princeton.edu
+lae_project_readers:
+  - joyceb@princeton.edu
+  - facosta@princeton.edu
+lae_project_writers:
+  - joyceb@princeton.edu
+  - facosta@princeton.eduity.edu

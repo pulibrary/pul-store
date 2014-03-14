@@ -11,7 +11,10 @@
         <% if controller.class.to_s == 'PulStore::Lae::BoxesController' %>
 
           <dt>State:</dt>
-          <dd><%= lae_box_state document %></dd>
+          <dd>
+            <% state = lae_box_state document %>
+            <span class="label <%= pul_store_base_state_to_label(state, "label") %>"><%= state %></span>
+          </dd>
           <dt>Created:</dt>
           <dd><%= lae_box_created_datetime document %></dd>
 
@@ -19,7 +22,10 @@
           <dt>Barcode:</dt>
           <dd><%= lae_folder_barcode document %></dd>
           <dt>State:</dt>
-          <dd><%= lae_folder_state document %></dd>
+          <dd>
+            <% state = lae_folder_state document %>
+            <span class="label <%= pul_store_base_state_to_label(state, "label") %>"><%= state %></span>
+          </dd>
           <dt>Created:</dt>
           <dd><%= lae_folder_created_datetime document %></dd>
 
@@ -31,6 +37,6 @@
 
 
       <%= link_to "View", url_for(only_path: true, action: 'show', id: document.id) %> |
-      <%= link_to "Edit", url_for(only_path: true, action: 'edit', id: document.id) %> 
+      <%= link_to "Edit", url_for(only_path: true, action: 'edit', id: document.id) %>
 
     </div>

@@ -1,4 +1,6 @@
 class PulStore::Lae::FoldersController  < CatalogController
+  #include RecordsControllerBehavior
+
   before_action :set_folder, only: [:show, :edit, :update, :destroy]
   before_filter :list_all_folders, only: [:show]
 
@@ -66,7 +68,9 @@ class PulStore::Lae::FoldersController  < CatalogController
 
   # GET /lae/folders/new
   def new
+   authorize! :create, params
    @folder = PulStore::Lae::Folder.new
+   render 'new'
   end
 
   # # GET /lae/folders/1/edit
@@ -89,9 +93,11 @@ class PulStore::Lae::FoldersController  < CatalogController
     respond_to do |format|
       if @folder.save
         format.html { redirect_to @folder, notice: 'Folder was successfully created.' }
+        format.js   { render action: 'create', notice: 'Folder was successfully created.' }
         format.json { render action: 'show', notice: 'Folder was successfully created.', status: :created, location: @folder }
       else
         format.html { render action: 'new' }
+        format.js { render action: 'create', notice: 'Unable to save Folder.' }
         format.json { render json: @folder.errors, status: :unprocessable_entity }
       end
     end

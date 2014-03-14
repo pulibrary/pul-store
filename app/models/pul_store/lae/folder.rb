@@ -24,6 +24,10 @@ class PulStore::Lae::Folder < PulStore::Item
     @@extent_elements
   end
 
+  # Project
+  #@@project = PulStore::Project.first
+  #@@project = PulStore::Project.where(desc_metadata__identifier_ssm: 'lae').first
+
   # Callbacks
   before_save :set_defaults
 
@@ -84,17 +88,17 @@ class PulStore::Lae::Folder < PulStore::Item
   validates_presence_of :pages,
     if: :passed_qc?
 
-  validates_numericality_of :width_in_cm, :height_in_cm,
-    allow_nil: true, greater_than: 0 
+  validates_presence_of :width_in_cm, :height_in_cm,
+    if: "self.page_count.blank?"
 
-  # validates_presence_of :width_in_cm, :height_in_cm, 
-  #   if: "self.page_count.blank?"
+  validates_numericality_of :width_in_cm, :height_in_cm,
+    allow_nil: true, greater_than: 0 , unless: "self.width_in_cm.blank? && self.height_in_cm.blank?"
+
+  validates_presence_of :page_count,
+    if: "self.width_in_cm.blank? && self.height_in_cm.blank?"
 
   validates_numericality_of :page_count,
-    only_integer: true, allow_nil: true, greater_than: 0 
-
-  # validates_presence_of :page_count, 
-  #   if: "self.width_in_cm.blank? && self.height_in_cm.blank?"
+    only_integer: true, allow_nil: true, greater_than: 0, unless: "self.page_count.blank?"
 
 
   def suppressed?
@@ -127,12 +131,20 @@ class PulStore::Lae::Folder < PulStore::Item
     (!self.width_in_cm.blank? && !self.height_in_cm.blank?) || !self.page_count.blank?
   end
 
+  def terms_for_editing
+    [:barcode, :title, :alternative_title, :sort_title, :series, :publisher, :genre,
+      :subject, :geographic, :language, :height_in_cm,
+      :width_in_cm, :page_count, :date_created, :rights]
+  end
+
   protected
 
   def set_defaults
     self.suppressed = self.suppressed?
     self.passed_qc = self.passed_qc?
     self.workflow_state = self.infer_state
+    self.rights ||= PUL_STORE_CONFIG['lae_rights_boilerplate']
+    #self.project ||= self.set_project
     nil
   end
 

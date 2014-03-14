@@ -1,22 +1,3 @@
-<!-- start modal -->
-   <div class="form-control">
-    <%= link_to("Add Folder to Box", '#', 'data-target' => "#new-folder-modal", 'data-toggle' => 'modal', :class => "btn btn-primary new-model", :title => "Add a New Folder to Box") %>
-  </div>
-      <div id="new-folder-modal" class="modal fade" data-backdrop="static">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h3>Add a Folder<%= " to #{ @box.id }" unless @box.barcode.nil? %></h3>
-        </div>
-        <div class="modal-body">
-          <%= render :partial => 'pul_store/lae/folders/ajax_form', locals: { box: @box } %>
-        </div>
-        <div class="modal-footer">
-          <button id="cancelButton" type="button" class="btn btn-inverse" data-dismiss="modal" aria-hidden="true" title="Close this screen without adding this Folder.">Cancel</button>
-        </div>
-      </div>
-    </div>
-  <!-- end Modal -->
-
 <%= form_for(@box, :html => {:class => "form form-horizontal"}) do |b| %>
   <% if @box.errors.any? %>
     <div id="error_explanation">
@@ -35,24 +16,46 @@
 :received_date, # checkbox, stamp if set
 :barcode,
 :error_note -->
-
-  <div class="field">
-    <%= b.label :barcode %><br>
-    <%= b.text_field :barcode %>
+  <%= render :partial => 'shared/lae/workflow_state', locals: {object: @box} %>
+  <div class="control-group">
+    <%= b.label :barcode, :class => 'control-label' %>
+    <div class="controls">
+      <%= b.text_field :barcode %>
+    </div>
   </div>
-  <div class="field">
-    <%= b.label :error_note %><br>
-    <%= b.text_area :error_note %>
+  <div class="control-group">
+    <%= b.label :error_note, :class => 'control-label' %>
+    <div class="controls">
+      <%= b.text_area :error_note %>
+    </div>
   </div>
-  <div class="field">
-    <%= check_box_tag(:full) %>
-    <%= label_tag(:full, "Full Box") %>
-  <div>
+  <div class="control-group">
+    <%= b.label :shipped_date, :class => 'control-label' %>
+    <div class="controls">
+      <%= b.text_field :shipped_date, :class => 'datepicker' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= b.label :received_date, :class => 'control-label' %>
+    <div class="controls">
+      <%= b.text_field :received_date, :class => 'datepicker' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <div class="controls">
+      <%= b.label :full, "Full Box" %>
+      <%= b.check_box :full, { class: 'checkbox' }, "true", "false" %>
+    </div>
+  </div>
+  <div class="control-group actions">
+    <%= b.submit :value => "Update Box", :class => 'btn btn-primary' %>
+  </div>
+<% end %>
 
   <% if(@box.folders.empty?) %>
     <h3>Create a Folder</h3>
   <% else %>
-    <h3><%= @box.folders.size %> Current Folders</h3>
+    <h3><span id="folder-count"><%= @box.folders.size %></span> Current Folders</h3>
   <% end %>
 
   <table class="table" id="folders-table">
@@ -63,34 +66,31 @@
         <th>Width</th>
         <th>Height</th>
         <th>Pages</th>
+        <th>Created</th>
         <th>Options</th>
       </tr>
     </thead>
     <tbody>
-    <% folder_index = 0 %>
-    <%= b.fields_for :folders do |folders_form| %>
+    <% @box.folders.sort_by {|f1| f1.date_uploaded }.each do |f| %>
       <tr>
-        <td><%= folders_form.text_field :barcode %></td>
-        <td><%= folders_form.text_field :genre %></td>
-        <td><%= folders_form.text_field :width_in_cm, :size => 5 %></td>
-        <td><%= folders_form.text_field :height_in_cm, :size => 5 %></td>
-        <td><%= folders_form.text_field :page_count, :size => 5 %></td>
+        <td><%= f.barcode %></td>
+        <td><%= f.genre %></td>
+        <td><%= f.width_in_cm %></td>
+        <td><%= f.height_in_cm %></td>
+        <td><%= f.page_count %></td>
+        <td><%= lae_folder_date_uploaded(f.date_uploaded) %></td>
         <td>
           <% if(@box.folders.size > 0) %>
             <% if can?(:edit, @box) %>
-              <%= link_to "Edit Folder", edit_lae_folder_path(@box.folders[folder_index]) %>
+              <%= link_to "Edit Folder", edit_lae_folder_path(f.id), :class => "btn btn-info" %>
             <% end %>
           <% end %>
         </td>
-        <% folder_index = folder_index + 1 %>
       </tr>
   <% end %>
   </tbody>
   </table>
-  <div class="actions">
-    <%= b.submit %>
-  </div>
-<% end %>
+
 
 
 
