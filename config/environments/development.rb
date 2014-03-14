@@ -1,7 +1,4 @@
 PulStore::Application.configure do
-  config.before_initialize do
-    PUL_STORE_CONFIG = YAML.load_file(Rails.root.join('config', 'pul_store.yml'))[Rails.env]
-  end
   # Settings specified here will take precedence over those in config/application.rb.
   config.before_initialize do
     PUL_STORE_CONFIG = YAML.load_file(Rails.root.join('config', 'pul_store.yml'))[Rails.env]

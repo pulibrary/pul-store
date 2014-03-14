@@ -27,6 +27,16 @@ module PulStore::Validations
     end
   end
 
+  def validate_barcode_uniqueness_on_update
+    if self.kind_of?(PulStore::Base) && self.respond_to?(:barcode) && !self.send(:barcode).blank?
+      # TODO: if it is a PulStore::Base and has responds to barcode??
+      o = self.class.where(prov_metadata__barcode_tesim: self.send(:barcode))
+      unless [0,1].include? o.count
+        errors.add(:barcode, "\"#{self.send(:barcode)}\" already exists in the system.")
+      end
+    end
+  end
+
   def validate_barcode
     unless self.send(:barcode).blank?
       calc_check_digit = calculate_barcode_checkdigit(:barcode)
@@ -56,6 +66,24 @@ module PulStore::Validations
     unless self.width_in_cm.blank? && self.height_in_cm.blank?
       errors.add(:width_in_cm, "Width cannot be used when page count is filled in")
       errors.add(:height_in_cm, "Height cannot be used when page count is filled in")
+    end
+  end
+
+  def validate_project_identifier_uniqueness_on_create
+    if self.kind_of?(PulStore::Project)
+      p = PulStore::Project.where(desc_metadata__identifier_tesim: self.send(:identifier))
+      unless p.count == 0
+        errors.add(:identifier, "\"#{self.send(:identifier)}\" already exists in the system.")
+      end
+    end
+  end
+
+  def validate_project_identifier_uniqueness_on_update
+    if self.kind_of?(PulStore::Project)
+      p = PulStore::Project.where(desc_metadata__identifier_tesim: self.send(:identifier))
+      unless [0,1].include? p.count
+        errors.add(:identifier, "\"#{self.send(:identifier)}\" already exists in the system.")
+      end
     end
   end
 

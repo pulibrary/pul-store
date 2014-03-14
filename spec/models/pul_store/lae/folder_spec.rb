@@ -8,7 +8,6 @@ describe PulStore::Lae::Folder do
     @invalid_barcode = "32101067661198"
     @short_barcode = "3210106770082"
     @bad_prefix_barcode = "2210106770082"
-    FactoryGirl.create(:project)
   end
 
   after(:all) do
@@ -17,6 +16,11 @@ describe PulStore::Lae::Folder do
 
   it "has a valid factory" do
     FactoryGirl.create(:lae_folder).should be_valid
+  end
+
+  describe "project" do
+    f = FactoryGirl.create(:lae_folder)
+    f.project.identifier.should == 'lae'
   end
 
   describe "optional elements" do

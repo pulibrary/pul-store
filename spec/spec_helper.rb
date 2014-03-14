@@ -17,16 +17,15 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 
 RSpec.configure do |config|
-  # ## Mock Framework
-  #
-  # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
-  #
-  # config.mock_with :mocha
-  # config.mock_with :flexmock
-  # config.mock_with :rr
 
   config.before(:suite) do
     require "#{Rails.root}/db/seeds.rb"
+
+    # CREATE PROJECTS
+    PulStore::Project.delete_all
+    projects = YAML.load_file(Rails.root.join('db', 'fixtures', 'projects.yml'))
+    projects.map{ |project| PulStore::Project.create(project) }
+      
   end
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures

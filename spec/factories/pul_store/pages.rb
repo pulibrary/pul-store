@@ -5,7 +5,7 @@ FactoryGirl.define do
     p.display_label { Faker::Lorem.sentence(1, true, 3)  }
     p.sort_order { Faker::Number.digit }
     p.text_id { FactoryGirl.create(:text).pid }
-    p.project_id { FactoryGirl.create(:project).pid }
+    p.project { PulStore::Project.last }
   end
 end
 

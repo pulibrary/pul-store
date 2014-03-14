@@ -24,12 +24,10 @@ class PulStore::Lae::Folder < PulStore::Item
     @@extent_elements
   end
 
-  # Project
-  #@@project = PulStore::Project.first
-  #@@project = PulStore::Project.where(desc_metadata__identifier_ssm: 'lae').first
 
   # Callbacks
   before_save :set_defaults
+  before_validation :set_project
 
   # Metadata
   has_metadata 'descMetadata', type: PulStore::Lae::FolderRdfMetadata
@@ -79,6 +77,7 @@ class PulStore::Lae::Folder < PulStore::Item
   validate :validate_barcode
 
   validate :validate_barcode_uniqueness, on: :create
+  validate :validate_barcode_uniquenesson_update, on: :update
 
   validates_presence_of @@required_elements,
     if: :passed_qc?
@@ -139,12 +138,15 @@ class PulStore::Lae::Folder < PulStore::Item
 
   protected
 
+  def set_project
+    self.project ||= PulStore::Lae::Provenance::PROJECT
+  end
+
   def set_defaults
     self.suppressed = self.suppressed?
     self.passed_qc = self.passed_qc?
     self.workflow_state = self.infer_state
     self.rights ||= PUL_STORE_CONFIG['lae_rights_boilerplate']
-    #self.project ||= self.set_project
     nil
   end
 

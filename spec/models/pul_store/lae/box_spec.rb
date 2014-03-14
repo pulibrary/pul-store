@@ -13,6 +13,11 @@ describe PulStore::Lae::Box do
     PulStore::Lae::Box.delete_all
   end
 
+  describe "project" do
+    b = FactoryGirl.create(:lae_box)
+    b.project.identifier.should == 'lae'
+  end
+
   describe "barcodes" do
 
     it "are required for saving" do

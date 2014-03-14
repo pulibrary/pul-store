@@ -7,6 +7,7 @@ class PulStore::Lae::Box < PulStore::Base
   before_save :_defaults
   before_validation do
     self.physical_location = PUL_STORE_CONFIG['lae_recap_code'] if self.physical_location.blank?
+    self.project ||= PulStore::Lae::Provenance::PROJECT    
   end
 
   # Project
@@ -52,6 +53,7 @@ class PulStore::Lae::Box < PulStore::Base
 
   validate :validate_barcode
   validate :validate_barcode_uniqueness, on: :create
+  validate :validate_barcode_uniquenesson_update, on: :update
   validate :validate_shipped_before_received
 
   validates_presence_of :physical_location
@@ -94,7 +96,7 @@ class PulStore::Lae::Box < PulStore::Base
   def _defaults
     self.full = self.full?
     self.workflow_state = self._infer_state
-    #self.project ||= @@project
+    self.project ||= PulStore::Lae::Provenance::PROJECT
     nil
   end
 
