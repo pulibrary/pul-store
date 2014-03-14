@@ -1,6 +1,9 @@
 <h1>Update Folder</h1>
-
+<%= render :partial => 'shared/lae/workflow_state', locals: {object: @folder} %>
 <%= render 'form' %>
 
 <%= link_to 'Show', @folder %> |
-<%= link_to 'Back', lae_folders_path %>
+<% if(!@folder.box_id.blank?) %>
+  <%= link_to 'Return to Box', edit_lae_box_path(@folder.box_id) %> |
+<% end %>
+<%= link_to 'Back to Folders', lae_folders_path %>

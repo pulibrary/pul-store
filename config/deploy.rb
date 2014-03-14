@@ -20,7 +20,7 @@ set :log_level, :debug
 ## removing the following from linked files for the time being
 # config/redis.yml config/devise.yml config/resque_pool.yml, config/recipients_list.yml, log/resque-pool.stderr.log log/resque-pool.stdout.log
 
-set :linked_files, %w{config/database.yml config/fedora.yml config/solr.yml config/initializers/secret_token.rb}
+set :linked_files, %w{config/database.yml config/role_map_production.yml config/fedora.yml config/solr.yml config/initializers/secret_token.rb noid-minter-state}
 set :linked_dirs, %w{tmp/pids tmp/cache tmp/sockets}
 
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }

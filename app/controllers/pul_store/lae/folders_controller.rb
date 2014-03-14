@@ -1,4 +1,6 @@
 class PulStore::Lae::FoldersController  < CatalogController
+  #include RecordsControllerBehavior
+
   before_action :set_folder, only: [:show, :edit, :update, :destroy]
   before_filter :list_all_folders, only: [:show]
 
@@ -66,7 +68,9 @@ class PulStore::Lae::FoldersController  < CatalogController
 
   # GET /lae/folders/new
   def new
+   authorize! :create, params
    @folder = PulStore::Lae::Folder.new
+   render 'new'
   end
 
   # # GET /lae/folders/1/edit
@@ -78,6 +82,8 @@ class PulStore::Lae::FoldersController  < CatalogController
       format.html # show.html.erb
       format.json { render json: @folder }
     end
+    #initialize_fields
+    #render 'records/edit'
   end
 
   # POST /lae/folders
@@ -89,9 +95,11 @@ class PulStore::Lae::FoldersController  < CatalogController
     respond_to do |format|
       if @folder.save
         format.html { redirect_to @folder, notice: 'Folder was successfully created.' }
+        format.js   { render action: 'create', notice: 'Folder was successfully created.' }
         format.json { render action: 'show', notice: 'Folder was successfully created.', status: :created, location: @folder }
       else
         format.html { render action: 'new' }
+        format.js { render action: 'create', notice: 'Unable to save Folder.' }
         format.json { render json: @folder.errors, status: :unprocessable_entity }
       end
     end
@@ -144,9 +152,8 @@ class PulStore::Lae::FoldersController  < CatalogController
     def folder_params
       params.require(:lae_folder).permit(:barcode, :date_created, :description,
         :width_in_cm, :height_in_cm, :page_count, :genre, :passed_qc, :rights,
-        :sort_title, :suppressed, :title, :box_id, :project_id, :error_note, :box_id,
-        alternative_title: [], geographic: [],
-        language: [], publisher: [], series: [], subject: [] )
-
+        :sort_title, :suppressed,:box_id, :project_id, :error_note,
+        :box_id, alternative_title: [], geographic: [], title: [],
+        language: [], publisher: [], series: [], subject: [], creator: [], contributor: [] )
     end
 end

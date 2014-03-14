@@ -1,11 +1,14 @@
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
+
+pul_store_config = YAML.load_file(Rails.root.join('config', 'pul_store.yml'))[Rails.env]
+
 Devise.setup do |config|
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class with default "from" parameter.
   config.mailer_sender = "pulstore@princeton.edu"
-  config.secret_key = '0ce74604635f09c97da09e26fac75daac403beb1aa0663f1f9bb4eaa6d1dc1cd838b1e0488086b1983bafa5e8956d2a734df5107b63108cf451577efb78ea451'
+  config.secret_key = pul_store_config['devise_secret_key']
 
   # Configure the class responsible to send e-mails.
   # config.mailer = "Devise::Mailer"

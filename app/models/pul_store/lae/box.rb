@@ -9,6 +9,9 @@ class PulStore::Lae::Box < PulStore::Base
     self.physical_location = PUL_STORE_CONFIG['lae_recap_code'] if self.physical_location.blank?
   end
 
+  # Project
+  #@@project = PulStore::Project.where(desc_metadata__identifier_ssm: 'lae').first
+  #@@project = PulStore::Project.first
   # Delegate attributes
   has_attributes :full, :physical_location, :tracking_number,
     :datastream => 'provMetadata', multiple: false
@@ -91,6 +94,7 @@ class PulStore::Lae::Box < PulStore::Base
   def _defaults
     self.full = self.full?
     self.workflow_state = self._infer_state
+    #self.project ||= @@project
     nil
   end
 

@@ -1,4 +1,5 @@
 <% @folder = PulStore::Lae::Folder.new %>
+<div class="well">
 <%= form_for(@folder, remote: true ) do |f| %>
   <% if @folder.errors.any? %>
     <div id="error_explanation">
@@ -16,7 +17,7 @@
   </div>
   <div class="field">
     <%= f.label :genre %><br>
-    <%= f.text_field :genre %>
+    <%= f.select(:genre, options_for_select(list_all_genres_as_select_list)) %>
   </div>
   <div id="extent-metadata">
     <!-- required metadata goes here -->
@@ -30,6 +31,8 @@
     <%= f.hidden_field :box_id, :class => "field", :value => box.id %>
 
    <div class="actions">
-      <%= f.submit %>
+      <%= f.submit :value => "Create Folder", :class => 'btn btn-primary' %>
+      <button id="cancelButton" type="button" class="btn btn-inverse" data-dismiss="modal" aria-hidden="true" title="Close this screen without adding this Folder.">Cancel</button>
    </div>
 <% end %>
+</div>
