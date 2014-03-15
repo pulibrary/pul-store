@@ -19,20 +19,18 @@ module PulStore::Validations
 
   def validate_barcode_uniqueness
     if self.kind_of?(PulStore::Base) && self.respond_to?(:barcode) && !self.send(:barcode).blank?
-      # TODO: if it is a PulStore::Base and has responds to barcode??
       o = self.class.where(prov_metadata__barcode_tesim: self.send(:barcode))
       unless o.count == 0
-        errors.add(:barcode, "\"#{self.send(:barcode)}\" already exists in the system.")
+        errors.add(:barcode, "CREATE: \"#{self.send(:barcode)}\" already exists in the system.")
       end
     end
   end
 
   def validate_barcode_uniqueness_on_update
     if self.kind_of?(PulStore::Base) && self.respond_to?(:barcode) && !self.send(:barcode).blank?
-      # TODO: if it is a PulStore::Base and has responds to barcode??
       o = self.class.where(prov_metadata__barcode_tesim: self.send(:barcode))
-      unless [0,1].include? o.count
-        errors.add(:barcode, "\"#{self.send(:barcode)}\" already exists in the system.")
+      if o.count == 1 && o.first != self
+        errors.add(:barcode, "UPDATE: \"#{self.send(:barcode)}\" already exists in the system.")
       end
     end
   end

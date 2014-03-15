@@ -28,7 +28,7 @@ class PulStore::Lae::HardDrive < PulStore::Base
 
   validate :validate_barcode
   validate :validate_barcode_uniqueness, on: :create
-  validate :validate_barcode_uniquenesson_update, on: :update
+  validate :validate_barcode_uniqueness_on_update, on: :update
 
   validates_presence_of :box, unless: :remove_box,
     message: "does not exist. Check 'Remove Box' if you meant to disassociate the box from this drive."

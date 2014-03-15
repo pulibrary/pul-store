@@ -9,7 +9,6 @@ feature "boxes" do
 
   feature "box and drive associations by barcode" do
     before(:all) do
-      @test_barcodes = Rails.application.config.barcode_list
       @drive = FactoryGirl.create(:lae_hard_drive)
       User.delete_all
       @user = FactoryGirl.create(:user)
@@ -33,7 +32,7 @@ feature "boxes" do
     end
 
     scenario "an association with a box can be removed by checking a box" do
-      unused_barcode = @test_barcodes.shift
+      unused_barcode = TEST_BARCODES.shift
       login_as(@user, :scope => :user)
       visit edit_lae_hard_drive_path(@drive)
 

@@ -16,18 +16,19 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 
+if Rails.env.test?
+  PulStore::Project.delete_all
+  projects = YAML.load_file("#{Rails.root}/db/fixtures/projects.yml")
+  projects.map{ |project| PulStore::Project.create(project) }
+  TEST_BARCODES = YAML.load_file(Rails.root.join('spec/fixtures/test_barcodes.yml'))
+end
+
 RSpec.configure do |config|
 
   config.before(:suite) do
     require "#{Rails.root}/db/seeds.rb"
-
-    # CREATE PROJECTS
-    PulStore::Project.delete_all
-    projects = YAML.load_file(Rails.root.join('db', 'fixtures', 'projects.yml'))
-    projects.map{ |project| PulStore::Project.create(project) }
-      
   end
-
+  
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 

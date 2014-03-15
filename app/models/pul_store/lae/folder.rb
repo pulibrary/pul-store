@@ -59,11 +59,6 @@ class PulStore::Lae::Folder < PulStore::Item
   has_many :pages, property: :is_part_of, :class_name => 'PulStore::Page'
 
   # Validations
-  # Would like to DRY-up the barcode validations and put them in PulStore::Lae::Provenance
-  # but haven't been able to figure out how.
-  # validates_presence_of :barcode
-  # validates_presence_of :genre
-
   validates_presence_of @@prelim_elements
 
   validates_length_of :barcode,
@@ -77,7 +72,7 @@ class PulStore::Lae::Folder < PulStore::Item
   validate :validate_barcode
 
   validate :validate_barcode_uniqueness, on: :create
-  validate :validate_barcode_uniquenesson_update, on: :update
+  validate :validate_barcode_uniqueness_on_update, on: :update
 
   validates_presence_of @@required_elements,
     if: :passed_qc?
@@ -91,13 +86,15 @@ class PulStore::Lae::Folder < PulStore::Item
     if: "self.page_count.blank?"
 
   validates_numericality_of :width_in_cm, :height_in_cm,
-    allow_nil: true, greater_than: 0 , unless: "self.width_in_cm.blank? && self.height_in_cm.blank?"
+    allow_nil: true, greater_than: 0, 
+    unless: "self.width_in_cm.blank? && self.height_in_cm.blank?"
 
   validates_presence_of :page_count,
     if: "self.width_in_cm.blank? && self.height_in_cm.blank?"
 
   validates_numericality_of :page_count,
-    only_integer: true, allow_nil: true, greater_than: 0, unless: "self.page_count.blank?"
+    only_integer: true, allow_nil: true, greater_than: 0, 
+    unless: "self.page_count.blank?"
 
 
   def suppressed?
