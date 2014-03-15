@@ -45,14 +45,13 @@ describe PulStore::Page do
 
   describe "belongs to a parent" do
     before(:each) do
-      PulStore::Project.delete_all
       PulStore::Page.delete_all
       PulStore::Lae::Box.delete_all
       PulStore::Lae::Folder.delete_all
 
-      @project = FactoryGirl.create(:project)
-      @box = FactoryGirl.create(:lae_box, project: @project)
-      @folder = FactoryGirl.create(:lae_core_folder, box: @box, project: @project)
+      @project = PulStore::Project.first
+      @box = FactoryGirl.create(:lae_box)
+      @folder = FactoryGirl.create(:lae_core_folder, box: @box)
       @text = FactoryGirl.create(:text, project: @project)
     end
 

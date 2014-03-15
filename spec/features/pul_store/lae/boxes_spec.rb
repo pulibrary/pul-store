@@ -21,9 +21,8 @@ feature "boxes" do
 
   feature "I am not allowed to be a lae box editor" do
     before(:all) do
-      @test_barcodes = Rails.application.config.barcode_list
       boxes = Array.new(3) do |b|
-        FactoryGirl.create(:lae_box, barcode: @test_barcodes.pop )
+        FactoryGirl.create(:lae_box, barcode: TEST_BARCODES.pop )
       end
       visit edit_lae_box_path(boxes[0].id)
     end
@@ -36,10 +35,9 @@ feature "boxes" do
 
   feature "I am allowed lae box editor" do
     before(:all) do
-      # barcodes = Array.new(3) { @test_barcodes.pop }
-      @test_barcodes = Rails.application.config.barcode_list
+      # barcodes = Array.new(3) { TEST_BARCODES.pop }
       boxes = Array.new(3) do |b|
-        FactoryGirl.create(:lae_box, barcode: @test_barcodes.pop )
+        FactoryGirl.create(:lae_box, barcode: TEST_BARCODES.pop )
       end
       login_as(@user, :scope => :user)
       visit lae_boxes_path
@@ -52,15 +50,10 @@ feature "boxes" do
   end
 
   feature "quick lookup by barcode" do
-    before(:all) do
-      @test_barcodes = Rails.application.config.barcode_list
-    end
 
     scenario "finds the correct box" do
-
-      # barcodes = Array.new(3) { @test_barcodes.pop }
       boxes = Array.new(3) do |b|
-        FactoryGirl.create(:lae_box, barcode: @test_barcodes.pop )
+        FactoryGirl.create(:lae_box, barcode: TEST_BARCODES.pop )
       end
       box = boxes[rand(0..2)]
       login_as(@user, :scope => :user)
@@ -94,7 +87,7 @@ feature "boxes" do
 
     scenario "Page offers a link to the existing box when a duplicate barcode is entered" do
       pending "Implement me when we have #new method"
-      # barcode = @test_barcodes.pop
+      # barcode = TEST_BARCODES.pop
       # FactoryGirl.create(:lae_box, barcode: barcode)
 
       # visit lae_boxes_path

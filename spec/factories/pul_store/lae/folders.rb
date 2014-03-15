@@ -1,27 +1,22 @@
-# Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
-  test_barcodes = Rails.application.config.barcode_list
 
   factory :lae_folder, :class => 'PulStore::Lae::Folder' do |f|
-    f.barcode { test_barcodes.pop }
+    f.barcode { TEST_BARCODES.pop }
     f.genre { Faker::Lorem.word }
     f.width_in_cm { (Faker::Number.digit.to_i+1).to_s }
     f.height_in_cm { (Faker::Number.digit.to_i+1).to_s }
-    f.project_id { FactoryGirl.create(:project).pid } # not sure if this is best...
   end
 
   factory :lae_prelim_folder, :class => 'PulStore::Lae::Folder' do |f|
-    f.barcode { test_barcodes.pop }
-    f.project_id { FactoryGirl.create(:project).pid }
+    f.barcode { TEST_BARCODES.pop }
     f.width_in_cm { (Faker::Number.digit.to_i+1).to_s }
     f.height_in_cm { (Faker::Number.digit.to_i+1).to_s }
     f.genre { Faker::Lorem.word }
   end
 
   factory :lae_core_folder, :class => 'PulStore::Lae::Folder' do |f|
-    f.barcode { test_barcodes.pop }
-    f.project_id { FactoryGirl.create(:project).pid }
+    f.barcode { TEST_BARCODES.pop }
     f.date_created { Date.current }
     f.width_in_cm { (Faker::Number.digit.to_i+1).to_s }
     f.height_in_cm { (Faker::Number.digit.to_i+1).to_s }
@@ -35,8 +30,7 @@ FactoryGirl.define do
   end
 
   factory :lae_core_folder_with_pages, :class => 'PulStore::Lae::Folder' do |f|
-    f.barcode { test_barcodes.pop }
-    f.project_id { FactoryGirl.create(:project).pid }
+    f.barcode { TEST_BARCODES.pop }
     f.date_created { Date.current }
     f.width_in_cm { (Faker::Number.digit.to_i+1).to_s }
     f.height_in_cm { (Faker::Number.digit.to_i+1).to_s }

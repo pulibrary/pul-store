@@ -1,6 +1,8 @@
 module PulStore::Lae::Provenance
   extend ActiveSupport::Concern
 
+  PROJECT = PulStore::Project.where(desc_metadata__identifier_tesim: 'lae').first
+
   included do
     before_save { self.apply_timestamps } 
     
