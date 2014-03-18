@@ -14,9 +14,9 @@
 
   <div id="desc-metadata" class="span6">
     <!-- required metadata goes -->
-    <%= render :partial => "records/edit_field", :locals => {:f => b, :render_req => false, :key => :subject } %>
     <!-- Geographic -->
     <%= render :partial => "records/edit_field", :locals => {:f => b, :render_req => false, :key => :geographic } %>
+    <span class="help-block">The Country of Origin.</span>
     <!-- language -->
     <%= render :partial => "records/edit_field", :locals => {:f => b, :render_req => false, :key => :language } %>
     <!-- Title -->
@@ -39,6 +39,7 @@
       <%= b.label :sort_title, :class=>"control-label" %>
       <div class="controls">
         <%= b.text_field :sort_title %>
+        <span class="help-block">Correct as Needed.</span>
       </div>
     </div>
     <!-- Alternative Title -->
@@ -49,6 +50,7 @@
       <% @folder.creator.to_ary.each_with_index do |creator, index| %>
         <div class="controls">
         <%= text_field_tag "lae_folder[creator][]", creator, :id =>'lae_folder_creator' %>
+        <span class="help-block">Do not use Creator if there is more than one value. Use multiple contributors instead.</span>
       </div>
       <% end %>
       <% if @folder.creator.empty? %>
@@ -70,6 +72,8 @@
         <%= b.select(:genre, options_for_select(list_all_genres_as_select_list, [@folder.genre])) %>
       </div>
     </div>
+    <!-- Subject -->
+    <%= render :partial => "records/edit_field", :locals => {:f => b, :render_req => false, :key => :subject } %>
 
     <!-- end mult-value -->
     <!-- Decription -->
@@ -120,8 +124,11 @@
       <% end %>
     </div>
   </div>
-  <div class="actions span2">
+ </div>
+ <div class="row">
+  <div class="actions span2 offset1">
     <%= b.submit :value => "Update Folder", :class => 'btn btn-primary' %>
   </div>
+</div>
 </div>
 <% end %>
