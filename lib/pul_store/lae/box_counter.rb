@@ -17,7 +17,7 @@ class PulStore::Lae::BoxCounter
     @semaphore.synchronize do
       while true
         box_no = self.next_id
-        return box_no unless PulStore::Lae::Box.where(prov_metadata__physical_number_tesim: box_no)
+        return box_no if PulStore::Lae::Box.where(prov_metadata__physical_number_ssi: box_no) == []
       end
     end
   end

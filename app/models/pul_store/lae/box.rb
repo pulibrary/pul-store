@@ -12,7 +12,7 @@ class PulStore::Lae::Box < PulStore::Base
   end
 
   # Delegate attributes
-  has_attributes :full, :physical_location, :physical_number, :tracking_number,
+  has_attributes :full, :physical_location, :tracking_number, :physical_number,
     :datastream => 'provMetadata', multiple: false
   # For dates, UI should let a bool through and then set the date (Date.current)
   has_attributes :shipped_date, :received_date,

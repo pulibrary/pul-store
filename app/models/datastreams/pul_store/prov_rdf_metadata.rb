@@ -58,7 +58,7 @@ class PulStore::ProvRdfMetadata < ActiveFedora::NtriplesRDFDatastream
 
     map.physical_number(to: "physicalNumber", in: RDF::PulStoreTerms) do |index|
       index.type :string
-      index.as :stored_searchable
+      index.as :stored_sortable
     end
 
     map.project_label(to: "projectLabel", in: RDF::PulStoreTerms) do |index|

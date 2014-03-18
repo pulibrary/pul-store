@@ -13,13 +13,21 @@ describe PulStore::Lae::Box do
   end
 
   describe "project" do
-    b = FactoryGirl.create(:lae_box)
-    b.project.identifier.should == 'lae'
+    it "should belong to the lae project" do
+      b = FactoryGirl.create(:lae_box)
+      b.project.identifier.should == 'lae'
+    end
+  end
+
+  describe "physical_number" do
+    it "should be an auto-assigned number" do
+      b = FactoryGirl.create(:lae_box)
+      b.physical_number.should match(/^(\d+)$/)
+      b.physical_number.should_not be_blank
+    end
   end
 
   describe "barcodes" do
-
-
 
     it "are required for saving" do
       b = PulStore::Lae::Box.new
