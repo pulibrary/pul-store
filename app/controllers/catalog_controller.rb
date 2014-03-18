@@ -51,13 +51,7 @@ class CatalogController < ApplicationController
     #
     # :show may be set to false if you don't want the facet to be drawn in the
     # facet bar
-    # config.add_facet_field solr_name('object_type', :facetable), :label => 'Format'
-    # config.add_facet_field solr_name('pub_date', :facetable), :label => 'Publication Year'
-    # config.add_facet_field solr_name('subject_topic', :facetable), :label => 'Topic', :limit => 20
-    # config.add_facet_field solr_name('language', :facetable), :label => 'Language', :limit => true
-    # config.add_facet_field solr_name('lc1_letter', :facetable), :label => 'Call Number'
-    # config.add_facet_field solr_name('subject_geo', :facetable), :label => 'Region'
-    # config.add_facet_field solr_name('subject_era', :facetable), :label => 'Era'
+
 
     config.add_facet_field solr_name('master_mime_type', :facetable), :label => 'MIME Type'
     config.add_facet_field solr_name('master_well_formed', :facetable), :label => 'Well Formed'
@@ -66,11 +60,10 @@ class CatalogController < ApplicationController
     config.add_facet_field solr_name('master_capture_device', :facetable), :label => 'Capture Device'
     config.add_facet_field solr_name('master_scanning_software', :facetable), :label => 'Scanning Software'
     config.add_facet_field solr_name('active_fedora_model', :stored_sortable), :label => 'Model'
-    config.add_facet_field solr_name('desc_metadata__language', :facetable), :label => 'Language'
-    config.add_facet_field solr_name('desc_metadata__subject', :facetable), :label => 'Subject'
-    config.add_facet_field solr_name('desc_metadata__creator', :facetable), :label => 'Creator'
-    config.add_facet_field solr_name('desc_metadata__contributor', :stored_searchable), :label => 'Contributor'
     config.add_facet_field solr_name('prov_metadata__workflow_state', :facetable), :label => 'State'
+    config.add_facet_field solr_name('desc_metadata__genre', :facetable), :label => 'Genre'
+    config.add_facet_field solr_name('desc_metadata__language', :facetable), :label => 'Language'
+    config.add_facet_field solr_name('desc_metadata__geographic', :facetable), :label => 'Geographic Subject'
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
