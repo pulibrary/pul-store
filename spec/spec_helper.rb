@@ -16,7 +16,7 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 
-if Rails.env.test?
+if Rails.env.test? || Rails.env.development?
   PulStore::Project.delete_all
   projects = YAML.load_file("#{Rails.root}/db/fixtures/projects.yml")
   projects.map{ |project| PulStore::Project.create(project) }

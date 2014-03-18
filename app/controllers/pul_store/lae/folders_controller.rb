@@ -29,7 +29,13 @@ class PulStore::Lae::FoldersController  < CatalogController
   end
 
   def set_facets(solr_parameters, user_params)
-      solr_parameters[:"facet.field"] = ["prov_metadata__workflow_state_sim"]
+      solr_parameters[:"facet.field"] = [
+        "prov_metadata__workflow_state_sim",
+        "desc_metadata__genre_sim",
+        "desc_metadata__language_sim",
+        "desc_metadata__geographic_sim"
+        # TODO: category, subject
+      ]
   end
 
   def sort_by_newest_first(solr_parameters, user_params)
