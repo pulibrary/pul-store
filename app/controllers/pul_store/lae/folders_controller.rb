@@ -2,7 +2,9 @@ class PulStore::Lae::FoldersController  < CatalogController
   #include RecordsControllerBehavior
 
   before_action :set_folder, only: [:show, :edit, :update, :destroy]
+  before_filter :authenticate_user!
   before_filter :list_all_folders, only: [:show]
+
 
   layout 'lae'
 

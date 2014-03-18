@@ -10,8 +10,8 @@ class PulStore::Lae::Folder < PulStore::Item
   end
 
   @@required_elements = (
-    [:date_created, :rights, :sort_title, :subject, :title, :geographic,
-      :language] << @@prelim_elements).flatten
+    [:date_created, :rights, :sort_title, :title, :geographic,
+      :language] << @@prelim_elements).flatten # :subject remove subject temp
   def self.required_elements
     @@required_elements
   end
