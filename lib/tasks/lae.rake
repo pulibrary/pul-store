@@ -1,9 +1,8 @@
-# Rails.env = 'development'
-
 namespace :lae do
 
   desc "Seed the development environment with fake Boxes and Folders"
   task seed_dev: :environment do
+    TEST_BARCODES = YAML.load_file(Rails.root.join('spec/fixtures/test_barcodes.yml'))
     box_count = 5
     folder_min = 15
     folder_max = 42
