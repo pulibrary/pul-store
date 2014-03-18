@@ -1,8 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Barcode:</strong>
-  <%= @box.barcode %>
+  <strong>Box <%= @box.physical_number %></strong>
 </p>
 <%= render :partial => 'shared/lae/workflow_state', locals: {object: @box} %>
 <% if can?(:edit, @box) %>

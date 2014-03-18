@@ -2,7 +2,7 @@ module ActiveFedora
   class UnsavedDigitalObject
 
     def assign_pid()
-      @pid ||= IdService.mint
+      @pid ||= PulStore::IdService.mint
     end
 
   end

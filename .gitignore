@@ -32,6 +32,7 @@ pul_store.yml
 role_map_production.yml
 
 noid-minter-state
+lae-box-counter-state
 
 # ignore compiled assets and bundled gems
 public/assets

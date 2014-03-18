@@ -1,7 +1,7 @@
 
 FactoryGirl.define do
 
-  TEST_BARCODES ||= YAML.load_file(Rails.root.join('spec/fixtures/test_barcodes.yml'))
+  # TEST_BARCODES ||= YAML.load_file(Rails.root.join('spec/fixtures/test_barcodes.yml'))
 
   factory :lae_folder, :class => 'PulStore::Lae::Folder' do |f|
     f.barcode { TEST_BARCODES.pop }

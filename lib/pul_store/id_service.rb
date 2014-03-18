@@ -2,7 +2,7 @@ require 'noid'
 
 # Shamelessly lifted from Sufia/ScholarSphere
 
-class IdService
+class PulStore::IdService
 
   def self.noid_template
     PUL_STORE_CONFIG['noid_template']
