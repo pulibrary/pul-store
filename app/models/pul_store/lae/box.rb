@@ -7,11 +7,12 @@ class PulStore::Lae::Box < PulStore::Base
   before_save :_defaults
   before_validation do
     self.physical_location = PUL_STORE_CONFIG['lae_recap_code'] if self.physical_location.blank?
-    self.project ||= PulStore::Lae::Provenance::PROJECT    
+    self.project ||= PulStore::Lae::Provenance::PROJECT   
+    self.physical_number ||= PulStore::Lae::BoxCounter.mint 
   end
 
   # Delegate attributes
-  has_attributes :full, :physical_location, :tracking_number,
+  has_attributes :full, :physical_location, :physical_number, :tracking_number,
     :datastream => 'provMetadata', multiple: false
   # For dates, UI should let a bool through and then set the date (Date.current)
   has_attributes :shipped_date, :received_date,

@@ -56,6 +56,11 @@ class PulStore::ProvRdfMetadata < ActiveFedora::NtriplesRDFDatastream
       index.as :stored_sortable
     end
 
+    map.physical_number(to: "physicalNumber", in: RDF::PulStoreTerms) do |index|
+      index.type :string
+      index.as :stored_searchable
+    end
+
     map.project_label(to: "projectLabel", in: RDF::PulStoreTerms) do |index|
       # The URI for the host system.
       index.as :stored_searchable, :facetable
@@ -78,7 +83,6 @@ class PulStore::ProvRdfMetadata < ActiveFedora::NtriplesRDFDatastream
       index.type :boolean
       index.as :stored_searchable
     end
-
 
     map.source_dmd_type(to: "sourceDmdType", in: RDF::PulStoreTerms) do |index|
       # The identifier for the metadata within its host system
