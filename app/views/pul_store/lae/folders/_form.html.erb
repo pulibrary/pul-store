@@ -17,8 +17,16 @@
     <!-- Geographic -->
     <%= render :partial => "records/edit_field", :locals => {:f => b, :render_req => false, :key => :geographic } %>
     <span class="help-block">The Country of Origin.</span>
-    <!-- language -->
-    <%= render :partial => "records/edit_field", :locals => {:f => b, :render_req => false, :key => :language } %>
+
+    <!-- Language -->
+    <!-- Make me repeatable too!! -->
+    <div class="control-group">
+      <%= b.label :language, :class=>"control-label" %>
+      <div class="controls">
+        <%= b.select(:language, options_for_select(list_all_languages_as_select_list, [@folder.language])) %>
+      </div>
+    </div>
+
     <!-- Title -->
     <div class="control-group">
     <%= b.label :title, "Title", :class=>"control-label" %>
