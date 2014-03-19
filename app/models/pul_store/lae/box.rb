@@ -7,8 +7,8 @@ class PulStore::Lae::Box < PulStore::Base
   before_save :_defaults
   before_validation do
     self.physical_location = PUL_STORE_CONFIG['lae_recap_code'] if self.physical_location.blank?
-    self.project ||= PulStore::Lae::Provenance::PROJECT   
-    self.physical_number ||= PulStore::Lae::BoxCounter.mint 
+    self.project ||= PulStore::Lae::Provenance::PROJECT
+    self.physical_number ||= PulStore::Lae::BoxCounter.mint.to_i
   end
 
   # Delegate attributes

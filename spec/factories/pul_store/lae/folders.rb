@@ -8,6 +8,7 @@ FactoryGirl.define do
     f.genre { Faker::Lorem.word }
     f.width_in_cm { (Faker::Number.digit.to_i+1).to_s }
     f.height_in_cm { (Faker::Number.digit.to_i+1).to_s }
+    f.physical_number { (Faker::Number.digit.to_i+1).to_s }
   end
 
   factory :lae_prelim_folder, :class => 'PulStore::Lae::Folder' do |f|
@@ -15,6 +16,7 @@ FactoryGirl.define do
     f.width_in_cm { (Faker::Number.digit.to_i+1).to_s }
     f.height_in_cm { (Faker::Number.digit.to_i+1).to_s }
     f.genre { PulStore::Lae::Genre.find(rand(1..PulStore::Lae::Genre.count)).pul_label }
+    f.physical_number { (Faker::Number.digit.to_i+1).to_s }
   end
 
   factory :lae_core_folder, :class => 'PulStore::Lae::Folder' do |f|
@@ -23,6 +25,7 @@ FactoryGirl.define do
     f.width_in_cm { (Faker::Number.digit.to_i+1).to_s }
     f.height_in_cm { (Faker::Number.digit.to_i+1).to_s }
     f.genre { PulStore::Lae::Genre.find(rand(1..PulStore::Lae::Genre.count)).pul_label }
+    f.physical_number { (Faker::Number.digit.to_i+1).to_s }
     f.geographic  { Array.new(rand(1..2)) { Faker::Lorem.sentence(1,true,2) } }
     f.language { Array.new(rand(1..2)) { ['English','Spanish','Portuguese'].sample } }
     f.rights { Faker::Lorem.sentence(5, true, 12) }
@@ -37,6 +40,7 @@ FactoryGirl.define do
     f.width_in_cm { (Faker::Number.digit.to_i+1).to_s }
     f.height_in_cm { (Faker::Number.digit.to_i+1).to_s }
     f.genre { PulStore::Lae::Genre.find(rand(1..PulStore::Lae::Genre.count)).pul_label }
+    f.physical_number { (Faker::Number.digit.to_i+1).to_s }
     f.geographic  { Array.new(rand(1..2)) { Faker::Lorem.sentence(1,true,2) } }
     f.language { Array.new(rand(1..2)) { Faker::Lorem.word } }
     f.rights { Faker::Lorem.sentence(5, true, 12) }
@@ -51,7 +55,7 @@ FactoryGirl.define do
      #     folder.pages << FactoryGirl.create(:page)
     #   end
     # end
-    
+
 
   end
 end

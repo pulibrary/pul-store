@@ -14,10 +14,6 @@ feature "boxes" do
     PulStore::Lae::Box.delete_all
     User.delete_all
   end
-  # advised to invoke and activate warden after all tests
-  # https://github.com/plataformatec/devise/wiki/How-To:-Test-with-Capybara
-  #before(:all) {Warden.test_mode!}
-  #after(:all) {Warden.test_reset!}
 
   feature "I am not allowed to be a lae box editor" do
     before(:all) do
@@ -29,7 +25,6 @@ feature "boxes" do
 
     scenario "When I visit a URL to edit a box I see a message advising me to sign in" do
       page.should_not have_content "Sign In"
-      #Warden.test_reset!
     end
   end
 
