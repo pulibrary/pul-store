@@ -49,7 +49,7 @@ describe PulStore::Lae::Folder do
       :alternative_title,
       :contributor,
       :creator,
-      :geographic,
+      :geographic_subject,
       :language,
       :publisher,
       :series,
@@ -415,20 +415,6 @@ describe PulStore::Lae::Folder do
       f.rights.should == PUL_STORE_CONFIG['lae_rights_boilerplate']
     end
   end
-
-
-## THESE WILL NEED ADDITIONAL TESTS after we do QA impl.
-# Genre
-# Geographic
-# Language
-# Subject
-
-# TOMORROW:
-# * Figure out what to do with lists (lang, genre, county, subject) (subject is extra complex)
-# * hard_drive
-
-
-
 
 
 end

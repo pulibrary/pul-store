@@ -9,9 +9,8 @@ class PulStore::Lae::Folder < PulStore::Item
     @@prelim_elements
   end
 
-  @@required_elements = (
-    [:date_created, :rights, :sort_title, :title, :geographic,
-      :language] << @@prelim_elements).flatten # :subject remove subject temp
+  @@required_elements = ([:date_created, :rights, :sort_title, :title, 
+    :geographic_subject, :geographic_origin, :language] << @@prelim_elements).flatten
   def self.required_elements
     @@required_elements
   end
@@ -39,20 +38,13 @@ class PulStore::Lae::Folder < PulStore::Item
 
   # Descriptive
   # See https://github.com/pulibrary/pul-store/wiki/LAE-Descriptive-Elements
-  has_attributes :alternative_title, :series, :publisher,
+  has_attributes :alternative_title, :series, :publisher, :subject, :language, 
+    :geographic_subject,
     :datastream => 'descMetadata', multiple: true
 
   has_attributes :height_in_cm, :width_in_cm, :page_count, :rights,
-    :description,
+    :description, :genre, :geographic_origin,
     :datastream => 'descMetadata', multiple: false
-
-  # TODO: https://github.com/projecthydra/questioning_authority
-  # Dropdown: https://github.com/curationexperts/tufts/blob/5856e409d743fbc2e6fc026274972f5e10d4fb4e/app/helpers/contribute_helper.rb#L10
-  # Long-name: https://github.com/curationexperts/tufts/blob/276bdfe1ca3e2d465f6067a0dcc784bcac606efb/app/models/forms/capstone_project.rb#L18
-  has_attributes :subject, :datastream => 'descMetadata', multiple: true
-  has_attributes :genre, :datastream => 'descMetadata', multiple: false
-  has_attributes :language, :datastream => 'descMetadata', multiple: true
-  has_attributes :geographic, :datastream => 'descMetadata', multiple: true
 
   # Associations
   belongs_to :box, property: :in_box, :class_name => 'PulStore::Lae::Box'
@@ -129,7 +121,7 @@ class PulStore::Lae::Folder < PulStore::Item
 
   def terms_for_editing
     [:barcode, :title, :alternative_title, :sort_title, :series, :publisher, :genre,
-      :subject, :geographic, :language, :height_in_cm,
+      :subject, :geographic_origin, :geographic_subject, :language, :height_in_cm,
       :width_in_cm, :page_count, :date_created, :rights]
   end
 

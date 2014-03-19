@@ -5,6 +5,6 @@ class CreateLanguages < ActiveRecord::Migration
       t.string :code
       t.string :label
     end
-    add_index :languages, :label, unique: true
+    add_index :languages, :label
   end
 end

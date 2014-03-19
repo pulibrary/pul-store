@@ -4,6 +4,7 @@ class CreatePulStoreLaeAreas < ActiveRecord::Migration
       t.string :label
       t.string :iso_3166_2_code
       t.string :gac_code
+      t.string :uri
     end
     add_index :pul_store_lae_areas, :label, unique: true
   end
