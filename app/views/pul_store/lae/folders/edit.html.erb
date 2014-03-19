@@ -1,6 +1,8 @@
 <h1>Update Folder</h1>
 <%= render :partial => 'shared/lae/workflow_state', locals: {object: @folder} %>
-<%= render 'form' %>
+<div class="row well">
+  <%= render 'form' %>
+</div>
 
 <%= link_to 'Show', @folder %> |
 <% if(!@folder.box_id.blank?) %>

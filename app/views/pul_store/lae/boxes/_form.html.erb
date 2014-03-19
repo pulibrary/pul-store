@@ -55,12 +55,13 @@
   <% if(@box.folders.empty?) %>
     <h3>Create a Folder</h3>
   <% else %>
-    <h3><span id="folder-count"><%= @box.folders.size %></span> Current Folders</h3>
+    <h3><span id="folder-count"><%= @box.folders.size %></span> Folders</h3>
   <% end %>
 
   <table class="table" id="folders-table">
     <thead>
       <tr>
+        <th>Title</th>
         <th>Barcode</th>
         <th>Genre</th>
         <th>Width</th>
@@ -73,6 +74,7 @@
     <tbody>
     <% @box.folders.sort_by {|f1| f1.date_uploaded }.each do |f| %>
       <tr>
+        <td><% if !f.title.blank? %><%= f.title.first %><% else %>[Not Yet Supplied]<% end %></td>
         <td><%= f.barcode %></td>
         <td><%= f.genre %></td>
         <td><%= f.width_in_cm %></td>

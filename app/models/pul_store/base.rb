@@ -11,10 +11,15 @@ module PulStore
     include Hydra::AccessControls::Permissions
 
     before_destroy :check_for_children
+    before_save :set_project_label
 
     has_metadata 'provMetadata', type: PulStore::ProvRdfMetadata
 
     belongs_to :project, property: :is_part_of_project, :class_name => 'PulStore::Project'
+
+    # We want to be able to facet on this, so copy the project label here before 
+    # save. Is there a better way?
+    has_attributes :project_label, :datastream => 'provMetadata', multiple: false
 
     validates_presence_of :project, :unless => "self.instance_of?(PulStore::Project)"
 
@@ -23,7 +28,6 @@ module PulStore
       unless self.class.child_association_names.all? {|a| self.send(a).empty? }
         msg = "Cannot delete #{self.pid} because dependent parts are associated with it"
         self.errors.add(:base, msg)
-        # is it up to me to raise something here?
       end
       self.errors.empty?
     end
@@ -41,6 +45,11 @@ module PulStore
       }
     end
 
+    def set_project_label
+      unless self.instance_of?(PulStore::Project)
+        self.project_label = self.project.label
+      end
+    end
   end
 
 end

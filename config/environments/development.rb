@@ -30,5 +30,4 @@ PulStore::Application.configure do
   # number of complex assets.
   config.assets.debug = true
 
-  config.barcode_list = YAML.load_file(Rails.root.join('spec/fixtures/test_barcodes.yml'))
 end

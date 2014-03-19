@@ -1,33 +1,30 @@
-# Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
-  test_barcodes = Rails.application.config.barcode_list
+
+  # TEST_BARCODES ||= YAML.load_file(Rails.root.join('spec/fixtures/test_barcodes.yml'))
 
   factory :lae_folder, :class => 'PulStore::Lae::Folder' do |f|
-    f.barcode { test_barcodes.pop }
+    f.barcode { TEST_BARCODES.pop }
     f.genre { Faker::Lorem.word }
     f.width_in_cm { (Faker::Number.digit.to_i+1).to_s }
     f.height_in_cm { (Faker::Number.digit.to_i+1).to_s }
-    f.project_id { FactoryGirl.create(:project).pid } # not sure if this is best...
   end
 
   factory :lae_prelim_folder, :class => 'PulStore::Lae::Folder' do |f|
-    f.barcode { test_barcodes.pop }
-    f.project_id { FactoryGirl.create(:project).pid }
+    f.barcode { TEST_BARCODES.pop }
     f.width_in_cm { (Faker::Number.digit.to_i+1).to_s }
     f.height_in_cm { (Faker::Number.digit.to_i+1).to_s }
-    f.genre { Faker::Lorem.word }
+    f.genre { PulStore::Lae::Genre.find(rand(1..PulStore::Lae::Genre.count)).pul_label }
   end
 
   factory :lae_core_folder, :class => 'PulStore::Lae::Folder' do |f|
-    f.barcode { test_barcodes.pop }
-    f.project_id { FactoryGirl.create(:project).pid }
+    f.barcode { TEST_BARCODES.pop }
     f.date_created { Date.current }
     f.width_in_cm { (Faker::Number.digit.to_i+1).to_s }
     f.height_in_cm { (Faker::Number.digit.to_i+1).to_s }
-    f.genre { Faker::Lorem.word }
+    f.genre { PulStore::Lae::Genre.find(rand(1..PulStore::Lae::Genre.count)).pul_label }
     f.geographic  { Array.new(rand(1..2)) { Faker::Lorem.sentence(1,true,2) } }
-    f.language { Array.new(rand(1..2)) { ['eng','spa','por'].sample } }
+    f.language { Array.new(rand(1..2)) { ['English','Spanish','Portuguese'].sample } }
     f.rights { Faker::Lorem.sentence(5, true, 12) }
     f.sort_title { Faker::Lorem.sentence(2, true, 5) }
     f.subject  { Array.new(rand(1..3)) { Faker::Lorem.sentence(1,true,3) } }
@@ -35,12 +32,11 @@ FactoryGirl.define do
   end
 
   factory :lae_core_folder_with_pages, :class => 'PulStore::Lae::Folder' do |f|
-    f.barcode { test_barcodes.pop }
-    f.project_id { FactoryGirl.create(:project).pid }
+    f.barcode { TEST_BARCODES.pop }
     f.date_created { Date.current }
     f.width_in_cm { (Faker::Number.digit.to_i+1).to_s }
     f.height_in_cm { (Faker::Number.digit.to_i+1).to_s }
-    f.genre { Faker::Lorem.word }
+    f.genre { PulStore::Lae::Genre.find(rand(1..PulStore::Lae::Genre.count)).pul_label }
     f.geographic  { Array.new(rand(1..2)) { Faker::Lorem.sentence(1,true,2) } }
     f.language { Array.new(rand(1..2)) { Faker::Lorem.word } }
     f.rights { Faker::Lorem.sentence(5, true, 12) }

@@ -10,8 +10,8 @@ class PulStore::Lae::Folder < PulStore::Item
   end
 
   @@required_elements = (
-    [:date_created, :rights, :sort_title, :subject, :title, :geographic,
-      :language] << @@prelim_elements).flatten
+    [:date_created, :rights, :sort_title, :title, :geographic,
+      :language] << @@prelim_elements).flatten # :subject remove subject temp
   def self.required_elements
     @@required_elements
   end
@@ -24,12 +24,10 @@ class PulStore::Lae::Folder < PulStore::Item
     @@extent_elements
   end
 
-  # Project
-  #@@project = PulStore::Project.first
-  #@@project = PulStore::Project.where(desc_metadata__identifier_ssm: 'lae').first
 
   # Callbacks
   before_save :set_defaults
+  before_validation :set_project
 
   # Metadata
   has_metadata 'descMetadata', type: PulStore::Lae::FolderRdfMetadata
@@ -61,11 +59,6 @@ class PulStore::Lae::Folder < PulStore::Item
   has_many :pages, property: :is_part_of, :class_name => 'PulStore::Page'
 
   # Validations
-  # Would like to DRY-up the barcode validations and put them in PulStore::Lae::Provenance
-  # but haven't been able to figure out how.
-  # validates_presence_of :barcode
-  # validates_presence_of :genre
-
   validates_presence_of @@prelim_elements
 
   validates_length_of :barcode,
@@ -79,6 +72,7 @@ class PulStore::Lae::Folder < PulStore::Item
   validate :validate_barcode
 
   validate :validate_barcode_uniqueness, on: :create
+  validate :validate_barcode_uniqueness_on_update, on: :update
 
   validates_presence_of @@required_elements,
     if: :passed_qc?
@@ -92,13 +86,15 @@ class PulStore::Lae::Folder < PulStore::Item
     if: "self.page_count.blank?"
 
   validates_numericality_of :width_in_cm, :height_in_cm,
-    allow_nil: true, greater_than: 0 , unless: "self.width_in_cm.blank? && self.height_in_cm.blank?"
+    allow_nil: true, greater_than: 0, 
+    unless: "self.width_in_cm.blank? && self.height_in_cm.blank?"
 
   validates_presence_of :page_count,
     if: "self.width_in_cm.blank? && self.height_in_cm.blank?"
 
   validates_numericality_of :page_count,
-    only_integer: true, allow_nil: true, greater_than: 0, unless: "self.page_count.blank?"
+    only_integer: true, allow_nil: true, greater_than: 0, 
+    unless: "self.page_count.blank?"
 
 
   def suppressed?
@@ -139,12 +135,15 @@ class PulStore::Lae::Folder < PulStore::Item
 
   protected
 
+  def set_project
+    self.project ||= PulStore::Lae::Provenance::PROJECT
+  end
+
   def set_defaults
     self.suppressed = self.suppressed?
     self.passed_qc = self.passed_qc?
     self.workflow_state = self.infer_state
     self.rights ||= PUL_STORE_CONFIG['lae_rights_boilerplate']
-    #self.project ||= self.set_project
     nil
   end
 

@@ -6,8 +6,7 @@ FactoryGirl.define do
   # factory :text do |t| 
 
   factory :text, :class => PulStore::Text do |t| 
-    # not ideal...sometimes a project should be new, sometimes it should exist.
-    t.project_id { FactoryGirl.create(:project).pid } 
+    t.project { PulStore::Project.last } 
 
     # TODO: creator and contributor, and then catch validation errors in tests
     t.abstract { Array.new(rand(0..2)) { Faker::Lorem.paragraph(rand(1..7)) } }

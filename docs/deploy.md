@@ -39,14 +39,11 @@ Run Install Scripts
 Deploy PUL-Store
 ----------------
 ### Before Capistrano
-  Right now each of these files need some kind of configuration:
-  Consider storing secrets on the fedora storage volume, which is restricted by IP.
+  Right now each of these files need some kind of configuration or need to be copied to the proper locations
   * database.yml
   * fedora.yml
   * solr.yml
-  * devise.yml (when we have it)
-  * config/initializers/devise.rb key
-  * config/initializers/secret_token.rb secret_key_base
+  * pul_store.yml
 
 ### Run Capistrano 
 From a local copy of the code base (not on the production server, but, say, on your laptop) run:
