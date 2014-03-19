@@ -34,7 +34,7 @@ class PulStore::Lae::Folder < PulStore::Item
 
   # Delegate attributes
   #   Provenance
-  has_attributes :suppressed, :passed_qc,
+  has_attributes :suppressed, :passed_qc, :physical_number,
     :datastream => 'provMetadata', multiple: false
 
   # Descriptive
@@ -86,15 +86,20 @@ class PulStore::Lae::Folder < PulStore::Item
     if: "self.page_count.blank?"
 
   validates_numericality_of :width_in_cm, :height_in_cm,
-    allow_nil: true, greater_than: 0, 
+    allow_nil: true, greater_than: 0,
     unless: "self.width_in_cm.blank? && self.height_in_cm.blank?"
 
   validates_presence_of :page_count,
     if: "self.width_in_cm.blank? && self.height_in_cm.blank?"
 
   validates_numericality_of :page_count,
-    only_integer: true, allow_nil: true, greater_than: 0, 
+    only_integer: true, allow_nil: true, greater_than: 0,
     unless: "self.page_count.blank?"
+
+  validates_presence_of :physical_number
+
+  validates_numericality_of :physical_number,
+    only_integer: true, allow_nil: true, greater_than: 0
 
 
   def suppressed?

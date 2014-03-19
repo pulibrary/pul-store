@@ -111,6 +111,24 @@ describe PulStore::Lae::Folder do
     end
   end
 
+  describe "physical_number" do
+    it "must have a physical number" do
+      f = FactoryGirl.build(:lae_folder, physical_number: nil)
+      expect { f.save! }.to raise_error ActiveFedora::RecordInvalid
+    end
+
+    it "is valid with a physical number" do
+      f = FactoryGirl.build(:lae_folder, physical_number: Faker::Number.digit.to_i+1)
+      f.valid?.should be_true
+    end
+
+    it "it is invalid with a string value" do
+      f = FactoryGirl.build(:lae_folder, physical_number: Faker::Lorem.word)
+      expect { f.save! }.to raise_error ActiveFedora::RecordInvalid
+    end
+
+  end
+
   describe "passed_qc" do
 
     describe "is false" do
