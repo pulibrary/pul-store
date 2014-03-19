@@ -160,7 +160,7 @@ class PulStore::Lae::FoldersController  < CatalogController
     def folder_params
       params.require(:lae_folder).permit(:barcode, :date_created, :description,
         :width_in_cm, :height_in_cm, :page_count, :genre, :passed_qc, :rights,
-        :sort_title, :suppressed,:box_id, :project_id, :error_note,
+        :sort_title, :suppressed,:box_id, :project_id, :error_note, :physical_number,
         :box_id, alternative_title: [], geographic: [], title: [],
         language: [], publisher: [], series: [], subject: [], creator: [], contributor: [] )
     end
