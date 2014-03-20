@@ -19,13 +19,8 @@
     <span class="help-block">The Country of Origin.</span>
 
     <!-- Language -->
-    <!-- Make me repeatable too!! -->
-    <div class="control-group">
-      <%= b.label :language, :class=>"control-label" %>
-      <div class="controls">
-        <%= b.select(:language, options_for_select(list_all_languages_as_select_list, [@folder.language])) %>
-      </div>
-    </div>
+     <!-- language -->
+    <%= render :partial => "records/edit_field", :locals => {:f => b, :render_req => false, :key => :language } %>
 
     <!-- Title -->
     <div class="control-group">
