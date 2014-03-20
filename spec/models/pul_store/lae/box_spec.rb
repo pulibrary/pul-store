@@ -20,6 +20,13 @@ describe PulStore::Lae::Box do
   end
 
   describe "physical_number" do
+
+    it "should not be assigned if the box is invalid" do
+      bad_box = FactoryGirl.build(:lae_box, barcode: @invalid_barcode)
+      expect { bad_box.save! }.to raise_error ActiveFedora::RecordInvalid
+      bad_box.physical_number.should be_nil
+    end
+
     it "should be an auto-assigned number" do
       b = FactoryGirl.create(:lae_box)
       b.physical_number.should match(/^(\d+)$/)
