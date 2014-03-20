@@ -120,6 +120,12 @@
       </div>
     </div>
     <div class="control-group">
+    <div class="controls">
+      <%= b.label :suppressed, "Suppress this Folder" %>
+      <%= b.check_box :suppressed, { class: 'checkbox' }, "true", "false" %>
+    </div>
+  </div>
+    <div class="control-group">
       <%= b.label :rights, :class=>"control-label" %>
       <div class="controls">
         <%= b.text_area :rights, cols: 50, rows: 6 %>
