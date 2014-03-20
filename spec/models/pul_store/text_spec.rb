@@ -148,7 +148,7 @@ describe PulStore::Text do
     end
 
     it 'can get languages from separate 041as' do
-      l = ["Italian", "Spanish | Castilian", "English", "French", "German"]
+      l = ["Italian", "Spanish", "English", "French", "German"]
       PulStore::Text.language_from_marc(sample_marcxml_fp6).should == l
     end
 
