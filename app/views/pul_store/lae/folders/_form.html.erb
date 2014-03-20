@@ -15,11 +15,16 @@
   <div id="desc-metadata" class="span6">
     <!-- required metadata goes -->
     <!-- Geographic -->
-    <%= render :partial => "records/edit_field", :locals => {:f => b, :render_req => false, :key => :geographic } %>
-    <span class="help-block">The Country of Origin.</span>
+    <div class="control-group">
+      <%= b.label :geographic_origin, :class=>"control-label" %>
+      <div class="controls">
+        <%= b.select(:geographic_origin, options_for_select(list_all_areas_as_select_list, [@folder.geographic_origin])) %>
+      </div>
+    </div>
+
+    <%= render :partial => "records/edit_field", :locals => {:f => b, :render_req => false, :key => :geographic_subject } %>
 
     <!-- Language -->
-     <!-- language -->
     <%= render :partial => "records/edit_field", :locals => {:f => b, :render_req => false, :key => :language } %>
 
     <!-- Title -->

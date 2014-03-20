@@ -28,6 +28,8 @@ ActiveRecord::Schema.define(version: 20140319175813) do
     t.string "label"
   end
 
+  add_index "languages", ["label"], name: "index_languages_on_label", using: :btree
+
   create_table "metadata_sources", force: true do |t|
     t.string "label"
     t.string "uri"
@@ -47,12 +49,8 @@ ActiveRecord::Schema.define(version: 20140319175813) do
     t.string   "pul_label"
     t.string   "tgm_label"
     t.string   "lcsh_label"
-    t.integer  "dimensions"
-    t.string   "dimensions_unit"
-    t.string   "uri"
     t.text     "scope_note"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string   "uri"
   end
 
   create_table "pul_store_lae_subjects", force: true do |t|
