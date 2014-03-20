@@ -5,7 +5,7 @@ FactoryGirl.define do
 
   factory :lae_folder, :class => 'PulStore::Lae::Folder' do |f|
     f.barcode { TEST_BARCODES.pop }
-    f.genre { PulStore::Lae::Genre.order("RAND()").first.pul_label }
+    f.genre { PulStore::Lae::Genre.find(rand(1..PulStore::Lae::Genre.count)).pul_label }
     f.width_in_cm { (Faker::Number.digit.to_i+1).to_s }
     f.height_in_cm { (Faker::Number.digit.to_i+1).to_s }
     f.physical_number { (Faker::Number.digit.to_i+1).to_s }
@@ -15,6 +15,8 @@ FactoryGirl.define do
     f.barcode { TEST_BARCODES.pop }
     f.width_in_cm { (Faker::Number.digit.to_i+1).to_s }
     f.height_in_cm { (Faker::Number.digit.to_i+1).to_s }
+    f.genre { PulStore::Lae::Genre.find(rand(1..PulStore::Lae::Genre.count)).pul_label }
+    f.physical_number { (Faker::Number.digit.to_i+1).to_s }
     f.genre { PulStore::Lae::Genre.order("RAND()").first.pul_label }
     f.physical_number { (Faker::Number.digit.to_i+1).to_s }
   end
@@ -24,7 +26,8 @@ FactoryGirl.define do
     f.date_created { Date.current }
     f.width_in_cm { (Faker::Number.digit.to_i+1).to_s }
     f.height_in_cm { (Faker::Number.digit.to_i+1).to_s }
-    f.genre { PulStore::Lae::Genre.order("RAND()").first.pul_label }
+    f.genre { PulStore::Lae::Genre.find(rand(1..PulStore::Lae::Genre.count)).pul_label }
+    f.physical_number { (Faker::Number.digit.to_i+1).to_s }
     f.geographic_origin { PulStore::Lae::Area.order("RAND()").first.label }
     f.geographic_subject { Array.new(rand(1..2)) { PulStore::Lae::Area.order("RAND()").first.label } }
     f.physical_number { (Faker::Number.digit.to_i+1).to_s }
@@ -39,7 +42,9 @@ FactoryGirl.define do
     f.barcode { TEST_BARCODES.pop }
     f.date_created { Date.current }
     f.width_in_cm { (Faker::Number.digit.to_i+1).to_s }
-    f.height_in_cm { (Faker::Number.digit.to_i+1).to_s }
+    f.genre { PulStore::Lae::Genre.find(rand(1..PulStore::Lae::Genre.count)).pul_label }
+    f.physical_number { (Faker::Number.digit.to_i+1).to_s }
+    f.language { Array.new(rand(1..2)) { Faker::Lorem.word } }
     f.genre { PulStore::Lae::Genre.order("RAND()").first.pul_label }
     f.geographic_origin { PulStore::Lae::Area.order("RAND()").first.label }
     f.geographic_subject { Array.new(rand(1..2)) { PulStore::Lae::Area.order("RAND()").first.label } }
