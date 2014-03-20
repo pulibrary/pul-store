@@ -22,14 +22,7 @@
       </div>
     </div>
 
-    <!-- Make me repeatable! -->
-    <div class="control-group">
-      <%= b.label :geographic_subject, :class=>"control-label" %>
-      <div class="controls">
-        <%= b.select(:geographic_subject, options_for_select(list_all_areas_as_select_list, [@folder.geographic_subject])) %>
-      </div>
-    </div>
-
+    <%= render :partial => "records/edit_field", :locals => {:f => b, :render_req => false, :key => :geographic_subject } %>
 
     <!-- language -->
     <%= render :partial => "records/edit_field", :locals => {:f => b, :render_req => false, :key => :language } %>

@@ -162,6 +162,6 @@ class PulStore::Lae::FoldersController  < CatalogController
         :width_in_cm, :height_in_cm, :page_count, :genre, :passed_qc, :rights,
         :sort_title, :suppressed,:box_id, :project_id, :error_note, :geographic_origin,
         :box_id, alternative_title: [], geographic_subject: [], title: [],
-        language: [], publisher: [], series: [], subject: [], creator: [], contributor: [] )
+        language: [], publisher: [], series: [], subject: [], creator: [], contributor: [])
     end
 end
