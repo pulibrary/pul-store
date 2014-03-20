@@ -17,8 +17,11 @@
     <!-- Geographic -->
     <%= render :partial => "records/edit_field", :locals => {:f => b, :render_req => false, :key => :geographic } %>
     <span class="help-block">The Country of Origin.</span>
-    <!-- language -->
+
+    <!-- Language -->
+     <!-- language -->
     <%= render :partial => "records/edit_field", :locals => {:f => b, :render_req => false, :key => :language } %>
+
     <!-- Title -->
     <div class="control-group">
     <%= b.label :title, "Title", :class=>"control-label" %>
