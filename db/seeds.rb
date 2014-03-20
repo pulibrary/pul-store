@@ -22,6 +22,12 @@ YAML.load(File.read(fp)).each do |k,h|
   PulStore::Lae::Genre.create!(h)
 end
 
+# LAE Areas
+PulStore::Lae::Area.delete_all
+csv_fp = Rails.root.join('db', 'fixtures', 'lae_areas.csv')
+csv = CSV.parse(File.read(csv_fp), headers: true)
+csv.each { |row| PulStore::Lae::Area.create!(row.to_hash) }
+
 # LAE Subjects and Topics
 PulStore::Lae::Subject.delete_all
 PulStore::Lae::Topic.delete_all

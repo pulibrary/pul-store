@@ -61,6 +61,7 @@
   <table class="table" id="folders-table">
     <thead>
       <tr>
+        <th>Folder Number</th>
         <th>Title</th>
         <th>Barcode</th>
         <th>Genre</th>
@@ -72,8 +73,9 @@
       </tr>
     </thead>
     <tbody>
-    <% @box.folders.sort_by {|f1| f1.date_uploaded }.each do |f| %>
+    <% @box.folders.sort_by {|f1| f1.physical_number.to_i }.each do |f| %>
       <tr>
+        <td><%= f.physical_number %></td>
         <td><% if !f.title.blank? %><%= f.title.first %><% else %>[Not Yet Supplied]<% end %></td>
         <td><%= f.barcode %></td>
         <td><%= f.genre %></td>

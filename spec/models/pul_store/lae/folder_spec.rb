@@ -18,8 +18,10 @@ describe PulStore::Lae::Folder do
   end
 
   describe "project" do
-    f = FactoryGirl.create(:lae_folder)
-    f.project.identifier.should == 'lae'
+    it "belonds to the lae project" do
+      f = FactoryGirl.create(:lae_folder)
+      f.project.identifier.should == 'lae'
+    end
   end
 
   describe "optional elements" do
@@ -49,7 +51,7 @@ describe PulStore::Lae::Folder do
       :alternative_title,
       :contributor,
       :creator,
-      :geographic,
+      :geographic_subject,
       :language,
       :publisher,
       :series,
@@ -109,6 +111,24 @@ describe PulStore::Lae::Folder do
       g.barcode = f.barcode
       expect { g.save! }.to raise_error ActiveFedora::RecordInvalid
     end
+  end
+
+  describe "physical_number" do
+    it "must have a physical number" do
+      f = FactoryGirl.build(:lae_folder, physical_number: nil)
+      expect { f.save! }.to raise_error ActiveFedora::RecordInvalid
+    end
+
+    it "is valid with a physical number" do
+      f = FactoryGirl.build(:lae_folder, physical_number: Faker::Number.digit.to_i+1)
+      f.valid?.should be_true
+    end
+
+    it "it is invalid with a string value" do
+      f = FactoryGirl.build(:lae_folder, physical_number: Faker::Lorem.word)
+      expect { f.save! }.to raise_error ActiveFedora::RecordInvalid
+    end
+
   end
 
   describe "passed_qc" do
@@ -415,20 +435,6 @@ describe PulStore::Lae::Folder do
       f.rights.should == PUL_STORE_CONFIG['lae_rights_boilerplate']
     end
   end
-
-
-## THESE WILL NEED ADDITIONAL TESTS after we do QA impl.
-# Genre
-# Geographic
-# Language
-# Subject
-
-# TOMORROW:
-# * Figure out what to do with lists (lang, genre, county, subject) (subject is extra complex)
-# * hard_drive
-
-
-
 
 
 end

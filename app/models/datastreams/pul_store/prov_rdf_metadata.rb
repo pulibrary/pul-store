@@ -57,7 +57,7 @@ class PulStore::ProvRdfMetadata < ActiveFedora::NtriplesRDFDatastream
     end
 
     map.physical_number(to: "physicalNumber", in: RDF::PulStoreTerms) do |index|
-      index.type :string
+      index.type :integer
       index.as :stored_sortable
     end
 
@@ -100,7 +100,7 @@ class PulStore::ProvRdfMetadata < ActiveFedora::NtriplesRDFDatastream
       index.as :stored_searchable
     end
 
-    
+
 
   end
 

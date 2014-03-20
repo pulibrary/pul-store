@@ -15,10 +15,18 @@
   <div id="desc-metadata" class="span6">
     <!-- required metadata goes -->
     <!-- Geographic -->
-    <%= render :partial => "records/edit_field", :locals => {:f => b, :render_req => false, :key => :geographic } %>
-    <span class="help-block">The Country of Origin.</span>
-    <!-- language -->
+    <div class="control-group">
+      <%= b.label :geographic_origin, :class=>"control-label" %>
+      <div class="controls">
+        <%= b.select(:geographic_origin, options_for_select(list_all_areas_as_select_list, [@folder.geographic_origin])) %>
+      </div>
+    </div>
+
+    <%= render :partial => "records/edit_field", :locals => {:f => b, :render_req => false, :key => :geographic_subject } %>
+
+    <!-- Language -->
     <%= render :partial => "records/edit_field", :locals => {:f => b, :render_req => false, :key => :language } %>
+
     <!-- Title -->
     <div class="control-group">
     <%= b.label :title, "Title", :class=>"control-label" %>
@@ -93,6 +101,13 @@
   </div>
   <div id="admin-metadata" class="span4">
     <div id="admin-metadata">
+    <div class="control-group">
+      <%= b.label "Folder Number", :class=>"control-label" %>
+      <div class="controls">
+        <%= b.text_field :physical_number %>
+      </div>
+      <span class="help-block">Is Part of <%= link_to "Box ", edit_lae_box_path(@folder.box_id) %>.</span>
+    </div>
 
     <div class="control-group">
       <%= b.label :barcode, :class=>"control-label" %>

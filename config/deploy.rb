@@ -14,7 +14,7 @@ set :scm, :git
 set :log_level, :debug
 # set :pty, true
 
-shared_path == :deploy_to + "/shared"
+shared_path = "#{:deploy_to}/shared"
 #set :assets_prefix, '#{shared_path}/public'
 
 ## removing the following from linked files for the time being
@@ -42,7 +42,7 @@ namespace :deploy do
   end
 
 
-  before "deploy:cold", "make_noid_state_files" # untested!
+  #before "deploy:cold", "make_noid_state_files" # untested!
   #TODO this should part of cap deploy:cold
   #
   #desc 'Set Solr Configuration'

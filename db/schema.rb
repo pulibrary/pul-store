@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140311201626) do
+ActiveRecord::Schema.define(version: 20140319175813) do
 
   create_table "bookmarks", force: true do |t|
     t.integer  "user_id",     null: false
@@ -28,18 +28,29 @@ ActiveRecord::Schema.define(version: 20140311201626) do
     t.string "label"
   end
 
+  add_index "languages", ["label"], name: "index_languages_on_label", using: :btree
+
   create_table "metadata_sources", force: true do |t|
     t.string "label"
     t.string "uri"
     t.string "media_type"
   end
 
-  create_table "pul_store_lae_genres", force: true do |t|
-    t.string "pul_label"
-    t.string "tgm_label"
-    t.string "lcsh_label"
+  create_table "pul_store_lae_areas", force: true do |t|
+    t.string "label"
+    t.string "iso_3166_2_code"
+    t.string "gac_code"
     t.string "uri"
-    t.text   "scope_note"
+  end
+
+  add_index "pul_store_lae_areas", ["label"], name: "index_pul_store_lae_areas_on_label", unique: true, using: :btree
+
+  create_table "pul_store_lae_genres", force: true do |t|
+    t.string   "pul_label"
+    t.string   "tgm_label"
+    t.string   "lcsh_label"
+    t.text     "scope_note"
+    t.string   "uri"
   end
 
   create_table "pul_store_lae_subjects", force: true do |t|
