@@ -28,12 +28,12 @@ $(function() {
   });
 });
 
-$(function() {
-  $('.barcode').on('keypress keydown keyup', function (e) {
-   if (e.keyCode == 13) {
-     e.preventDefault();
-   }
-  });
-});
+//$(function() {
+//  $('.barcode').on('keypress keydown keyup', function (e) {
+//   if (e.keyCode == 13) {
+//     e.preventDefault();
+//   }
+//  });
+//});
 
 
