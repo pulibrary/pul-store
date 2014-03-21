@@ -6,10 +6,6 @@ class PulStore::ItemRdfMetadata < ActiveFedora::NtriplesRDFDatastream
 
     map.identifier({in: RDF::DC})
 
-    # # TODO: split into isPartOfCollection and isPartOfProject and index as 
-    # # facetable
-    # map.part_of(:to => "isPartOf", :in => RDF::DC) 
-
     map.contributor(in: RDF::DC) do |index|
       index.as :stored_searchable, :facetable
     end
@@ -20,6 +16,17 @@ class PulStore::ItemRdfMetadata < ActiveFedora::NtriplesRDFDatastream
 
     map.date_created(:to => "created", :in => RDF::DC) do |index|
       index.as :stored_searchable
+      index.type :integer
+    end
+
+    map.earliest_created(:to => "earliestCreated", :in => RDF::PulStoreTerms) do |index|
+      index.as :stored_searchable
+      index.type :integer
+    end
+
+    map.latest_created(:to => "latestCreated", :in => RDF::PulStoreTerms) do |index|
+      index.as :stored_searchable
+      index.type :integer
     end
 
     map.sort_title(to: "sortTitle", in: RDF::PulStoreTerms) do |index|
@@ -31,7 +38,6 @@ class PulStore::ItemRdfMetadata < ActiveFedora::NtriplesRDFDatastream
       index.as :stored_searchable
     end
 
-    # consider mapping the Model type to this
     map.type(in: RDF::DC) do |index|
       index.as :stored_searchable, :facetable
     end

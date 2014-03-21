@@ -21,7 +21,7 @@ FactoryGirl.define do
 
   factory :lae_core_folder, :class => 'PulStore::Lae::Folder' do |f|
     f.barcode { TEST_BARCODES.pop }
-    f.date_created { Date.current }
+    f.date_created { Date.current.year }
     f.width_in_cm { (Faker::Number.digit.to_i+1).to_s }
     f.height_in_cm { (Faker::Number.digit.to_i+1).to_s }
     f.genre { PulStore::Lae::Genre.order("RAND()").first.pul_label }
@@ -37,7 +37,7 @@ FactoryGirl.define do
 
   factory :lae_core_folder_with_pages, :class => 'PulStore::Lae::Folder' do |f|
     f.barcode { TEST_BARCODES.pop }
-    f.date_created { Date.current }
+    f.date_created { Date.current.year }
     f.width_in_cm { (Faker::Number.digit.to_i+1).to_s }
     f.height_in_cm { (Faker::Number.digit.to_i+1).to_s }
     f.genre { PulStore::Lae::Genre.order("RAND()").first.pul_label }
