@@ -94,6 +94,13 @@ module PulStore::Validations
       end
     end
   end
+
+  def only_date_range_or_date
+    if self.send(:has_date_created?) && self.send(:has_earliest_and_latest?)
+      m = "You man only supply a date created OR an earliest date AND latest, not both."
+      errors.add(:base, m)
+    end
+  end
     
 
   protected
