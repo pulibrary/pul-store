@@ -13,17 +13,6 @@
 
 
   <div id="desc-metadata" class="span6">
-    <!-- required metadata goes -->
-    <!-- Geographic -->
-    <div class="control-group">
-      <%= b.label :geographic_origin, :class=>"control-label" %>
-      <div class="controls">
-        <%= b.select(:geographic_origin, options_for_select(list_all_areas_as_select_list, [@folder.geographic_origin])) %>
-      </div>
-    </div>
-
-    <%= render :partial => "records/edit_field", :locals => {:f => b, :render_req => false, :key => :geographic_subject } %>
-
     <!-- Language -->
     <%= render :partial => "records/edit_field", :locals => {:f => b, :render_req => false, :key => :language } %>
 
@@ -71,6 +60,14 @@
       <%= render :partial => "records/edit_field", :locals => {:f => b, :render_req => false, :key => :contributor } %>
       <!-- Publisher -->
       <%= render :partial => "records/edit_field", :locals => {:f => b, :render_req => false, :key => :publisher } %>
+      <!-- Geographic Origin -->
+      <!-- Geographic -->
+      <div class="control-group">
+        <%= b.label :geographic_origin, :class=>"control-label" %>
+        <div class="controls">
+          <%= b.select(:geographic_origin, options_for_select(list_all_areas_as_select_list, [@folder.geographic_origin])) %>
+        </div>
+      </div>
       <!-- Series -->
       <%= render :partial => "records/edit_field", :locals => {:f => b, :render_req => false, :key => :series } %>
       <!-- Genre -->
@@ -82,8 +79,9 @@
     </div>
     <!-- Subject -->
     <%= render :partial => "records/edit_field", :locals => {:f => b, :render_req => false, :key => :subject } %>
+    <!-- Geographic Subject -->
+    <%= render :partial => "records/edit_field", :locals => {:f => b, :render_req => false, :key => :geographic_subject } %>
 
-    <!-- end mult-value -->
     <!-- Decription -->
     <div class="control-group">
       <%= b.label :description, :class => 'control-label' %>
@@ -121,6 +119,12 @@
         <%= b.text_area :error_note, cols: 50, rows: 3 %>
       </div>
     </div>
+    <div class="control-group">
+    <div class="controls">
+      <%= b.label :suppressed, "Suppress this Folder" %>
+      <%= b.check_box :suppressed, { class: 'checkbox' }, "true", "false" %>
+    </div>
+  </div>
     <div class="control-group">
       <%= b.label :rights, :class=>"control-label" %>
       <div class="controls">

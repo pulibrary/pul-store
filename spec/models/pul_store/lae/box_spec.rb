@@ -20,6 +20,13 @@ describe PulStore::Lae::Box do
   end
 
   describe "physical_number" do
+
+    it "should not be assigned if the box is invalid" do
+      bad_box = FactoryGirl.build(:lae_box, barcode: @invalid_barcode)
+      expect { bad_box.save! }.to raise_error ActiveFedora::RecordInvalid
+      bad_box.physical_number.should be_nil
+    end
+
     it "should be an auto-assigned number" do
       b = FactoryGirl.create(:lae_box)
       b.physical_number.should match(/^(\d+)$/)
@@ -77,20 +84,20 @@ describe PulStore::Lae::Box do
 
   describe "full" do
     it "attr is false by default" do
-      b = FactoryGirl.create(:lae_box, barcode: TEST_BARCODES.pop)
+      b = FactoryGirl.create(:lae_box)
       b.save!
       b.full?.should be_false
     end
 
     it "responds to full? as true when set" do
-      b = FactoryGirl.create(:lae_box, barcode: TEST_BARCODES.pop)
+      b = FactoryGirl.create(:lae_box)
       b.full = true
       b.save!
       b.full?.should be_true
     end
 
     it "responds to full? as false when not set" do
-      b = FactoryGirl.create(:lae_box, barcode: TEST_BARCODES.pop)
+      b = FactoryGirl.create(:lae_box)
       b.full = false
       b.save!
       b.full?.should be_false
@@ -100,7 +107,7 @@ describe PulStore::Lae::Box do
 
   describe "physical location" do
     it "is added when we save" do
-      b = FactoryGirl.create(:lae_box, barcode: TEST_BARCODES.pop)
+      b = FactoryGirl.create(:lae_box)
       b.physical_location.should == PUL_STORE_CONFIG['lae_recap_code']
     end
   end
@@ -108,7 +115,7 @@ describe PulStore::Lae::Box do
   describe "shipment dates" do
 
     it "shipped? is true when the box is full there is a shipped_date" do
-      b = FactoryGirl.create(:lae_box, barcode: TEST_BARCODES.pop)
+      b = FactoryGirl.create(:lae_box)
       b.full = true
       b.tracking_number = "12345"
       b.shipped_date = Date.current.to_s
@@ -116,12 +123,12 @@ describe PulStore::Lae::Box do
     end
 
     it "shipped? is false when there isn't a shipped_date" do
-      b = FactoryGirl.create(:lae_box, barcode: TEST_BARCODES.pop)
+      b = FactoryGirl.create(:lae_box)
       b.shipped?.should be_false
     end
 
     it "received? is true when there is a received_date" do
-      b = FactoryGirl.create(:lae_box, barcode: TEST_BARCODES.pop)
+      b = FactoryGirl.create(:lae_box)
       b.full = true
       b.tracking_number = "12345"
       now = Date.current
@@ -131,7 +138,7 @@ describe PulStore::Lae::Box do
     end
 
     it "received? is false when there isn't a received_date" do
-      b = FactoryGirl.create(:lae_box, barcode: TEST_BARCODES.pop)
+      b = FactoryGirl.create(:lae_box)
       b.full = true
       b.tracking_number = "12345"
       b.shipped_date = Date.current.ago(86400).to_s
@@ -139,14 +146,14 @@ describe PulStore::Lae::Box do
     end
 
     it "Box is invalid if there is a received date when there is no shipped date" do
-      b = FactoryGirl.create(:lae_box, barcode: TEST_BARCODES.pop)
+      b = FactoryGirl.create(:lae_box)
       b.full = true
       b.received_date = Date.current.to_s
       b.valid?.should be_false
     end
 
     it "invalid if the received date is before shipped date" do
-      b = FactoryGirl.create(:lae_box, barcode: TEST_BARCODES.pop)
+      b = FactoryGirl.create(:lae_box)
       b.full = true
       now = Date.current
       b.shipped_date = now.to_s
@@ -159,7 +166,7 @@ describe PulStore::Lae::Box do
   describe "tracking number" do
 
     it "is saveable" do
-      b = FactoryGirl.create(:lae_box, barcode: TEST_BARCODES.pop)
+      b = FactoryGirl.create(:lae_box)
       n = "no way to validate 123"
       b.shipped_date = Date.current
       b.tracking_number = n
@@ -169,13 +176,13 @@ describe PulStore::Lae::Box do
     end
 
     it "causes the object to be invalid if present and there is not a ship date" do
-      b = FactoryGirl.create(:lae_box, barcode: TEST_BARCODES.pop)
+      b = FactoryGirl.create(:lae_box)
       b.tracking_number = 'foo'
       b.valid?.should be_false
     end
 
     it "passes validation if there is also a ship date" do
-      b = FactoryGirl.create(:lae_box, barcode: TEST_BARCODES.pop)
+      b = FactoryGirl.create(:lae_box)
       b.tracking_number = 'foo'
       b.shipped_date = Date.current.to_s
       b.valid?.should be_true

@@ -28,15 +28,12 @@ $(function() {
   });
 });
 
-
 $(function() {
-    var availableDates = [
-      "2012",
-      "2011",
-      "2012",
-      "Unknown"
-    ];
-    $( "#lae_folder_date_created" ).autocomplete({
-      source: availableDates
-    });
+  $('.barcode').on('keypress keydown keyup', function (e) {
+   if (e.keyCode == 13) {
+     e.preventDefault();
+   }
   });
+});
+
+
