@@ -15,6 +15,7 @@ PulStore::Application.routes.draw do
   end
 
   root :to => "catalog#index"
+  get '/lae', to: redirect('/lae/boxes')
   Blacklight.add_routes(self)
   HydraHead.add_routes(self)
 
