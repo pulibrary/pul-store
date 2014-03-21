@@ -92,12 +92,13 @@
       </div>
     </div>
     <!-- date created -->
-    <div class="control-group">
+    <div class="control-group" id="date-created">
       <%= b.label :date_created, :class=>"control-label" %>
       <div class="controls">
         <%= b.text_field :date_created, :id => 'lae_folder_date_created' %>
       </div>
     </div>
+    <div id="date-range-optional">
     <!-- :earliest_created, :latest_created -->
     <div class="control-group">
       <%= b.label :earliest_created, :class=>"control-label" %>
@@ -111,6 +112,7 @@
         <%= b.text_field :latest_created, :id => 'lae_folder_latest_created' %>
       </div>
     </div>
+  </div>
   </div>
   <div id="admin-metadata" class="span4">
     <div id="admin-metadata">
