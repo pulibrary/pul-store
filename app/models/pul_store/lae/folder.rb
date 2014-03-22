@@ -110,6 +110,7 @@ class PulStore::Lae::Folder < PulStore::Item
     if: :passed_qc?
 
   validate :earliest_date_before_latest
+  validate :only_date_range_or_date
 
   validates_presence_of :physical_number
 

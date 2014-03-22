@@ -337,6 +337,13 @@ describe PulStore::Lae::Folder do
         expect { f.save! }.to raise_error ActiveFedora::RecordInvalid
       end
 
+      it "may not have both a range and a single date" do
+        f.date_created = 1998
+        f.earliest_created = 1997
+        f.latest_created = 1999
+        expect { f.save! }.to raise_error ActiveFedora::RecordInvalid
+      end
+
       describe "must be a 19xx or 20xx year" do
         it "date_created" do
           f.date_created = "199?"
@@ -358,7 +365,6 @@ describe PulStore::Lae::Folder do
           f.latest_created = "200?"
           f.valid?.should be_false
         end
-
       end
     end
 
