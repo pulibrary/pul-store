@@ -1,4 +1,3 @@
-
 FactoryGirl.define do
 
   # TEST_BARCODES ||= YAML.load_file(Rails.root.join('spec/fixtures/test_barcodes.yml'))
@@ -15,7 +14,7 @@ FactoryGirl.define do
     f.barcode { TEST_BARCODES.pop }
     f.width_in_cm { (Faker::Number.digit.to_i+1).to_s }
     f.height_in_cm { (Faker::Number.digit.to_i+1).to_s }
-    f.genre { PulStore::Lae::Genre.order("RAND()").first.pul_label }
+    f.genre {  PulStore::Lae::Genre.order("RAND()").first.pul_label }
     f.physical_number { (Faker::Number.digit.to_i+1).to_s }
   end
 
@@ -40,7 +39,7 @@ FactoryGirl.define do
     f.date_created { Date.current.year }
     f.width_in_cm { (Faker::Number.digit.to_i+1).to_s }
     f.height_in_cm { (Faker::Number.digit.to_i+1).to_s }
-    f.genre { PulStore::Lae::Genre.order("RAND()").first.pul_label }
+    f.genre "Fake Genre"  #{ PulStore::Lae::Genre.order("RAND()").first.pul_label }
     f.geographic_origin { PulStore::Lae::Area.order("RAND()").first.label }
     f.geographic_subject { Array.new(rand(1..2)) { PulStore::Lae::Area.order("RAND()").first.label } }
     f.language { Array.new(rand(1..2)) { ['English','Spanish','Portuguese'].sample } }
