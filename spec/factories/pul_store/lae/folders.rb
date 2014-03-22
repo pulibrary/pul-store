@@ -39,7 +39,7 @@ FactoryGirl.define do
     f.date_created { Date.current.year }
     f.width_in_cm { (Faker::Number.digit.to_i+1).to_s }
     f.height_in_cm { (Faker::Number.digit.to_i+1).to_s }
-    f.genre "Fake Genre"  #{ PulStore::Lae::Genre.order("RAND()").first.pul_label }
+    f.genre { PulStore::Lae::Genre.order("RAND()").first.pul_label }
     f.geographic_origin { PulStore::Lae::Area.order("RAND()").first.label }
     f.geographic_subject { Array.new(rand(1..2)) { PulStore::Lae::Area.order("RAND()").first.label } }
     f.language { Array.new(rand(1..2)) { ['English','Spanish','Portuguese'].sample } }
