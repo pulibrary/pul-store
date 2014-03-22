@@ -19,6 +19,12 @@ ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 
 TEST_BARCODES = YAML.load_file(Rails.root.join('spec/fixtures/test_barcodes.yml'))
 
+#unless Rails.env.production?
+PulStore::Project.delete_all
+projects = YAML.load_file("#{Rails.root}/db/fixtures/projects.yml")
+projects.map{ |project| PulStore::Project.create(project) }
+#end
+
 RSpec.configure do |config|
 
   config.before(:suite) do
