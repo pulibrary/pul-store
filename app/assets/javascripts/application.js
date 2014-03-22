@@ -26,17 +26,16 @@ $(function() {
     dateFormat: 'yy-mm-dd',
     showButtonPanel: true
   });
+
+  $("#date-type-toggle" ).click(function() {
+    $( ".date-options").toggle();
+    var cur_toggle_text = $(this).text();
+    if(cur_toggle_text == "Use Date Range") {
+      $(this).text("Use Single Date");
+    } else {
+      $(this).text("Use Date Range");
+    }
+  });
+
 });
 
-
-$(function() {
-    var availableDates = [
-      "2012",
-      "2011",
-      "2012",
-      "Unknown"
-    ];
-    $( "#lae_folder_date_created" ).autocomplete({
-      source: availableDates
-    });
-  });

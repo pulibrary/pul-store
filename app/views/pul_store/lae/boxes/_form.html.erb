@@ -42,8 +42,8 @@
     </div>
   </div>
   <div class="control-group">
+    <%= b.label 'Mark Box Full', :class => 'control-label' %>
     <div class="controls">
-      <%= b.label :full, "Full Box" %>
       <%= b.check_box :full, { class: 'checkbox' }, "true", "false" %>
     </div>
   </div>
@@ -62,6 +62,7 @@
     <thead>
       <tr>
         <th>Folder Number</th>
+        <th>State</th>
         <th>Title</th>
         <th>Barcode</th>
         <th>Genre</th>
@@ -76,6 +77,7 @@
     <% @box.folders.sort_by {|f1| f1.physical_number.to_i }.each do |f| %>
       <tr>
         <td><%= f.physical_number %></td>
+        <td><%= render :partial => 'shared/lae/workflow_state_badge', locals: {object: f }  %></td>
         <td><% if !f.title.blank? %><%= f.title.first %><% else %>[Not Yet Supplied]<% end %></td>
         <td><%= f.barcode %></td>
         <td><%= f.genre %></td>
@@ -86,7 +88,7 @@
         <td>
           <% if(@box.folders.size > 0) %>
             <% if can?(:edit, @box) %>
-              <%= link_to "Edit Folder", edit_lae_folder_path(f.id), :class => "btn btn-info" %>
+              <%= link_to "Edit", edit_lae_folder_path(f.id), :class => "btn btn-info" %>
             <% end %>
           <% end %>
         </td>

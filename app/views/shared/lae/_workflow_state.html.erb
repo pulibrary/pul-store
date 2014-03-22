@@ -1,6 +1,4 @@
 <div id="current-state">
   <span class=""><%= controller_name.classify %> State: </span>
-  <span class="label label-large <%= pul_store_base_state_to_label(object.workflow_state, "label") %>" >
-    <%= object.workflow_state %>
-  </span>
+  <%= render :partial => 'shared/lae/workflow_state_badge', locals: {object: object}  %>
 </div>
