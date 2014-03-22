@@ -19,19 +19,19 @@ ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 
 TEST_BARCODES = YAML.load_file(Rails.root.join('spec/fixtures/test_barcodes.yml'))
 
-#unless Rails.env.production?
-PulStore::Project.delete_all
-projects = YAML.load_file("#{Rails.root}/db/fixtures/projects.yml")
-projects.map{ |project| PulStore::Project.create(project) }
-#end
+if Rails.env.test? || Rails.env.development?
+  PulStore::Project.delete_all
+  projects = YAML.load_file("#{Rails.root}/db/fixtures/projects.yml")
+  projects.map{ |project| PulStore::Project.create(project) }
+end
 
 RSpec.configure do |config|
 
   config.before(:suite) do
     require "#{Rails.root}/db/seeds.rb"
-    PulStore::Project.delete_all
-    projects = YAML.load_file("#{Rails.root}/db/fixtures/projects.yml")
-    projects.map{ |project| PulStore::Project.create(project) }
+#    PulStore::Project.delete_all
+#    projects = YAML.load_file("#{Rails.root}/db/fixtures/projects.yml")
+#    projects.map{ |project| PulStore::Project.create(project) }
   end
   
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
