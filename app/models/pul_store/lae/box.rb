@@ -5,10 +5,10 @@ class PulStore::Lae::Box < PulStore::Base
 
   # Callbacks
   before_save :_defaults
+
   before_validation do
     self.physical_location = PUL_STORE_CONFIG['lae_recap_code'] if self.physical_location.blank?
     self.project ||= PulStore::Lae::Provenance::PROJECT
-    self.physical_number ||= PulStore::Lae::BoxCounter.mint.to_i
   end
 
   # Delegate attributes
@@ -94,6 +94,7 @@ class PulStore::Lae::Box < PulStore::Base
   def _defaults
     self.full = self.full?
     self.workflow_state = self._infer_state
+    self.physical_number ||= PulStore::Lae::BoxCounter.mint.to_i
     nil
   end
 
