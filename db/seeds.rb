@@ -13,20 +13,20 @@ csv.each { |row|  MetadataSource.create!(row.to_hash) }
 Language.delete_all
 csv_fp = Rails.root.join('db', 'fixtures', 'iso639-2.csv')
 csv = CSV.parse(File.read(csv_fp), headers: true)
-csv.each { |row|  Language.create!(row.to_hash) }
+csv.each { |row|  puts Language.create(row.to_hash) }
 
 # LAE Genre terms 
 PulStore::Lae::Genre.delete_all
 fp = Rails.root.join('db', 'fixtures', 'lae_genres.yml')
 YAML.load(File.read(fp)).each do |k,h|
-  PulStore::Lae::Genre.create!(h)
+  puts PulStore::Lae::Genre.create(h)
 end
 
 # LAE Areas
 PulStore::Lae::Area.delete_all
 csv_fp = Rails.root.join('db', 'fixtures', 'lae_areas.csv')
 csv = CSV.parse(File.read(csv_fp), headers: true)
-csv.each { |row| PulStore::Lae::Area.create!(row.to_hash) }
+csv.each { |row| puts PulStore::Lae::Area.create(row.to_hash) }
 
 # LAE Subjects and Topics
 PulStore::Lae::Subject.delete_all
