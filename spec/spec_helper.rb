@@ -7,7 +7,6 @@ require 'rspec/autorun'
 # Capybara integration
 require 'capybara/rspec'
 require 'capybara/rails'
-include Warden::Test::Helpers
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -21,13 +20,13 @@ TEST_BARCODES = YAML.load_file(Rails.root.join('spec/fixtures/test_barcodes.yml'
 
 RSpec.configure do |config|
 
-  config.before(:suite) do
-    require "#{Rails.root}/db/seeds.rb"
+  #config.before(:suite) do
     PulStore::Project.delete_all
+    require "#{Rails.root}/db/seeds.rb"
     projects = YAML.load_file("#{Rails.root}/db/fixtures/projects.yml")
     projects.map{ |project| PulStore::Project.create(project) }
-  end
-  
+  #end
+
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
@@ -52,5 +51,6 @@ RSpec.configure do |config|
   ### Include Devise test helpers
   config.include Devise::TestHelpers, type: :controller
   config.include Devise::TestHelpers, type: :view
+  config.include Warden::Test::Helpers
 
 end
