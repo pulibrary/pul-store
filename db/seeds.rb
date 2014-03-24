@@ -1,6 +1,6 @@
 require 'csv'
-# This file should contain all the record creation needed to seed the database 
-# with its default values. The data can then be loaded with the rake db:seed 
+# This file should contain all the record creation needed to seed the database
+# with its default values. The data can then be loaded with the rake db:seed
 # (or created alongside the db with db:setup).
 
 # TODO this should be a QA vocab!
@@ -13,9 +13,9 @@ csv.each { |row|  MetadataSource.create!(row.to_hash) }
 Language.delete_all
 csv_fp = Rails.root.join('db', 'fixtures', 'iso639-2.csv')
 csv = CSV.parse(File.read(csv_fp), headers: true)
-csv.each { |row|  puts Language.create!(row.to_hash) }
+csv.each { |row| Language.create!(row.to_hash) }
 
-# LAE Genre terms 
+# LAE Genre terms
 PulStore::Lae::Genre.delete_all
 fp = Rails.root.join('db', 'fixtures', 'lae_genres.yml')
 YAML.load(File.read(fp)).each do |k,h|
