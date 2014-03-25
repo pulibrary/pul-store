@@ -26,14 +26,16 @@ $(function() {
     dateFormat: 'yy-mm-dd',
     showButtonPanel: true
   });
+
+  $("#date-type-toggle" ).click(function() {
+    $( ".date-options").toggle();
+    var cur_toggle_text = $(this).text();
+    if(cur_toggle_text == "Use Date Range") {
+      $(this).text("Use Single Date");
+    } else {
+      $(this).text("Use Date Range");
+    }
+  });
+
 });
-
-//$(function() {
-//  $('.barcode').on('keypress keydown keyup', function (e) {
-//   if (e.keyCode == 13) {
-//     e.preventDefault();
-//   }
-//  });
-//});
-
 

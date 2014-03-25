@@ -164,11 +164,13 @@ describe PulStore::Lae::Folder do
       end
     end
 
-    it "can only be set to true when we have core elements and pages" do
-      f = FactoryGirl.build(:lae_core_folder_with_pages)
-      f.passed_qc = true
-      f.save!
-      f.passed_qc?.should be_true
+    describe "may be set to true" do
+      it "when we have core elements and pages" do
+        f = FactoryGirl.build(:lae_core_folder_with_pages)
+        f.passed_qc = true
+        f.save!
+        f.passed_qc?.should be_true
+      end
     end
 
   end
@@ -286,6 +288,92 @@ describe PulStore::Lae::Folder do
     end
   end
 
+  describe "date field requirements to pass qc" do
+    f = FactoryGirl.create(:lae_core_folder_with_pages)
+    f.passed_qc = true
+
+    describe "one approach is required" do
+      it "all can't be nil" do
+        f.date_created = nil
+        f.earliest_created = nil
+        f.latest_created = nil
+        f.valid?.should be_false
+      end
+
+      it "all can't be ''" do
+        f.date_created = ''
+        f.earliest_created = ''
+        f.latest_created = ''
+        f.valid?.should be_false
+      end
+
+      it "OK if it has a (valid) date_created" do
+        f.date_created = 1999
+        f.earliest_created = nil
+        f.latest_created = nil
+        f.valid?.should be_true
+      end
+      
+      it "OK if it has a (valid) earliest_created and latest_created" do
+        f.date_created = nil
+        f.earliest_created = 1999
+        f.latest_created = 2001
+        f.valid?.should be_true
+      end
+
+      it "but both earliest_created and latest_created are required" do
+        f.date_created = nil
+        f.earliest_created = 1999
+        f.latest_created = nil
+        f.valid?.should be_false
+      end
+    end
+
+    describe "values" do
+      it "earlier must be less than later" do
+        f.date_created = nil
+        f.earliest_created = 1999
+        f.latest_created = 1997
+        expect { f.save! }.to raise_error ActiveFedora::RecordInvalid
+      end
+
+      it "may not have both a range and a single date" do
+        f.date_created = 1998
+        f.earliest_created = 1997
+        f.latest_created = 1999
+        expect { f.save! }.to raise_error ActiveFedora::RecordInvalid
+      end
+
+      describe "must be a 19xx or 20xx year" do
+        it "date_created" do
+          f.date_created = "199?"
+          f.earliest_created = nil
+          f.latest_created = nil
+          f.valid?.should be_false
+        end
+
+        it "earliest_created" do
+          f.date_created = nil
+          f.earliest_created = 3005
+          f.latest_created = 2007
+          f.valid?.should be_false
+        end
+
+        it "latest_created" do
+          f.date_created = nil
+          f.earliest_created = 1999
+          f.latest_created = "200?"
+          f.valid?.should be_false
+        end
+      end
+    end
+
+    # TODO: format, and earlier < later
+    # TODO: format regex
+
+  end
+
+
   describe "has_prelim_metadata?" do
     it "responds with true when we have #{PulStore::Lae::Folder.prelim_elements} and page_count" do
       f = FactoryGirl.build(:lae_prelim_folder, width_in_cm: nil, height_in_cm: nil)
@@ -317,6 +405,16 @@ describe PulStore::Lae::Folder do
   describe "has_core_metadata?" do
     it "responds with true when we have #{PulStore::Lae::Folder.required_elements}" do
       f = FactoryGirl.build(:lae_core_folder)
+      f.has_core_metadata?.should be_true
+    end
+
+    it "earliest_created and latest_created may be swapped for date_created" do
+      f = FactoryGirl.build(:lae_core_folder, date_created: nil, earliest_created: 1999, latest_created: 2002)
+      f.has_core_metadata?.should be_true
+    end
+
+    it "width_in_cm and height_in_cm may be swapped for page_count" do
+      f = FactoryGirl.build(:lae_core_folder, width_in_cm: 5, height_in_cm: 7, page_count: nil)
       f.has_core_metadata?.should be_true
     end
 

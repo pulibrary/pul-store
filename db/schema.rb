@@ -46,11 +46,11 @@ ActiveRecord::Schema.define(version: 20140319175813) do
   add_index "pul_store_lae_areas", ["label"], name: "index_pul_store_lae_areas_on_label", unique: true, using: :btree
 
   create_table "pul_store_lae_genres", force: true do |t|
-    t.string   "pul_label"
-    t.string   "tgm_label"
-    t.string   "lcsh_label"
-    t.text     "scope_note"
-    t.string   "uri"
+    t.string "pul_label"
+    t.string "tgm_label"
+    t.string "lcsh_label"
+    t.string "uri"
+    t.text   "scope_note"
   end
 
   create_table "pul_store_lae_subjects", force: true do |t|

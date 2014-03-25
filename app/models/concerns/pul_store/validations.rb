@@ -85,6 +85,24 @@ module PulStore::Validations
     end
   end
 
+
+  def earliest_date_before_latest
+    if self.send(:passed_qc?) && self.send(:has_earliest_and_latest?)
+      unless self.send(:earliest_created) < self.send(:latest_created)
+        m = "Earliest date (#{self.send(:earliest_created)}) must be before latest (#{self.send(:latest_created)})."
+        errors.add(:base, m)
+      end
+    end
+  end
+
+  def only_date_range_or_date
+    if self.send(:has_date_created?) && self.send(:has_earliest_and_latest?)
+      m = "You man only supply a date created OR an earliest date AND latest, not both."
+      errors.add(:base, m)
+    end
+  end
+    
+
   protected
   def calculate_barcode_checkdigit(barcode)
     # To calculate the checksum:

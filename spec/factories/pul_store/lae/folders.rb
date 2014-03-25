@@ -1,4 +1,3 @@
-
 FactoryGirl.define do
 
   # TEST_BARCODES ||= YAML.load_file(Rails.root.join('spec/fixtures/test_barcodes.yml'))
@@ -15,13 +14,13 @@ FactoryGirl.define do
     f.barcode { TEST_BARCODES.pop }
     f.width_in_cm { (Faker::Number.digit.to_i+1).to_s }
     f.height_in_cm { (Faker::Number.digit.to_i+1).to_s }
-    f.genre { PulStore::Lae::Genre.order("RAND()").first.pul_label }
+    f.genre {  PulStore::Lae::Genre.order("RAND()").first.pul_label }
     f.physical_number { (Faker::Number.digit.to_i+1).to_s }
   end
 
   factory :lae_core_folder, :class => 'PulStore::Lae::Folder' do |f|
     f.barcode { TEST_BARCODES.pop }
-    f.date_created { Date.current }
+    f.date_created { Date.current.year }
     f.width_in_cm { (Faker::Number.digit.to_i+1).to_s }
     f.height_in_cm { (Faker::Number.digit.to_i+1).to_s }
     f.genre { PulStore::Lae::Genre.order("RAND()").first.pul_label }
@@ -37,7 +36,7 @@ FactoryGirl.define do
 
   factory :lae_core_folder_with_pages, :class => 'PulStore::Lae::Folder' do |f|
     f.barcode { TEST_BARCODES.pop }
-    f.date_created { Date.current }
+    f.date_created { Date.current.year }
     f.width_in_cm { (Faker::Number.digit.to_i+1).to_s }
     f.height_in_cm { (Faker::Number.digit.to_i+1).to_s }
     f.genre { PulStore::Lae::Genre.order("RAND()").first.pul_label }

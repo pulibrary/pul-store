@@ -9,20 +9,23 @@ class PulStore::Lae::Folder < PulStore::Item
     @@prelim_elements
   end
 
-  @@required_elements = ([:date_created, :rights, :sort_title, :title, 
+  @@required_elements = ([:rights, :sort_title, :title, 
     :geographic_subject, :geographic_origin, :language] << @@prelim_elements).flatten
   def self.required_elements
     @@required_elements
   end
 
-  @@extent_elements = [:width_in_cm, :height_in_cm, :page_count]
   # These are a little difficult because
   # (width_in_cm AND height_in_cm) OR page_count
   # is required. See #has_extent?
   def self.extent_elements
-    @@extent_elements
+    [:width_in_cm, :height_in_cm, :page_count]
   end
 
+  # Similarly, we need date_created OR (earliest_created AND latest_created)
+  def self.date_elements
+    [:date_created, :earliest_created, :latest_created]
+  end
 
   # Callbacks
   before_save :set_defaults
@@ -66,9 +69,6 @@ class PulStore::Lae::Folder < PulStore::Item
   validate :validate_barcode_uniqueness, on: :create
   validate :validate_barcode_uniqueness_on_update, on: :update
 
-  validates_presence_of @@required_elements,
-    if: :passed_qc?
-
   validate :validate_lae_folder_extent
 
   validates_presence_of :pages,
@@ -87,6 +87,30 @@ class PulStore::Lae::Folder < PulStore::Item
   validates_numericality_of :page_count,
     only_integer: true, allow_nil: true, greater_than: 0,
     unless: "self.page_count.blank?"
+
+  validates_presence_of @@required_elements,
+    if: :passed_qc?
+
+  validates_presence_of :date_created, 
+    unless: :has_earliest_and_latest?,
+    if: :passed_qc?
+
+  validates_presence_of [:earliest_created, :latest_created], 
+    unless: :has_date_created?,
+    if: :passed_qc?
+
+  validates_format_of :date_created, 
+    with: /\A[12]\d{3}\Z/,
+    unless: :has_earliest_and_latest?,
+    if: :passed_qc?
+
+  validates_format_of [:earliest_created, :latest_created], 
+    with: /\A[12]\d{3}\Z/,
+    unless: :has_date_created?,
+    if: :passed_qc?
+
+  validate :earliest_date_before_latest
+  validate :only_date_range_or_date
 
   validates_presence_of :physical_number
 
@@ -113,7 +137,7 @@ class PulStore::Lae::Folder < PulStore::Item
   end
 
   def has_core_metadata?
-    self.has_extent? && @@required_elements.all? { |e| !self.send(e).blank? }
+    self.has_extent? && self.has_dates? && @@required_elements.all? { |e| !self.send(e).blank? }
   end
 
   def in_production?
