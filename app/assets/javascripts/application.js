@@ -15,6 +15,8 @@
 //= require turbolinks
 //= require jquery-fileupload
 //= require jquery.ui.all
+//= require jquery.tablesorter
+//= require jquery.tablesorter.widgets
 //= require hydra-editor/hydra-editor
 //
 // Required by Blacklight
@@ -35,6 +37,30 @@ $(function() {
     } else {
       $(this).text("Use Date Range");
     }
+  });
+
+  $("#folders-table").tablesorter({
+      theme     : 'bootstrap',       // set theme name from $.tablesorter.themes here
+      headerTemplate : '{content} {icon}', // new in v2.7. Needed to add the bootstrap icon!
+      widgets : [ "uitheme", "zebra" ],
+      widgetOptions : {
+      zebra : ["even", "odd"],
+      widthFixed: true,
+      filter_reset : ".reset"
+
+      }
+    });
+
+  $('#folders-table thead tr th').click(function() {
+    console.log("here");
+    $(this).children().first(function() {
+      console.log("here");
+      if ($(this).hasClass("icon-chevron-up")) {
+        $(this).removeClass("icon-chevron-up").addClass("icon-chevron-down");
+      } else {
+        $(this).removeClass("icon-chevron-down").addClass("icon-chevron-up");
+      }
+    });
   });
 
 });
