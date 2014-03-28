@@ -67,7 +67,7 @@ class PulStore::Lae::BoxesController < CatalogController #ApplicationController
   def show
     authorize! :show, params[:id]
     @box = PulStore::Lae::Box.find(params[:id])
-
+    @page_title = "Box #{@box.physical_number}"
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @box }
@@ -85,7 +85,7 @@ class PulStore::Lae::BoxesController < CatalogController #ApplicationController
   def edit
     authorize! :edit, params[:id]
     @box = PulStore::Lae::Box.find(params[:id])
-
+    @page_title = "Edit Box #{@box.physical_number}"
     #if(@box.folders.size < 1)
     #  1.times { @box.folders.build}
     #end

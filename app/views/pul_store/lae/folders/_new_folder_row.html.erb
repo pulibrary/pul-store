@@ -1,0 +1,16 @@
+<tr class="success">
+  <td><%= f.physical_number %></td>
+  <td><%= render :partial => 'shared/lae/workflow_state_badge', locals: {object: f }  %></td>
+  <td><% if !f.title.blank? %><%= f.title.first %><% else %>[Not Yet Supplied]<% end %></td>
+  <td><%= f.barcode %></td>
+  <td><%= f.genre %></td>
+  <td><%= f.width_in_cm %></td>
+  <td><%= f.height_in_cm %></td>
+  <td><%= f.page_count %></td>
+  <td><%= lae_folder_date_uploaded(f.date_uploaded) %></td>
+  <td>
+    <% if can?(:edit, f) %>
+      <%= link_to "Edit", edit_lae_folder_path(f.id), :class => "btn btn-info" %>
+    <% end %>
+  </td>
+</tr>
