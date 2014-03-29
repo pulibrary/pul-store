@@ -40,8 +40,8 @@ $(function() {
   });
 
   $("#folders-table").tablesorter({
-      theme     : 'bootstrap',       // set theme name from $.tablesorter.themes here
-      headerTemplate : '{content} {icon}', // new in v2.7. Needed to add the bootstrap icon!
+      theme     : 'bootstrap',
+      headerTemplate : '{content} {icon}',
       widgets : [ "uitheme", "zebra" ],
       widgetOptions : {
       zebra : ["even", "odd"],
@@ -50,18 +50,5 @@ $(function() {
 
       }
     });
-
-  $('#folders-table thead tr th').click(function() {
-    console.log("here");
-    $(this).children().first(function() {
-      console.log("here");
-      if ($(this).hasClass("icon-chevron-up")) {
-        $(this).removeClass("icon-chevron-up").addClass("icon-chevron-down");
-      } else {
-        $(this).removeClass("icon-chevron-down").addClass("icon-chevron-up");
-      }
-    });
-  });
-
 });
 

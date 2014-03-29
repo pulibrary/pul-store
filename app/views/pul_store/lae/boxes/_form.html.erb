@@ -1,7 +1,7 @@
 <div class="row">
 <%= form_for(@box, :html => {:class => "form form-horizontal"}) do |b| %>
   <% if @box.errors.any? %>
-    <div id="error_explanation">
+    <div class="row" id="error_explanation">
       <h2><%= pluralize(@box.errors.count, "error") %> prohibited this Box from being saved:</h2>
       <ul>
       <% @box.errors.full_messages.each do |msg| %>
@@ -17,7 +17,7 @@
 :received_date, # checkbox, stamp if set
 :barcode,
 :error_note -->
-  <%= render :partial => 'shared/lae/workflow_state', locals: {object: @box} %>
+  <div class="span5">
   <div class="control-group">
     <%= b.label :barcode, :class => 'control-label' %>
     <div class="controls">
@@ -31,6 +31,14 @@
     </div>
   </div>
   <div class="control-group">
+    <%= b.label 'Mark Box Full', :class => 'control-label' %>
+    <div class="controls">
+      <%= b.check_box :full, { class: 'checkbox' }, "true", "false" %>
+    </div>
+  </div>
+</div>
+<div class="span3">
+  <div class="control-group">
     <%= b.label :shipped_date, :class => 'control-label' %>
     <div class="controls">
       <%= b.text_field :shipped_date, :class => 'datepicker input-small' %>
@@ -42,17 +50,15 @@
       <%= b.text_field :received_date, :class => 'datepicker input-small' %>
     </div>
   </div>
-  <div class="control-group">
-    <%= b.label 'Mark Box Full', :class => 'control-label' %>
+  <div class="control-group actions">
     <div class="controls">
-      <%= b.check_box :full, { class: 'checkbox' }, "true", "false" %>
+      <%= b.submit :value => "Update Box", :class => 'btn btn-primary' %>
     </div>
   </div>
-  <div class="control-group actions">
-    <%= b.submit :value => "Update Box", :class => 'btn btn-primary' %>
-  </div>
+</div>
 <% end %>
 </div>
+<!-- end row -->
 <div class="row">
   <h3>
    <% if(@box.folders.empty?) %>
