@@ -1,12 +1,35 @@
-<h1>Update Box</h1>
+
+<div class="span9" id="lae-head">
+  <div class="row">
+    <div class="span6">
+      <h1 class="lae-head">Box <%= @box.physical_number %></h1>
+      <p>Barcode: <%= @box.barcode %></p>
+    </div>
+    <div class="span3">
+      <!-- start modal -->
+   <div class="form-control">
+    <%= link_to("Add Folder to Box", '#', 'data-target' => "#new-folder-modal", 'data-toggle' => 'modal', :class => "btn btn-success btn-lg lae-new pull-right new-model", :title => "Add a New Folder to Box") %>
+  </div>
+      <div id="new-folder-modal" class="modal fade" data-backdrop="static">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h3>Add a Folder to Box <%= @box.physical_number unless @box.barcode.nil? %></h3>
+        </div>
+        <div class="modal-body">
+          <%= render :partial => 'pul_store/lae/folders/ajax_form', locals: { box: @box } %>
+        </div>
+      </div>
+    </div>
+  <!-- end Modal -->
+
+    </div>
+  </div>
+</div>
 
 <div id="content" class="span9 show-document">
   <%= render 'form' %>
-  <%= link_to 'Show', @box %> |
-  <%= link_to 'Back', lae_boxes_path %>
-</div>
-<div id="sidebar" class="span3">
-  <%= render 'box_info' %>
+  <%= link_to 'Show Box', @box %> |
+  <%= link_to 'Back to Box List', lae_boxes_path %>
 </div>
 
 

@@ -25,15 +25,19 @@ class PulStore::Lae::FolderRdfMetadata < PulStore::ItemRdfMetadata
     end
 
     map.genre(to: 'format', in: RDF::DC) do |index|
-      index.as :stored_searchable
+      index.as :stored_searchable, :facetable
     end
 
-    map.geographic(to: 'coverage', in: RDF::DC) do |index|
-      index.as :stored_searchable
+    map.geographic_subject(to: 'coverage', in: RDF::DC) do |index|
+      index.as :stored_searchable, :facetable
+    end
+
+    map.geographic_origin(to: 'mfp', in: RDF::MARC_RELATORS) do |index|
+      index.as :stored_searchable, :facetable
     end
 
     map.language(in: RDF::DC) do |index|
-      index.as :stored_searchable
+      index.as :stored_searchable, :facetable
     end
 
     map.publisher(in: RDF::DC) do |index|

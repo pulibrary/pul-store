@@ -1,33 +1,33 @@
-# Read about factories at https://github.com/thoughtbot/factory_girl
-
 FactoryGirl.define do
-  test_barcodes = Rails.application.config.barcode_list
+
+  # TEST_BARCODES ||= YAML.load_file(Rails.root.join('spec/fixtures/test_barcodes.yml'))
 
   factory :lae_folder, :class => 'PulStore::Lae::Folder' do |f|
-    f.barcode { test_barcodes.pop }
-    f.genre { Faker::Lorem.word }
+    f.barcode { TEST_BARCODES.pop }
+    f.genre { PulStore::Lae::Genre.order("RAND()").first.pul_label }
     f.width_in_cm { (Faker::Number.digit.to_i+1).to_s }
     f.height_in_cm { (Faker::Number.digit.to_i+1).to_s }
-    f.project_id { FactoryGirl.create(:project).pid } # not sure if this is best...
+    f.physical_number { (Faker::Number.digit.to_i+1).to_s }
   end
 
   factory :lae_prelim_folder, :class => 'PulStore::Lae::Folder' do |f|
-    f.barcode { test_barcodes.pop }
-    f.project_id { FactoryGirl.create(:project).pid }
+    f.barcode { TEST_BARCODES.pop }
     f.width_in_cm { (Faker::Number.digit.to_i+1).to_s }
     f.height_in_cm { (Faker::Number.digit.to_i+1).to_s }
-    f.genre { Faker::Lorem.word }
+    f.genre {  PulStore::Lae::Genre.order("RAND()").first.pul_label }
+    f.physical_number { (Faker::Number.digit.to_i+1).to_s }
   end
 
   factory :lae_core_folder, :class => 'PulStore::Lae::Folder' do |f|
-    f.barcode { test_barcodes.pop }
-    f.project_id { FactoryGirl.create(:project).pid }
-    f.date_created { Date.current }
+    f.barcode { TEST_BARCODES.pop }
+    f.date_created { Date.current.year }
     f.width_in_cm { (Faker::Number.digit.to_i+1).to_s }
     f.height_in_cm { (Faker::Number.digit.to_i+1).to_s }
-    f.genre { Faker::Lorem.word }
-    f.geographic  { Array.new(rand(1..2)) { Faker::Lorem.sentence(1,true,2) } }
-    f.language { Array.new(rand(1..2)) { ['eng','spa','por'].sample } }
+    f.genre { PulStore::Lae::Genre.order("RAND()").first.pul_label }
+    f.geographic_origin { PulStore::Lae::Area.order("RAND()").first.label }
+    f.geographic_subject { Array.new(rand(1..2)) { PulStore::Lae::Area.order("RAND()").first.label } }
+    f.physical_number { (Faker::Number.digit.to_i+1).to_s }
+    f.language { Array.new(rand(1..2)) { ['English','Spanish','Portuguese'].sample } }
     f.rights { Faker::Lorem.sentence(5, true, 12) }
     f.sort_title { Faker::Lorem.sentence(2, true, 5) }
     f.subject  { Array.new(rand(1..3)) { Faker::Lorem.sentence(1,true,3) } }
@@ -35,14 +35,15 @@ FactoryGirl.define do
   end
 
   factory :lae_core_folder_with_pages, :class => 'PulStore::Lae::Folder' do |f|
-    f.barcode { test_barcodes.pop }
-    f.project_id { FactoryGirl.create(:project).pid }
-    f.date_created { Date.current }
+    f.barcode { TEST_BARCODES.pop }
+    f.date_created { Date.current.year }
     f.width_in_cm { (Faker::Number.digit.to_i+1).to_s }
     f.height_in_cm { (Faker::Number.digit.to_i+1).to_s }
-    f.genre { Faker::Lorem.word }
-    f.geographic  { Array.new(rand(1..2)) { Faker::Lorem.sentence(1,true,2) } }
-    f.language { Array.new(rand(1..2)) { Faker::Lorem.word } }
+    f.genre { PulStore::Lae::Genre.order("RAND()").first.pul_label }
+    f.geographic_origin { PulStore::Lae::Area.order("RAND()").first.label }
+    f.geographic_subject { Array.new(rand(1..2)) { PulStore::Lae::Area.order("RAND()").first.label } }
+    f.language { Array.new(rand(1..2)) { ['English','Spanish','Portuguese'].sample } }
+    f.physical_number { (Faker::Number.digit.to_i+1).to_s }
     f.rights { Faker::Lorem.sentence(5, true, 12) }
     f.sort_title { Faker::Lorem.sentence(2, true, 5) }
     f.subject  { Array.new(rand(1..3)) { Faker::Lorem.sentence(1,true,3) } }
@@ -55,7 +56,7 @@ FactoryGirl.define do
      #     folder.pages << FactoryGirl.create(:page)
     #   end
     # end
-    
+
 
   end
 end

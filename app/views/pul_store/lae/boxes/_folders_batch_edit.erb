@@ -1,0 +1,34 @@
+<table class="table" id="folders-edit-table">
+    <thead>
+      <tr>
+        <th>Barcode</th>
+        <th>Genre</th>
+        <th>Width</th>
+        <th>Height</th>
+        <th>Pages</th>
+        <th>Created</th>
+        <th>Options</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% folder_index = 0 %>
+    <%= b.fields_for :folders do |folders_form| %>
+      <tr>
+        <td><%= folders_form.text_field :barcode %></td>
+        <td><%= folders_form.text_field :genre %></td>
+        <td><%= folders_form.text_field :width_in_cm, :size => 5 %></td>
+        <td><%= folders_form.text_field :height_in_cm, :size => 5 %></td>
+        <td><%= folders_form.text_field :page_count, :size => 5 %></td>
+        <td><%= lae_folder_date_uploaded(@box.folders[folder_index].date_uploaded) %></td>
+        <td>
+          <% if(@box.folders.size > 0) %>
+            <% if can?(:edit, @box) %>
+              <%= link_to "Edit Folder", edit_lae_folder_path(@box.folders[folder_index].id) %>
+            <% end %>
+          <% end %>
+        </td>
+        <% folder_index = folder_index + 1 %>
+      </tr>
+  <% end %>
+  </tbody>
+  </table>

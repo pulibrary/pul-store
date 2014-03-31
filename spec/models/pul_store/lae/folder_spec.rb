@@ -3,12 +3,10 @@ require 'spec_helper'
 
 describe PulStore::Lae::Folder do
   before(:all) do
-    # PulStore::Lae::Folder.delete_all
-    @test_barcodes = Rails.application.config.barcode_list
+    PulStore::Lae::Folder.delete_all
     @invalid_barcode = "32101067661198"
     @short_barcode = "3210106770082"
     @bad_prefix_barcode = "2210106770082"
-    FactoryGirl.create(:project)
   end
 
   after(:all) do
@@ -17,6 +15,13 @@ describe PulStore::Lae::Folder do
 
   it "has a valid factory" do
     FactoryGirl.create(:lae_folder).should be_valid
+  end
+
+  describe "project" do
+    it "belonds to the lae project" do
+      f = FactoryGirl.create(:lae_folder)
+      f.project.identifier.should == 'lae'
+    end
   end
 
   describe "optional elements" do
@@ -30,12 +35,12 @@ describe PulStore::Lae::Folder do
     ]
     optional_elements.each do |oe|
       it "#{oe} is not required" do
-        f = FactoryGirl.build(:lae_folder, oe => nil, barcode: @test_barcodes.pop)
+        f = FactoryGirl.build(:lae_folder, oe => nil)
         f.valid?.should be_true
       end
 
       it "#{oe} is empty by default" do
-        f = FactoryGirl.build(:lae_folder, oe => nil, barcode: @test_barcodes.pop)
+        f = FactoryGirl.build(:lae_folder, oe => nil)
         f.send(oe).blank?.should be_true
       end
     end
@@ -46,7 +51,7 @@ describe PulStore::Lae::Folder do
       :alternative_title,
       :contributor,
       :creator,
-      :geographic,
+      :geographic_subject,
       :language,
       :publisher,
       :series,
@@ -56,7 +61,7 @@ describe PulStore::Lae::Folder do
       it "#{re} is repeatable" do
         v = []
         rand(1..4).times { v << Faker::Lorem.sentence }
-        f = FactoryGirl.build(:lae_folder, re => v, barcode: @test_barcodes.pop)
+        f = FactoryGirl.build(:lae_folder, re => v)
         f.save!
         f.reload
         f[re].should == v
@@ -79,7 +84,7 @@ describe PulStore::Lae::Folder do
 
     it "must be valid - try valid" do
       expect {
-        FactoryGirl.create(:lae_folder, barcode: @test_barcodes.pop)
+        FactoryGirl.create(:lae_folder)
       }.not_to raise_error # ActiveFedora::RecordInvalid
     end
 
@@ -94,10 +99,34 @@ describe PulStore::Lae::Folder do
     end
 
     it "must be unique" do
-      barcode = @test_barcodes.pop
+      barcode = TEST_BARCODES.pop
       FactoryGirl.create(:lae_folder, barcode: barcode)
       b = FactoryGirl.build(:lae_folder, barcode: barcode)
       expect { b.save! }.to raise_error ActiveFedora::RecordInvalid
+    end
+
+    it "may not be updated with a duplicate barcode" do
+      f = FactoryGirl.create(:lae_folder)
+      g = FactoryGirl.create(:lae_folder)
+      g.barcode = f.barcode
+      expect { g.save! }.to raise_error ActiveFedora::RecordInvalid
+    end
+  end
+
+  describe "physical_number" do
+    it "must have a physical number" do
+      f = FactoryGirl.build(:lae_folder, physical_number: nil)
+      expect { f.save! }.to raise_error ActiveFedora::RecordInvalid
+    end
+
+    it "is valid with a physical number" do
+      f = FactoryGirl.build(:lae_folder, physical_number: Faker::Number.digit.to_i+1)
+      f.valid?.should be_true
+    end
+
+    it "it is invalid with a string value" do
+      f = FactoryGirl.build(:lae_folder, physical_number: Faker::Lorem.word)
+      expect { f.save! }.to raise_error ActiveFedora::RecordInvalid
     end
 
   end
@@ -106,17 +135,17 @@ describe PulStore::Lae::Folder do
 
     describe "is false" do
       it "by default" do
-        f = FactoryGirl.create(:lae_folder, barcode: @test_barcodes.pop)
+        f = FactoryGirl.create(:lae_folder)
         f.passed_qc?.should be_false
       end
       it "passed_qc? responds as such when set" do
-        f = FactoryGirl.create(:lae_folder, barcode: @test_barcodes.pop)
+        f = FactoryGirl.create(:lae_folder)
         f.passed_qc = false
         f.save!
         f.passed_qc?.should be_false
       end
       it "passed_qc? responds as such by default" do
-        f = FactoryGirl.create(:lae_folder, barcode: @test_barcodes.pop)
+        f = FactoryGirl.create(:lae_folder)
         f.passed_qc?.should be_false
       end
     end
@@ -135,30 +164,32 @@ describe PulStore::Lae::Folder do
       end
     end
 
-    it "can only be set to true when we have core elements and pages" do
-      f = FactoryGirl.build(:lae_core_folder_with_pages)
-      f.passed_qc = true
-      f.save!
-      f.passed_qc?.should be_true
+    describe "may be set to true" do
+      it "when we have core elements and pages" do
+        f = FactoryGirl.build(:lae_core_folder_with_pages)
+        f.passed_qc = true
+        f.save!
+        f.passed_qc?.should be_true
+      end
     end
 
   end
 
   describe "suppress" do
     it "is false by default" do
-      f = FactoryGirl.create(:lae_folder, barcode: @test_barcodes.pop)
+      f = FactoryGirl.create(:lae_folder)
       f.suppressed?.should be_false
     end
 
     it "responds to suppressed? as true when set" do
-      f = FactoryGirl.build(:lae_folder, barcode: @test_barcodes.pop)
+      f = FactoryGirl.build(:lae_folder)
       f.suppressed = true
       f.save!
       f.suppressed?.should be_true
     end
 
     it "responds to suppressed? as false when not set" do
-      f = FactoryGirl.create(:lae_folder, barcode: @test_barcodes.pop)
+      f = FactoryGirl.create(:lae_folder)
       f.suppressed = false
       f.save!
       f.suppressed?.should be_false
@@ -168,7 +199,7 @@ describe PulStore::Lae::Folder do
 
   describe "error note / error?" do
     it "error? responds with true when there is an error note" do
-      f = FactoryGirl.build(:lae_folder, barcode: @test_barcodes.pop)
+      f = FactoryGirl.build(:lae_folder)
       f.error_note = Faker::Lorem.paragraph
       f.save!
       f.error?.should be_true
@@ -176,6 +207,11 @@ describe PulStore::Lae::Folder do
   end
 
   describe "has_extent?" do
+    it "should be a valid model by default" do
+      f = FactoryGirl.build(:lae_prelim_folder)
+      f.should be_valid
+    end
+
     it "should be false without any extent attributes" do
       f = FactoryGirl.build(:lae_prelim_folder, width_in_cm: nil, height_in_cm: nil, page_count: nil)
       f.has_extent?.should be_false
@@ -233,12 +269,110 @@ describe PulStore::Lae::Folder do
       f = FactoryGirl.build(:lae_prelim_folder, extent_params)
       expect { f.save! }.not_to raise_error
     end
+    it "should be an invalid model with a page count that is not nil or an integer" do
+      extent_params = { width_in_cm: 50, height_in_cm: 50, page_count: "cats" }
+      f = FactoryGirl.build(:lae_prelim_folder, extent_params)
+      #expect { f.save! }.not_to raise_error #ActiveFedora::RecordInvalid
+      f.should_not be_valid
+    end
+    it "should be an invalid model with a height/width that is not nil or an integer" do
+      extent_params = { width_in_cm: 'fifty', height_in_cm: 'thirty', page_count: 25 }
+      f = FactoryGirl.build(:lae_prelim_folder, extent_params)
+      #expect { f.save! }.not_to raise_error #ActiveFedora::RecordInvalid
+      f.should_not be_valid
+    end
     it "should be valid with a width and height" do
       extent_params = { width_in_cm: 3.5, height_in_cm: 7, page_count: nil }
       f = FactoryGirl.build(:lae_prelim_folder, extent_params)
       expect { f.save! }.not_to raise_error
     end
   end
+
+  describe "date field requirements to pass qc" do
+    f = FactoryGirl.create(:lae_core_folder_with_pages)
+    f.passed_qc = true
+
+    describe "one approach is required" do
+      it "all can't be nil" do
+        f.date_created = nil
+        f.earliest_created = nil
+        f.latest_created = nil
+        f.valid?.should be_false
+      end
+
+      it "all can't be ''" do
+        f.date_created = ''
+        f.earliest_created = ''
+        f.latest_created = ''
+        f.valid?.should be_false
+      end
+
+      it "OK if it has a (valid) date_created" do
+        f.date_created = 1999
+        f.earliest_created = nil
+        f.latest_created = nil
+        f.valid?.should be_true
+      end
+      
+      it "OK if it has a (valid) earliest_created and latest_created" do
+        f.date_created = nil
+        f.earliest_created = 1999
+        f.latest_created = 2001
+        f.valid?.should be_true
+      end
+
+      it "but both earliest_created and latest_created are required" do
+        f.date_created = nil
+        f.earliest_created = 1999
+        f.latest_created = nil
+        f.valid?.should be_false
+      end
+    end
+
+    describe "values" do
+      it "earlier must be less than later" do
+        f.date_created = nil
+        f.earliest_created = 1999
+        f.latest_created = 1997
+        expect { f.save! }.to raise_error ActiveFedora::RecordInvalid
+      end
+
+      it "may not have both a range and a single date" do
+        f.date_created = 1998
+        f.earliest_created = 1997
+        f.latest_created = 1999
+        expect { f.save! }.to raise_error ActiveFedora::RecordInvalid
+      end
+
+      describe "must be a 19xx or 20xx year" do
+        it "date_created" do
+          f.date_created = "199?"
+          f.earliest_created = nil
+          f.latest_created = nil
+          f.valid?.should be_false
+        end
+
+        it "earliest_created" do
+          f.date_created = nil
+          f.earliest_created = 3005
+          f.latest_created = 2007
+          f.valid?.should be_false
+        end
+
+        it "latest_created" do
+          f.date_created = nil
+          f.earliest_created = 1999
+          f.latest_created = "200?"
+          f.valid?.should be_false
+        end
+      end
+    end
+
+    # TODO: format, and earlier < later
+    # TODO: format regex
+
+  end
+
 
   describe "has_prelim_metadata?" do
     it "responds with true when we have #{PulStore::Lae::Folder.prelim_elements} and page_count" do
@@ -259,7 +393,7 @@ describe PulStore::Lae::Folder do
     describe "responds with false" do
       PulStore::Lae::Folder.prelim_elements.each do |pe|
         it "when #{pe} is missing" do
-          f = FactoryGirl.build(:lae_prelim_folder, barcode: @test_barcodes.pop)
+          f = FactoryGirl.build(:lae_prelim_folder)
           f[pe] = nil
           f.has_prelim_metadata?.should be_false
         end
@@ -270,14 +404,24 @@ describe PulStore::Lae::Folder do
 
   describe "has_core_metadata?" do
     it "responds with true when we have #{PulStore::Lae::Folder.required_elements}" do
-      f = FactoryGirl.build(:lae_core_folder, barcode: @test_barcodes.pop)
+      f = FactoryGirl.build(:lae_core_folder)
+      f.has_core_metadata?.should be_true
+    end
+
+    it "earliest_created and latest_created may be swapped for date_created" do
+      f = FactoryGirl.build(:lae_core_folder, date_created: nil, earliest_created: 1999, latest_created: 2002)
+      f.has_core_metadata?.should be_true
+    end
+
+    it "width_in_cm and height_in_cm may be swapped for page_count" do
+      f = FactoryGirl.build(:lae_core_folder, width_in_cm: 5, height_in_cm: 7, page_count: nil)
       f.has_core_metadata?.should be_true
     end
 
     describe "responds with false" do
       PulStore::Lae::Folder.required_elements.each do |re|
         it "when #{re} is missing" do
-          f = FactoryGirl.build(:lae_core_folder, barcode: @test_barcodes.pop)
+          f = FactoryGirl.build(:lae_core_folder)
           f[re] = nil
           f.has_core_metadata?.should be_false
         end
@@ -287,7 +431,7 @@ describe PulStore::Lae::Folder do
 
   describe "needs_qc?" do
     it "responds with true when we have our core elements, (valid) pages, and passed_qc is false" do
-      f = FactoryGirl.build(:lae_core_folder, barcode: @test_barcodes.pop)
+      f = FactoryGirl.build(:lae_core_folder)
       2.times do
         f.pages << FactoryGirl.create(:page)
       end
@@ -297,12 +441,12 @@ describe PulStore::Lae::Folder do
 
     describe "responds with false" do
       it "when there are no pages" do
-        f = FactoryGirl.build(:lae_core_folder, barcode: @test_barcodes.pop)
+        f = FactoryGirl.build(:lae_core_folder)
         f.needs_qc?.should be_false
       end
 
       it "when one of the pages is invalid" do
-        f = FactoryGirl.build(:lae_core_folder_with_pages, barcode: @test_barcodes.pop)
+        f = FactoryGirl.build(:lae_core_folder_with_pages)
         f.pages << FactoryGirl.build(:page, sort_order: nil)
         f.needs_qc?.should be_false
       end
@@ -312,21 +456,21 @@ describe PulStore::Lae::Folder do
 
   describe "in_production?" do
     it "responds with true when we qc_passed is true, there are no errors, and the suppressed is false" do
-      f = FactoryGirl.build(:lae_core_folder_with_pages, barcode: @test_barcodes.pop)
+      f = FactoryGirl.build(:lae_core_folder_with_pages)
       f.passed_qc = true
       f.in_production?.should be_true
     end
 
     describe "responds with false" do
       it "when passed_qc is false" do
-        f = FactoryGirl.build(:lae_core_folder_with_pages, barcode: @test_barcodes.pop)
+        f = FactoryGirl.build(:lae_core_folder_with_pages)
         f.passed_qc = false
         f.needs_qc?.should be_true
         f.in_production?.should be_false
       end
 
       it "there is an error note present" do
-        f = FactoryGirl.build(:lae_core_folder_with_pages, barcode: @test_barcodes.pop)
+        f = FactoryGirl.build(:lae_core_folder_with_pages)
         f.error_note = "HELP!"
         f.passed_qc = true
         f.needs_qc?.should be_false
@@ -334,7 +478,7 @@ describe PulStore::Lae::Folder do
       end
 
       it "suppressed is true" do
-        f = FactoryGirl.build(:lae_core_folder_with_pages, barcode: @test_barcodes.pop)
+        f = FactoryGirl.build(:lae_core_folder_with_pages)
         f.passed_qc = true
         f.suppressed = true
         f.needs_qc?.should be_false
@@ -346,30 +490,30 @@ describe PulStore::Lae::Folder do
 
   describe "workflow_state" do
     # it "is 'New' when we only have a barcode and genre" do
-    #   f = FactoryGirl.create(:lae_folder, barcode: @test_barcodes.pop, genre: 'xyz')
+    #   f = FactoryGirl.create(:lae_folder, genre: 'xyz')
     #   f.workflow_state.should == "New"
     # end
 
     it "is 'Has Prelim. Metadata' when we only have #{PulStore::Lae::Folder.prelim_elements}" do
-      f = FactoryGirl.build(:lae_prelim_folder, barcode: @test_barcodes.pop)
+      f = FactoryGirl.build(:lae_prelim_folder)
       f.save!
       f.workflow_state.should == 'Has Prelim. Metadata'
     end
 
     it "is 'Has Core Metadata' when we have #{PulStore::Lae::Folder.required_elements}" do
-      f = FactoryGirl.build(:lae_core_folder, barcode: @test_barcodes.pop)
+      f = FactoryGirl.build(:lae_core_folder)
       f.save!
       f.workflow_state.should == 'Has Core Metadata'
     end
 
     it "is 'Needs QC' when we have core metadata, we have valid pages, and qc_passed is false" do
-      f = FactoryGirl.build(:lae_core_folder_with_pages, barcode: @test_barcodes.pop)
+      f = FactoryGirl.build(:lae_core_folder_with_pages)
       f.save!
       f.workflow_state.should == 'Needs QC'
     end
 
     it "is 'In Production' when in_production? is true" do
-      f = FactoryGirl.build(:lae_core_folder_with_pages, barcode: @test_barcodes.pop)
+      f = FactoryGirl.build(:lae_core_folder_with_pages)
       f.passed_qc = true
       f.save!
       f.workflow_state.should == 'In Production'
@@ -380,19 +524,15 @@ describe PulStore::Lae::Folder do
 
   end
 
+  describe "rights statements" do
 
-## THESE WILL NEED ADDITIONAL TESTS after we do QA impl.
-# Genre
-# Geographic
-# Language
-# Subject
-
-# TOMORROW: 
-# * Figure out what to do with lists (lang, genre, county, subject) (subject is extra complex)
-# * hard_drive
-
-
-
+    it "has the default rights statement after creation" do
+      barcode = TEST_BARCODES.pop
+      f = FactoryGirl.build(:lae_folder, barcode: barcode)
+      f.save!
+      f.rights.should == PUL_STORE_CONFIG['lae_rights_boilerplate']
+    end
+  end
 
 
 end

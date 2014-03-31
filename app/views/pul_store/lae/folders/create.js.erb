@@ -1,0 +1,8 @@
+var response = $("<%= escape_javascript(render @folder) %>");
+$("#folder_dialog_messages").remove();
+$(response).prependTo("#new_lae_folder");
+<% if !@folder.errors.any? %>
+$('#new_lae_folder').each(function(){
+  this.reset();
+});
+<% end %>

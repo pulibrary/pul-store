@@ -6,6 +6,16 @@ describe PulStore::Lae::HardDrive do
     PulStore::Lae::Box.delete_all
   end
 
+  after(:all) do
+    PulStore::Lae::HardDrive.delete_all
+    PulStore::Lae::Box.delete_all
+  end
+
+  describe "project" do
+    hd = FactoryGirl.create(:lae_hard_drive)
+    hd.project.identifier.should == 'lae'
+  end
+
   it "is Available when it does not have an associated Box" do
     drive = FactoryGirl.create(:lae_hard_drive)
     drive.workflow_state.should == "Available"

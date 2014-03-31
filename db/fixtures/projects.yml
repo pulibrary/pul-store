@@ -1,0 +1,13 @@
+# Projects
+# These are in the repo! Not the DB!
+# Note that this is generally only used for tests, and that projects should be
+# created once in the repository by hand. The identifier must be unique.
+# That said, this should be considered the canonical registry of projects
+-
+  label: "Latin American Ephemera"
+  identifier: "lae"
+  description: "PUL's Latin American Ephemera digitization project, sponsored by CLIR and LARP."
+-
+  label: "Dummy Project"
+  identifier: "dummy"
+  description: "Dummy test project."

@@ -19,10 +19,18 @@ module PulStore::Validations
 
   def validate_barcode_uniqueness
     if self.kind_of?(PulStore::Base) && self.respond_to?(:barcode) && !self.send(:barcode).blank?
-      # TODO: if it is a PulStore::Base and has responds to barcode??
       o = self.class.where(prov_metadata__barcode_tesim: self.send(:barcode))
       unless o.count == 0
-        errors.add(:barcode, "\"#{self.send(:barcode)}\" already exists in the system.")
+        errors.add(:barcode, "CREATE: \"#{self.send(:barcode)}\" already exists in the system.")
+      end
+    end
+  end
+
+  def validate_barcode_uniqueness_on_update
+    if self.kind_of?(PulStore::Base) && self.respond_to?(:barcode) && !self.send(:barcode).blank?
+      o = self.class.where(prov_metadata__barcode_tesim: self.send(:barcode))
+      if o.count == 1 && o.first != self
+        errors.add(:barcode, "UPDATE: \"#{self.send(:barcode)}\" already exists in the system.")
       end
     end
   end
@@ -58,6 +66,42 @@ module PulStore::Validations
       errors.add(:height_in_cm, "Height cannot be used when page count is filled in")
     end
   end
+
+  def validate_project_identifier_uniqueness_on_create
+    if self.kind_of?(PulStore::Project)
+      p = PulStore::Project.where(desc_metadata__identifier_tesim: self.send(:identifier))
+      unless p.count == 0
+        errors.add(:identifier, "\"#{self.send(:identifier)}\" already exists in the system.")
+      end
+    end
+  end
+
+  def validate_project_identifier_uniqueness_on_update
+    if self.kind_of?(PulStore::Project)
+      p = PulStore::Project.where(desc_metadata__identifier_tesim: self.send(:identifier))
+      unless [0,1].include? p.count
+        errors.add(:identifier, "\"#{self.send(:identifier)}\" already exists in the system.")
+      end
+    end
+  end
+
+
+  def earliest_date_before_latest
+    if self.send(:passed_qc?) && self.send(:has_earliest_and_latest?)
+      unless self.send(:earliest_created) < self.send(:latest_created)
+        m = "Earliest date (#{self.send(:earliest_created)}) must be before latest (#{self.send(:latest_created)})."
+        errors.add(:base, m)
+      end
+    end
+  end
+
+  def only_date_range_or_date
+    if self.send(:has_date_created?) && self.send(:has_earliest_and_latest?)
+      m = "You man only supply a date created OR an earliest date AND latest, not both."
+      errors.add(:base, m)
+    end
+  end
+    
 
   protected
   def calculate_barcode_checkdigit(barcode)

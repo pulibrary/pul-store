@@ -20,7 +20,7 @@ en:
       next: 'Next &raquo;'
 
   blacklight:
-    application_name: 'Lae Project'
+    application_name: 'Pul Store'
 
     header_links:
       login: 'Login'
@@ -29,7 +29,7 @@ en:
       saved_searches: 'Saved Searches'
       search_history: 'History'
 
-    welcome: 'Lae Project'
+    welcome: 'Pul Store'
     and: 'and'
     or: 'or'
 

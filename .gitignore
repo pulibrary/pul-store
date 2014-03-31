@@ -25,10 +25,14 @@ jetty/*
 # Ignore fits
 fits/*
 
-# Ingnore the database config.
+# Ignore the database and pul_store configs 
 database.yml
+pul_store.yml
+# ignore production role_map
+role_map_production.yml
 
 noid-minter-state
+lae-box-counter-state
 
 # ignore compiled assets and bundled gems
 public/assets

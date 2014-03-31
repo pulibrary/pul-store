@@ -18,15 +18,18 @@ class PulStore::Lae::HardDrivesController < ApplicationController
   # GET /lae/hard_drives/1
   # GET /lae/hard_drives/1.json
   def show
+    authorize! :show, params[:id]
   end
 
   # GET /lae/hard_drives/new
   def new
-   @hard_drive = PulStore::Lae::HardDrive.new
+    authorize! :show, params
+    @hard_drive = PulStore::Lae::HardDrive.new
   end
 
   # # GET /lae/hard_drives/1/edit
   def edit
+    authorize! :edit, params[:id]
   end
 
   # POST /lae/hard_drives
@@ -69,6 +72,7 @@ class PulStore::Lae::HardDrivesController < ApplicationController
   # DELETE /lae/hard_drives/1
   # DELETE /lae/hard_drives/1.json
   def destroy
+    authorize! :destroy, params[:id]
     respond_to do |format|
       if @hard_drive.destroy
         format.html { redirect_to lae_hard_drives_path, notice: 'Hard Drive was successfully deleted.' }

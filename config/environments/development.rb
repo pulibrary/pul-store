@@ -1,4 +1,7 @@
 PulStore::Application.configure do
+  config.before_initialize do
+    PUL_STORE_CONFIG = YAML.load_file(Rails.root.join('config', 'pul_store.yml'))[Rails.env]
+  end
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on
@@ -27,5 +30,4 @@ PulStore::Application.configure do
   # number of complex assets.
   config.assets.debug = true
 
-  config.barcode_list = YAML.load_file(Rails.root.join('spec/fixtures/test_barcodes.yml'))
 end

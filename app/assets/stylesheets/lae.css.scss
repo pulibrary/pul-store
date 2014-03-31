@@ -1,5 +1,5 @@
 .lae-brand {
-    background-image: url(lae/lae-logo-final.png);
+    background-image: image-url("lae/lae-logo-final.png");
     background-size: 338px 42px;
     width: 338px ;
     height: 42px;
@@ -13,7 +13,7 @@
 
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
     .lae-brand {
-        background-image: url(lae/lae-logo-final@2x.png);
+        background-image: image-url("lae/lae-logo-final@2x.png");
         background-size: 338px 42px;
         width: 338px !important;
     }
@@ -34,4 +34,8 @@ a:visited.btn {
 
 .lae-new {
   margin-top: 20px;
+}
+
+#date-range-optional {
+  display: none;
 }

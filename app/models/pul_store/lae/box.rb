@@ -5,12 +5,14 @@ class PulStore::Lae::Box < PulStore::Base
 
   # Callbacks
   before_save :_defaults
+
   before_validation do
     self.physical_location = PUL_STORE_CONFIG['lae_recap_code'] if self.physical_location.blank?
+    self.project ||= PulStore::Lae::Provenance::PROJECT
   end
 
   # Delegate attributes
-  has_attributes :full, :physical_location, :tracking_number,
+  has_attributes :full, :physical_location, :tracking_number, :physical_number,
     :datastream => 'provMetadata', multiple: false
   # For dates, UI should let a bool through and then set the date (Date.current)
   has_attributes :shipped_date, :received_date,
@@ -49,6 +51,7 @@ class PulStore::Lae::Box < PulStore::Base
 
   validate :validate_barcode
   validate :validate_barcode_uniqueness, on: :create
+  validate :validate_barcode_uniqueness_on_update, on: :update
   validate :validate_shipped_before_received
 
   validates_presence_of :physical_location
@@ -91,6 +94,7 @@ class PulStore::Lae::Box < PulStore::Base
   def _defaults
     self.full = self.full?
     self.workflow_state = self._infer_state
+    self.physical_number ||= PulStore::Lae::BoxCounter.mint.to_i
     nil
   end
 

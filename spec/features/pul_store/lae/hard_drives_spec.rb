@@ -1,20 +1,27 @@
 require 'spec_helper'
+include Warden::Test::Helpers
 
 feature "boxes" do
   before(:all) { PulStore::Lae::Box.delete_all }
   after(:all) { PulStore::Lae::Box.delete_all }
   before(:all) { PulStore::Lae::HardDrive.delete_all }
   after(:all) { PulStore::Lae::HardDrive.delete_all }
-  
+
   feature "box and drive associations by barcode" do
     before(:all) do
-      @test_barcodes = Rails.application.config.barcode_list
       @drive = FactoryGirl.create(:lae_hard_drive)
+      User.delete_all
+      @user = FactoryGirl.create(:user)
+      @user.save!
+    end
+
+    after(:all) do
+      User.delete_all
     end
 
     scenario "a box that exists can be associated with a drive" do
       box = FactoryGirl.create(:lae_box)
-
+      login_as(@user, :scope => :user)
       visit edit_lae_hard_drive_path(@drive)
 
       within("form.edit_lae_hard_drive") do
@@ -25,8 +32,8 @@ feature "boxes" do
     end
 
     scenario "an association with a box can be removed by checking a box" do
-      unused_barcode = @test_barcodes.shift
-
+      unused_barcode = TEST_BARCODES.shift
+      login_as(@user, :scope => :user)
       visit edit_lae_hard_drive_path(@drive)
 
       within("form.edit_lae_hard_drive") do
@@ -40,11 +47,11 @@ feature "boxes" do
       box = FactoryGirl.create(:lae_box)
       @drive.box = box
       @drive.save!
-
+      login_as(@user, :scope => :user)
       visit edit_lae_hard_drive_path(@drive)
 
       within('form.edit_lae_hard_drive') do
-        check('lae_hard_drive_remove_box')        
+        check('lae_hard_drive_remove_box')
         click_on('hard_drive_submit')
       end
 
@@ -54,4 +61,4 @@ feature "boxes" do
 
   end
 
-end 
+end

@@ -14,17 +14,22 @@ set :scm, :git
 set :log_level, :debug
 # set :pty, true
 
-# shared_path == :deploy_to + /shared
+shared_path = "#{:deploy_to}/shared"
 #set :assets_prefix, '#{shared_path}/public'
 
 ## removing the following from linked files for the time being
 # config/redis.yml config/devise.yml config/resque_pool.yml, config/recipients_list.yml, log/resque-pool.stderr.log log/resque-pool.stdout.log
 
-set :linked_files, %w{config/database.yml config/fedora.yml config/solr.yml config/initializers/secret_token.rb}
+set :linked_files, %w{config/pul_store.yml config/database.yml config/role_map_production.yml config/fedora.yml config/solr.yml config/initializers/secret_token.rb noid-minter-state lae-box-counter-state} 
 set :linked_dirs, %w{tmp/pids tmp/cache tmp/sockets}
 
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
 # set :keep_releases, 5
+
+task :make_noid_state_files do
+  execute "touch #{shared_path}/noid-minter-state"
+  execute "touch #{shared_path}/lae-box-counter-state"
+end
 
 namespace :deploy do
 
@@ -36,6 +41,8 @@ namespace :deploy do
       end
   end
 
+
+  #before "deploy:cold", "make_noid_state_files" # untested!
   #TODO this should part of cap deploy:cold
   #
   #desc 'Set Solr Configuration'

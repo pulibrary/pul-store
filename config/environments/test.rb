@@ -1,6 +1,10 @@
 PulStore::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  config.before_initialize do
+    PUL_STORE_CONFIG = YAML.load_file(Rails.root.join('config', 'pul_store.yml'))[Rails.env]
+  end
+
   # The test environment is used exclusively to run your application's
   # test suite. You never need to work with it otherwise. Remember that
   # your test database is "scratch space" for the test suite and is wiped
@@ -34,5 +38,4 @@ PulStore::Application.configure do
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 
-  config.barcode_list = YAML.load_file(Rails.root.join('spec/fixtures/test_barcodes.yml'))
 end

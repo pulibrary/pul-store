@@ -1,4 +1,4 @@
-<%= form_for(@folder) do |b| %>
+<%= form_for @folder, html: {:class => '.form-horizontal editor'} do |b| %>
   <% if @folder.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@folder.errors.count, "error") %> prohibited this Folder from being saved:</h2>
@@ -9,95 +9,158 @@
       </ul>
     </div>
   <% end %>
+<div class="row">
 
-  <div class="field">
-    <%= b.label :barcode %><br>
-    <%= b.text_field :barcode %>
-  </div>
-  <div class="field">
-    <%= b.label :error_note %><br>
-    <%= b.text_area :error_note %>
-  </div>
-  <div id="desc-metadata">
-    <!-- required metadata goes here -->
-    <% PulStore::Lae::Folder::required_elements.each do |e| %>
-      <% unless e == :date_created || e == :subject || e == :geographic || e == :title || e == :language || e == :barcode %>
-      <div class="field">
-        <%= b.label e %><br/>
-        <%= b.text_field e %>
+
+  <div id="desc-metadata" class="span6">
+    <!-- Language -->
+    <%= render :partial => "records/edit_field", :locals => {:f => b, :render_req => false, :key => :language } %>
+
+    <!-- Title -->
+    <div class="control-group">
+    <%= b.label :title, "Title", :class=>"control-label" %>
+    <% if @folder.title.empty? %>
+      <div class="controls">
+        <%= text_field_tag "lae_folder[title][]", nil, :id => 'lae_folder_title' %>
       </div>
+    <% else %>
+      <% @folder.title.to_ary.each_with_index do |title, index| %>
+        <div class="controls">
+          <%= text_field_tag "lae_folder[title][]", title, :id => 'lae_folder_title' %>
+        </div>
       <% end %>
     <% end %>
-    <!-- subjects -->
-    <%= b.label :subject, "Subjects" %>
-    <% if @folder.subject.empty? %>
-      <div class="field">
-        <%= text_field_tag "folder[subject][]", nil %>
-      </div>
-    <% end %>
-
-    <% @folder.subject.each do |subject| %>
-      <div class="field">
-        <%= text_field_tag "folder[subject][]", subject %>
-      </div>
-    <% end %>
-    <!-- Geographic -->
-    <%= b.label :geographic, "Geographic" %>
-    <% if @folder.geographic.empty? %>
-      <div class="field">
-        <%= text_field_tag "folder[geographic][]", nil %>
-      </div>
-    <% end %>
-
-    <% @folder.geographic.each do |value| %>
-      <div class="field">
-        <%= text_field_tag "folder[geographic][]", value %>
-      </div>
-    <% end %>
-    <!-- language -->
-    <%= b.label :language, "Language" %>
-    <% if @folder.language.empty? %>
-      <div class="field">
-        <%= text_field_tag "folder[language][]", nil %>
-      </div>
-    <% end %>
-
-    <% @folder.language.each do |subject| %>
-      <div class="field">
-        <%= text_field_tag "folder[language][]", subject %>
-      </div>
-    <% end %>
-    <!-- Title -->
-    <%= b.label :title, "title" %>
-    <% if @folder.title.empty? %>
-      <div class="field">
-        <%= text_field_tag "folder[title][]", nil %>
-      </div>
-    <% end %>
-
-    <% @folder.title.each do |subject| %>
-      <div class="field">
-        <%= text_field_tag "folder[title][]", subject %>
-      </div>
-    <% end %>
-    <!-- end mult-value -->
-    <!-- date picker -->
-    <div class="field date-created">
-      <%= b.label :date_created %><br>
-      <%= b.text_field :date_created, :class => "datepicker" %>
     </div>
-    <!-- Optional Desc. Elements -->
-  </div>
-  <div id="extent-metadata">
-    <!-- required metadata goes here -->
-    <% PulStore::Lae::Folder::extent_elements.each do |e| %>
-      <div class="field">
-        <%= b.label e %><br/>
-        <%= b.text_field e %>
+    <!-- sort title -->
+    <div class="control-group">
+      <%= b.label :sort_title, :class=>"control-label" %>
+      <div class="controls">
+        <%= b.text_field :sort_title %>
+        <span class="help-block">Correct as Needed.</span>
       </div>
-    <% end %>
-  <div class="actions">
-    <%= b.submit %>
-  </div>
+    </div>
+    <!-- Alternative Title -->
+     <%= render :partial => "records/edit_field", :locals => {:f => b, :render_req => false, :key => :alternative_title } %>
+    <!-- creator -->
+    <div class="control-group">
+      <%= b.label :creator, "Creator", :class=>"control-label" %>
+      <% @folder.creator.to_ary.each_with_index do |creator, index| %>
+        <div class="controls">
+        <%= text_field_tag "lae_folder[creator][]", creator, :id =>'lae_folder_creator' %>
+        <span class="help-block">Do not use Creator if there is more than one value. Use multiple contributors instead.</span>
+      </div>
+      <% end %>
+      <% if @folder.creator.empty? %>
+      <div class="controls">
+        <%= text_field_tag "lae_folder[creator][]", nil, :id =>'lae_folder_creator' %>
+      </div>
+      <%- end %>
+    </div>
+    <!-- Contributor -->
+      <%= render :partial => "records/edit_field", :locals => {:f => b, :render_req => false, :key => :contributor } %>
+      <!-- Publisher -->
+      <%= render :partial => "records/edit_field", :locals => {:f => b, :render_req => false, :key => :publisher } %>
+      <!-- Geographic Origin -->
+      <!-- Geographic -->
+      <div class="control-group">
+        <%= b.label :geographic_origin, :class=>"control-label" %>
+        <div class="controls">
+          <%= b.select(:geographic_origin, options_for_select(list_all_areas_as_select_list, [@folder.geographic_origin])) %>
+        </div>
+      </div>
+      <!-- Series -->
+      <%= render :partial => "records/edit_field", :locals => {:f => b, :render_req => false, :key => :series } %>
+      <!-- Genre -->
+    <div class="control-group">
+      <%= b.label :genre, :class=>"control-label" %>
+      <div class="controls">
+        <%= b.select(:genre, options_for_select(list_all_genres_as_select_list, [@folder.genre])) %>
+      </div>
+    </div>
+    <!-- Subject -->
+    <%= render :partial => "records/edit_field", :locals => {:f => b, :render_req => false, :key => :subject } %>
+    <!-- Geographic Subject -->
+    <%= render :partial => "records/edit_field", :locals => {:f => b, :render_req => false, :key => :geographic_subject } %>
 
+    <!-- Decription -->
+    <div class="control-group">
+      <%= b.label :description, :class => 'control-label' %>
+      <div class="controls">
+        <%= b.text_area :description, cols: 50, rows: 6 %>
+      </div>
+    </div>
+    <button id="date-type-toggle" type="button" class="btn">Use Date Range</button>
+    <!-- date created -->
+    <div class="control-group date-options" id="date-created">
+      <%= b.label :date_created, :class=>"control-label" %>
+      <div class="controls">
+        <%= b.text_field :date_created, :id => 'lae_folder_date_created', class: 'input-mini' %>
+      </div>
+    </div>
+    <div id="date-range-optional" class="date-options">
+    <!-- :earliest_created, :latest_created -->
+    <div class="control-group">
+      <%= b.label "Start | End", :class=>"control-label" %>
+      <div class="controls input-prepend">
+        <%= b.text_field :earliest_created, :id => 'lae_folder_earliest_created', class: 'input-mini' %>
+      </div>
+      <div class="controls input-append">
+        <%= b.text_field :latest_created, :id => 'lae_folder_latest_created', class: 'input-mini' %>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div id="admin-metadata" class="span4">
+    <div id="admin-metadata">
+    <div class="control-group">
+      <%= b.label "Folder Number", :class=>"control-label" %>
+      <div class="controls">
+        <%= b.text_field :physical_number %>
+      </div>
+      <span class="help-block">Is Part of <%= link_to "Box ", edit_lae_box_path(@folder.box_id) %>.</span>
+    </div>
+
+    <div class="control-group">
+      <%= b.label :barcode, :class=>"control-label" %>
+      <div class="controls">
+        <%= b.text_field :barcode %>
+      </div>
+    </div>
+    <div class="control-group">
+      <%= b.label :error_note, :class=>"control-label" %>
+      <div class="controls">
+        <%= b.text_area :error_note, cols: 50, rows: 3 %>
+      </div>
+    </div>
+    <div class="control-group">
+    <div class="controls">
+      <%= b.label :suppressed, "Suppress this Folder" %>
+      <%= b.check_box :suppressed, { class: 'checkbox' }, "true", "false" %>
+    </div>
+  </div>
+    <div class="control-group">
+      <%= b.label :rights, :class=>"control-label" %>
+      <div class="controls">
+        <%= b.text_area :rights, cols: 50, rows: 6 %>
+      </div>
+    </div>
+    </div>
+    <div id="extent-metadata" class="control-group">
+      <% PulStore::Lae::Folder::extent_elements.each do |e| %>
+        <div class="control-group">
+          <%= b.label e, :class=>"control-label" %>
+          <div class="controls">
+            <%= b.text_field e %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+ </div>
+ <div class="row">
+  <div class="actions span2 offset1">
+    <%= b.submit :value => "Update Folder", :class => 'btn btn-primary' %>
+  </div>
+</div>
+</div>
 <% end %>

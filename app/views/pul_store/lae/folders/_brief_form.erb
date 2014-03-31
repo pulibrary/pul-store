@@ -12,11 +12,11 @@
 
   <div class="field">
     <%= f.label :barcode %><br>
-    <%= f.text_field :barcode %>
+    <%= f.text_field :barcode, class: 'barcode' %>
   </div>
-  <div class="field">
+ <div class="field">
     <%= f.label :genre %><br>
-    <%= f.text_field :genre %>
+    <%= f.select(:genre, options_for_select(list_all_genres_as_select_list)) %>
   </div>
   <div id="extent-metadata">
     <!-- required metadata goes here -->
@@ -28,6 +28,6 @@
     <% end %>
 
    <div class="actions">
-      <%= f.submit %>
+      <%= f.submit :value => "Create Folder", :class => 'btn btn-primary' %>
    </div>
 <% end %>

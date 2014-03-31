@@ -15,6 +15,7 @@
 //= require turbolinks
 //= require jquery-fileupload
 //= require jquery.ui.all
+//= require hydra-editor/hydra-editor
 //
 // Required by Blacklight
 //= require blacklight/blacklight
@@ -25,16 +26,16 @@ $(function() {
     dateFormat: 'yy-mm-dd',
     showButtonPanel: true
   });
+
+  $("#date-type-toggle" ).click(function() {
+    $( ".date-options").toggle();
+    var cur_toggle_text = $(this).text();
+    if(cur_toggle_text == "Use Date Range") {
+      $(this).text("Use Single Date");
+    } else {
+      $(this).text("Use Date Range");
+    }
+  });
+
 });
 
-function remove_fields(link) {
-    $(link).prev("input[type=hidden]").val("1");
-    $(link).closest(".fields").hide();
-}
-
-function add_fields(link, association, content) {
-    var new_id = new Date().getTime();
-    var regex = new RegExp("new_" + association, "g");
-    $(link).parent().after(content.replace(regex, new_id));
-    $('#new-folder-fields').modal('show');
-}
