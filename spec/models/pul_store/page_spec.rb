@@ -50,7 +50,6 @@ describe PulStore::Page do
       p.page_ocr = ocr_fixture
       p.save
       p.datastreams.keys.include?('pageOcr').should be_true
-
     end
   end
 
