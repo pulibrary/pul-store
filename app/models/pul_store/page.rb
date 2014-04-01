@@ -31,14 +31,7 @@ class PulStore::Page < PulStore::Base
   # Associations
   belongs_to :folder, property: :is_part_of, class_name: 'PulStore::Lae::Folder'
   belongs_to :text, property: :is_part_of, class_name: 'PulStore::Text'
-  # This, or a polymorphic association would be better,
-  # but doesn't seem to work:
-  # belongs_to :page_container, property: :is_part_of, class_name: 'PulStore::Item'
-  # alias :text= :page_container=
-  # alias :text :page_container
-  # alias :folder= :page_container=
-  # alias :folder :page_container
-
+  # but only one!
 
   # Validations
   validates :sort_order, numericality: true
@@ -47,25 +40,54 @@ class PulStore::Page < PulStore::Base
   # Streams
   has_file_datastream 'masterImage'
   has_file_datastream 'deliverableImage'
-  has_file_datastream 'pageTextContent'
+  has_file_datastream 'pageOcr'
 
-
-  # Not yet sure how this will work. Presumably the controller will need to
-  # let a master_image through, then it goes to a staging area, then what?
-  def master_image=(path)
-    self.masterImage.content=File.open(path)
+  def master_image=(path_string_or_io)
+    self.ingest_from_path_string_or_io(path_string_or_io)
   end
 
   def master_image
     self.masterImage.content
   end
 
-  def master_tech_md=(io)
-    self.masterTechMetadata.content=io
+  def deliverable_image=(path_string_or_io)
+    self.ingest_from_path_string_or_io(path_string_or_io)
   end
 
-  def master_tech_md
+  def deliverable_image
+    self.deliverableImage.content
+  end
+
+  def master_tech_metadata=(path_string_or_io)
+    self.ingest_from_path_string_or_io(path_string_or_io)
+  end
+
+  def master_tech_metadata
     self.masterTechMetadata.content
+  end
+
+  def page_ocr=(path_string_or_io)
+    self.ingest_from_path_string_or_io(path_string_or_io)
+  end
+
+  def page_ocr
+    self.pageOcr.content
+  end
+
+  protected
+
+  # Ingest a String, StringIO, IO, or file from a path.
+  # Options: 
+  #   :stream_name. Use when the calling method is not the snake_case name of the file_datastream.
+  def ingest_from_path_string_or_io(path_s_or_io, opts={})
+    opts[:stream_name] ||= caller_locations(1,1)[0].label.camelize(:lower).chomp('=')
+    content = nil
+    if path_s_or_io.kind_of?(String) && File.exists?(path_s_or_io)
+      content = File.open(path_s_or_io)
+    else 
+      content = path_s_or_io # AF doesn't seem to mind String or IO/StringIO
+    end
+    self.send("#{opts[:stream_name]}").send('content=', content)
   end
 
 end
