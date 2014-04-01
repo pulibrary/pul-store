@@ -41,6 +41,8 @@
     </div>
     <!-- Alternative Title -->
      <%= render :partial => "records/edit_field", :locals => {:f => b, :render_req => false, :key => :alternative_title } %>
+     <!-- Series -->
+      <%= render :partial => "records/edit_field", :locals => {:f => b, :render_req => false, :key => :series } %>
     <!-- creator -->
     <div class="control-group">
       <%= b.label :creator, "Creator", :class=>"control-label" %>
@@ -67,8 +69,43 @@
           <%= b.select(:geographic_origin, options_for_select(list_all_areas_as_select_list, [@folder.geographic_origin])) %>
         </div>
       </div>
-      <!-- Series -->
-      <%= render :partial => "records/edit_field", :locals => {:f => b, :render_req => false, :key => :series } %>
+      <% if !@folder.earliest_created.blank? && !@folder.latest_created.blank? %>
+      <% date_range_type_class = "active-date-range" %>
+      <% date_created_type_class = "no-active-date-created" %>
+      <% date_toggle_message = "Use Single Date" %>
+    <% else %>
+      <% date_range_type_class = "no-active-date-range" %>
+      <% date_created_type_class = "active-date-created" %>
+      <% date_toggle_message = "Use Date Range Instead" %>
+    <% end %>
+    <div class="control-group date-toggle">
+      <div class="controls">
+        <button id="date-type-toggle" type="button" class="btn"><%= date_toggle_message %></button>
+      </div>
+    </div>
+    <!-- date created -->
+    <div class="date-options <%= date_created_type_class %>">
+      <div class="control-group" id="date-created">
+        <%= b.label :date_created, :class=>"control-label" %>
+        <div class="controls">
+          <%= b.text_field :date_created, :id => 'lae_folder_date_created', class: 'input-mini', placeholder: 'Date' %>
+        </div>
+      </div>
+    </div>
+    <div class="date-options <%= date_range_type_class %>">
+    <!-- :earliest_created, :latest_created -->
+    <div class="control-group">
+      <%= b.label "Date Range", :class=>"control-label" %>
+      <div class="controls">
+        <div class="input-prepend">
+          <%= b.text_field :earliest_created, :id => 'lae_folder_earliest_created', class: 'input-mini', placeholder: 'Start' %>
+        </div>
+        <div class="input-append">
+          <%= b.text_field :latest_created, :id => 'lae_folder_latest_created', class: 'input-mini', placeholder: 'End' %>
+        </div>
+      </div>
+    </div>
+  </div>
       <!-- Genre -->
     <div class="control-group">
       <%= b.label :genre, :class=>"control-label" %>
@@ -124,14 +161,15 @@
     </div>
     </div>
     <div class="control-group">
-    <%= b.label "Width x Height (cm)", class: 'control-label' %>
-    <div class="controls">
-      <div class="input-prepend">
-        <%= b.text_field :width_in_cm, class: 'input-mini', placeholder: 'Width'  %>
-      </div>
-      <span> X </span>
-      <div class="input-append">
-        <%= b.text_field :height_in_cm, class: 'input-mini', placeholder: 'Height'   %>
+      <%= b.label "Width x Height (cm)", class: 'control-label' %>
+      <div class="controls">
+        <div class="input-prepend">
+          <%= b.text_field :width_in_cm, class: 'input-mini', placeholder: 'Width'  %>
+        </div>
+        <span> X </span>
+        <div class="input-append">
+          <%= b.text_field :height_in_cm, class: 'input-mini', placeholder: 'Height'   %>
+       </div>
       </div>
     </div>
     <div class="control-group">
@@ -140,52 +178,11 @@
         <%= b.text_field :page_count, class: 'input-small', placeholder: "Num Pages" %>
       </div>
     </div>
-    <% if !@folder.earliest_created.blank? && !@folder.latest_created.blank? %>
-      <% date_range_type_class = "active-date-range" %>
-      <% date_created_type_class = "no-active-date-created" %>
-      <% date_toggle_message = "Use Single Date" %>
-    <% else %>
-      <% date_range_type_class = "no-active-date-range" %>
-      <% date_created_type_class = "active-date-created" %>
-      <% date_toggle_message = "Use Date Range Instead" %>
-    <% end %>
-    <fieldset>
-    <legend class="fieldset-header">Date Options</legend>
-    <div class="control-group date-toggle">
-      <div class="controls">
-        <button id="date-type-toggle" type="button" class="btn"><%= date_toggle_message %></button>
-      </div>
-    </div>
-    <!-- date created -->
-    <div class="date-options <%= date_created_type_class %>">
-      <div class="control-group" id="date-created">
-        <%= b.label :date_created, :class=>"control-label" %>
-        <div class="controls">
-          <%= b.text_field :date_created, :id => 'lae_folder_date_created', class: 'input-mini', placeholder: 'Date' %>
-        </div>
-      </div>
-    </div>
-    <div class="date-options <%= date_range_type_class %>">
-    <!-- :earliest_created, :latest_created -->
-    <div class="control-group">
-      <%= b.label "Date Range", :class=>"control-label" %>
-      <div class="controls">
-        <div class="input-prepend">
-          <%= b.text_field :earliest_created, :id => 'lae_folder_earliest_created', class: 'input-mini', placeholder: 'Start' %>
-        </div>
-        <div class="input-append">
-          <%= b.text_field :latest_created, :id => 'lae_folder_latest_created', class: 'input-mini', placeholder: 'End' %>
-        </div>
-      </div>
-    </div>
-  </div>
-  </fieldset>
-  </div>
   </div>
  </div>
  <div class="row">
-  <div class="actions span2 offset1">
-    <%= b.submit :value => "Update Folder", :class => 'btn btn-primary' %>
+  <div class="actions span2 offset4">
+    <%= b.submit :value => "Update Folder", :class => 'btn btn-primary btn-large' %>
   </div>
 </div>
 </div>
