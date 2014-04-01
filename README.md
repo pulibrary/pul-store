@@ -33,11 +33,14 @@ and then add the passwords to `database.yml`.
 right now...
 
 ```
-stage_path = Page.upload_to_stage(File.new('spec/fixtures/files/00000001.tif'), '00000001.tif')
-fits = Page.characterize(stage_path)
+
+stage_path = PulStore::Page.upload_to_stage(File.new('spec/fixtures/files/lae_test_img/32101075851483/32101075851434/0001.tif'), '0001.tif')
+fits = PulStore::Page.characterize(stage_path)
+ocr_path = File.new('spec/fixtures/files/lae_test_img/32101075851483/32101075851434/0001.xml')
 p = FactoryGirl.build(:page)
 p.master_image = stage_path
-p.master_tech_md = fits
+p.master_tech_metadata = fits
+p.page_ocr = ocr_path
 p.save
 ```
 
