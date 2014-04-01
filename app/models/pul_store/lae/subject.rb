@@ -1,4 +1,5 @@
 class PulStore::Lae::Subject < ActiveRecord::Base
-  # :value
-  has_and_belongs_to_many :topics, class_name: "PulStore::Lae::Topic"
+  # :label
+  # :uri
+  belongs_to :category, class_name: "PulStore::Lae::Category"
 end

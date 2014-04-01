@@ -72,11 +72,6 @@ ActiveRecord::Schema.define(version: 20140319175813) do
 
   add_index "pul_store_lae_subjects", ["label"], name: "index_pul_store_lae_subjects_on_label", unique: true, using: :btree
 
-  create_table "pul_store_lae_subjects_topics", force: true do |t|
-    t.integer "topic_id"
-    t.integer "subject_id"
-  end
-
   create_table "searches", force: true do |t|
     t.text     "query_params"
     t.integer  "user_id"

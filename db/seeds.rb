@@ -3,7 +3,6 @@ require 'csv'
 # with its default values. The data can then be loaded with the rake db:seed
 # (or created alongside the db with db:setup).
 
-# TODO this should be a QA vocab!
 MetadataSource.delete_all
 csv_fp = Rails.root.join('db', 'fixtures', 'metadata_sources.csv')
 csv = CSV.parse(File.read(csv_fp), headers: true)
@@ -29,24 +28,25 @@ csv = CSV.parse(File.read(csv_fp), headers: true)
 csv.each { |row| PulStore::Lae::Area.create!(row.to_hash) }
 
 # LAE Subjects and Topics
+PulStore::Lae::Category.delete_all
 PulStore::Lae::Subject.delete_all
-PulStore::Lae::Topic.delete_all
 csv_fp = Rails.root.join('db', 'fixtures', 'lae_subjects.csv')
 csv = CSV.parse(File.read(csv_fp), headers: true, header_converters: :symbol, converters: :all)
 csv.each do |row|
-  subject_value = row[:subject].strip
-  topic_value = row[:topic].strip
+  category_label = row[:category]
+  subject_label = row[:subject]
+  subject_uri = row[:uri] # may be nil
 
-  subject = PulStore::Lae::Subject.find_by(value: subject_value)
+  category = PulStore::Lae::Category.find_by(label: category_label)
+  if category.nil?
+    puts "Create LAE Category #{category_label}"
+    category = PulStore::Lae::Category.create(label: category_label)
+  end
+
+  subject = PulStore::Lae::Subject.find_by(label: subject_label)
   if subject.nil?
-    subject = PulStore::Lae::Subject.create(value: subject_value)
+    puts "    Create LAE Subject #{subject_label}"
+    subject = PulStore::Lae::Subject.create(label: subject_label, uri: subject_uri, category: category)
   end
-
-  topic = PulStore::Lae::Topic.find_by(value: topic_value)
-  if topic.nil?
-    topic = PulStore::Lae::Topic.create(value: topic_value)
-  end
-
-  subject.topics << topic
 
 end
