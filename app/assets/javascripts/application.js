@@ -32,10 +32,10 @@ $(function() {
   $("#date-type-toggle" ).click(function() {
     $( ".date-options").toggle();
     var cur_toggle_text = $(this).text();
-    if(cur_toggle_text == "Use Date Range") {
+    if(cur_toggle_text == "Use Date Range Instead") {
       $(this).text("Use Single Date");
     } else {
-      $(this).text("Use Date Range");
+      $(this).text("Use Date Range Instead");
     }
   });
 

@@ -50,6 +50,10 @@ module PulStore::Lae::FoldersHelper
     box.physical_number
   end
 
+  def lae_date_value_set(folder)
+    
+  end
+
   private
   @offset = Time.now.gmt_offset
   def self.style_date str

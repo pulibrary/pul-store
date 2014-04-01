@@ -36,6 +36,11 @@ a:visited.btn {
   margin-top: 20px;
 }
 
-#date-range-optional {
+.no-active-date-range, .no-active-date-created {
   display: none;
 }
+
+.active-date-range, .active-date-created {
+  display: block;
+}
+
