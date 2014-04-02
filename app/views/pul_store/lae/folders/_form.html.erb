@@ -1,4 +1,4 @@
-<%= form_for @folder, html: {:class => '.form-horizontal editor'} do |b| %>
+<%= form_for @folder, html: {:class => 'form-horizontal editor'} do |b| %>
   <% if @folder.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@folder.errors.count, "error") %> prohibited this Folder from being saved:</h2>
@@ -41,18 +41,19 @@
     </div>
     <!-- Alternative Title -->
      <%= render :partial => "records/edit_field", :locals => {:f => b, :render_req => false, :key => :alternative_title } %>
+     <!-- Series -->
+      <%= render :partial => "records/edit_field", :locals => {:f => b, :render_req => false, :key => :series } %>
     <!-- creator -->
     <div class="control-group">
       <%= b.label :creator, "Creator", :class=>"control-label" %>
       <% @folder.creator.to_ary.each_with_index do |creator, index| %>
         <div class="controls">
-        <%= text_field_tag "lae_folder[creator][]", creator, :id =>'lae_folder_creator' %>
-        <span class="help-block">Do not use Creator if there is more than one value. Use multiple contributors instead.</span>
+        <%= text_field_tag "lae_folder[creator][]", creator, :id =>'lae_folder_creator', placeholder: 'Use if only one author' %>
       </div>
       <% end %>
       <% if @folder.creator.empty? %>
       <div class="controls">
-        <%= text_field_tag "lae_folder[creator][]", nil, :id =>'lae_folder_creator' %>
+        <%= text_field_tag "lae_folder[creator][]", nil, :id =>'lae_folder_creator', placeholder: 'Use if only one author' %>
       </div>
       <%- end %>
     </div>
@@ -68,8 +69,43 @@
           <%= b.select(:geographic_origin, options_for_select(list_all_areas_as_select_list, [@folder.geographic_origin])) %>
         </div>
       </div>
-      <!-- Series -->
-      <%= render :partial => "records/edit_field", :locals => {:f => b, :render_req => false, :key => :series } %>
+      <% if !@folder.earliest_created.blank? && !@folder.latest_created.blank? %>
+      <% date_range_type_class = "active-date-range" %>
+      <% date_created_type_class = "no-active-date-created" %>
+      <% date_toggle_message = "Use Single Date" %>
+    <% else %>
+      <% date_range_type_class = "no-active-date-range" %>
+      <% date_created_type_class = "active-date-created" %>
+      <% date_toggle_message = "Use Date Range Instead" %>
+    <% end %>
+    <div class="control-group date-toggle">
+      <div class="controls">
+        <button id="date-type-toggle" type="button" class="btn"><%= date_toggle_message %></button>
+      </div>
+    </div>
+    <!-- date created -->
+    <div class="date-options <%= date_created_type_class %>">
+      <div class="control-group" id="date-created">
+        <%= b.label :date_created, :class=>"control-label" %>
+        <div class="controls">
+          <%= b.text_field :date_created, :id => 'lae_folder_date_created', class: 'input-mini', placeholder: 'Date' %>
+        </div>
+      </div>
+    </div>
+    <div class="date-options <%= date_range_type_class %>">
+    <!-- :earliest_created, :latest_created -->
+    <div class="control-group">
+      <%= b.label "Date Range", :class=>"control-label" %>
+      <div class="controls">
+        <div class="input-prepend">
+          <%= b.text_field :earliest_created, :id => 'lae_folder_earliest_created', class: 'input-mini', placeholder: 'Start' %>
+        </div>
+        <div class="input-append">
+          <%= b.text_field :latest_created, :id => 'lae_folder_latest_created', class: 'input-mini', placeholder: 'End' %>
+        </div>
+      </div>
+    </div>
+  </div>
       <!-- Genre -->
     <div class="control-group">
       <%= b.label :genre, :class=>"control-label" %>
@@ -89,26 +125,6 @@
         <%= b.text_area :description, cols: 50, rows: 6 %>
       </div>
     </div>
-    <button id="date-type-toggle" type="button" class="btn">Use Date Range</button>
-    <!-- date created -->
-    <div class="control-group date-options" id="date-created">
-      <%= b.label :date_created, :class=>"control-label" %>
-      <div class="controls">
-        <%= b.text_field :date_created, :id => 'lae_folder_date_created', class: 'input-mini' %>
-      </div>
-    </div>
-    <div id="date-range-optional" class="date-options">
-    <!-- :earliest_created, :latest_created -->
-    <div class="control-group">
-      <%= b.label "Start | End", :class=>"control-label" %>
-      <div class="controls input-prepend">
-        <%= b.text_field :earliest_created, :id => 'lae_folder_earliest_created', class: 'input-mini' %>
-      </div>
-      <div class="controls input-append">
-        <%= b.text_field :latest_created, :id => 'lae_folder_latest_created', class: 'input-mini' %>
-      </div>
-    </div>
-  </div>
   </div>
   <div id="admin-metadata" class="span4">
     <div id="admin-metadata">
@@ -117,7 +133,6 @@
       <div class="controls">
         <%= b.text_field :physical_number %>
       </div>
-      <span class="help-block">Is Part of <%= link_to "Box ", edit_lae_box_path(@folder.box_id) %>.</span>
     </div>
 
     <div class="control-group">
@@ -133,11 +148,11 @@
       </div>
     </div>
     <div class="control-group">
-    <div class="controls">
-      <%= b.label :suppressed, "Suppress this Folder" %>
-      <%= b.check_box :suppressed, { class: 'checkbox' }, "true", "false" %>
+      <%= b.label :suppressed, :class=>"control-label" %>
+      <div class="controls">
+        <%= b.check_box :suppressed, { class: 'checkbox' }, "true", "false" %>
+      </div>
     </div>
-  </div>
     <div class="control-group">
       <%= b.label :rights, :class=>"control-label" %>
       <div class="controls">
@@ -145,21 +160,29 @@
       </div>
     </div>
     </div>
-    <div id="extent-metadata" class="control-group">
-      <% PulStore::Lae::Folder::extent_elements.each do |e| %>
-        <div class="control-group">
-          <%= b.label e, :class=>"control-label" %>
-          <div class="controls">
-            <%= b.text_field e %>
-          </div>
+    <div class="control-group">
+      <%= b.label "Width x Height (cm)", class: 'control-label' %>
+      <div class="controls">
+        <div class="input-prepend">
+          <%= b.text_field :width_in_cm, class: 'input-mini', placeholder: 'Width'  %>
         </div>
-      <% end %>
+        <span> X </span>
+        <div class="input-append">
+          <%= b.text_field :height_in_cm, class: 'input-mini', placeholder: 'Height'   %>
+       </div>
+      </div>
+    </div>
+    <div class="control-group">
+    <%= b.label :page_count, class: 'control-label' %>
+      <div class="controls">
+        <%= b.text_field :page_count, class: 'input-small', placeholder: "Num Pages" %>
+      </div>
     </div>
   </div>
  </div>
  <div class="row">
-  <div class="actions span2 offset1">
-    <%= b.submit :value => "Update Folder", :class => 'btn btn-primary' %>
+  <div class="actions span2 offset4">
+    <%= b.submit :value => "Update Folder", :class => 'btn btn-primary btn-large' %>
   </div>
 </div>
 </div>

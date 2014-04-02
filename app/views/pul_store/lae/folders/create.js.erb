@@ -2,7 +2,11 @@ var response = $("<%= escape_javascript(render @folder) %>");
 $("#folder_dialog_messages").remove();
 $(response).prependTo("#new_lae_folder");
 <% if !@folder.errors.any? %>
-$('#new_lae_folder').each(function(){
-  this.reset();
-});
+  $("#folders-table tbody tr:first").removeClass('success');
+  var new_row = $("<%= escape_javascript(render :partial => 'new_folder_row', locals: {f: @folder }) %>");
+  $(new_row).insertBefore("#folders-table tbody tr:first");
+  $("#folder-count").text("<%= @folder.physical_number %>");
+  $('#new_lae_folder').each(function(){
+    this.reset();
+  });
 <% end %>

@@ -45,6 +45,15 @@ module PulStore::Lae::FoldersHelper
     PulStore::Lae::FoldersHelper.style_date(date)
   end
 
+  def lae_folder_get_box_number(box_id)
+    box = PulStore::Lae::Box.find(box_id)
+    box.physical_number
+  end
+
+  def lae_date_value_set(folder)
+    
+  end
+
   private
   @offset = Time.now.gmt_offset
   def self.style_date str

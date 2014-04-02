@@ -15,6 +15,8 @@
 //= require turbolinks
 //= require jquery-fileupload
 //= require jquery.ui.all
+//= require jquery.tablesorter
+//= require jquery.tablesorter.widgets
 //= require hydra-editor/hydra-editor
 //
 // Required by Blacklight
@@ -30,12 +32,23 @@ $(function() {
   $("#date-type-toggle" ).click(function() {
     $( ".date-options").toggle();
     var cur_toggle_text = $(this).text();
-    if(cur_toggle_text == "Use Date Range") {
+    if(cur_toggle_text == "Use Date Range Instead") {
       $(this).text("Use Single Date");
     } else {
-      $(this).text("Use Date Range");
+      $(this).text("Use Date Range Instead");
     }
   });
 
+  $("#folders-table").tablesorter({
+      theme     : 'bootstrap',
+      headerTemplate : '{content} {icon}',
+      widgets : [ "uitheme", "zebra" ],
+      widgetOptions : {
+      zebra : ["even", "odd"],
+      widthFixed: true,
+      filter_reset : ".reset"
+
+      }
+    });
 });
 

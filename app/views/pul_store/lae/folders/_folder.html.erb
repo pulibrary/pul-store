@@ -11,7 +11,7 @@
   <% else %>
     <div class="alert alert-success">
       <a class="close" data-dismiss="alert">&times;</a>
-      <p>Folder <%= @folder.physical_number %> Created Successfully</p>
+      <p>Folder <%= @folder.physical_number %> Created Successfully. Add another below.</p>
       <%= link_to "Edit Folder #{@folder.physical_number}", edit_lae_folder_path(@folder), class: "btn btn-success" %> |
       <% if(!@folder.box_id.blank?) %>
         <%= link_to 'Return to Box', edit_lae_box_path(@folder.box_id), class: "btn btn-info"%>
