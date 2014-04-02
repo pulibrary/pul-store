@@ -129,6 +129,12 @@
   <div id="admin-metadata" class="span4">
     <div id="admin-metadata">
     <div class="control-group">
+      <%= b.label "State",  :class=>"control-label" %>
+      <div class="controls">
+        <%= render :partial => 'shared/lae/workflow_state_badge', locals: {object: @folder} %>
+      </div>
+    </div>
+    <div class="control-group">
       <%= b.label "Folder Number", :class=>"control-label" %>
       <div class="controls">
         <%= b.text_field :physical_number %>

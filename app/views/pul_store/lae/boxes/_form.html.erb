@@ -39,6 +39,12 @@
 </div>
 <div class="span3">
   <div class="control-group">
+      <%= b.label "State",  :class=>"control-label" %>
+      <div class="controls">
+        <%= render :partial => 'shared/lae/workflow_state_badge', locals: {object: @box} %>
+      </div>
+    </div>
+  <div class="control-group">
     <%= b.label :shipped_date, :class => 'control-label' %>
     <div class="controls">
       <%= b.text_field :shipped_date, :class => 'datepicker input-small' %>

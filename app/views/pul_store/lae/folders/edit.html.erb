@@ -1,5 +1,7 @@
 <h1>Update Folder <%= @folder.physical_number %> - Box <%= lae_folder_get_box_number @folder.box_id %></h1>
-<%= render :partial => 'shared/lae/workflow_state', locals: {object: @folder} %>
+<div class="row">
+	<%= render :partial => 'breadcrumb' %>
+</div>
 <div class="row well">
   <%= render 'form' %>
 </div>

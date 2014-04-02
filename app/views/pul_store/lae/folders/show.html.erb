@@ -6,6 +6,10 @@
   <% end %>
 </h1>
 
+<div class="row">
+  <%= render :partial => 'breadcrumb' %>
+</div>
+
 <div class="btn-group">
   <%= link_to 'Edit This Folder', edit_lae_folder_path(@folder), class: "btn btn-success" %> |
   <% if(!@folder.box_id.blank?) %>
