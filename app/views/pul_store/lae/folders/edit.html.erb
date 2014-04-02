@@ -1,13 +1,24 @@
 <h1>Update Folder <%= @folder.physical_number %> - Box <%= lae_folder_get_box_number @folder.box_id %></h1>
 <div class="row">
-	<%= render :partial => 'breadcrumb' %>
+<%= render :partial => 'breadcrumb' %>
 </div>
 <div class="row well">
   <%= render 'form' %>
 </div>
 
-<%= link_to 'Show', @folder %> |
-<% if(!@folder.box_id.blank?) %>
-  <%= link_to 'Return to editing to Box', edit_lae_box_path(@folder.box_id) %> |
-<% end %>
-<%= link_to 'Back to Folders', lae_folders_path %>
+<div class="row">
+	<div class="span12">
+		<div class="navbar well">
+			<div class="navbar-inner">
+				<ul class="nav">
+					<li><%= link_to 'View Folder', @folder %></li>
+					<% if(!@folder.box_id.blank?) %>
+  						<li><%= link_to "Return to editing Box #{lae_folder_get_box_number @folder.box_id }", edit_lae_box_path(@folder.box_id) %></li>
+					<% end %>
+		    		<li><%= link_to 'Back to Lae Folders', lae_folders_path %></li>
+		    	</ul>
+		    </div>
+		</div>
+	</div>
+</div>
+
