@@ -37,38 +37,40 @@ ActiveRecord::Schema.define(version: 20140319175813) do
   end
 
   create_table "pul_store_lae_areas", force: true do |t|
-    t.string "label"
-    t.string "iso_3166_2_code"
-    t.string "gac_code"
-    t.string "uri"
+    t.string  "label"
+    t.string  "iso_3166_2_code"
+    t.string  "gac_code"
+    t.string  "uri"
+    t.string  "geoname_id"
+    t.integer "north"
+    t.integer "south"
+    t.integer "east"
+    t.integer "west"
   end
 
   add_index "pul_store_lae_areas", ["label"], name: "index_pul_store_lae_areas_on_label", unique: true, using: :btree
 
+  create_table "pul_store_lae_categories", force: true do |t|
+    t.string "label"
+  end
+
+  add_index "pul_store_lae_categories", ["label"], name: "index_pul_store_lae_categories_on_label", unique: true, using: :btree
+
   create_table "pul_store_lae_genres", force: true do |t|
-    t.string   "pul_label"
-    t.string   "tgm_label"
-    t.string   "lcsh_label"
-    t.text     "scope_note"
-    t.string   "uri"
+    t.string "pul_label"
+    t.string "tgm_label"
+    t.string "lcsh_label"
+    t.string "uri"
+    t.text   "scope_note"
   end
 
   create_table "pul_store_lae_subjects", force: true do |t|
-    t.string "value"
+    t.string  "label"
+    t.string  "uri"
+    t.integer "category_id"
   end
 
-  add_index "pul_store_lae_subjects", ["value"], name: "index_pul_store_lae_subjects_on_value", unique: true, using: :btree
-
-  create_table "pul_store_lae_subjects_topics", force: true do |t|
-    t.integer "topic_id"
-    t.integer "subject_id"
-  end
-
-  create_table "pul_store_lae_topics", force: true do |t|
-    t.string "value"
-  end
-
-  add_index "pul_store_lae_topics", ["value"], name: "index_pul_store_lae_topics_on_value", unique: true, using: :btree
+  add_index "pul_store_lae_subjects", ["label"], name: "index_pul_store_lae_subjects_on_label", unique: true, using: :btree
 
   create_table "searches", force: true do |t|
     t.text     "query_params"

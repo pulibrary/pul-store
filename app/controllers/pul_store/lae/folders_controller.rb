@@ -48,6 +48,7 @@ class PulStore::Lae::FoldersController  < CatalogController
     #authorize! :index, params[:id]
     if params[:barcode]
       @folder = set_folder_by_barcode
+      @page_title = "Lae Folders"
       if @folder
         redirect_to(@folder)
       else
@@ -67,7 +68,7 @@ class PulStore::Lae::FoldersController  < CatalogController
   def show
     authorize! :show, params[:id]
     @folder = PulStore::Lae::Folder.find(params[:id])
-
+    @page_title = "Folder #{@folder.physical_number}"
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @folder }
@@ -85,7 +86,7 @@ class PulStore::Lae::FoldersController  < CatalogController
   def edit
     authorize! :edit, params[:id]
     @folder = PulStore::Lae::Folder.find(params[:id])
-
+    @page_title = "Edit Lae Folder #{@folder.physical_number}"
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @folder }
@@ -158,9 +159,9 @@ class PulStore::Lae::FoldersController  < CatalogController
     end
 
     def folder_params
-      params.require(:lae_folder).permit(:barcode, :date_created, :description,
-        :width_in_cm, :height_in_cm, :page_count, :genre, :passed_qc, :rights, :physical_number,
-        :sort_title, :suppressed, :box_id, :project_id, :error_note, :geographic_origin,
+      params.require(:lae_folder).permit(:barcode, :date_created, :earliest_created, :latest_created,
+        :description, :width_in_cm, :height_in_cm, :page_count, :genre, :passed_qc, :rights, :physical_number,
+        :sort_title, :suppressed,:box_id, :project_id, :error_note, :geographic_origin, :suppressed,
         :box_id, alternative_title: [], geographic_subject: [], title: [],
         language: [], publisher: [], series: [], subject: [], creator: [], contributor: [])
     end

@@ -16,6 +16,8 @@ module RDF
     property :physicalNumber # sub of dc:identifier
     property :receivedDate # sub of dc:date
     property :shippedDate # sub of dc:date
+    property :earliestCreated # sub of dc:created
+    property :latestCreated # sub of dc:created
     property :state # sub of dc:description
     property :suppressed # sub of dc:description (??)
     property :sortOrder

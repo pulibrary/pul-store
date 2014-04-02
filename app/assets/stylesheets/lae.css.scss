@@ -35,3 +35,12 @@ a:visited.btn {
 .lae-new {
   margin-top: 20px;
 }
+
+.no-active-date-range, .no-active-date-created {
+  display: none;
+}
+
+.active-date-range, .active-date-created {
+  display: block;
+}
+
