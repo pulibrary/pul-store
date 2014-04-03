@@ -31,6 +31,8 @@ gem "hydra", "~> 6.1.0.rc8"
 
 gem "hydra-file_characterization", "~> 0.3.1"
 
+gem 'hydra-derivatives', git: 'git@github.com:projecthydra/hydra-derivatives.git'
+
 gem "rubyzip"
 
 gem 'mysql2'

@@ -43,6 +43,18 @@ describe PulStore::Page do
     PulStore::Page.characterize(fp)
   end
 
+  it "can make a jp2", unless: ENV['TRAVIS'] == 'true' do
+    fp = RSpec.configuration.fixture_path + "/files/00000001.tif"
+    p = FactoryGirl.build(:page)
+    stage_path = PulStore::Page.upload_to_stage(File.new(fp), '0001.tif')
+    p.master_image = stage_path
+    p.save
+    p.create_derivatives
+    p.save
+    p.datastreams['deliverableImage'].should have_content
+    p.datastreams['deliverableImage'].mimeType.should == 'image/jp2'
+  end
+
   describe "the pageOcr stream" do
     it "may be included" do
       ocr_fixture = RSpec.configuration.fixture_path + "/files/lae_test_img/32101075851483/32101075851434/0001.xml"
