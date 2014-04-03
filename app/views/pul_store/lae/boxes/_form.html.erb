@@ -97,10 +97,6 @@
         <th>Title</th>
         <th class="header headerSortUp">Barcode</th>
         <th class="header headerSortUp">Genre</th>
-        <th>Width</th>
-        <th>Height</th>
-        <th class="header headerSortUp">Pages</th>
-        <th>Created</th>
         <th>Options</th>
       </tr>
     </thead>
@@ -112,10 +108,6 @@
         <td><% if !f.title.empty? %><%= f.title.first %><% else %>[Not Yet Supplied]<% end %></td>
         <td><%= f.barcode %></td>
         <td><%= f.genre %></td>
-        <td><%= f.width_in_cm %></td>
-        <td><%= f.height_in_cm %></td>
-        <td><%= f.page_count %></td>
-        <td><%= lae_folder_date_uploaded(f.date_uploaded) %></td>
         <td>
           <% if(@box.folders.size > 0) %>
             <% if can?(:edit, @box) %>
