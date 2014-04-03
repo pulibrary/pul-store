@@ -1,0 +1,12 @@
+<dl class="dl-horizontal">
+	<dt>State</dt>
+	<dd>
+		<%= render :partial => 'shared/lae/workflow_state_badge', locals: {object: @box} %>
+	</dd>
+	<dt>Barcode</dt>
+	<dd><%= @box.barcode %></dd>
+	<dt>Folder Count</dt>
+	<dd><%= @box.folders.size %></dd>
+	<dt>Error</dt>
+	<dd><%= @box.error_note %></dd>
+</dl>

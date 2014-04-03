@@ -109,7 +109,7 @@
       <tr>
         <td><%= f.physical_number %></td>
         <td><%= render :partial => 'shared/lae/workflow_state_badge', locals: {object: f }  %></td>
-        <td><% if !f.title.blank? %><%= f.title.first %><% else %>[Not Yet Supplied]<% end %></td>
+        <td><% if !f.title.empty? %><%= f.title.first %><% else %>[Not Yet Supplied]<% end %></td>
         <td><%= f.barcode %></td>
         <td><%= f.genre %></td>
         <td><%= f.width_in_cm %></td>

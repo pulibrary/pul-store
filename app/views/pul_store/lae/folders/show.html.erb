@@ -11,25 +11,15 @@
 </div>
 
 <div class="btn-group">
-  <%= link_to 'Edit This Folder', edit_lae_folder_path(@folder), class: "btn btn-success" %> |
+  <%= link_to 'Edit This Folder', edit_lae_folder_path(@folder), class: "btn btn-primary" %> |
   <% if(!@folder.box_id.blank?) %>
-    <%= link_to 'Return to Box', edit_lae_box_path(@folder.box_id), class: "btn btn-success" %>
+    <%= link_to 'Return to Box', edit_lae_box_path(@folder.box_id), class: "btn btn-info" %>
   <% end %>
 </div>
 
-<% if(!@folder.box_id.blank?) %>
-<p>
-  <strong>Part Of Box:</strong>
-  <%= link_to "#{@folder.box_id}", lae_box_path(@folder.box_id) %>
-</p>
-<% end %>
-<p>
-  <strong>Barcode:</strong>
-  <%= @folder.barcode %>
-</p>
-
-<%= render :partial => 'shared/lae/workflow_state', locals: {object: @folder} %>
-
+<div class="row">
+    <%= render :partial => 'folder_attributes' %>
+  </div>
 <!-- other fields to display -->
 
 
