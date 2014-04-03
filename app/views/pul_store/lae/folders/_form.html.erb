@@ -60,7 +60,7 @@
     <!-- Contributor -->
       <%= render :partial => "records/edit_field", :locals => {:f => b, :render_req => false, :key => :contributor } %>
       <!-- Publisher -->
-      <%= render :partial => "records/edit_field", :locals => {:f => b, :render_req => false, :key => :publisher } %>
+      <%= render :partial => "records/edit_field", :locals => {:f => b, :render_req => true, :key => :publisher } %>
       <!-- Geographic Origin -->
       <!-- Geographic -->
       <div class="control-group">
@@ -129,6 +129,12 @@
   <div id="admin-metadata" class="span4">
     <div id="admin-metadata">
     <div class="control-group">
+      <%= b.label "State",  :class=>"control-label" %>
+      <div class="controls">
+        <%= render :partial => 'shared/lae/workflow_state_badge', locals: {object: @folder} %>
+      </div>
+    </div>
+    <div class="control-group">
       <%= b.label "Folder Number", :class=>"control-label" %>
       <div class="controls">
         <%= b.text_field :physical_number %>
@@ -181,7 +187,7 @@
   </div>
  </div>
  <div class="row">
-  <div class="actions span2 offset4">
+  <div class="actions span2 offset2">
     <%= b.submit :value => "Update Folder", :class => 'btn btn-primary btn-large' %>
   </div>
 </div>

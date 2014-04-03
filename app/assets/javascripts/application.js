@@ -50,5 +50,10 @@ $(function() {
 
       }
     });
+
+  $('#new-folder-modal').on('shown', function () {
+    $('input:text:visible:first', this).focus();
+  });
+
 });
 
