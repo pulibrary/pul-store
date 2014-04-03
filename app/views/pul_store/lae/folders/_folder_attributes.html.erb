@@ -1,0 +1,20 @@
+<dl class="dl-horizontal">
+  <dt>State</dt>
+	<dd>
+		<%= render :partial => 'shared/lae/workflow_state_badge', locals: {object: @folder} %>
+	</dd>
+	<dt>Title</dt>
+	<dd>
+		<% if !@folder.title.empty? %>
+    		<%= @folder.title.first %>
+  		<% else %>
+    		[Title not yet supplied]
+  		<% end %>
+	</dd>
+	<dt>Barcode</dt>
+	<dd><%= @folder.barcode %></dd>
+	<dt>Box Number</dt>
+	<dd><%= lae_folder_get_box_number @folder.box_id %></dd>
+	<dt>Error</dt>
+	<dd><%= @folder.error_note %></dd>
+</dl>

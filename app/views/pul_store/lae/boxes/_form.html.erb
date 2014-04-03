@@ -39,6 +39,12 @@
 </div>
 <div class="span3">
   <div class="control-group">
+      <%= b.label "State",  :class=>"control-label" %>
+      <div class="controls">
+        <%= render :partial => 'shared/lae/workflow_state_badge', locals: {object: @box} %>
+      </div>
+    </div>
+  <div class="control-group">
     <%= b.label :shipped_date, :class => 'control-label' %>
     <div class="controls">
       <%= b.text_field :shipped_date, :class => 'datepicker input-small' %>
@@ -52,7 +58,7 @@
   </div>
   <div class="control-group actions">
     <div class="controls">
-      <%= b.submit :value => "Update Box", :class => 'btn btn-primary' %>
+      <%= b.submit :value => "Update Box", :class => 'btn btn-primary btn-large' %>
     </div>
   </div>
 </div>
@@ -69,7 +75,7 @@
   Folders</h3>
 <!-- start modal -->
    <div class="form-control">
-    <%= link_to("Add Folder to Box", '#', 'data-target' => "#new-folder-modal", 'data-toggle' => 'modal', :class => "btn btn-success btn-lg lae-new pull-left new-model", :title => "Add a New Folder to Box") %>
+    <%= link_to("Add Folder to Box", '#', 'data-target' => "#new-folder-modal", 'data-toggle' => 'modal', :class => "btn btn-success btn-large lae-new pull-left new-model", :title => "Add a New Folder to Box") %>
   </div>
       <div id="new-folder-modal" class="modal fade" data-backdrop="static">
         <div class="modal-header">
@@ -103,7 +109,7 @@
       <tr>
         <td><%= f.physical_number %></td>
         <td><%= render :partial => 'shared/lae/workflow_state_badge', locals: {object: f }  %></td>
-        <td><% if !f.title.blank? %><%= f.title.first %><% else %>[Not Yet Supplied]<% end %></td>
+        <td><% if !f.title.empty? %><%= f.title.first %><% else %>[Not Yet Supplied]<% end %></td>
         <td><%= f.barcode %></td>
         <td><%= f.genre %></td>
         <td><%= f.width_in_cm %></td>

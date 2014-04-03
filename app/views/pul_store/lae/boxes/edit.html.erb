@@ -1,19 +1,24 @@
-
-<div class="span9" id="lae-head">
-  <div class="row">
-    <div class="span6">
-      <h1 class="lae-head"><%= @page_title%></h1>
-    </div>
-    <div class="span3 lae-state">
-        <%= render :partial => 'shared/lae/workflow_state', locals: {object: @box} %>
+<div class="row">
+  <div class="span9" id="lae-head">
+    <div class="row">
+      <div class="span6">
+        <h1 class="lae-head"><%= @page_title%></h1>
+      </div>
     </div>
   </div>
 </div>
+<div class="row">
+  <%= render :partial => 'breadcrumb' %>
+</div>
 
-<div id="content" class="span9 show-document">
-  <%= render 'form' %>
-  <%= link_to 'Show Box', @box %> |
-  <%= link_to 'Back to Box List', lae_boxes_path %>
+<div class="row">
+  <div id="content" class="span9 show-document">
+    <%= render 'form' %>
+    <ul class="nav nav-pills">
+      <li><%= link_to 'View Box', @box %></li>
+      <li><%= link_to 'Return to Boxes', lae_boxes_path %></li>
+    </ul>
+  </div>
 </div>
 
 
