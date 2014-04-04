@@ -22,7 +22,11 @@ RSpec.configure do |config|
 
   #config.before(:suite) do
     PulStore::Project.delete_all
-    require "#{Rails.root}/db/seeds.rb"
+
+    unless: ENV['TRAVIS'] == 'true'
+      require "#{Rails.root}/db/seeds.rb"
+    end
+
     projects = YAML.load_file("#{Rails.root}/db/fixtures/projects.yml")
     projects.map{ |project| PulStore::Project.create(project) }
   #end
