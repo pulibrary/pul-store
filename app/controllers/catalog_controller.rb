@@ -18,7 +18,7 @@ class CatalogController < ApplicationController
 
   configure_blacklight do |config|
     config.default_solr_params = {
-      :qf => 'title_tesim creator_tesim',
+      :qf => 'title_tesim creator_tesim, in_box_ssim',
       :qt => 'search',
       :rows => 10
     }
@@ -75,7 +75,7 @@ class CatalogController < ApplicationController
 
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
-    # config.add_index_field solr_name('active_fedora_model', :stored_sortable), :label => 'Model:'
+    #config.add_index_field solr_name('active_fedora_model', :stored_sortable), :label => 'Model:'
     config.add_index_field solr_name('prov_metadata__date_modified', :stored_sortable, type: :date), :label => 'Last Modified:'
     # Item
     config.add_index_field solr_name('desc_metadata__title', :stored_searchable, type: :string), :label => 'Title:'
@@ -154,6 +154,8 @@ class CatalogController < ApplicationController
         :pf => '$subject_pf'
       }
     end
+
+
 
     # "sort results by" select (pulldown)
     # label in pulldown is followed by the name of the SOLR field to sort by and

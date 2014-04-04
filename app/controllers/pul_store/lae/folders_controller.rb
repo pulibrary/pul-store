@@ -35,7 +35,8 @@ class PulStore::Lae::FoldersController  < CatalogController
         "prov_metadata__workflow_state_sim",
         "desc_metadata__genre_sim",
         "desc_metadata__language_sim",
-        "desc_metadata__geographic_sim"
+        "desc_metadata__geographic_sim",
+        'in_box_sim'
         # TODO: category, subject
       ]
   end
@@ -59,6 +60,7 @@ class PulStore::Lae::FoldersController  < CatalogController
       @filters = params[:f] || []
       respond_to do |format|
         format.html { render template: 'shared/lae/index' }
+        format.json { render json: @document_list }
       end
     end
   end

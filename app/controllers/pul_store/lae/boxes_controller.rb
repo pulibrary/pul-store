@@ -1,6 +1,7 @@
 
 class PulStore::Lae::BoxesController < CatalogController #ApplicationController
   include PulStore::Lae::BarcodeLookups
+  include PulStore::Lae::FolderLookups
   include Hydra::Controller::ControllerBehavior
 
   layout 'lae'
@@ -68,6 +69,10 @@ class PulStore::Lae::BoxesController < CatalogController #ApplicationController
     authorize! :show, params[:id]
     @box = PulStore::Lae::Box.find(params[:id])
     @page_title = "Box #{@box.physical_number}"
+    @folder_list = get_folder_list_by_box @box.id
+    logger.debug("*" * 40)
+    logger.debug(@folder_list)
+    logger.debug("*" * 40)
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @box }
