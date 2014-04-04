@@ -1,5 +1,5 @@
 GIT
-  remote: git@github.com:projecthydra/hydra-derivatives.git
+  remote: git://github.com/projecthydra/hydra-derivatives.git
   revision: 0af71a2af5cf494311e609d3ffe221cbb41b9678
   specs:
     hydra-derivatives (0.0.7)
