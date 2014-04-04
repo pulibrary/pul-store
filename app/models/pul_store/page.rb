@@ -3,6 +3,7 @@ class PulStore::Page < PulStore::Base
   include PulStore::CharacterizationSupport
   include PulStore::Stage
   include PulStore::Lae::Permissions
+  include Hydra::Derivatives
 
   # Metadata
   has_metadata 'descMetadata', type: PulStore::PageRdfMetadata
@@ -25,7 +26,7 @@ class PulStore::Page < PulStore::Base
     :master_profile_version, :master_orientation, :master_color_map,
     :master_image_producer, :master_capture_device, :master_scanning_software,
     :master_exif_version, :master_gps_timestamp, :master_latitude,
-    :master_longitude,
+    :master_longitude, :master_bits_per_sample, :master_color_space,
     :datastream => 'masterTechMetadata', multiple: true
 
   # Associations
@@ -38,9 +39,17 @@ class PulStore::Page < PulStore::Base
   validate :validate_page_belongs_to_exactly_one_item
 
   # Streams
-  has_file_datastream 'masterImage'
+  has_file_datastream 'masterImage', type: PulStore::ImageDatastream
   has_file_datastream 'deliverableImage'
   has_file_datastream 'pageOcr'
+
+  makes_derivatives :derive_jp2
+
+  def derive_jp2
+    transform_datastream :masterImage, 
+      { :deliverableImage => { recipe: :default, datastream: 'deliverableImage' } }, 
+      processor: 'jpeg2k_image'
+  end
 
   def master_image=(path_string_or_io)
     self.ingest_from_path_string_or_io(path_string_or_io)
