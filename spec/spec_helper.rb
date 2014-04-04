@@ -23,7 +23,7 @@ RSpec.configure do |config|
   #config.before(:suite) do
     PulStore::Project.delete_all
 
-    unless: ENV['TRAVIS'] == 'true'
+    unless ENV['TRAVIS'] == 'true'
       require "#{Rails.root}/db/seeds.rb"
     end
 
