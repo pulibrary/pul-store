@@ -9,7 +9,7 @@ module PulStore::Lae::FolderLookups
 
     def get_folder_list_by_box(box_id)
       solr = RSolr.connect :url => 'http://localhost:8983/solr/development'
-      solr_response = solr.get 'select', :params => {:q => "in_box_ssim:info:fedora/#{box_id}", :wt => :ruby, :index => true }
+      solr_response = solr.get 'select', :params => {:q => "in_box_ssim:info:fedora/#{box_id}", :wt => :ruby, :index => true, :sort => "prov_metadata__physical_number_ssi desc" }
       solr_response['response']['docs']
     end
 
