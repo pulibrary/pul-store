@@ -4,11 +4,11 @@
 require 'rake'
 
 # Languages
-Rake::Task["pul_store:reset_languages"].invoke
+Rake::Task["pul_store:reset_languages"].execute
 # Metadata Sources
-Rake::Task["pul_store:reset_md_sources"].invoke
+Rake::Task["pul_store:reset_md_sources"].execute
 
 # LAE Terminologies
-Rake::Task["lae:reset_genres"].invoke
-Rake::Task["lae:reset_areas"].invoke
-Rake::Task["lae:reset_subjects"].invoke
+Rake::Task["lae:reset_genres"].execute
+Rake::Task["lae:reset_areas"].execute
+Rake::Task["lae:reset_subjects"].execute
