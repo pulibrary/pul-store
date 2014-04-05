@@ -23,7 +23,9 @@ RSpec.configure do |config|
   #config.before(:suite) do
     PulStore::Project.delete_all
 
-    require "#{Rails.root}/db/seeds.rb"
+    #require "#{Rails.root}/db/seeds.rb"
+    require rake
+    Rake::Task["db:seed"].invoke
 
     projects = YAML.load_file("#{Rails.root}/db/fixtures/projects.yml")
     projects.map{ |project| PulStore::Project.create(project) }
