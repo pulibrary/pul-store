@@ -10,7 +10,13 @@ module PulStore::Lae::FolderLookups
     def get_folder_list_by_box(box_id)
       solr = RSolr.connect(Blacklight.solr_config)
       solr_response = solr.get 'select', :params => {:q => "in_box_ssim:info:fedora/#{box_id}", :start => 0, :rows => 400, :wt => :ruby, :index => true, :sort => "prov_metadata__physical_number_ssi desc" }
-      solr_response['response']['docs']
+      self.convert_solr_string_sort_int(solr_response['response']['docs'], 'prov_metadata__physical_number_ssi')
+    end
+
+    # folder folders string sort field treated as numeric is prov_metadata__physical_number_ssi
+    # FIXME where should this generic helper be best located? 
+    def convert_solr_string_sort_int(solr_doc_list, field_to_sort_as_int)
+      solr_doc_list.sort {|doc1, doc2| doc2["#{field_to_sort_as_int}"].to_i <=> doc1["#{field_to_sort_as_int}"].to_i} 
     end
 
   end
