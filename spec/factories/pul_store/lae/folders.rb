@@ -16,7 +16,7 @@ FactoryGirl.define do
     f.height_in_cm { (Faker::Number.digit.to_i+1).to_s }
     f.genre {  PulStore::Lae::Genre.order("RAND()").first.pul_label }
     f.physical_number { (Faker::Number.digit.to_i+1).to_s }
-  end
+  end                          
 
   factory :lae_core_folder, :class => 'PulStore::Lae::Folder' do |f|
     f.barcode { TEST_BARCODES.pop }
@@ -51,12 +51,10 @@ FactoryGirl.define do
     # Rspec wants this:
     f.pages { Array.new(2) { FactoryGirl.create(:page) } }
     # Console wants this:
-    # after(:create) do |folder|
+    #after(:create) do |folder|
     #   2.times do
-     #     folder.pages << FactoryGirl.create(:page)
+    #      folder.pages << FactoryGirl.create(:page)
     #   end
-    # end
-
-
+    #end
   end
 end
