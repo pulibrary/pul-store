@@ -2,10 +2,9 @@
 # for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
 
 require File.expand_path('../config/application', __FILE__)
-if !Rails.env.production?
+unless Rails.env.production?
  require 'rspec/core/rake_task'
 end
-
 
 PulStore::Application.load_tasks
 

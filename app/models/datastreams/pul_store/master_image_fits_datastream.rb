@@ -57,6 +57,9 @@ class PulStore::MasterImageFitsDatastream < ActiveFedora::OmDatastream
         t.master_gps_timestamp(:path=>"gpsTimeStamp")
         t.master_latitude(:path=>"gpsDestLatitude")
         t.master_longitude(:path=>"gpsDestLongitude")
+        t.master_bits_per_sample(:path=>"bitsPerSample")
+        t.master_color_space(:path=>"colorSpace")
+
       }
       # t.text {
       #   t.character_set(:path=>"charset")
@@ -113,6 +116,8 @@ class PulStore::MasterImageFitsDatastream < ActiveFedora::OmDatastream
     t.master_gps_timestamp(:proxy=>[:metadata, :image, :master_gps_timestamp])
     t.master_latitude(:proxy=>[:metadata, :image, :master_latitude])
     t.master_longitude(:proxy=>[:metadata, :image, :master_longitude])
+    t.master_color_space(:proxy=>[:metadata, :image, :master_color_space])
+    t.master_bits_per_sample(:proxy=>[:metadata, :image, :master_bits_per_sample])
     # t.character_set(:proxy=>[:metadata, :text, :character_set])
     # t.markup_basis(:proxy=>[:metadata, :text, :markup_basis])
     # t.markup_language(:proxy=>[:metadata, :text, :markup_language])
