@@ -5,6 +5,7 @@ include Warden::Test::Helpers
 feature "boxes" do
   before(:all) do
     PulStore::Lae::Box.delete_all
+    PulStore::Lae::Folder.delete_all
     User.delete_all
     @user = FactoryGirl.create(:user)
     @user.save!
@@ -12,6 +13,7 @@ feature "boxes" do
 
   after(:all) do
     PulStore::Lae::Box.delete_all
+    PulStore::Lae::Folder.delete_all
     User.delete_all
   end
 
@@ -76,6 +78,39 @@ feature "boxes" do
       page.should have_selector ".alert"
       #Warden.test_reset!
     end
+  end
+
+  feature "Show box page displays attached folders" do
+    scenario "It has no folders attached" do
+      boxes = Array.new(3) do |b|
+        FactoryGirl.create(:lae_box, barcode: TEST_BARCODES.pop )
+      end
+      box = boxes[rand(0..2)]
+      login_as(@user, :scope => :user)
+      visit lae_box_path(box.id)
+      page.should have_content 'Add a Folder'
+    end
+
+    scenario "It has folders attached, so the \"Add a folder\" message should not display in folders table" do
+      boxes = Array.new(3) do |b|
+        FactoryGirl.create(:lae_box_with_prelim_folders, barcode: TEST_BARCODES.pop )
+      end
+      box = boxes[rand(0..2)]
+      login_as(@user, :scope => :user)
+      visit lae_box_path(box.id)
+      page.should_not have_content 'Add a Folder'
+    end
+
+    scenario "It has editable folders attached" do
+      boxes = Array.new(3) do |b|
+        FactoryGirl.create(:lae_box_with_prelim_folders, barcode: TEST_BARCODES.pop )
+      end
+      box = boxes[rand(0..2)]
+      login_as(@user, :scope => :user)
+      visit edit_lae_box_path(box.id)
+      page.should have_xpath("//table[@id='folders-table']/tbody/tr/td/a[text()='Edit']")
+    end
+
   end
 
   feature "Friendly barcode uniqueness" do

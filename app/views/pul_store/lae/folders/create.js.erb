@@ -5,6 +5,7 @@ $(response).prependTo("#new_lae_folder");
   $("#folders-table tbody tr:first").removeClass('success');
   var new_row = $("<%= escape_javascript(render :partial => 'new_folder_row', locals: {f: @folder }) %>");
   $(new_row).insertBefore("#folders-table tbody tr:first");
+  $("#empty-folder-row").remove();
   $("#folder-count").text("<%= @folder.physical_number %>");
   $('#new_lae_folder').each(function(){
     this.reset();

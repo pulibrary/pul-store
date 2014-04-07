@@ -8,17 +8,13 @@
 
 <div class="row">
 	<div class="span12">
-		<div class="navbar well">
-			<div class="navbar-inner">
-				<ul class="nav">
-					<li><%= link_to 'View Folder', @folder %></li>
-					<% if(!@folder.box_id.blank?) %>
-  						<li><%= link_to "Return to editing Box #{lae_folder_get_box_number @folder.box_id }", edit_lae_box_path(@folder.box_id) %></li>
-					<% end %>
-		    		<li><%= link_to 'Back to Lae Folders', lae_folders_path %></li>
-		    	</ul>
-		    </div>
-		</div>
+		<ul class="nav nav-pills">
+			<li><%= link_to 'View Folder', @folder %></li>
+				<% if(!@folder.box_id.blank?) %>
+  					<li><%= link_to "Return to editing Box #{lae_folder_get_box_number @folder.box_id }", edit_lae_box_path(@folder.box_id) %></li>
+				<% end %>
+		    <li><%= link_to 'Back to Lae Folders', lae_folders_path %></li>
+		</ul>
 	</div>
 </div>
 

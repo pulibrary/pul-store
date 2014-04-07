@@ -1,0 +1,10 @@
+<h2>Images</h2>
+<ul class="thumbnails">
+<% @pages_list.each do |page| %>
+<li class="span4">
+    <a href="<%= pul_store_page_path(page['id']) %>" class="thumbnail">
+      <img data-src="holder.js/300x200" alt="">
+    </a>
+  </li>
+<% end %>
+</ul>

@@ -1,5 +1,5 @@
 class PulStore::Lae::FoldersController  < CatalogController
-  #include RecordsControllerBehavior
+  include PulStore::Lae::PageLookups
 
   before_action :set_folder, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!
@@ -35,7 +35,8 @@ class PulStore::Lae::FoldersController  < CatalogController
         "prov_metadata__workflow_state_sim",
         "desc_metadata__genre_sim",
         "desc_metadata__language_sim",
-        "desc_metadata__geographic_sim"
+        "desc_metadata__geographic_sim",
+        'in_box_sim'
         # TODO: category, subject
       ]
   end
@@ -59,6 +60,7 @@ class PulStore::Lae::FoldersController  < CatalogController
       @filters = params[:f] || []
       respond_to do |format|
         format.html { render template: 'shared/lae/index' }
+        format.json { render json: @document_list }
       end
     end
   end
@@ -69,6 +71,7 @@ class PulStore::Lae::FoldersController  < CatalogController
     authorize! :show, params[:id]
     @folder = PulStore::Lae::Folder.find(params[:id])
     @page_title = "Folder #{@folder.physical_number}"
+    @pages_list = get_pages_by_folder @folder.id
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @folder }
