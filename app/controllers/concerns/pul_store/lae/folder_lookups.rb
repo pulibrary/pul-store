@@ -10,7 +10,7 @@ module PulStore::Lae::FolderLookups
     def get_folder_list_by_box(box_id)
       solr = RSolr.connect(Blacklight.solr_config)
       solr_response = solr.get 'select', :params => {:q => "in_box_ssim:info:fedora/#{box_id}", :start => 0, :rows => 400, :wt => :ruby, :index => true, :sort => "prov_metadata__physical_number_ssi desc" }
-      convert_solr_string_sort_int(solr_response['response']['docs'], 'prov_metadata__physical_number_ssi')
+      self.convert_solr_string_sort_int(solr_response['response']['docs'], 'prov_metadata__physical_number_ssi')
     end
 
     # folder folders string sort field treated as numeric is prov_metadata__physical_number_ssi
