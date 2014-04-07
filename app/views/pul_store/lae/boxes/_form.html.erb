@@ -58,7 +58,7 @@
   </div>
   <div class="control-group actions">
     <div class="controls">
-      <%= b.submit :value => "Update Box", :class => 'btn btn-primary btn-large' %>
+      <%= b.submit :value => "Update Box", :class => 'btn btn-primary' %>
     </div>
   </div>
 </div>
@@ -66,6 +66,7 @@
 </div>
 <!-- end row -->
 <div class="row">
+<div class="span9 offset1">
   <h3>
    <% if(@box.folders.empty?) %>
     <span id="folder-count">No&nbsp;</span>
@@ -75,7 +76,7 @@
   Folders</h3>
 <!-- start modal -->
    <div class="form-control">
-    <%= link_to("Add Folder to Box", '#', 'data-target' => "#new-folder-modal", 'data-toggle' => 'modal', :class => "btn btn-success btn-large lae-new pull-left new-model", :title => "Add a New Folder to Box") %>
+    <%= link_to("Add Folder to Box", '#', 'data-target' => "#new-folder-modal", 'data-toggle' => 'modal', :class => "btn btn-success lae-new pull-left new-model", :title => "Add a New Folder to Box") %>
   </div>
       <div id="new-folder-modal" class="modal fade" data-backdrop="static">
         <div class="modal-header">
@@ -89,36 +90,12 @@
     </div>
   <!-- end Modal -->
 </div>
-  <table class="table" id="folders-table">
-    <thead>
-      <tr>
-        <th class="header headerSortUp">Folder Number</th>
-        <th>State</th>
-        <th>Title</th>
-        <th class="header headerSortUp">Barcode</th>
-        <th class="header headerSortUp">Genre</th>
-        <th>Options</th>
-      </tr>
-    </thead>
-    <tbody>
-    <% @box.folders.sort_by {|f1| f1.physical_number.to_i }.reverse!.each do |f| %>
-      <tr>
-        <td><%= f.physical_number %></td>
-        <td><%= render :partial => 'shared/lae/workflow_state_badge', locals: {object: f }  %></td>
-        <td><% if !f.title.empty? %><%= f.title.first %><% else %>[Not Yet Supplied]<% end %></td>
-        <td><%= f.barcode %></td>
-        <td><%= f.genre %></td>
-        <td>
-          <% if(@box.folders.size > 0) %>
-            <% if can?(:edit, @box) %>
-              <%= link_to "Edit", edit_lae_folder_path(f.id), :class => "btn btn-info" %>
-            <% end %>
-          <% end %>
-        </td>
-      </tr>
-  <% end %>
-  </tbody>
-  </table>
+</div>
+<div class="row">
+  <div class="span9 offset1">
+    <%= render :partial => 'folders_table' %>
+  </div>
+</div>
 
 
 

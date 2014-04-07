@@ -1,4 +1,4 @@
-<table class="table" id="folders-table">
+<table class="table table-condensed" id="folders-table">
     <thead>
       <tr>
         <th class="header headerSortUp">Folder Number</th>
@@ -10,6 +10,11 @@
       </tr>
     </thead>
     <tbody>
+    <% if @box.folders.empty? %>
+      <tr class="info" id="empty-folder-row">
+        <td colspan="6">Add a Folder</td>
+      </tr>
+    <% else %>
     <% @folder_list.each do |f| %>
       <tr>
         <td><%= f['prov_metadata__physical_number_ssi'] %></td>
@@ -27,6 +32,7 @@
           <% end %>
         </td>
       </tr>
+      <% end %>
   <% end %>
   </tbody>
   </table>
