@@ -91,7 +91,7 @@ class PulStore::Lae::BoxesController < CatalogController #ApplicationController
     authorize! :edit, params[:id]
     @box = PulStore::Lae::Box.find(params[:id])
     @page_title = "Edit Box #{@box.physical_number}"
-    @folder_list = get_folder_list_by_box @box.id
+    @folder_list = get_folder_list_by_box @box.id, '300'
 
     respond_to do |format|
       format.html # show.html.erb
