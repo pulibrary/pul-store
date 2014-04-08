@@ -1,3 +1,4 @@
+<% if !@pages_list.blank? %>
 <h2>Images</h2>
 <ul class="thumbnails">
 <% @pages_list.each do |page| %>
@@ -8,3 +9,4 @@
   </li>
 <% end %>
 </ul>
+<% end %>
