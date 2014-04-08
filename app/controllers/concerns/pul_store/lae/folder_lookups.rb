@@ -9,7 +9,8 @@ module PulStore::Lae::FolderLookups
 
     def get_folder_list_by_box(box_id)
       solr = RSolr.connect(Blacklight.solr_config)
-      solr_response = solr.get 'select', :params => {:q => "in_box_ssim:info:fedora/#{box_id}", :start => 0, :rows => 400, :wt => :ruby, :index => true, :sort => "prov_metadata__physical_number_ssi desc" }
+      fields_to_return = 'prov_metadata__physical_number_ssi,prov_metadata__workflow_state_tesim,id,desc_metadata__title_tesim,desc_metadata__genre_tesim,prov_metadata__barcode_tesim'
+      solr_response = solr.get 'select', :params => {:q => "in_box_ssim:info:fedora/#{box_id}", :fl => fields_to_return, :start => 0, :rows => 300, :wt => :ruby, :index => true }
       self.convert_solr_string_sort_int(solr_response['response']['docs'], 'prov_metadata__physical_number_ssi')
     end
 
