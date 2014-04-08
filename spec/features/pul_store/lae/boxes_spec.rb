@@ -80,14 +80,14 @@ feature "boxes" do
     end
   end
 
-  feature "Show box page displays attached folders" do
+  feature "Edit box page displays attached folders" do
     scenario "It has no folders attached" do
       boxes = Array.new(3) do |b|
         FactoryGirl.create(:lae_box, barcode: TEST_BARCODES.pop )
       end
       box = boxes[rand(0..2)]
       login_as(@user, :scope => :user)
-      visit lae_box_path(box.id)
+      visit edit_lae_box_path(box.id)
       page.should have_content 'Add a Folder'
     end
 
@@ -97,8 +97,8 @@ feature "boxes" do
       end
       box = boxes[rand(0..2)]
       login_as(@user, :scope => :user)
-      visit lae_box_path(box.id)
-      page.should_not have_content 'Add a Folder'
+      visit edit_lae_box_path(box.id)
+      page.should_not have_xpath "//table[@id='folders-table']/tbody/tr[@id='empty-folder-row']"
     end
 
     scenario "It has editable folders attached" do

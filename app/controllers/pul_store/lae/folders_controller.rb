@@ -71,7 +71,7 @@ class PulStore::Lae::FoldersController  < CatalogController
     authorize! :show, params[:id]
     @folder = PulStore::Lae::Folder.find(params[:id])
     @page_title = "Folder #{@folder.physical_number}"
-    @pages_list = get_pages_by_folder @folder.id
+    #@pages_list = get_pages_by_folder @folder.id
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @folder }
