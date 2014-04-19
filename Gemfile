@@ -67,6 +67,8 @@ end
 
 gem 'hydra-editor'
 
+gem 'underscore-rails'
+
 #group :test do
   gem 'faker'
   gem 'capybara'

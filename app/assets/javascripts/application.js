@@ -18,6 +18,7 @@
 //= require jquery.tablesorter
 //= require jquery.tablesorter.widgets
 //= require hydra-editor/hydra-editor
+//= require underscore
 //
 // Required by Blacklight
 //= require blacklight/blacklight
