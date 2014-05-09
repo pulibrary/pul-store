@@ -3,8 +3,6 @@ class PulStore::Lae::FoldersController  < CatalogController
 
   before_action :set_folder, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!
-  before_filter :list_all_folders, only: [:show]
-
 
   layout 'lae'
 
@@ -151,10 +149,6 @@ class PulStore::Lae::FoldersController  < CatalogController
     # Use callbacks to share common setup or constraints between actions.
     def set_folder
       @folder = PulStore::Lae::Folder.find(params[:id])
-    end
-
-    def list_all_folders
-      @boxes = PulStore::Lae::Folder.all
     end
 
     def set_folder_by_barcode
