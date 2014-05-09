@@ -240,6 +240,7 @@ GEM
     ref (1.0.5)
     rest-client (1.6.7)
       mime-types (>= 1.16)
+    rmagick (2.13.2)
     rsolr (1.0.9)
       builder (>= 2.1.2)
     rspec-core (2.14.8)
@@ -337,7 +338,7 @@ DEPENDENCIES
   devise-guests (~> 0.3)
   factory_girl_rails
   faker
-  hydra (~> 6.1.0.rc8)
+  hydra (~> 6.1.0.rc8, < 7.0.0)
   hydra-derivatives!
   hydra-editor
   hydra-file_characterization (~> 0.3.1)
@@ -350,6 +351,7 @@ DEPENDENCIES
   mysql2
   noid
   rails (~> 4.0.0)
+  rmagick
   rspec-rails
   rubyzip
   sass-rails (~> 4.0.0)
