@@ -26,18 +26,18 @@
   <div class="control-group">
     <%= f.label :genre, class: 'control-label' %>
     <div class="controls">
-      <%= f.select(:genre, options_for_select(list_all_genres_as_select_list), class: 'input-small') %>
+      <%= f.select(:genre, options_for_select(list_all_genres_as_select_list), class: 'input-small', prompt: 'Select a Genre') %>
     </div>
   </div>
   <div class="control-group">
     <%= f.label "In cm", class: 'control-label' %>
     <div class="controls">
       <div class="input-prepend">
-        <%= f.text_field :width_in_cm, class: 'input-mini', placeholder: 'Width'  %>
+        <%= f.text_field :width_in_cm, class: 'input-mini', placeholder: 'Width' %>
       </div>
       <span> X </span>
       <div class="input-append">
-        <%= f.text_field :height_in_cm, class: 'input-mini', placeholder: 'Height'   %>
+        <%= f.text_field :height_in_cm, class: 'input-mini', placeholder: 'Height' %>
       </div>
     </div>
   </div>

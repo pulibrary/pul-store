@@ -1,13 +1,15 @@
 <div class="row">
 <%= form_for(@box, :html => {:class => "form form-horizontal"}) do |b| %>
   <% if @box.errors.any? %>
-    <div class="row" id="error_explanation">
+    <div class="row">
+      <div class="span6 offset2" id="error_explanation">
       <h2><%= pluralize(@box.errors.count, "error") %> prohibited this Box from being saved:</h2>
       <ul>
       <% @box.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>
+      </div>
     </div>
   <% end %>
 
@@ -18,6 +20,12 @@
 :barcode,
 :error_note -->
   <div class="span5">
+  <div class="control-group">
+      <%= b.label "State",  :class=>"control-label" %>
+      <div class="controls">
+        <%= render :partial => 'shared/lae/workflow_state_badge', locals: {object: @box} %>
+      </div>
+    </div>
   <div class="control-group">
     <%= b.label :barcode, :class => 'control-label' %>
     <div class="controls">
@@ -38,12 +46,12 @@
   </div>
 </div>
 <div class="span3">
-  <div class="control-group">
-      <%= b.label "State",  :class=>"control-label" %>
-      <div class="controls">
-        <%= render :partial => 'shared/lae/workflow_state_badge', locals: {object: @box} %>
-      </div>
+ <div class="control-group">
+    <%= b.label :tracking_number, :class => 'control-label' %>
+    <div class="controls">
+      <%= b.text_field :tracking_number, class: 'tracking_number' %>
     </div>
+  </div>
   <div class="control-group">
     <%= b.label :shipped_date, :class => 'control-label' %>
     <div class="controls">

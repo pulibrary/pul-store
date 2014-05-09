@@ -43,7 +43,8 @@ class PulStore::Lae::Box < PulStore::Base
 
   validates_presence_of :shipped_date,
     message: "A shipped date is required in order for there to be a tracking number",
-    if: :tracking_number
+    #if: :tracking_number
+    unless: "self.tracking_number.blank? && self.shipped_date.blank?"
 
   validates_presence_of :tracking_number,
     message: "A tracking number can only be supplied is the box is marked 'Shipped'",

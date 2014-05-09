@@ -19,6 +19,7 @@
 //= require jquery.tablesorter.widgets
 //= require hydra-editor/hydra-editor
 //= require underscore
+//= require lae.subjects
 //
 // Required by Blacklight
 //= require blacklight/blacklight
@@ -56,5 +57,9 @@ $(function() {
     $('input:text:visible:first', this).focus();
   });
 
+
+//$(function() {
+  $('form.editor.lae-folder').laeSubjectForm();
 });
+
 

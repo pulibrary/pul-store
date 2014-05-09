@@ -55,7 +55,8 @@ describe PulStore::Lae::Folder do
       :language,
       :publisher,
       :series,
-      :subject
+      :subject,
+      :category
     ]
     repeatable_elements.each do |re|
       it "#{re} is repeatable" do
