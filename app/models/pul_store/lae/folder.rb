@@ -10,7 +10,8 @@ class PulStore::Lae::Folder < PulStore::Item
   end
 
   @@required_elements = ([:rights, :sort_title, :title, 
-    :geographic_subject, :geographic_origin, :language] << @@prelim_elements).flatten
+    :geographic_subject, :geographic_origin, :language, :subject, :category] << @@prelim_elements).flatten
+
   def self.required_elements
     @@required_elements
   end
@@ -42,7 +43,7 @@ class PulStore::Lae::Folder < PulStore::Item
   # Descriptive
   # See https://github.com/pulibrary/pul-store/wiki/LAE-Descriptive-Elements
   has_attributes :alternative_title, :series, :publisher, :subject, :language, 
-    :geographic_subject,
+    :geographic_subject, :category,
     :datastream => 'descMetadata', multiple: true
 
   has_attributes :height_in_cm, :width_in_cm, :page_count, :rights,
@@ -151,7 +152,7 @@ class PulStore::Lae::Folder < PulStore::Item
   def terms_for_editing
     [:barcode, :title, :alternative_title, :sort_title, :series, :publisher, :genre,
       :subject, :geographic_origin, :geographic_subject, :language, :height_in_cm,
-      :width_in_cm, :page_count, :date_created, :rights]
+      :width_in_cm, :page_count, :date_created, :rights, :category]
   end
 
   protected

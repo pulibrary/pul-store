@@ -66,8 +66,8 @@ group :development, :test, :production do
 end
 
 gem 'hydra-editor'
-
 gem 'underscore-rails'
+gem 'poltergeist'
 
 #group :test do
   gem 'faker'

@@ -1,0 +1,15 @@
+<div class="controls">
+  <% if @folder.subject.empty? %>
+    <%= select_tag("lae_folder[category][]", options_for_select(list_all_categories_as_select_list, []), class: 'span2 lae-category', prompt: 'Select a Category') %>
+    <%= text_field_tag 'lae_folder[subject][]', nil, class: 'input-mini span2 lae-subject-placeholder', placeholder: 'Subject', disabled: 'true' %>
+  <% else %>
+    <% @folder.subject.to_ary.each_with_index do |v, index| %>
+      <% category_id = get_category_id_by_label @folder.category[index] %>
+      <%= select_tag("lae_folder[category][]", options_for_select(list_all_categories_as_select_list, [@folder.category[index]]), class: 'span2 lae-category', blank: "true", data: {category_id: category_id }) %>
+      <%= select_tag("lae_folder[subject][]", options_for_select(list_all_subjects_as_select_list, [@folder.subject[index]]), class: 'span2 lae-subject', blank: 'true') %>
+      <%= render :partial=>"records/edit_fields/suffix", :locals=>{key: subject, index: index} %>
+    <% end %>
+  <% end %>
+</div>
+<div id="additional_subject_elements"></div>
+

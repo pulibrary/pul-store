@@ -1,10 +1,9 @@
 class PulStore::Lae::FoldersController  < CatalogController
   include PulStore::Lae::PageLookups
+  include PulStore::Lae::BoxLookups
 
   before_action :set_folder, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!
-  before_filter :list_all_folders, only: [:show]
-
 
   layout 'lae'
 
@@ -72,6 +71,7 @@ class PulStore::Lae::FoldersController  < CatalogController
     @folder = PulStore::Lae::Folder.find(params[:id])
     @page_title = "Folder #{@folder.physical_number}"
     @pages_list = get_pages_by_folder @folder.id
+    @box_list = get_box_by_id @folder.box_id
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @folder }
@@ -153,10 +153,6 @@ class PulStore::Lae::FoldersController  < CatalogController
       @folder = PulStore::Lae::Folder.find(params[:id])
     end
 
-    def list_all_folders
-      @boxes = PulStore::Lae::Folder.all
-    end
-
     def set_folder_by_barcode
       PulStore::Lae::Folder.where(prov_metadata__barcode_tesim: params[:barcode]).first
     end
@@ -165,7 +161,7 @@ class PulStore::Lae::FoldersController  < CatalogController
       params.require(:lae_folder).permit(:barcode, :date_created, :earliest_created, :latest_created,
         :description, :width_in_cm, :height_in_cm, :page_count, :genre, :passed_qc, :rights, :physical_number,
         :sort_title, :suppressed,:box_id, :project_id, :error_note, :geographic_origin, :suppressed,
-        :box_id, alternative_title: [], geographic_subject: [], title: [],
+        :box_id, alternative_title: [], geographic_subject: [], title: [], category: [],
         language: [], publisher: [], series: [], subject: [], creator: [], contributor: [])
     end
 end

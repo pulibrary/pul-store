@@ -56,6 +56,10 @@ class PulStore::Lae::FolderRdfMetadata < PulStore::ItemRdfMetadata
       index.as :stored_searchable, :facetable
     end
 
+    map.category(in: RDF::PulStoreTerms) do |index|
+      index.as :stored_searchable, :facetable
+    end
+
   end
 
 
