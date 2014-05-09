@@ -31,8 +31,8 @@ namespace :lae do
   end
 
   desc 'Ingest a directory that represents a box (run as rake "lae:ingest_box[some/file.jhove.xml]"'
-  require File.expand_path('../../pul_store/lae/image_loader', __FILE__) 
   task :ingest_box, [:audit_path_arg] => :environment do |t, args|
+    require File.expand_path('../../pul_store/lae/image_loader', __FILE__) 
 
     # TODO: should probably have some counters for success vs. fail
 
