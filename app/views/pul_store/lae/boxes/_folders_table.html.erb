@@ -15,7 +15,7 @@
         <td colspan="6">Add a Folder</td>
       </tr>
     <% else %>
-    <% if can?(:edit, @box) %>
+    <% if can?(:edit, @box) && !@folder_list.nil? %>
       <% @folder_list.each do |f| %>
         <tr>
           <td><%= f['prov_metadata__physical_number_ssi'] %></td>

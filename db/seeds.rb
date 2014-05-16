@@ -69,7 +69,7 @@ def load_subjects
   csv_fp = File.join(DB_FIXTURES_ROOT, 'lae_subjects.csv')
   csv = CSV.parse(File.read(csv_fp), headers: true, header_converters: :symbol, converters: :all)
   csv.each do |row|
-    puts "Create LAE Subject/Category #{row}"
+    #puts "Create LAE Subject/Category #{row}"
     category_label = row[:category]
     subject_label = row[:subject]
     subject_uri = row[:uri] # may be nil

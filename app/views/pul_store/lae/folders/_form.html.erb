@@ -1,4 +1,4 @@
-<%= form_for @folder, html: {:class => 'form-horizontal editor'} do |b| %>
+<%= form_for @folder, html: {:class => 'form-horizontal editor lae-folder'} do |b| %>
   <% if @folder.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@folder.errors.count, "error") %> prohibited this Folder from being saved:</h2>
@@ -65,7 +65,7 @@
       <div class="control-group">
         <%= b.label :geographic_origin, :class=>"control-label" %>
         <div class="controls">
-          <%= b.select(:geographic_origin, options_for_select(list_all_areas_as_select_list, [@folder.geographic_origin])) %>
+          <%= b.select(:geographic_origin, options_for_select(list_all_areas_as_select_list, [@folder.geographic_origin]), prompt: 'Select') %>
         </div>
       </div>
       <% if !@folder.earliest_created.blank? && !@folder.latest_created.blank? %>
@@ -113,7 +113,12 @@
       </div>
     </div>
     <!-- Subject -->
-    <%= render :partial => "records/edit_field", :locals => {:f => b, :render_req => false, :key => :subject } %>
+
+    <div class="control-group lae-subjects">
+      <%= b.label 'Categories and Subjects', :class => 'control-label' %>
+      <%= render :partial => "form_subjects", locals: {subject: :subject, category: :category} %>
+    </div>
+
     <!-- Geographic Subject -->
     <%= render :partial => "records/edit_field", :locals => {:f => b, :render_req => false, :key => :geographic_subject } %>
 
@@ -156,6 +161,13 @@
       <%= b.label :suppressed, :class=>"control-label" %>
       <div class="controls">
         <%= b.check_box :suppressed, { class: 'checkbox' }, "true", "false" %>
+      </div>
+    </div>
+    <!-- passed qc :passed_qc -->
+    <div class="control-group">
+      <%= b.label :passed_qc, :class=>"control-label" %>
+      <div class="controls">
+        <%= b.check_box :passed_qc, { class: 'checkbox' }, "true", "false" %>
       </div>
     </div>
     <div class="control-group">
