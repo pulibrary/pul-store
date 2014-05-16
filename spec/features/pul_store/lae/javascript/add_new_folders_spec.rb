@@ -31,6 +31,7 @@ feature "add new folders" do
       within '#new-folder-modal' do
         fill_in 'lae_folder[barcode]', :with => TEST_BARCODES.pop
         fill_in 'lae_folder[physical_number]', :with => 2
+        select "Manuscripts", :from => "lae_folder[genre]"
         fill_in 'lae_folder[page_count]', :with => 15
         click_button 'Create Folder'
         page.should have_content 'Folder 2'
@@ -51,6 +52,7 @@ feature "add new folders" do
       within '#new-folder-modal' do
         fill_in 'lae_folder[barcode]', :with => TEST_BARCODES.pop
         fill_in 'lae_folder[physical_number]', :with => "two"
+        select "Manuscripts", :from => "lae_folder[genre]"
         fill_in 'lae_folder[page_count]', :with => "fifteen"
         click_button 'Create Folder'
         page.should_not have_content 'Folder 2'

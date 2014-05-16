@@ -118,6 +118,11 @@ class PulStore::Lae::Folder < PulStore::Item
   validates_numericality_of :physical_number,
     only_integer: true, allow_nil: true, greater_than: 0
 
+  # validates_each :category, :subject do |record, attr, val| 
+  #   record.errors.add(attr, "Must not be Empty") if val =~ /\w+/
+  # end
+
+
 
   def suppressed?
     self.suppressed = false if self.suppressed.blank?

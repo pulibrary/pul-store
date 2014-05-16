@@ -14,7 +14,7 @@ module PulStore::Lae::SubjectsHelper
   end
 
   def get_all_subject_labels_by_category_id(id)
-    return Array.new { PulStore::Lae::Subject.find_by(category_id: id).label }
+    return PulStore::Lae::Subject.where(category_id: id).map {|subject| [subject.label, subject.label] }
   end
 
 end

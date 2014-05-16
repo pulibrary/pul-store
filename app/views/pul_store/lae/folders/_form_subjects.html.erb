@@ -1,15 +1,22 @@
-<div class="controls">
-  <% if @folder.subject.empty? %>
-    <%= select_tag("lae_folder[category][]", options_for_select(list_all_categories_as_select_list, []), class: 'span2 lae-category', prompt: 'Select a Category') %>
-    <%= text_field_tag 'lae_folder[subject][]', nil, class: 'input-mini span2 lae-subject-placeholder', placeholder: 'Subject', disabled: 'true' %>
+
+  <% if @folder.subject[0].blank?  %>
+    <div class="controls initial_lae_subject" id="additional_subject_submit">
+      <%= select_tag("lae_folder[category][]", options_for_select(list_all_categories_as_select_list_with_data, []), class: 'span2 lae-category', prompt: 'Select a Category') %>
+      <%= text_field_tag 'lae_folder[subject][]', nil, class: 'input-mini span2 lae-subject-placeholder', placeholder: 'Subject', disabled: 'true' %>
+      <%= render :partial=>"records/edit_fields/suffix", :locals=>{key: subject, index: 0} %>
+    </div>
   <% else %>
     <% @folder.subject.to_ary.each_with_index do |v, index| %>
-      <% category_id = get_category_id_by_label @folder.category[index] %>
-      <%= select_tag("lae_folder[category][]", options_for_select(list_all_categories_as_select_list, [@folder.category[index]]), class: 'span2 lae-category', blank: "true", data: {category_id: category_id }) %>
-      <%= select_tag("lae_folder[subject][]", options_for_select(list_all_subjects_as_select_list, [@folder.subject[index]]), class: 'span2 lae-subject', blank: 'true') %>
-      <%= render :partial=>"records/edit_fields/suffix", :locals=>{key: subject, index: index} %>
+      <% unless v.blank? %>
+        <div class="controls <% if (index == 0) %><%= "initial_lae_subject" %><% end %>">
+          <% category_id = category_id_for_subject_label @folder.subject[index] %>
+          <% category_label = category_label_for_subject_label @folder.subject[index] %>
+          <%= select_tag("lae_folder[category][]", options_for_select(list_all_categories_as_select_list_with_data, [category_label]), class: 'span2 lae-category', prompt: "Select Category") %>
+          <%= select_tag("lae_folder[subject][]", options_for_select( get_all_subject_labels_by_category_id(category_id), [@folder.subject[index]]), class: 'span2 lae-subject') %>
+          <%= render :partial=>"records/edit_fields/suffix", :locals=>{key: subject, index: index} %>
+        </div>
+      <% end %>
     <% end %>
   <% end %>
-</div>
 <div id="additional_subject_elements"></div>
 

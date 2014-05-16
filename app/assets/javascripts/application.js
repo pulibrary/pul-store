@@ -19,7 +19,7 @@
 //= require jquery.tablesorter.widgets
 //= require hydra-editor/hydra-editor
 //= require underscore
-//= require lae_subjects
+//= require lae.subjects
 //
 // Required by Blacklight
 //= require blacklight/blacklight
@@ -57,33 +57,9 @@ $(function() {
     $('input:text:visible:first', this).focus();
   });
 
-  // $( ".lae-category" ).change(function() {
-  //   $( "select option:selected" ).each(function() {
-  //     var option = $( this ).text() + " ";
-  //   });
-  //   alert( "Handler for .change() called. Option:" + option + " Selected." );
-  // }).change(); 
-  $( "select.lae-category" )
-  .change(function () {
-    var str = "";
-    $(this).find("option:selected" ).each(function(index, value) {
-      str += $( this ).text();
-      var cat_id = $(this).attr('data-category-id');
-    });
-    var option_list = '<option value="Agricultural development projects">Agricultural development projects</option><option value="Agricultural exhibitions">Agricultural exhibitions</option><option value="Agricultural industries">Agricultural industries</option><option value="Agricultural laws and legislation">Agricultural laws and legislation</option><option value="Agricultural technology">Agricultural technology</option><option value="Agriculture">Agriculture</option><option value="Agriculture and politics">Agriculture and politics</option>';
 
-    var subject_select = "<select class='span2 lae-subject' id='lae_folder_subject_' name='lae_folder[subject][]'>"+option_list+"</select>";
-
-    var add_button = '<button class="adder btn" id="additional_subject_submit" name="additional_subject">+<span class="accessible-hidden">add another alternative_title</span></button>'
-    var remove_button = '<button class="removeer btn" id="additional_subject_submit" name="additional_subject">+<span class="accessible-hidden">add another alternative_title</span></button>'
-   
-    // create an underscore template for the select?
-    //erb ajax?
-
-    $(this).next().replaceWith(subject_select + add_button);
-    alert( "Handler for .change() called. Category:" + cat_id+ " Selected." );
-  });
-  //.change();
-
+//$(function() {
+  $('form.editor.lae-folder').laeSubjectForm();
 });
+
 
