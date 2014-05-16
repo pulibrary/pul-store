@@ -6,6 +6,7 @@
 puls:Height rdfs:subClassOf dct:SizeOrDuration .
 puls:Width rdfs:subClassOf dct:SizeOrDuration .
 puls:Pages rdfs:subClassOf dct:SizeOrDuration .
+puls:category rdfs:subClassOf dct:subject .
 
 puls:heightInCM rdfs:range puls:Height; 
 # TODO: Also has a range of xsd:decimal
@@ -18,3 +19,4 @@ puls:widthInCM rdfs:range puls:Width;
 puls:pageCount rdfs:range puls:Pages; 
 # TODO: Also has a range of xsd:positiveInteger
    rdfs:subPropertyOf dct:extent .
+

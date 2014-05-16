@@ -5,7 +5,7 @@
 	</dd>
 	<dt>Title</dt>
 	<dd>
-		<% if !@folder.title.empty? %>
+		<% if !@folder.title.first.blank? %>
     		<%= @folder.title.first %>
   		<% else %>
     		[Title not yet supplied]
