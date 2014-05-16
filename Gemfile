@@ -52,7 +52,7 @@ gem "devise"
 gem "devise-guests", "~> 0.3"
 
 # Use Capistrano for deployment
-gem 'capistrano'
+gem 'capistrano', '~> 3.1.0'
 gem 'capistrano-rails'
 gem 'capistrano-bundler'
 
