@@ -1,22 +1,32 @@
 
-  <% if @folder.subject[0].blank?  %>
-    <div class="controls initial_lae_subject" id="additional_subject_submit">
-      <%= select_tag("lae_folder[category][]", options_for_select(list_all_categories_as_select_list_with_data, []), class: 'span2 lae-category', prompt: 'Select a Category') %>
-      <%= text_field_tag 'lae_folder[subject][]', nil, class: 'input-mini span2 lae-subject-placeholder', placeholder: 'Subject', disabled: 'true' %>
-      <%= render :partial=>"records/edit_fields/suffix", :locals=>{key: subject, index: 0} %>
-    </div>
-  <% else %>
-    <% @folder.subject.to_ary.each_with_index do |v, index| %>
-      <% unless v.blank? %>
-        <div class="controls <% if (index == 0) %><%= "initial_lae_subject" %><% end %>">
-          <% category_id = category_id_for_subject_label @folder.subject[index] %>
-          <% category_label = category_label_for_subject_label @folder.subject[index] %>
-          <%= select_tag("lae_folder[category][]", options_for_select(list_all_categories_as_select_list_with_data, [category_label]), class: 'span2 lae-category', prompt: "Select Category") %>
-          <%= select_tag("lae_folder[subject][]", options_for_select( get_all_subject_labels_by_category_id(category_id), [@folder.subject[index]]), class: 'span2 lae-subject') %>
-          <%= render :partial=>"records/edit_fields/suffix", :locals=>{key: subject, index: index} %>
+<div class="lae-subjects">  
+    <% if @folder.subject[0].blank?  %>
+      <div class="form-group row initial_lae_subject">
+        <%= label_tag('Categories and Subjects', nil, class: 'control-label col-xs-3') %>
+        <div class="col-xs-7" id="additional_subject_submit">
+          <%= select_tag("lae_folder[category][]", options_for_select(list_all_categories_as_select_list_with_data, []), prompt: 'Select a Category', class: 'lae-category form-control') %>
+          <%= text_field_tag 'lae_folder[subject][]', nil, class: 'form-control lae-subject-placeholder col-xs-3', placeholder: 'Subject', disabled: 'true' %>
+          <%= render :partial=>"records/edit_fields/suffix", :locals=>{key: subject, index: 0} %>
         </div>
+        <div id="additional_subject_elements" class="lae-subjects"></div>
+    </div>
+    <% else %>
+      <div class="form-group row">
+      <%= label_tag('Categories and Subjects', nil, class: 'control-label col-xs-3') %>
+      <% @folder.subject.to_ary.each_with_index do |v, index| %>
+        <% unless v.blank? %>
+          <div class="col-xs-7 col-xs-offset-3 <% if (index != 0) %><%= "col-xs-offset-3" %><% end %> <% if (index == 0) %><%= "initial_lae_subject" %><% end %>">
+            <% category_id = category_id_for_subject_label @folder.subject[index] %>
+            <% category_label = category_label_for_subject_label @folder.subject[index] %>
+            <%= select_tag("lae_folder[category][]", options_for_select(list_all_categories_as_select_list_with_data, [category_label]), class: 'form-control lae-category', prompt: "Select Category") %>
+            <%= select_tag("lae_folder[subject][]", options_for_select( get_all_subject_labels_by_category_id(category_id), [@folder.subject[index]]), class: 'form-control lae-subject') %>
+            <%= render :partial=>"records/edit_fields/suffix", :locals=>{key: subject, index: index} %>
+          </div>
+        <% end %>
       <% end %>
+        <div id="additional_subject_elements" class="lae-subjects"></div>
+      </div>
     <% end %>
-  <% end %>
-<div id="additional_subject_elements"></div>
+  </div>
+
 

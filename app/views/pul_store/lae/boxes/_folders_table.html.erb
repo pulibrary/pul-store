@@ -18,7 +18,7 @@
     <% if can?(:edit, @box) && !@folder_list.nil? %>
       <% @folder_list.each do |f| %>
         <tr>
-          <td><%= f['prov_metadata__physical_number_ssi'] %></td>
+          <td><%= f['prov_metadata__physical_number_isi'] %></td>
           <td>
             <span class="label label-large <%= pul_store_base_state_to_label(f['prov_metadata__workflow_state_tesim'][0], "label") %>" >
               <%= f['prov_metadata__workflow_state_tesim'][0] %>
@@ -35,4 +35,4 @@
     <% end %>
   <% end %>
   </tbody>
-  </table>
+</table>

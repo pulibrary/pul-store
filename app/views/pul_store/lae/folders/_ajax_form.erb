@@ -1,59 +1,63 @@
 <% @folder = PulStore::Lae::Folder.new %>
-<div class="well">
 <%= form_for(@folder, remote: true, :html => {:class => "form form-horizontal"} ) do |f| %>
-  <% if @folder.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@folder.errors.count, "error") %> prohibited this Folder from being saved:</h2>
-      <ul>
-      <% @folder.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-  <div class="control-group">
-    <%= f.label :barcode, class: 'control-label'%>
-    <div class="controls">
-      <%= f.text_field :barcode %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label "Folder Number", class: 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :physical_number, class: 'input-mini' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :genre, class: 'control-label' %>
-    <div class="controls">
-      <%= f.select(:genre, options_for_select(list_all_genres_as_select_list), class: 'input-small', prompt: 'Select a Genre') %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label "In cm", class: 'control-label' %>
-    <div class="controls">
-      <div class="input-prepend">
-        <%= f.text_field :width_in_cm, class: 'input-mini', placeholder: 'Width' %>
+  <div class="modal-body">
+    <% if @folder.errors.any? %>
+      <div id="error_explanation" class="col-sml-12 col-sm-offset-3">
+        <h2><%= pluralize(@folder.errors.count, "error") %> prohibited this Folder from being saved:</h2>
+        <ul>
+        <% @folder.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
       </div>
-      <span> X </span>
-      <div class="input-append">
-        <%= f.text_field :height_in_cm, class: 'input-mini', placeholder: 'Height' %>
+    <% end %>
+    <div class="form-group">
+      <%= f.label :barcode, class: 'control-label  col-sm-3'%>
+      <div class="col-sm-9">
+        <%= f.text_field :barcode, class: 'form-control' %>
       </div>
     </div>
-  </div>
-   <div class="control-group">
-    <%= f.label :page_count, class: 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :page_count, class: 'input-small', placeholder: "Num Pages" %>
+    <div class="form-group">
+      <%= f.label "Folder Number", class: 'control-label col-sm-3' %>
+      <div class="col-sm-9">
+        <%= f.text_field :physical_number, class: 'form-control' %>
+      </div>
     </div>
-  </div>
+    <div class="form-group">
+      <%= f.label :genre, class: 'control-label col-sm-3' %>
+      <div class="col-sm-9">
+        <%= f.select(:genre, options_for_select(list_all_genres_as_select_list), class: 'form-control', prompt: 'Select a Genre') %>
+      </div>
+    </div>
+    <div class="form-group">
+      <%= f.label "In cm", class: 'control-label col-sm-3' %>
+      <div class="col-sm-9 row">
+        <div class="input-prepend col-xs-2">
+          <%= f.text_field :width_in_cm, class: 'form-control input-sm', placeholder: 'Width' %>
+        </div> 
+        <div class="input-append col-xs-2">
+          <%= f.text_field :height_in_cm, class: 'form-control input-sm', placeholder: 'Height' %>
+        </div>
+      </div>
+     </div>
+     <div class="form-group">
+      <%= f.label :page_count, class: 'control-label col-sm-3' %>
+        <div class="col-sm-9 row">
+          <div class="col-xs-3">
+            <%= f.text_field :page_count, class: 'form-control input-sm', placeholder: "Num Pages" %>
+          </div>
+        </div>
+      </div>
 
-    <%= f.hidden_field :box_id, :class => "field", :value => box.id %>
-  <div class="control-group">
-   <div class="controls actions">
-      <%= f.submit :value => "Create Folder", :class => 'btn btn-primary' %>
-      <button id="cancelButton" type="button" class="btn btn-inverse" data-dismiss="modal" aria-hidden="true" title="Close this screen without adding this Folder.">Return to Box</button>
-   </div>
-  </div>
+      <%= f.hidden_field :box_id, :class => "field", :value => box.id %>
+    </div>
+
+    <div class="modal-footer">
+      <div class="form-group">
+       <div class="col-sm-9 actions">
+          <%= f.submit :value => "Create Folder", :class => 'btn btn-primary' %>
+          <button id="cancelButton" type="button" class="btn btn-inverse" data-dismiss="modal" aria-hidden="true" title="Close this screen without adding this Folder.">Return to Box</button>
+       </div>
+      </div>
+    </div>
 <% end %>
-</div>

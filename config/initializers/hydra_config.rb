@@ -15,14 +15,40 @@ if Hydra.respond_to?(:configure)
     # This specifies the solr field names of permissions-related fields.
     # You only need to change these values if you've indexed permissions by some means other than the Hydra's built-in tooling.
     # If you change these, you must also update the permissions request handler in your solrconfig.xml to return those values
-    indexer = Solrizer::Descriptor.new(:string, :stored, :indexed, :multivalued)
-    config[:permissions] = {
-      :discover => {:group =>ActiveFedora::SolrService.solr_name("discover_access_group", indexer), :individual=>ActiveFedora::SolrService.solr_name("discover_access_person", indexer)},
-      :read => {:group =>ActiveFedora::SolrService.solr_name("read_access_group", indexer), :individual=>ActiveFedora::SolrService.solr_name("read_access_person", indexer)},
-      :edit => {:group =>ActiveFedora::SolrService.solr_name("edit_access_group", indexer), :individual=>ActiveFedora::SolrService.solr_name("edit_access_person", indexer)},
-      :owner => ActiveFedora::SolrService.solr_name("depositor", indexer),
-      :embargo_release_date => ActiveFedora::SolrService.solr_name("embargo_release_date", Solrizer::Descriptor.new(:date, :stored, :indexed))
-    }
+    # indexer = Solrizer::Descriptor.new(:string, :stored, :indexed, :multivalued)
+    # config[:permissions] = {
+    #   :discover => {:group =>ActiveFedora::SolrService.solr_name("discover_access_group", indexer), :individual=>ActiveFedora::SolrService.solr_name("discover_access_person", indexer)},
+    #   :read => {:group =>ActiveFedora::SolrService.solr_name("read_access_group", indexer), :individual=>ActiveFedora::SolrService.solr_name("read_access_person", indexer)},
+    #   :edit => {:group =>ActiveFedora::SolrService.solr_name("edit_access_group", indexer), :individual=>ActiveFedora::SolrService.solr_name("edit_access_person", indexer)},
+    #   :owner => ActiveFedora::SolrService.solr_name("depositor", indexer),
+    #   :embargo_release_date => ActiveFedora::SolrService.solr_name("embargo_release_date", Solrizer::Descriptor.new(:date, :stored, :indexed))
+    # }
+
+    # config[:permissions][:inheritable] = {
+    #   :discover => {:group =>ActiveFedora::SolrService.solr_name("inheritable_discover_access_group", indexer), :individual=>ActiveFedora::SolrService.solr_name("inheritable_discover_access_person", indexer)},
+    #   :read => {:group =>ActiveFedora::SolrService.solr_name("inheritable_read_access_group", indexer), :individual=>ActiveFedora::SolrService.solr_name("inheritable_read_access_person", indexer)},
+    #   :edit => {:group =>ActiveFedora::SolrService.solr_name("inheritable_edit_access_group", indexer), :individual=>ActiveFedora::SolrService.solr_name("inheritable_edit_access_person", indexer)},
+    #   :owner => ActiveFedora::SolrService.solr_name("inheritable_depositor", indexer),
+    #   :embargo_release_date => ActiveFedora::SolrService.solr_name("inheritable_embargo_release_date", Solrizer::Descriptor.new(:date, :stored, :indexed))
+    # }
+
+    #### From the new default hydra generator different than what we had previously
+    # This specifies the solr field names of permissions-related fields.
+    # You only need to change these values if you've indexed permissions by some means other than the Hydra's built-in tooling.
+    # If you change these, you must also update the permissions request handler in your solrconfig.xml to return those values
+    #
+    # config.permissions.discover.group       = ActiveFedora::SolrService.solr_name("discover_access_group", :symbol)
+    # config.permissions.discover.individual  = ActiveFedora::SolrService.solr_name("discover_access_person", :symbol)
+    # config.permissions.read.group           = ActiveFedora::SolrService.solr_name("read_access_group", :symbol)
+    # config.permissions.read.individual      = ActiveFedora::SolrService.solr_name("read_access_person", :symbol)
+    # config.permissions.edit.group           = ActiveFedora::SolrService.solr_name("edit_access_group", :symbol)
+    # config.permissions.edit.individual      = ActiveFedora::SolrService.solr_name("edit_access_person", :symbol)
+    #
+    # config.permissions.embargo_release_date = ActiveFedora::SolrService.solr_name("embargo_release_date", Solrizer::Descriptor.new(:date, :stored, :indexed))
+    # }
+    #
+    # specify the user model
+    # config.user_model = '#{model_name.classify}'
 
   end
 end

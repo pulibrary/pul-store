@@ -1,5 +1,18 @@
 <h1>Add a New Box</h1>
 
-<%= render 'brief_form' %>
+<div class="container" id="main-container">
 
-<%= link_to 'Back', lae_boxes_path %>
+  <div class="row">
+    <%= render :partial => 'breadcrumb' %>
+  </div>
+  <div class="row">
+    <%= render 'brief_form' %>
+  </div>
+  <div class="row">
+    <ul class="nav nav-pills">
+      <li>
+        <%= link_to 'Back to Lae Home', lae_boxes_path %>
+      </li>
+    </ul>
+  </div>
+</div>

@@ -1,39 +1,39 @@
-<div class="span9 offset3" id="lae-head">
+<div class="col-md-9 col-md-offset-3" id="lae-head">
   <div class="row">
-    <div class="span6">
-      <h1 class='lae-head'><%= "#{controller_name.classify.pluralize}" %></h1>
+    <div class="col-md-6">
+      <h1 class='lae-head'>Manage <%= "#{controller_name.classify.pluralize}" %></h1>
     </div>
-    <div class="span3">
+    <div class="col-md-3">
       <%= render 'shared/lae/start_new_widget' %>
     </div>
   </div>
 </div>
 
-<div id="sidebar" class="span3">
+<div id="sidebar" class="col-md-3">
  <%= render 'search_sidebar' %>
 </div>
 
-<div id="content" class="span9">
-  <h2 class="hide-text top-content-title"><%= t('blacklight.search.search_results_header') %></h2>
+<div id="content" class="col-md-9">
+  <h2 class="text-hide" top-content-title"><%= t('blacklight.search.search_results_header') %></h2>
 
   <% @page_title = t('blacklight.search.title', :application_name => application_name) %>
 
 
-  <% extra_head_content << render_opensearch_response_metadata.html_safe %>
+  <% #extra_head_content << render_opensearch_response_metadata.html_safe %>
 
   <%= render 'constraints' %>
 
   <%= render 'sort_and_per_page' %>
 
-  <h2 class="hide-text"><%= t('blacklight.search.search_results') %></h2>
+  <h2 class="text-hide"><%= t('blacklight.search.search_results') %></h2>
 
-  <%- if @response.empty? %>
+  <% if @response.empty? %>
     <%= render "zero_results" %>
-  <%- elsif render_grouped_response? %>
+  <% elsif render_grouped_response? %>
     <%= render_grouped_document_index %>
-  <%- else %>
+  <% else %>
     <%= render_document_index %>
-  <%- end %>
+  <% end %>
 
   <%= render 'results_pagination' %>
 

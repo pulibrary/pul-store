@@ -4,6 +4,7 @@ class PulStore::Lae::FoldersController  < CatalogController
 
   before_action :set_folder, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!
+  
 
   layout 'lae'
 
@@ -11,7 +12,7 @@ class PulStore::Lae::FoldersController  < CatalogController
   PulStore::Lae::FoldersController.solr_search_params_logic += [:add_access_controls_to_solr_params]
 
   # This filters out objects that you want to exclude from search results, like FileAssets
-  PulStore::Lae::FoldersController.solr_search_params_logic += [:exclude_unwanted_models]
+  #PulStore::Lae::FoldersController.solr_search_params_logic += [:exclude_unwanted_models]
 
   # Keep out everything but Boxes, only show state
   PulStore::Lae::FoldersController.solr_search_params_logic += [:limit_to_folders]
@@ -34,7 +35,9 @@ class PulStore::Lae::FoldersController  < CatalogController
         "prov_metadata__workflow_state_sim",
         "desc_metadata__genre_sim",
         "desc_metadata__language_sim",
-        "desc_metadata__geographic_sim",
+        "desc_metadata__geographic_subject_sim",
+        "desc_metadata__category_sim",
+        "desc_metadata__subject_sim",
         'in_box_sim'
         # TODO: category, subject
       ]
@@ -80,8 +83,9 @@ class PulStore::Lae::FoldersController  < CatalogController
 
   # GET /lae/folders/new
   def new
-   authorize! :create, params
+   authorize! :create, PulStore::Lae::Folder
    @folder = PulStore::Lae::Folder.new
+   @page_title = "Create a New Folder"
    render 'new'
   end
 
@@ -90,6 +94,7 @@ class PulStore::Lae::FoldersController  < CatalogController
     authorize! :edit, params[:id]
     @folder = PulStore::Lae::Folder.find(params[:id])
     @page_title = "Edit Lae Folder #{@folder.physical_number}"
+    @pages_list = get_pages_by_folder @folder.id
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @folder }
@@ -101,6 +106,7 @@ class PulStore::Lae::FoldersController  < CatalogController
   # POST /lae/folders
   # POST /lae/folders.json
   def create
+    authorize! :create, PulStore::Lae::Folder
     @folder = PulStore::Lae::Folder.new(folder_params)
     project = PulStore::Project.first
     @folder.project = project
@@ -164,4 +170,5 @@ class PulStore::Lae::FoldersController  < CatalogController
         :box_id, alternative_title: [], geographic_subject: [], title: [], category: [],
         language: [], publisher: [], series: [], subject: [], creator: [], contributor: [])
     end
+
 end

@@ -8,7 +8,7 @@ namespace :lae do
     TEST_BARCODES = YAML.load_file(Rails.root.join('spec/fixtures/test_barcodes.yml'))
     box_count = 2
     folder_min = 3
-    folder_max = 150
+    folder_max = 250
     page_min = 2
     page_max = 11
     project = FactoryGirl.create(:project)
@@ -22,7 +22,7 @@ namespace :lae do
         puts "  +-Folder #{fi+1} \"#{folder.pid}\""
         rand(page_min .. page_max).times do |pi|
           pi+=1
-          page = FactoryGirl.create(:page, project: project, folder: folder, text: nil, sort_order: pi)
+          page = FactoryGirl.create(:page, project: project, folder: folder, text: nil)
           puts "    +-Page #{pi} \"#{page.pid}\""
           # folder.save!
           page.save!

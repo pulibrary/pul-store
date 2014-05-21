@@ -20,7 +20,7 @@ module PulStore::Lae::BoxesHelper
   end
 
   def lae_box_created_datetime(doc)
-    PulStore::Lae::BoxesHelper.style_date(doc[:prov_metadata__date_uploaded_ssi])
+    PulStore::Lae::BoxesHelper.style_date(doc[:prov_metadata__date_uploaded_dtsi])
   end
 
   def lae_box_last_modified_datetime(doc)
@@ -41,10 +41,11 @@ module PulStore::Lae::BoxesHelper
   end
 
   def lae_box_number(doc)
-    field = doc[:prov_metadata__physical_number_ssi]
+    field = doc[:prov_metadata__physical_number_isi]
     field.is_a?(Array) ? field[0] : field
   end
 
+  ### FIXME - Confirm these do not do anything
   ### Add or Remove Folders to box Forms
   def link_to_remove_fields(name, f, options = {})
     f.hidden_field(:_destroy) + link_to_function(name, "remove_fields(this)", options)
@@ -58,6 +59,7 @@ module PulStore::Lae::BoxesHelper
 
     link_to_function(name, "add_fields(this, \"#{ association }\", \"#{ escape_javascript(fields) }\")", options)
   end
+  #####################
 
   private
   @offset = Time.now.gmt_offset

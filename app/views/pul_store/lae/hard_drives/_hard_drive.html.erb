@@ -1,0 +1,17 @@
+<div id="hard_drive_dialog_messages">
+  <% if @hard_drive.errors.any? %>
+    <div id="error_explanation" class="col-sm-9 col-sm-offset-3">
+      <h2><%= pluralize(@hard_drive.errors.count, "error") %> prohibited this Drive from being attached:</h2>
+      <ul>
+      <% @hard_drive.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% else %>
+    <div class="alert alert-success">
+      <a class="close" data-dismiss="alert">&times;</a>
+      <p>Drive <%= @hard_drive.id %> created successfully.</p>
+    </div>
+  <% end %>
+</div>

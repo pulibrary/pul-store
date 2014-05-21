@@ -1,6 +1,6 @@
 <div id="folder_dialog_messages">
   <% if @folder.errors.any? %>
-    <div id="error_explanation">
+    <div id="error_explanation" class="col-sm-9 col-sm-offset-3">
       <h2><%= pluralize(@folder.errors.count, "error") %> prohibited this Folder from being saved:</h2>
       <ul>
       <% @folder.errors.full_messages.each do |msg| %>

@@ -10,11 +10,15 @@
   <%= render :partial => 'breadcrumb' %>
 </div>
 
-<div class="btn-group">
-  <%= link_to 'Edit This Folder', edit_lae_folder_path(@folder), class: "btn btn-primary" %> |
-  <% if(!@folder.box_id.blank?) %>
-    <%= link_to 'Return to Box', edit_lae_box_path(@folder.box_id), class: "btn btn-info" %>
-  <% end %>
+<div class="row">
+  <ul class="nav nav-pills">
+    <li><%= link_to 'Edit This Folder', edit_lae_folder_path(@folder), class: "btn btn-info" %></li>
+    <% if(!@folder.box_id.blank?) %>
+      <li>
+        <%= link_to "Return to Box #{lae_folder_get_box_number(@folder.box_id)}", edit_lae_box_path(@folder.box_id), class: "btn btn-info" %>
+      </li>
+    <% end %>
+  </ul>
 </div>
 
 <div class="row">

@@ -11,7 +11,7 @@ class PulStore::PageRdfMetadata < ActiveFedora::NtriplesRDFDatastream
     end
 
     map.sort_order(to: "sortOrder", in: RDF::PulStoreTerms) do |index|
-      index.as :sortable
+      index.as :stored_sortable
       index.type :integer
     end
 

@@ -32,6 +32,7 @@ database.yml
 pul_store.yml
 # ignore production role_map
 role_map_production.yml
+role_map.yml
 
 noid-minter-state
 lae-box-counter-state

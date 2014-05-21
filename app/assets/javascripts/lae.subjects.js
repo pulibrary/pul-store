@@ -6,16 +6,13 @@
     var settings = $.extend( { }, options);
 
     function addField() {
-      //console.log("click me");
       var cloneId = this.id.replace("submit", "clone");
-      console.log(cloneId);
       var newId = this.id.replace("submit", "elements");
-      console.log(newId);
       var cloneElem = $('.initial_lae_subject').first().clone(); //$('#'+cloneId).clone();
-
+      console.log(cloneElem);
       // change the add button to a remove button
       var plusbttn = cloneElem.find('#'+this.id);
-      plusbttn.html('-<span class="accessible-hidden">remove this '+ this.name.replace("_", " ") +'</span>');
+      plusbttn.html('-<span class="sr-only">remove this '+ this.name.replace("_", " ") +'</span>');
       plusbttn.on('click',removeField);
 
       // remove the help tag on subsequent added fields
@@ -27,7 +24,7 @@
       //so the new element has a blank value
       cloneElem.find('select').val("");
       cloneElem.removeClass('initial_lae_subject');
-      var disabled_button = '<input class="input-mini span2 lae-subject-placeholder" disabled="disabled" id="lae_folder_subject_" name="lae_folder[subject][]" placeholder="Subject" type="text">';
+      var disabled_button = '<input class="form-control lae-subject-placeholder" disabled="disabled" id="lae_folder_subject_" name="lae_folder[subject][]" placeholder="Subject" type="text">';
       cloneElem.find('.lae-subject').first().replaceWith(disabled_button);
       //cloneElem.find('input[type=text]').attr("required", false);
 
@@ -36,8 +33,6 @@
       }
       // this should be json output?
       //var new_category_select = $('.initial_lae_subject').first().clone();
-      console.log(cloneElem);
-
       $('#'+newId).append(cloneElem);
       cloneElem.find('select').last().focus();
       return false;
@@ -45,6 +40,7 @@
 
     function removeField () {
       // get parent and remove it
+      //$(this).parents('.form-group').remove();
       $(this).parent().remove();
       return false;
     }
@@ -55,11 +51,11 @@
       /*
        * adds additional metadata elements
        */
-      $('.control-group.lae-subjects .adder', this).click(addField);
+      $('.lae-subjects > .form-group .adder', this).click(addField);
 
-      $('.control-group.lae-subjects .remover', this).click(removeField);
+      $('.lae-subjects > .form-group .remover', this).click(removeField);
 
-      $( ".lae-subjects").on
+      $('.lae-subjects').on
         ('change', 'select.lae-category', function () {
           var selected_id;
           $(this).find("option:selected" ).each(function(index, value) {
@@ -81,7 +77,7 @@
           _.each(subject_labels, function(label) {
             opt_list = opt_list + "<option value='"+label+"'>"+label+"</option>";
           });
-          var subject_select = "<select class='span2 lae-subject' id='lae_folder_subject_' name='lae_folder[subject][]'>"+opt_list+"</select>";
+          var subject_select = "<select class='form-control lae-subject' id='lae_folder_subject_' name='lae_folder[subject][]'>"+opt_list+"</select>";
           $(this).next().replaceWith(subject_select);
           $(this).next().focus();
         });
