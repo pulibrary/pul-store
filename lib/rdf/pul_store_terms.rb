@@ -27,5 +27,6 @@ module RDF
     property :heightInCM
     property :widthInCM
     property :pageCount
+    property :category # this this the category classification for lae subjects
   end
 end

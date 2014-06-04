@@ -4,4 +4,17 @@ module PulStore::Lae::SubjectsHelper
     PulStore::Lae::Subject.find_by(label: subject_label).category.label
   end
 
+   def category_id_for_subject_label(subject_label)
+    PulStore::Lae::Subject.find_by(label: subject_label).category.id
+  end
+
+
+  def list_all_subjects_as_select_list
+    return PulStore::Lae::Subject.all.map { |s| [s.label, s.label] }
+  end
+
+  def get_all_subject_labels_by_category_id(id)
+    return PulStore::Lae::Subject.where(category_id: id).map {|subject| [subject.label, subject.label] }
+  end
+
 end
