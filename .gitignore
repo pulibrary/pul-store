@@ -18,6 +18,8 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+*.pid
+
 
 # Ignore jetty server, solr, fedora, associated data directories
 jetty/*

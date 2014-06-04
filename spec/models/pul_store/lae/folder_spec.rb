@@ -167,7 +167,7 @@ describe PulStore::Lae::Folder do
 
     describe "may be set to true" do
       it "when we have core elements and pages" do
-        f = FactoryGirl.build(:lae_core_folder_with_pages)
+        f = FactoryGirl.create(:lae_core_folder_with_pages)
         f.passed_qc = true
         f.save!
         f.passed_qc?.should be_true
@@ -464,8 +464,7 @@ describe PulStore::Lae::Folder do
 
     describe "responds with false" do
       it "when passed_qc is false" do
-        f = FactoryGirl.build(:lae_core_folder_with_pages)
-        f.passed_qc = false
+        f = FactoryGirl.create(:lae_core_folder_with_pages)
         f.needs_qc?.should be_true
         f.in_production?.should be_false
       end
@@ -508,13 +507,13 @@ describe PulStore::Lae::Folder do
     end
 
     it "is 'Needs QC' when we have core metadata, we have valid pages, and qc_passed is false" do
-      f = FactoryGirl.build(:lae_core_folder_with_pages)
+      f = FactoryGirl.create(:lae_core_folder_with_pages)
       f.save!
       f.workflow_state.should == 'Needs QC'
     end
 
     it "is 'In Production' when in_production? is true" do
-      f = FactoryGirl.build(:lae_core_folder_with_pages)
+      f = FactoryGirl.create(:lae_core_folder_with_pages)
       f.passed_qc = true
       f.save!
       f.workflow_state.should == 'In Production'

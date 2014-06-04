@@ -7,11 +7,11 @@ vocab_sources = {
     source: "http://vocab.org/lifecycle/schema-20080603.rdf",
     strict: true
   },
-  # exif: {
-  #   prefix: "http://www.w3.org/2003/12/exif/ns#",
-  #   source: "http://www.w3.org/2003/12/exif/ns",
-  #   strict: true
-  # }
+  exif: {
+    prefix: "http://www.w3.org/2003/12/exif/ns#",
+    source: "http://www.w3.org/2003/12/exif/ns",
+    strict: true
+  }
   marc_relators: {
     prefix: "http://id.loc.gov/vocabulary/relators/",
     source: "http://id.loc.gov/vocabulary/relators.nt",
@@ -21,7 +21,6 @@ vocab_sources = {
 }
 
 vocab_sources.each do |id, v|
-  here = File.expand_path(File.join(File.dirname(__FILE__), "config.yml"))
   begin
     out = StringIO.new
     loader = RDF::VocabularyLoader.new(id.to_s.upcase)

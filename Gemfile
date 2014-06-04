@@ -31,7 +31,7 @@ gem "hydra", "~> 6.2.0"
 
 gem "hydra-file_characterization", "~> 0.3.1"
 
-gem 'hydra-derivatives', "~> 0.0.8"
+gem 'hydra-derivatives', git: 'git://github.com/projecthydra/hydra-derivatives.git'
 
 gem "rubyzip"
 
@@ -42,6 +42,8 @@ gem 'noid'
 gem 'marc'
 
 gem 'rmagick'
+
+gem 'order_up'
 
 #for bulk upload ui
 gem 'jquery-fileupload-rails'
@@ -62,7 +64,7 @@ group :doc do
 end
 
 group :development, :test, :production do
-  gem 'rspec-rails'
+  gem 'rspec-rails', '2.99'
   gem 'factory_girl_rails'
   gem "jettywrapper"
 end
@@ -74,6 +76,7 @@ gem 'poltergeist'
 #group :test do
   gem 'faker'
   gem 'capybara'
+  gem 'minitest'
   # gem 'guard-rspec'
   # gem 'launchy'
 #end
