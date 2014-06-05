@@ -43,6 +43,8 @@ gem 'marc'
 
 gem 'rmagick'
 
+gem 'order_up'
+
 #for bulk upload ui
 gem 'jquery-fileupload-rails'
 #gem 'paperclip'
@@ -62,7 +64,7 @@ group :doc do
 end
 
 group :development, :test, :production do
-  gem 'rspec-rails'
+  gem 'rspec-rails', '2.99'
   gem 'factory_girl_rails'
   gem "jettywrapper"
 end
@@ -74,6 +76,7 @@ gem 'poltergeist'
 #group :test do
   gem 'faker'
   gem 'capybara'
+  gem 'minitest'
   # gem 'guard-rspec'
   # gem 'launchy'
 #end

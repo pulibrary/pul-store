@@ -6,7 +6,7 @@ require 'RMagick'
 module PulStore
   module Lae
 
-    class ImageLoader
+    class JhoveAuditUtilities
       include Magick
 
       ADOBE_1998 = "Adobe RGB (1998)"
@@ -37,8 +37,8 @@ module PulStore
         errors
       end
 
-      # Any errors here will mark individual files as not to be ingested, but 
-      # the intent is that the calling process should continue on. A list of 
+      # Any errors here will mark individual files as not to be ingested, but
+      # the intent is that the calling process should continue on. A list of
       # the errors is returned for logging.
       def self.validate_audit_members(audit_hash)
         errors = []
@@ -61,6 +61,13 @@ module PulStore
         wrong_color_profile = verify_color_profile(audit_hash)
         wrong_color_profile.each do |f|
           errors << "File #{f[:path]} color profile is not '#{ADOBE_1998}'"
+        end
+        # OCR w/ broken image || Image with broken ocr
+        files_with_broken_partners = confirm_corresponding_files_ok(audit_hash)
+        files_with_broken_partners.each do |f|
+          m =  "File #{f[:path]} will not be ingested because the corresponding "
+          m += "image or OCR has a problem."
+          errors << m
         end
 
         errors
@@ -92,7 +99,7 @@ module PulStore
       ## File Validation Checks
       ###########################
 
-      # This updates the audit in place AND returns a list of files that won't 
+      # This updates the audit in place AND returns a list of files that won't
       # be ingested (useful for logging).
       def self.check_ocr_image_match(audit)
         ocr_files = audit.select { |f| f[:mime] == 'text/xml' }
@@ -101,14 +108,14 @@ module PulStore
 
         image_files.each do |image_file|
           unless ocr_for_image_file?(image_file, ocr_files)
-            image_file[:ok_to_ingest] = false
+            image_file[:ok_to_ingest?] = false
             do_not_ingest << image_file
           end
         end
 
         ocr_files.each do |ocr_file|
           unless image_for_ocr_file?(ocr_file, image_files)
-            ocr_file[:ok_to_ingest] = false
+            ocr_file[:ok_to_ingest?] = false
             do_not_ingest << ocr_file
           end
         end
@@ -117,7 +124,7 @@ module PulStore
 
       end
 
-      # This updates the audit in place AND returns a list of files that won't 
+      # This updates the audit in place AND returns a list of files that won't
       # be ingested (useful for logging)
       def self.check_for_acceptable_status(audit)
         ocr_files = audit.select { |f| f[:mime] == 'text/xml' }
@@ -126,14 +133,14 @@ module PulStore
 
         image_files.each do |image_file|
           unless image_file[:status] == 'valid'
-            image_file[:ok_to_ingest] = false
+            image_file[:ok_to_ingest?] = false
             do_not_ingest << image_file
           end
         end
 
         ocr_files.each do |ocr_file|
           unless ocr_file[:status] == 'well-formed'
-            ocr_file[:ok_to_ingest] = false
+            ocr_file[:ok_to_ingest?] = false
             do_not_ingest << ocr_file
           end
         end
@@ -141,20 +148,51 @@ module PulStore
         do_not_ingest
       end
 
-      # This updates the audit in place AND returns a list of files that won't 
+      # After all other checks, run through this, which will mark OCR as not to
+      # ingest if the image has problems, and vice versa.
+      def self.confirm_corresponding_files_ok(audit)
+        ocr_files = audit.select { |f| f[:mime] == 'text/xml' }
+        image_files = audit.select { |f| f[:mime] == 'image/tiff' }
+        do_not_ingest = []
+
+
+        image_files.each do |image_file|
+          ocr_file = ocr_for_image_file(image_file, ocr_files)
+          unless ocr_file[:ok_to_ingest?] 
+            image_file[:ok_to_ingest?] = false
+            do_not_ingest << image_file unless do_not_ingest.include?(ocr_file)
+          end
+        end
+
+        ocr_files.each do |ocr_file|
+          image_file = image_for_ocr_file(ocr_file, image_files)
+          unless image_file[:ok_to_ingest?]
+            ocr_file[:ok_to_ingest?] = false
+        # The PROBLEM is that if the image file above was marked as not to 
+        # ingest because the OCR wasn't OK, then now the image files that aren't
+        # OK have their OCR added to the do_not_ingest list. We want a clean list
+        # of files that are excluded for this reason. unless ⌄ is the solution
+            do_not_ingest << ocr_file unless do_not_ingest.include?(image_file)
+          end
+        end
+
+        do_not_ingest
+      end
+
+      # This updates the audit in place AND returns a list of files that won't
       # be ingested (useful for logging)
       def self.verify_checksums(audit)
         mismatches = []
         audit.each do |f|
           unless calc_md5(f[:path]) == f[:md5]
-            f[:ok_to_ingest] = false
+            f[:ok_to_ingest?] = false
             mismatches << f
           end
         end
         mismatches
       end
 
-      # This updates the audit in place AND returns a list of files that won't 
+      # This updates the audit in place AND returns a list of files that won't
       # be ingested (useful for logging)
       def self.verify_color_profile(audit)
 
@@ -164,13 +202,35 @@ module PulStore
             im = ImageList.new(f[:path])
             unless im.gray?
               unless read_color_profile_name(im) == ADOBE_1998
-                f[:ok_to_ingest] = false
+                f[:ok_to_ingest?] = false
                 wrong_profiles << f
               end
             end
           end
         end
         wrong_profiles
+      end
+
+      # note that filtering of stuff not OK to ingest also happens here
+      def self.filter_and_group_images_and_ocr(audit)
+        pages_job_args = []
+
+        audit.each do |a|
+          entry = pages_job_args.select do |p|
+            (p[:sort_order] == a[:sort] && p[:folder_barcode] == a[:folder_barcode])
+          end
+          path_type = a[:mime] == 'text/xml' ? :ocr_path : :tiff_path
+          if a[:ok_to_ingest?]
+            if entry.empty?
+              pages_job_args << { path_type => a[:path], sort_order: a[:sort], folder_barcode: a[:folder_barcode] }
+            else
+              entry.first[path_type] = a[:path]
+            end
+          end
+        end
+
+        pages_job_args
+
       end
 
       #########################
@@ -189,8 +249,8 @@ module PulStore
       end
 
       # Turn a JHOVE <file> element into a Hash containing the Box bardcode,
-      # Folder barcode, mime type, status, sort order, file name, and original 
-      # path 
+      # Folder barcode, mime type, status, sort order, file name, and original
+      # path
       def self.file_element_to_h(file_element, root_dir)
         h = {}
         h[:path] = File.join(root_dir, normalize_windows_path(file_element.content))
@@ -202,7 +262,7 @@ module PulStore
         h[:status] = file_element['status']
         h[:md5] = file_element['md5']
         h[:sort] = File.basename(h[:file_name], ".*").to_i
-        h[:ok_to_ingest] = true
+        h[:ok_to_ingest?] = true
         h
       end
 
@@ -229,11 +289,11 @@ module PulStore
         tag_count = profile[128,4].pack("c*").unpack("N").first
         tag_count.times do |i|
           tag_table_row =  (128 + 4) + (12*i) # the header + tag count + 12 bytes for each tag
-          tag_signature = profile[tag_table_row,4].pack("c*") # 9.2.41 profileDescriptionTag 
+          tag_signature = profile[tag_table_row,4].pack("c*") # 9.2.41 profileDescriptionTag
 
           if tag_signature == 'desc'
             desc_offset = profile[tag_table_row+4,4].pack("c*").unpack("N").first
-            tag_size = profile[tag_table_row+8,4].pack("c*").unpack("N").first    
+            tag_size = profile[tag_table_row+8,4].pack("c*").unpack("N").first
             tag = profile[desc_offset,tag_size].pack("c*").unpack("Z12 Z*")
             profile_name = tag[1]
             break
@@ -243,21 +303,47 @@ module PulStore
       end
 
       # file(s) are entries in an audit
-      def self.ocr_for_image_file?(image_file, ocr_files)
-        ocr_files = ocr_files.select do |f| 
+      def self.ocr_for_image_file(image_file, ocr_files)
+        ocr_files = ocr_files.select { |f|
           (f[:folder_barcode] == image_file[:folder_barcode] && f[:sort] == image_file[:sort])
-        end
-        ocr_files.length == 1
+        }.first
+      end
+
+      # file(s) are entries in an audit
+      def self.ocr_for_image_file?(image_file, ocr_files)
+        !ocr_for_image_file(image_file, ocr_files).nil?
+      end
+
+      # file(s) are entries in an audit
+      def self.image_for_ocr_file(ocr_file, image_files)
+        image_files = image_files.select { |f|
+          (f[:folder_barcode] == ocr_file[:folder_barcode] && f[:sort] == ocr_file[:sort])
+        }.first
       end
 
       # file(s) are entries in an audit
       def self.image_for_ocr_file?(ocr_file, image_files)
-        image_files = image_files.select do |f| 
-          (f[:folder_barcode] == ocr_file[:folder_barcode] && f[:sort] == ocr_file[:sort])
-        end
-        image_files.length == 1
+        !image_for_ocr_file(ocr_file, image_files).nil?
       end
+
+
 
     end
   end
+
 end
+
+
+# We have: {
+#   :path=>"spec/fixtures/files/lae_test_img/32101075851483/32101075851459/0002.xml",
+#   :file_name=>"0002.xml",
+#   :folder_barcode=>"32101075851459",
+#   :box_barcode=>"32101075851483",
+#   :mime=>"text/xml",
+#   :status=>"well-formed",
+#   :md5=>"0870b65b66d80c86b29d8706dd2c2455",
+#   :sort=>2,
+#   :ok_to_ingest?=>true
+# }
+# We need: folder_barcode, tiff_path, ocr_path, sort_order
+
