@@ -62,10 +62,12 @@ FactoryGirl.define do
     f.sort_title { Faker::Lorem.sentence(2, true, 5) }
     categories_and_subjects
     f.title { Faker::Lorem.sentence(3, true, 5) }
-    after(:create) do |folder|
-      2.times do
-        folder.pages << FactoryGirl.create(:lae_page, folder: folder)
-      end
-    end
+    f.pages { Array.new(2) { FactoryGirl.create(:page) } }
+    #after(:create) do |folder|
+      #f.pages { Array.new(2) { FactoryGirl.create(:page) } }
+      #2.times do
+      #  folder.pages << FactoryGirl.create(:lae_page, folder: folder)
+      #end
+    #end
   end
 end
