@@ -1,9 +1,13 @@
-<%= form_tag(url_for(only_path: false), method: :get, id: 'quick_lookup', :class => 'search-query-form form-inline clearfix') do %>
+<%= form_tag(url_for(only_path: false), method: :get, id: 'quick_lookup', :class => 'search-query-form form-inline clearfix navbar-form') do %>
   <div class="pull-left">
-    <%= text_field_tag(:barcode, "Find a #{controller_name.classify} by Barcode") %>
+    <div role="form-group">
+      <%= text_field_tag(:barcode, "Find a #{controller_name.classify} by Barcode", :class => 'form-control') %>
+    </div>
   </div>
-  <button type="submit" class="btn btn-primary search-btn left-pad-btn" id="quick_lookup_submit">
-    <span class="submit-search-text">Submit</span>
-    <i class="icon-search icon-white"></i>
-  </button>
+  <span class="input-group-btn">
+        <button type="submit" class="btn btn-primary search-btn btn-sm" id="quick_lookup_submit">
+          <span class="submit-search-text">Search</span>
+          <span class="glyphicon glyphicon-search"></span>
+        </button>
+        </span>
 <% end %>

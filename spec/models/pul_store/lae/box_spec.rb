@@ -29,7 +29,8 @@ describe PulStore::Lae::Box do
 
     it "should be an auto-assigned number" do
       b = FactoryGirl.create(:lae_box)
-      b.physical_number.should match(/^(\d+)$/)
+      #b.physical_number.should match(/^(\d+)$/)
+      b.physical_number.is_a?(Fixnum).should be_true
       b.physical_number.should_not be_blank
     end
   end
@@ -167,7 +168,7 @@ describe PulStore::Lae::Box do
 
     it "is saveable" do
       b = FactoryGirl.create(:lae_box)
-      n = "no way to validate 123"
+      n = 123456
       b.shipped_date = Date.current
       b.tracking_number = n
       b.save!

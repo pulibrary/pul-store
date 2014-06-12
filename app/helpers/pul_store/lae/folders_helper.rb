@@ -16,7 +16,7 @@ module PulStore::Lae::FoldersHelper
   end
 
   def lae_folder_created_datetime(doc)
-    PulStore::Lae::FoldersHelper.style_date(doc[:prov_metadata__date_uploaded_ssi])
+    PulStore::Lae::FoldersHelper.style_date(doc[:prov_metadata__date_uploaded_dtsi])
   end
 
   def lae_folder_last_modified_datetime(doc)

@@ -18,7 +18,7 @@ describe PulStore::Lae::FolderLookups do
 
     it "Folder Count by Box should be Equal from Fedora and Solr" do
       folder_list = get_folder_list_by_box(@box.id)
-      expect(@box.folders.length).to eq(get_folder_list_by_box(@box.id).length)
+      expect(@box.folders.size).to eq(get_folder_list_by_box(@box.id).length)
     end
   end
 

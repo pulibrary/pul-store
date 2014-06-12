@@ -1,4 +1,9 @@
 @import 'bootstrap';
-@import 'bootstrap-responsive';
 
 @import 'blacklight/blacklight';
+
+footer {
+  background-color: #f2f1eb;
+  border-top: 1px solid #dddddd;
+  margin-top: 1em;
+}

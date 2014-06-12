@@ -1,4 +1,4 @@
-<%= form_for(@hard_drive, id: 'edit_lae_hard_drive') do |h| %>
+<%= form_for(@hard_drive, :html => {:class => "form form-horizontal edit_lae_hard_drive"}) do |h| %>
   <% if @hard_drive.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@hard_drive.errors.count, "error") %> prohibited this Hard Drive from being saved:</h2>
@@ -10,29 +10,36 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= h.label :barcode, "Hard Drive Barcode" %>
-    <%= h.text_field :barcode %>
+  <div class="form-group"> 
+    <%= h.label :barcode, "Hard Drive Barcode",:class=>"control-label col-xs-3" %>
+    <div class="col-xs-9">
+      <%= h.text_field :barcode, class: "form-control" %>
+    </div>
   </div>
 
   <%= fields_for :box, @hard_drive.box do |box_fields| %>
-    <div class="field">
-      <%= box_fields.label :barcode, "Box Barcode" %>
-      <%= box_fields.text_field :barcode,  name: 'lae_hard_drive[lae_box[barcode]]'%>
-      
+    <div class="form-group">
+      <%= box_fields.label :barcode, "Box Barcode", :class=>"control-label col-xs-3" %>
+      <div class="col-xs-9">
+        <%= box_fields.text_field :barcode,  name: 'lae_hard_drive[lae_box[barcode]]', class: "form-control"%>
+      </div>   
     </div>
   <% end %>
 
-  <div class="field">
-    <%= h.label :remove_box, "Remove Associated Box" %>
-    <%= h.check_box :remove_box %>
+  <div class="form-group">
+    <%= h.label :remove_box, "Remove Associated Box", :class=>"control-label col-xs-3" %>
+    <div class="col-xs-9">
+      <%= h.check_box :remove_box, class: "form-control" %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= h.label :error_note %>
-    <%= h.text_area :error_note %>
+  <div class="form-group">
+    <%= h.label :error_note, :class=>"control-label col-xs-3" %>
+    <div class="col-xs-9">
+      <%= h.text_area :error_note, class: "form-control" %>
+    </div>
   </div>
-  <div class="actions">
-    <%= h.submit id: 'hard_drive_submit'  %>
+  <div class="actions col-xs-9 col-xs-offest-3">
+    <%= h.submit id: 'hard_drive_submit', class: "btn btn-primary btn-large"  %>
   </div>
 <% end %>

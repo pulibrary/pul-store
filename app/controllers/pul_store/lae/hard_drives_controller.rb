@@ -1,6 +1,10 @@
 class PulStore::Lae::HardDrivesController < ApplicationController
   include PulStore::Lae::BarcodeLookups
+
+  layout 'lae'
+
   before_action :set_hard_drive, only: [:show, :edit, :update, :destroy]
+  before_filter :authenticate_user!
 
   def index
     if params[:barcode]
@@ -23,8 +27,10 @@ class PulStore::Lae::HardDrivesController < ApplicationController
 
   # GET /lae/hard_drives/new
   def new
-    authorize! :show, params
+    authorize! :create, PulStore::Lae::HardDrive
     @hard_drive = PulStore::Lae::HardDrive.new
+    @page_title = "Add a New Hard Drive"
+    render 'new'
   end
 
   # # GET /lae/hard_drives/1/edit
@@ -36,13 +42,17 @@ class PulStore::Lae::HardDrivesController < ApplicationController
   # POST /lae/hard_drives.json
   def create
     @hard_drive = PulStore::Lae::HardDrive.new(hard_drive_params)
+    project = PulStore::Project.first
+    @hard_drive.project = project
 
     respond_to do |format|
       if @hard_drive.save
-        format.html { redirect_to @hard_drive, notice: 'Hard Drive was successfully created.' }
+        format.html { redirect_to @hard_drive, notice: 'Hard Drive was successfully attached.' }
+        format.js   { render action: 'create', notice: 'Hard Drive was successfully attached.' }
         format.json { render action: 'show', status: :created, location: @hard_drive }
       else
         format.html { render action: 'new' }
+        format.js { render action: 'create', notice: 'Unable to attach Hard Drive.' }
         format.json { render json: @hard_drive.errors, status: :unprocessable_entity }
       end
     end
@@ -91,6 +101,6 @@ class PulStore::Lae::HardDrivesController < ApplicationController
     end
 
     def hard_drive_params
-      params.require(:lae_hard_drive).permit(:barcode, :error_note, :remove_box, lae_box: [:barcode])
+      params.require(:lae_hard_drive).permit(:barcode, :error_note, :remove_box, :box_id, lae_box: [:barcode])
     end
 end

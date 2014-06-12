@@ -1,0 +1,32 @@
+<% @hard_drive = PulStore::Lae::HardDrive.new %>
+<%= form_for(@hard_drive, remote: true, :html => {:class => "form form-horizontal"} ) do |d| %>
+  <div class="modal-body">
+    <% if @hard_drive.errors.any? %>
+      <div id="error_explanation" class="col-sml-12 col-sm-offset-3">
+        <h2><%= pluralize(@hard_drive.errors.count, "error") %> prohibited this Drive from being saved:</h2>
+        <ul>
+        <% @hard_drive.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="form-group">
+      <%= d.label :barcode, class: 'control-label  col-sm-3'%>
+      <div class="col-sm-9">
+        <%= d.text_field :barcode, class: 'form-control' %>
+      </div>
+    </div>
+
+      <%= d.hidden_field :box_id, :class => "field", :value => box.id %>
+    </div>
+
+    <div class="modal-footer">
+      <div class="form-group">
+       <div class="col-sm-9 actions">
+          <%= d.submit :value => "Attach Drive", :class => 'btn btn-primary' %>
+          <button id="cancelButton" type="button" class="btn btn-inverse" data-dismiss="modal" aria-hidden="true" title="Close this screen without adding this Folder.">Return to Box</button>
+       </div>
+      </div>
+    </div>
+<% end %>

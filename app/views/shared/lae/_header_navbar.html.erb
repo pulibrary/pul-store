@@ -1,26 +1,35 @@
-<div id="header-navbar-fixed-top" class="navbar navbar-fixed-top">
-     <div class="navbar-inner">
-            <div class="container">
-              <div class="row">
-                      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                    </a>
-                  <div class="span4">
-                    <%= link_to application_name, "/lae", class: "lae-brand" %>
-                  </div>
-                  <div class="span5 clearfix" id="searchbar">         
-                      <%= render 'shared/lae/quick_lookup' %>
-                      
-                  </div>
-
-                  <div class="span3 nav-collapse">
-                    <%= render :partial=>'shared/lae/user_util_links' %>
-                  
-                  </div>
-
-        </div>
-        </div>
-   </div>
+<div class="navbar navbar-default navbar-static-top"> 
+  <div class="container">  
+      <%= link_to application_name, "/lae", class: "lae-brand navbar-brand" %>
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#user-util-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse">
+        <%= render :partial=>'shared/lae/user_util_links' %>                 
+      </div>
+  </div>
+</div>
+<div class="navbar navbar-default" role="navigation">
+  <div class="container">
+    <ul class="nav navbar-nav">
+      <li><a href="/lae">Lae Home</a></li>
+      <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown">Manage Boxes<b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="/lae/boxes">Browse</a></li>
+          <li><a href="/lae/boxes/new">Add New</a></li>
+        </ul>
+      </li>
+      <li><a href="/lae/folders">Manage Folders</a></li>
+      <li><a href="/lae/hard_drives">Manage Drives</a></li>
+    </ul>
+    <div class="navbar-right col-sm-4 col-md-4" id="searchbar">         
+      <%= render 'shared/lae/quick_lookup' %>
+    </div>
+  </div>
 </div>

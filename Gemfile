@@ -27,7 +27,9 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
-gem "hydra", "~> 6.2.0"
+gem "hydra", "~> 7.0.0"
+
+gem "blacklight-marc", "~> 5.0.0"
 
 gem "hydra-file_characterization", "~> 0.3.1"
 
@@ -44,6 +46,7 @@ gem 'marc'
 gem 'rmagick'
 
 gem 'order_up'
+gem "font-awesome-rails"
 
 #for bulk upload ui
 gem 'jquery-fileupload-rails'

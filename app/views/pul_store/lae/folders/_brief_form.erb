@@ -1,4 +1,4 @@
-<%= form_for(@folder) do |f| %>
+<%= form_for(@folder, html: {:class => 'form-horizontal editor lae-folder'}) do |f| %>
   <% if @folder.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@folder.errors.count, "error") %> prohibited this Folder from being saved:</h2>
@@ -10,22 +10,37 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :barcode %><br>
-    <%= f.text_field :barcode, class: 'barcode' %>
+  <div class="form-group">
+    <%= f.label :barcode %>
+    <div class="controls">
+      <%= f.text_field :barcode, class: 'barcode control-label' %>
+    </div>
   </div>
- <div class="field">
-    <%= f.label :genre %><br>
-    <%= f.select(:genre, options_for_select(list_all_genres_as_select_list)) %>
+ <div class="form-group">
+    <%= f.label :genre, class: "control-label" %>
+    <div class="controls">
+      <%= f.select(:genre, options_for_select(list_all_genres_as_select_list)) %>
+    </div>
   </div>
-  <div id="extent-metadata">
-    <!-- required metadata goes here -->
-    <% PulStore::Lae::Folder::extent_elements.each do |e| %>
-      <div class="field">
-        <%= f.label e %><br/>
-        <%= f.text_field e %>
+  
+  <div class="form-group">
+      <%= b.label "Width x Height (cm)", class: 'control-label' %>
+      <div class="controls row">
+        <div class="input-prepend col-xs-3">
+          <%= b.text_field :width_in_cm, placeholder: 'Width'  %>
+        </div>
+        <span> X </span>
+        <div class="input-append col-xs-3">
+          <%= b.text_field :height_in_cm, placeholder: 'Height'   %>
+       </div>
       </div>
-    <% end %>
+    </div>
+    <div class="form-group">
+    <%= b.label :page_count, class: 'control-label' %>
+      <div class="controls">
+        <%= b.text_field :page_count, class: 'col-xs-3', placeholder: "Num Pages" %>
+      </div>
+    </div>
 
    <div class="actions">
       <%= f.submit :value => "Create Folder", :class => 'btn btn-primary' %>
