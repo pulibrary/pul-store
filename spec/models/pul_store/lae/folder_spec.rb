@@ -433,7 +433,8 @@ describe PulStore::Lae::Folder do
 
   describe "needs_qc?" do
     it "responds with true when we have our core elements, (valid) pages, and passed_qc is false" do
-      f = FactoryGirl.build(:lae_core_folder_with_pages)
+      f = FactoryGirl.build(:lae_core_folder)
+      f.pages << FactoryGirl.create(:page)
       f.needs_qc?.should be_true
     end
 
