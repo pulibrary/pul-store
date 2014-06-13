@@ -19,7 +19,7 @@ module PulStore::Validations
 
   def validate_barcode_uniqueness
     if self.kind_of?(PulStore::Base) && self.respond_to?(:barcode) && !self.send(:barcode).blank?
-      o = self.class.where(prov_metadata__barcode_tesim: self.send(:barcode))
+      o = self.class.where(prov_metadata__barcode_tesim: self.send(:barcode).to_s)
       unless o.count == 0
         errors.add(:barcode, "CREATE: \"#{self.send(:barcode)}\" already exists in the system.")
       end
@@ -28,7 +28,7 @@ module PulStore::Validations
 
   def validate_barcode_uniqueness_on_update
     if self.kind_of?(PulStore::Base) && self.respond_to?(:barcode) && !self.send(:barcode).blank?
-      o = self.class.where(prov_metadata__barcode_tesim: self.send(:barcode))
+      o = self.class.where(prov_metadata__barcode_tesim: self.send(:barcode).to_s)
       if o.count == 1 && o.first != self
         errors.add(:barcode, "UPDATE: \"#{self.send(:barcode)}\" already exists in the system.")
       end
@@ -38,7 +38,8 @@ module PulStore::Validations
   def validate_barcode
     unless self.send(:barcode).blank?
       calc_check_digit = calculate_barcode_checkdigit(:barcode)
-      actual_check_digit = barcode[-1,1].to_i
+      barcode_as_string = barcode.to_s
+      actual_check_digit = barcode_as_string[-1,1].to_i
       unless calc_check_digit == actual_check_digit
         errors.add(:barcode, "Barcode checkdigit is not valid.")
       end
@@ -109,7 +110,9 @@ module PulStore::Validations
     # Start with the total set to zero
     total = 0
     # and scan the 13 digits from left to right:
-    bc_ints = self.send(:barcode).scan(/\d/).map { |i| i.to_i }
+    # removed .scan(/\d/).map { |i| i.to_i } AF 7.x treats barcode as a FIXNUM 
+    #barcode_as_string = self.send(:barcode).to_s
+    bc_ints = self.send(:barcode).to_s().scan(/\d/).map { |i| i.to_i } 
     13.times do |i|
       # If the digit is in an even-numbered position (2, 4, 6...) add it to the total.
       if (i+1) % 2 == 0

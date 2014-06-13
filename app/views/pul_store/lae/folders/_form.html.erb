@@ -12,30 +12,30 @@
 <div class="row">
 
 
-  <div id="desc-metadata" class="span6">
+  <div id="desc-metadata" class="col-md-6">
     <!-- Language -->
     <%= render :partial => "records/edit_field", :locals => {:f => b, :render_req => false, :key => :language } %>
 
     <!-- Title -->
-    <div class="control-group">
-    <%= b.label :title, "Title", :class=>"control-label" %>
+    <div class="form-group">
+    <%= b.label :title, "Title", :class=>"control-label col-xs-3" %>
     <% if @folder.title.empty? %>
-      <div class="controls">
-        <%= text_field_tag "lae_folder[title][]", nil, :id => 'lae_folder_title' %>
+      <div class="col-xs-7">
+        <%= text_field_tag "lae_folder[title][]", nil, :id => 'lae_folder_title', class: "form-control" %>
       </div>
     <% else %>
       <% @folder.title.to_ary.each_with_index do |title, index| %>
-        <div class="controls">
-          <%= text_field_tag "lae_folder[title][]", title, :id => 'lae_folder_title' %>
+        <div class="col-xs-7">
+          <%= text_field_tag "lae_folder[title][]", title, :id => 'lae_folder_title' , class: "form-control"%>
         </div>
       <% end %>
     <% end %>
     </div>
     <!-- sort title -->
-    <div class="control-group">
-      <%= b.label :sort_title, :class=>"control-label" %>
-      <div class="controls">
-        <%= b.text_field :sort_title %>
+    <div class="form-group">
+      <%= b.label :sort_title, :class=>"control-label col-xs-3" %>
+      <div class="col-xs-7">
+        <%= b.text_field :sort_title, class: "form-control" %>
       </div>
     </div>
     <!-- Alternative Title -->
@@ -43,16 +43,16 @@
      <!-- Series -->
       <%= render :partial => "records/edit_field", :locals => {:f => b, :render_req => false, :key => :series } %>
     <!-- creator -->
-    <div class="control-group">
-      <%= b.label :creator, "Creator", :class=>"control-label" %>
+    <div class="form-group">
+      <%= b.label :creator, "Creator", :class=>"control-label col-xs-3" %>
       <% @folder.creator.to_ary.each_with_index do |creator, index| %>
-        <div class="controls">
-        <%= text_field_tag "lae_folder[creator][]", creator, :id =>'lae_folder_creator', placeholder: 'Use if only one author' %>
+        <div class="col-xs-7">
+        <%= text_field_tag "lae_folder[creator][]", creator, :id =>'lae_folder_creator', placeholder: 'Use if only one author', class: "form-control" %>
       </div>
       <% end %>
       <% if @folder.creator.empty? %>
-      <div class="controls">
-        <%= text_field_tag "lae_folder[creator][]", nil, :id =>'lae_folder_creator', placeholder: 'Use if only one author' %>
+      <div class="col-xs-7">
+        <%= text_field_tag "lae_folder[creator][]", nil, :id =>'lae_folder_creator', placeholder: 'Use if only one author', class: "form-control" %>
       </div>
       <%- end %>
     </div>
@@ -62,10 +62,10 @@
       <%= render :partial => "records/edit_field", :locals => {:f => b, :render_req => true, :key => :publisher } %>
       <!-- Geographic Origin -->
       <!-- Geographic -->
-      <div class="control-group">
-        <%= b.label :geographic_origin, :class=>"control-label" %>
-        <div class="controls">
-          <%= b.select(:geographic_origin, options_for_select(list_all_areas_as_select_list, [@folder.geographic_origin]), prompt: 'Select') %>
+      <div class="form-group">
+        <%= b.label :geographic_origin, :class=>"control-label col-xs-3" %>
+        <div class="col-xs-7">
+          <%= b.select(:geographic_origin, options_for_select(list_all_areas_as_select_list, [@folder.geographic_origin]), { prompt: 'Select'} , { class: "form-control" }) %>
         </div>
       </div>
       <% if !@folder.earliest_created.blank? && !@folder.latest_created.blank? %>
@@ -77,128 +77,125 @@
       <% date_created_type_class = "active-date-created" %>
       <% date_toggle_message = "Use Date Range Instead" %>
     <% end %>
-    <div class="control-group date-toggle">
-      <div class="controls">
+    <div class="form-group date-toggle">
+      <div class="col-xs-7 col-xs-offset-3">
         <button id="date-type-toggle" type="button" class="btn btn-info"><%= date_toggle_message %></button>
       </div>
     </div>
     <!-- date created -->
     <div class="date-options <%= date_created_type_class %>">
-      <div class="control-group" id="date-created">
-        <%= b.label :date_created, :class=>"control-label" %>
-        <div class="controls">
-          <%= b.text_field :date_created, :id => 'lae_folder_date_created', class: 'input-mini', placeholder: 'Date' %>
+      <div class="form-group" id="date-created">
+        <%= b.label :date_created, :class=>"control-label col-xs-3" %>
+        <div class="col-xs-5">
+          <%= b.text_field :date_created, :id => 'lae_folder_date_created', placeholder: 'Date', class: "form-control" %>
         </div>
       </div>
     </div>
     <div class="date-options <%= date_range_type_class %>">
     <!-- :earliest_created, :latest_created -->
-    <div class="control-group">
-      <%= b.label "Date Range", :class=>"control-label" %>
-      <div class="controls">
-        <div class="input-prepend">
-          <%= b.text_field :earliest_created, :id => 'lae_folder_earliest_created', class: 'input-mini', placeholder: 'Start' %>
+    <div class="form-group">
+      <%= b.label "Date Range", :class=>"control-label col-xs-3" %>
+      <div class="col-xs-7 row">
+        <div class="input-prepend col-xs-4">
+          <%= b.text_field :earliest_created, :id => 'lae_folder_earliest_created', placeholder: 'Start', class: "form-control" %>
         </div>
-        <div class="input-append">
-          <%= b.text_field :latest_created, :id => 'lae_folder_latest_created', class: 'input-mini', placeholder: 'End' %>
+        <div class="input-append col-xs-4">
+          <%= b.text_field :latest_created, :id => 'lae_folder_latest_created', placeholder: 'End', class: "form-control" %>
         </div>
       </div>
     </div>
   </div>
       <!-- Genre -->
-    <div class="control-group">
-      <%= b.label :genre, :class=>"control-label" %>
-      <div class="controls">
-        <%= b.select(:genre, options_for_select(list_all_genres_as_select_list, [@folder.genre])) %>
+    <div class="form-group">
+      <%= b.label :genre, :class=>"control-label col-xs-3" %>
+      <div class="col-xs-7">
+        <%= b.select(:genre, options_for_select(list_all_genres_as_select_list, [@folder.genre]), {}, {class: "form-control"}) %>
       </div>
     </div>
     <!-- Subject -->
-
-    <div class="control-group lae-subjects">
-      <%= b.label 'Categories and Subjects', :class => 'control-label' %>
       <%= render :partial => "form_subjects", locals: {subject: :subject, category: :category} %>
-    </div>
 
     <!-- Geographic Subject -->
     <%= render :partial => "records/edit_field", :locals => {:f => b, :render_req => false, :key => :geographic_subject } %>
 
     <!-- Decription -->
-    <div class="control-group">
-      <%= b.label :description, :class => 'control-label' %>
-      <div class="controls">
-        <%= b.text_area :description, cols: 50, rows: 6 %>
+    <div class="form-group">
+      <%= b.label :description, :class => 'control-label col-xs-3' %>
+      <div class="col-xs-7">
+        <%= b.text_area :description, cols: 50, rows: 6, class: "form-control" %>
       </div>
     </div>
   </div>
-  <div id="admin-metadata" class="span4">
+  <div id="admin-metadata" class="col-md-4">
     <div id="admin-metadata">
-    <div class="control-group">
-      <%= b.label "State",  :class=>"control-label" %>
+    <div class="form-group">
+      <%= b.label "State",  :class=>"control-label col-xs-3" %>
       <div class="controls">
         <%= render :partial => 'shared/lae/workflow_state_badge', locals: {object: @folder} %>
       </div>
     </div>
-    <div class="control-group">
-      <%= b.label "Folder Number", :class=>"control-label" %>
-      <div class="controls">
-        <%= b.text_field :physical_number %>
+    <div class="form-group">
+      <%= b.label "Folder Number", :class=>"control-label col-xs-3" %>
+      <div class="col-xs-7">
+        <%= b.text_field :physical_number, class: "form-control" %>
       </div>
     </div>
 
-    <div class="control-group">
-      <%= b.label :barcode, :class=>"control-label" %>
-      <div class="controls">
-        <%= b.text_field :barcode %>
+    <div class="form-group">
+      <%= b.label :barcode, :class=>"control-label col-xs-3" %>
+      <div class="col-xs-7">
+        <%= b.text_field :barcode, class: "form-control" %>
       </div>
     </div>
-    <div class="control-group">
-      <%= b.label :error_note, :class=>"control-label" %>
-      <div class="controls">
-        <%= b.text_area :error_note, cols: 50, rows: 3 %>
+    <div class="form-group">
+      <%= b.label :error_note, :class=>"control-label col-xs-3" %>
+      <div class="col-xs-7">
+        <%= b.text_area :error_note, cols: 50, rows: 3, class: "form-control" %>
       </div>
     </div>
-    <div class="control-group">
-      <%= b.label :suppressed, :class=>"control-label" %>
-      <div class="controls">
+    <div class="form-group">
+      <%= b.label :suppressed, :class=>"control-label col-xs-3" %>
+      <div class="col-xs-7">
         <%= b.check_box :suppressed, { class: 'checkbox' }, "true", "false" %>
       </div>
     </div>
     <!-- passed qc :passed_qc -->
-    <div class="control-group">
-      <%= b.label :passed_qc, :class=>"control-label" %>
-      <div class="controls">
+    <div class="form-group">
+      <%= b.label :passed_qc, :class=>"control-label col-xs-3" %>
+      <div class="col-xs-7">
         <%= b.check_box :passed_qc, { class: 'checkbox' }, "true", "false" %>
       </div>
     </div>
-    <div class="control-group">
-      <%= b.label :rights, :class=>"control-label" %>
-      <div class="controls">
-        <%= b.text_area :rights, cols: 50, rows: 6 %>
+    <div class="form-group">
+      <%= b.label :rights, :class=>"control-label col-xs-3" %>
+      <div class="col-xs-7">
+        <%= b.text_area :rights, cols: 50, rows: 6, class: "form-control" %>
       </div>
     </div>
     </div>
-    <div class="control-group">
-      <%= b.label "Width x Height (cm)", class: 'control-label' %>
-      <div class="controls">
-        <div class="input-prepend">
-          <%= b.text_field :width_in_cm, class: 'input-mini', placeholder: 'Width'  %>
+    <div class="form-group">
+      <%= b.label "Width x Height (cm)", class: 'control-label col-xs-3' %>
+      <div class="col-xs-9 row">
+        <div class="input-prepend col-xs-4">
+          <%= b.text_field :width_in_cm, placeholder: 'Width', class: "form-control" %>
         </div>
-        <span> X </span>
-        <div class="input-append">
-          <%= b.text_field :height_in_cm, class: 'input-mini', placeholder: 'Height'   %>
+        <div class="col-xs-1">x</div>
+        <div class="input-append col-xs-4">
+          <%= b.text_field :height_in_cm, placeholder: 'Height', class: "form-control" %>
        </div>
       </div>
     </div>
-    <div class="control-group">
-    <%= b.label :page_count, class: 'control-label' %>
-      <div class="controls">
-        <%= b.text_field :page_count, class: 'input-small', placeholder: "Num Pages" %>
+    <div class="form-group">
+    <%= b.label :page_count, class: 'control-label col-xs-3' %>
+      <div class="col-xs-7">
+        <%= b.text_field :page_count, class: 'form-control', placeholder: "Num Pages" %>
       </div>
     </div>
+    <%= render :partial => "page_preview" %>
   </div>
  </div>
  <div class="row">
-  <div class="actions span2 offset2">
+  <div class="actions col-md-2">
     <%= b.submit :value => "Update Folder", :class => 'btn btn-primary btn-large' %>
   </div>
 </div>

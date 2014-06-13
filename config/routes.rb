@@ -11,13 +11,17 @@ PulStore::Application.routes.draw do
       get 'genres', to: 'genres#index'
       get 'genres/:id', to: 'genres#show'
       get 'categories/:category_id/subjects', to: 'subjects#index'
+      get 'boxes/:id/folders', to: 'boxes#folders'
     end
   end
 
   root :to => "catalog#index"
   get '/lae', to: redirect('/lae/boxes')
+  
   Blacklight.add_routes(self)
-  HydraHead.add_routes(self)
+  # added with the splitting of BL-marc into sep. gem in BL 5.x series
+  Blacklight::Marc.add_routes(self)
+  #HydraHead.add_routes(self)
 
   # creates routes for any models defined in
   # config/initializers/hydra_editor.rb

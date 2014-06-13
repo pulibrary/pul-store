@@ -170,6 +170,27 @@ class PulStore::Lae::Folder < PulStore::Item
     self.suppressed = self.suppressed?
     self.passed_qc = self.passed_qc?
     self.workflow_state = self.infer_state
+    if !self.physical_number.blank? 
+      self.physical_number = self.physical_number.to_i
+    end
+    if !self.page_count.blank? 
+      self.page_count = self.page_count.to_i
+    end
+    if !self.height_in_cm .blank? 
+      self.height_in_cm  = self.height_in_cm.to_i
+    end
+    if !self.width_in_cm.blank? 
+      self.width_in_cm = self.width_in_cm.to_i
+    end
+    if !self.date_created.blank? 
+      self.date_created = self.date_created.to_i
+    end
+    if !self.latest_created.blank? 
+      self.latest_created = self.latest_created.to_i
+    end
+    if !self.earliest_created.blank? 
+      self.earliest_created = self.earliest_created.to_i
+    end
     self.rights ||= PUL_STORE_CONFIG['lae_rights_boilerplate']
     nil
   end

@@ -21,7 +21,7 @@ describe PulStore::Text do
       # t.pages << p
       p.save
     end
-    t.pages.length.should == expected_page_count
+    t.pages.size.should == expected_page_count
   end
 
   it 'gets a timestamp on save' do

@@ -39,7 +39,7 @@ class PulStore::Page < PulStore::Base
   validate :validate_page_belongs_to_exactly_one_item
 
   # Streams
-  has_file_datastream 'masterImage', type: PulStore::ImageDatastream
+  has_file_datastream 'masterImage' #, type: PulStore::ImageDatastream
   has_file_datastream 'deliverableImage'
   has_file_datastream 'pageOcr'
 
@@ -64,7 +64,7 @@ class PulStore::Page < PulStore::Base
   end
 
   def deliverable_image
-    self.deliverableImage.content
+    deliverableImage.content
   end
 
   def master_tech_metadata=(path_string_or_io)

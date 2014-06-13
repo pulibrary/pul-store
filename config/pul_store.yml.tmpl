@@ -6,6 +6,8 @@ defaults: &defaults
   pulfa_datasource: http://findingaids.princeton.edu/collections/
   id_namespace: puls
   lae_recap_code: rcpxr
+  image_server_store: /tmp/fake_image_store
+  image_server_base: http://libimages.princeton.edu/loris
   jp2_recipes:
     default_color: >
       -rate 2.4,1.48331273,.91673033,.56657224,.35016049,.21641118,.13374944,.08266171 
@@ -22,7 +24,7 @@ defaults: &defaults
       ORGgen_plt=yes 
       ORGtparts=R 
       Stiles=\{1024,1024\}
-    default_grey: >
+    default_gray: >
       -rate 2.4,1.48331273,.91673033,.56657224,.35016049,.21641118,.13374944,.08266171 
       -jp2_space sLUM 
       -double_buffering 10 
@@ -43,13 +45,16 @@ development:
   noid_template: d.zdeeek
   minter_statefile: noid-minter-state # will be in app root
   lae_box_counter_statefile: lae-box-counter-state # will be in app root
+  image_server_store: /tmp/fake_image_store/dev
   secret_key_base: '6a7ab6cf91c0c548541631ef377ba9b8f8a2a601888530e9212ddb6fae13fd0ad18b1193bf2e9473afb15c4d8702058ad40472aaf6ab7d83c3e4c6b02748d206'
   devise_secret_key: '0ce74604635f09c97da09e26fac75daac403beb1aa0663f1f9bb4eaa6d1dc1cd838b1e0488086b1983bafa5e8956d2a734df5107b63108cf451577efb78ea451'
+
 
 test:
   <<: *defaults
   noid_template: t.zdeeek
   minter_statefile: noid-minter-state
+  image_server_store: /tmp/fake_image_store/test
   lae_box_counter_statefile: lae-box-counter-state # will be in app root
   secret_key_base: 'cbec12a5b027bdb2b2e1c98648e759c95421bb92734bf2fbffd650a7c48b591417bd4b2dcb358e6d0e9cbcd9bf856b9a5a24e0248fbbdf3522629dd730fdeb06'
   devise_secret_key: '2d827d419fe8f4ae1756641069ddf382d1078adff0789a78abdc3be66400830786e31606128aa245f3ab50f2c55d8b3c08836b630313b870165071c8fd1d9dd5'
@@ -59,5 +64,6 @@ production:
   noid_template: .zdeeek
   minter_statefile: /opt/pul-store/shared/noid-minter-state
   lae_box_counter_statefile: /opt/pul-store/shared/lae-box-counter-state
+  image_server_store: /mnt/libimages/jp2s
   secret_key_base: 
   devise_secret_key: 

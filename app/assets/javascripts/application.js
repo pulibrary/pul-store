@@ -60,6 +60,11 @@ $(function() {
 
 //$(function() {
   $('form.editor.lae-folder').laeSubjectForm();
+
+  //FIXME - this should be extracted somewhere else and reflect the current search
+  $('#quick_lookup #barcode').on('click', function() {
+    $(this).val("");
+  });
 });
 
 

@@ -1,0 +1,6 @@
+var response = $("<%= escape_javascript(render :partial => 'folders_table') %>");
+var folders_message = $("<%= escape_javascript(render :partial => 'folders_message') %>");
+$(".folder-options").replaceWith(folders_message);
+$("#folders-table").replaceWith(response);
+$(".show-all-folders").addClass('disabled');
+

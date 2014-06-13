@@ -96,6 +96,9 @@ class PulStore::Lae::Box < PulStore::Base
     self.full = self.full?
     self.workflow_state = self._infer_state
     self.physical_number ||= PulStore::Lae::BoxCounter.mint.to_i
+     if !self.tracking_number.blank? 
+      self.tracking_number = self.tracking_number.to_i
+    end
     nil
   end
 

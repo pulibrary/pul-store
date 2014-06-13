@@ -2,7 +2,7 @@
 require 'blacklight/catalog'
 
 class CatalogController < ApplicationController
-
+  include Blacklight::Marc::Catalog
   include Blacklight::Catalog
   include Hydra::Controller::ControllerBehavior
 
@@ -13,7 +13,7 @@ class CatalogController < ApplicationController
   CatalogController.solr_search_params_logic += [:add_access_controls_to_solr_params]
 
   # This filters out objects that you want to exclude from search results, like FileAssets
-  CatalogController.solr_search_params_logic += [:exclude_unwanted_models]
+  #CatalogController.solr_search_params_logic += [:exclude_unwanted_models]
 
 
   configure_blacklight do |config|
@@ -63,7 +63,9 @@ class CatalogController < ApplicationController
     config.add_facet_field solr_name('prov_metadata__workflow_state', :facetable), :label => 'State'
     config.add_facet_field solr_name('desc_metadata__genre', :facetable), :label => 'Genre'
     config.add_facet_field solr_name('desc_metadata__language', :facetable), :label => 'Language'
-    config.add_facet_field solr_name('desc_metadata__geographic', :facetable), :label => 'Geographic Subject'
+    config.add_facet_field solr_name('desc_metadata__geographic_subject', :facetable), :label => 'Geographic Subject'
+    config.add_facet_field solr_name('desc_metadata__category', :facetable), :label => 'Category'
+    config.add_facet_field solr_name('desc_metadata__subject', :facetable), :label => 'Subject'
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request

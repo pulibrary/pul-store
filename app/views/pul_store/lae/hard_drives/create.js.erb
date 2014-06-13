@@ -1,0 +1,9 @@
+var response = $("<%= escape_javascript(render @hard_drive) %>");
+$("#hard_drive_dialog_messages").remove();
+$(response).prependTo("#new_lae_hard_drive");
+console.log(response);
+<% if !@hard_drive.errors.any? %>
+  $('#new_lae_hard_drive').each(function(){
+    this.reset();
+  });
+<% end %>

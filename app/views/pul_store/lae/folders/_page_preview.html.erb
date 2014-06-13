@@ -1,0 +1,11 @@
+<h2>Images</h2>
+<% if !@pages_list.blank? %>
+  <div class="col-xs-12">
+    <%= button_to "View Images in New Window", '#', class: "btn btn-default" %>
+    <%= fa_icon "external-link" %>
+  </div>
+  <img href="<%= pul_store_page_path(@pages_list[0]['id']) %>" class="thumbnail"
+  alt="<%= @pages_list[0]['title'] %>" >
+<% else %>
+  <div>No Images Assigned Yet</div>
+<% end %>

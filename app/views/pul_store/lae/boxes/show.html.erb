@@ -7,7 +7,7 @@
   		<%= render :partial => 'breadcrumb' %>
 	</div>
 	<div class="row">
-		<div class="span4 offset1">
+		<div class="col-md-4 col-md-offset-1">
 			<% if can?(:edit, @box) %>
   				<%= link_to 'Edit this Box', edit_lae_box_path(@box), :class => 'btn btn-primary' %>
 			<% end %>

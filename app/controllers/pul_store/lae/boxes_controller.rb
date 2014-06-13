@@ -19,7 +19,7 @@ class PulStore::Lae::BoxesController < CatalogController #ApplicationController
   PulStore::Lae::BoxesController.solr_search_params_logic += [:add_access_controls_to_solr_params]
 
   # This filters out objects that you want to exclude from search results, like FileAssets
-  PulStore::Lae::BoxesController.solr_search_params_logic += [:exclude_unwanted_models]
+  #PulStore::Lae::BoxesController.solr_search_params_logic += [:exclude_unwanted_models]
 
   # Keep out everything but Boxes, only show state
   PulStore::Lae::BoxesController.solr_search_params_logic += [:limit_to_boxes]
@@ -59,6 +59,7 @@ class PulStore::Lae::BoxesController < CatalogController #ApplicationController
       logger.debug(@document_list)
       logger.debug("*" * 40)
       @filters = params[:f] || []
+      @box = PulStore::Lae::Box.first
       respond_to do |format|
         format.html { render template: 'shared/lae/index' }
       end
@@ -69,30 +70,34 @@ class PulStore::Lae::BoxesController < CatalogController #ApplicationController
     authorize! :show, params[:id]
     @box = PulStore::Lae::Box.find(params[:id])
     @page_title = "Box #{@box.physical_number}"
-    @folder_list = get_folder_list_by_box @box.id
-    logger.debug("*" * 40)
-    logger.debug(@folder_list)
-    logger.debug("*" * 40)
+    @folder_list = get_folder_list_by_box(@box.id, 5)
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @box }
     end
   end
 
+  def folders
+    @box = PulStore::Lae::Box.find(params[:id])
+    @folder_list = get_folder_list_by_box @box.id, 300
+    respond_to do |format|
+      format.json { render json: @folder_list }
+      format.js   { render action: 'folders', notice: 'Show all Folders.' }
+    end
+  end
+
   def new
-   authorize! :create, params
+   authorize! :create, PulStore::Lae::Box
    @box = PulStore::Lae::Box.new
-   #1.times { @box.folders.build}
-   ## Assign to the first Project
-   #FIXME Project assigne shoudl come from the content of the Object in PulStore Hierarchy
+   @page_title = "Create a New Box" 
   end
 
   def edit
     authorize! :edit, params[:id]
     @box = PulStore::Lae::Box.find(params[:id])
     @page_title = "Edit Box #{@box.physical_number}"
-    @folder_list = get_folder_list_by_box @box.id, '300'
-
+    @folder_list = get_folder_list_by_box @box.id, 20
+    
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @box }
@@ -101,6 +106,7 @@ class PulStore::Lae::BoxesController < CatalogController #ApplicationController
 
   # POST
   def create
+    authorize! :create, PulStore::Lae::Box
     @box = PulStore::Lae::Box.new(box_params)
     project = PulStore::Project.first
     @box.project = project
@@ -151,10 +157,7 @@ class PulStore::Lae::BoxesController < CatalogController #ApplicationController
     def list_all_boxes
       @boxes = PulStore::Lae::Box.all
     end
-    # Never trust parameters from the scary internet, only allow the
-    # white list through.
-
-    #FIXME confirm that these are the correct params
+    
     def box_params
       params.require(:lae_box).permit(:full, :barcode, :error_note,
         :physical_location, :tracking_number, :shipped_date, :received_date,

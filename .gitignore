@@ -18,6 +18,8 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+*.pid
+
 
 # Ignore jetty server, solr, fedora, associated data directories
 jetty/*
@@ -30,6 +32,7 @@ database.yml
 pul_store.yml
 # ignore production role_map
 role_map_production.yml
+role_map.yml
 
 noid-minter-state
 lae-box-counter-state

@@ -36,6 +36,11 @@ a:visited.btn {
   margin-top: 20px;
 }
 
+#desc-metadata .form-control {
+  width: 80%;
+  display: inline-block;
+}
+
 .no-active-date-range, .no-active-date-created {
   display: none;
 }
@@ -44,3 +49,6 @@ a:visited.btn {
   display: block;
 }
 
+#lae-box-folder-options {
+  margin-bottom: 1em;
+}
