@@ -127,6 +127,7 @@
     </div>
   </div>
   <div id="admin-metadata" class="col-md-4">
+        <%= render :partial => "page_preview" %>
     <div id="admin-metadata">
     <div class="form-group">
       <%= b.label "State",  :class=>"control-label col-xs-3" %>
@@ -191,7 +192,6 @@
         <%= b.text_field :page_count, class: 'form-control', placeholder: "Num Pages" %>
       </div>
     </div>
-    <%= render :partial => "page_preview" %>
   </div>
  </div>
  <div class="row">

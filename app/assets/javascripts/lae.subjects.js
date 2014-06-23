@@ -9,7 +9,7 @@
       var cloneId = this.id.replace("submit", "clone");
       var newId = this.id.replace("submit", "elements");
       var cloneElem = $('.initial_lae_subject').first().clone(); //$('#'+cloneId).clone();
-      console.log(cloneElem);
+      
       // change the add button to a remove button
       var plusbttn = cloneElem.find('#'+this.id);
       plusbttn.html('-<span class="sr-only">remove this '+ this.name.replace("_", " ") +'</span>');
