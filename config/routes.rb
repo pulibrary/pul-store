@@ -1,7 +1,11 @@
+require "resque/server"
+
 PulStore::Application.routes.draw do
   resources :pages
   resources :texts
   resources :projects
+
+  mount Resque::Server.new, :at => "/resque"
 
   scope module: 'pul_store' do
     namespace :lae do
