@@ -6,7 +6,7 @@
 # Usage:  lae_ingest.sh <path/to/BARCODE.jhove.xml>
 #
 
-LOG_DIR="~/lae_ingest_logs"
+LOG_DIR=$(readlink -f ~/lae_ingest_logs)
 LOG_FILENAME="$LOG_DIR/ingest-$(date +%Y-%m-%dT%T).log"
 
 echo ""
@@ -23,5 +23,7 @@ if [ $JHOVE_FILE"x" == "x" ]; then
   exit 64
 fi
 
+touch $LOG_FILENAME
 # Call the rake task
-rake lae:ingest_box[$JHOVE_FILE] >> $LOG_FILENAME
+bundle exec rake lae:ingest_box[$JHOVE_FILE] >> $LOG_FILENAME
+
