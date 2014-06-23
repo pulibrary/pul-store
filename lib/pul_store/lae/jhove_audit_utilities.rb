@@ -253,11 +253,11 @@ module PulStore
       # path
       def self.file_element_to_h(file_element, root_dir)
         h = {}
-        h[:path] = File.join(root_dir, normalize_windows_path(file_element.content))
-        path_elements = h[:path].split('/')
+        path_elements = normalize_windows_path(file_element.content).split('/')
         h[:file_name] = path_elements.pop()
         h[:folder_barcode] = path_elements.pop()
         h[:box_barcode] = path_elements.pop()
+        h[:path] = File.join(root_dir, h[:box_barcode], h[:folder_barcode], h[:file_name])
         h[:mime] = file_element['mime']
         h[:status] = file_element['status']
         h[:md5] = file_element['md5']
