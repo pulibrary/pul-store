@@ -24,6 +24,8 @@ TEST_BARCODES = YAML.load_file(Rails.root.join('spec/fixtures/test_barcodes.yml'
 
 RSpec.configure do |config|
 
+  config.infer_spec_type_from_file_location!
+
   # config.before(:suite) do 
     require "#{Rails.root}/db/seeds.rb"
     PulStore::Project.delete_all

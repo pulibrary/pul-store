@@ -1,12 +1,12 @@
 require 'spec_helper'
 
-describe PulStore::Project do
+describe PulStore::Project, :type => :model do
   it "can not be deleted if it has associated children" do
     p = PulStore::Project.last
     i = FactoryGirl.create(:item)
     p.parts << i
     p.save!
-    p.destroy.should be_false
+    expect(p.destroy).to be_falsey
   end
 
   it "must have a unique indentifier" do

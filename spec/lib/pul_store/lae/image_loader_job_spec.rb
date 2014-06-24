@@ -30,7 +30,7 @@ module PulStore
           fits = PulStore::Page.characterize(@tiff_path)
           page = subject.build_page(@tiff_path, fits, @ocr_path, @folder.pid, @sort)
           @folder.reload
-          expect(page.valid?).to be_true
+          expect(page.valid?).to be_truthy
           expect(page.sort_order.to_i).to eq @sort # to_i can go in AF 7
           expect(page.folder).to eq @folder
         end
@@ -43,9 +43,9 @@ module PulStore
           page.save
           jp2 = subject.make_jp2(page)
           expect(page.deliverableImage.content).to eq jp2
-          expect(page.valid?).to be_true
-          page.datastreams['deliverableImage'].should have_content
-          page.datastreams['deliverableImage'].mimeType.should == 'image/jp2'
+          expect(page.valid?).to be_truthy
+          expect(page.datastreams['deliverableImage']).to have_content
+          expect(page.datastreams['deliverableImage'].mimeType).to eq('image/jp2')
         end
       end
 

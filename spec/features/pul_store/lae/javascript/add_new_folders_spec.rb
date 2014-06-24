@@ -34,7 +34,7 @@ feature "add new folders" do
         select "Manuscripts", :from => "lae_folder[genre]"
         fill_in 'lae_folder[page_count]', :with => 15
         click_button 'Create Folder'
-        page.should have_content 'Folder 2'
+        expect(page).to have_content 'Folder 2'
       end
       
     end
@@ -55,7 +55,7 @@ feature "add new folders" do
         select "Manuscripts", :from => "lae_folder[genre]"
         fill_in 'lae_folder[page_count]', :with => "fifteen"
         click_button 'Create Folder'
-        page.should_not have_content 'Folder 2'
+        expect(page).not_to have_content 'Folder 2'
       end
       
     end

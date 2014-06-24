@@ -2,7 +2,7 @@ require 'spec_helper'
 include Warden::Test::Helpers
 include PulStore::Lae::PageLookups
 
-describe PulStore::Lae::PageLookups do
+describe PulStore::Lae::PageLookups, :type => :controller do
   before(:all) do
     PulStore::Lae::Box.delete_all
     PulStore::Lae::Folder.delete_all
@@ -18,7 +18,7 @@ describe PulStore::Lae::PageLookups do
     end
 
     it "Page Count by Folder should be Equal from Fedora and Solr" do
-      pending "Add test to retrive pages by folder from solr"
+      skip "Add test to retrive pages by folder from solr"
       #folders = @box.folders
       #expect(folders[0].pages.length).to eq(get_pages_by_folder(folders[0].id).length)
     end
