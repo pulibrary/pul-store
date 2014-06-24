@@ -17,19 +17,19 @@ module PulStore
       end
 
       # Any errors here should cause the process to stop
-      def self.validate_audit_for_breakers(audit_hash)
+      def self.validate_audit_for_breakers(audit_hash, opts={})
         errors = []
         # Make sure everything belongs to one box
-        unless only_one_box?(audit_hash)
+        unless only_one_box?(audit_hash, opts)
           errors << 'Audit contains file from more than one box.'
         end
         # Do all paths exist on the drive?
-        missing_files = check_for_missing_files(audit_hash)
+        missing_files = check_for_missing_files(audit_hash, opts)
         unless  missing_files.length == 0
           errors << "Some files are missing: #{missing_files.join(', ')}."
         end
         # Make sure box exists in repo
-        unless box_exists_in_repo?(audit_hash)
+        unless box_exists_in_repo?(audit_hash, opts)
           barcode = audit_hash.first[:box_barcode]
           errors << "Box with barcode #{barcode} does not exist in the repository."
         end
@@ -40,30 +40,30 @@ module PulStore
       # Any errors here will mark individual files as not to be ingested, but
       # the intent is that the calling process should continue on. A list of
       # the errors is returned for logging.
-      def self.validate_audit_members(audit_hash)
+      def self.validate_audit_members(audit_hash, opts={})
         errors = []
         # Check same number of OCR files as images? (log problems to stderr, mark not to ingest)
-        missing_ocr_or_image = check_ocr_image_match(audit_hash)
+        missing_ocr_or_image = check_ocr_image_match(audit_hash, opts)
         missing_ocr_or_image.each do |f|
           errors << "Missing corresponding OCR or TIFF for #{f[:path]}"
         end
         # Make sure manifest says all are well-formed/valid (log problems to stderr, mark not to ingest)
-        unacceptable_status = check_for_acceptable_status(audit_hash)
+        unacceptable_status = check_for_acceptable_status(audit_hash, opts)
         unacceptable_status.each do |f|
           errors << "File #{f[:path]} has status: #{f[:path]}"
         end
         # Verify Checksums
-        mismatches = verify_checksums(audit_hash)
+        mismatches = verify_checksums(audit_hash, opts)
         mismatches.each do |f|
           errors << "File #{f[:path]} checksum does not match"
         end
         # Color Profile
-        wrong_color_profile = verify_color_profile(audit_hash)
+        wrong_color_profile = verify_color_profile(audit_hash, opts)
         wrong_color_profile.each do |f|
           errors << "File #{f[:path]} color profile is not '#{ADOBE_1998}'"
         end
         # OCR w/ broken image || Image with broken ocr
-        files_with_broken_partners = confirm_corresponding_files_ok(audit_hash)
+        files_with_broken_partners = confirm_corresponding_files_ok(audit_hash, opts)
         files_with_broken_partners.each do |f|
           m =  "File #{f[:path]} will not be ingested because the corresponding "
           m += "image or OCR has a problem."
@@ -79,20 +79,24 @@ module PulStore
       ## Breaker Checks
       ###################
 
-      def self.only_one_box?(audit)
+      def self.only_one_box?(audit, opts={})
         barcodes = audit.map { |f| f[:box_barcode] }
+        opts[:logger].info("#{barcodes.uniq.length} box represented in audit") if opts[:logger]
         barcodes.uniq.length == 1
       end
 
-      def self.check_for_missing_files(audit)
+      def self.check_for_missing_files(audit, opts={})
         missing = []
         audit.each { |f|  missing << f[:path] unless File.exists? f[:path] }
+        opts[:logger].info("#{missing.length} files missing") if opts[:logger]
         missing
       end
 
-      def self.box_exists_in_repo?(audit)
+      def self.box_exists_in_repo?(audit, opts={})
         b = audit.first[:box_barcode]
-        PulStore::Lae::Box.where(prov_metadata__barcode_tesim: b).to_a.length == 1
+        exists = PulStore::Lae::Box.where(prov_metadata__barcode_tesim: b).to_a.length == 1
+        opts[:logger].info("Box exists? #{exists}") if opts[:logger]
+        exists
       end
 
       ###########################
@@ -101,7 +105,7 @@ module PulStore
 
       # This updates the audit in place AND returns a list of files that won't
       # be ingested (useful for logging).
-      def self.check_ocr_image_match(audit)
+      def self.check_ocr_image_match(audit, opts={})
         ocr_files = audit.select { |f| f[:mime] == 'text/xml' }
         image_files = audit.select { |f| f[:mime] == 'image/tiff' }
         do_not_ingest = []
@@ -120,13 +124,14 @@ module PulStore
           end
         end
 
+        opts[:logger].info("#{do_not_ingest.length} marked not to ingest because image or OCR missing") if opts[:logger]
         do_not_ingest
 
       end
 
       # This updates the audit in place AND returns a list of files that won't
       # be ingested (useful for logging)
-      def self.check_for_acceptable_status(audit)
+      def self.check_for_acceptable_status(audit, opts={})
         ocr_files = audit.select { |f| f[:mime] == 'text/xml' }
         image_files = audit.select { |f| f[:mime] == 'image/tiff' }
         do_not_ingest = []
@@ -144,13 +149,13 @@ module PulStore
             do_not_ingest << ocr_file
           end
         end
-
+        opts[:logger].info("#{do_not_ingest.length} marked not to ingest due to unacceptable status") if opts[:logger]
         do_not_ingest
       end
 
       # After all other checks, run through this, which will mark OCR as not to
       # ingest if the image has problems, and vice versa.
-      def self.confirm_corresponding_files_ok(audit)
+      def self.confirm_corresponding_files_ok(audit, opts={})
         ocr_files = audit.select { |f| f[:mime] == 'text/xml' }
         image_files = audit.select { |f| f[:mime] == 'image/tiff' }
         do_not_ingest = []
@@ -171,31 +176,34 @@ module PulStore
         # The PROBLEM is that if the image file above was marked as not to 
         # ingest because the OCR wasn't OK, then now the image files that aren't
         # OK have their OCR added to the do_not_ingest list. We want a clean list
-        # of files that are excluded for this reason. unless ⌄ is the solution
+        # of files that are excluded for this reason.
             do_not_ingest << ocr_file unless do_not_ingest.include?(image_file)
           end
         end
 
+        opts[:logger].info("#{do_not_ingest.length} marked not to ingest because something is wrong with the corresponding image/ocr") if opts[:logger]
         do_not_ingest
       end
 
       # This updates the audit in place AND returns a list of files that won't
       # be ingested (useful for logging)
-      def self.verify_checksums(audit)
+      def self.verify_checksums(audit, opts={})
         mismatches = []
         audit.each do |f|
-          unless calc_md5(f[:path]) == f[:md5]
+          md5sum = calc_md5(f[:path])
+          opts[:logger].info("MD5 for #{f[:path]}: #{md5sum}") if opts[:logger]
+          unless md5sum == f[:md5]
             f[:ok_to_ingest?] = false
             mismatches << f
           end
         end
+        opts[:logger].info("#{mismatches.length} marked not to ingest because checksums do not match") if opts[:logger]
         mismatches
       end
 
       # This updates the audit in place AND returns a list of files that won't
       # be ingested (useful for logging)
-      def self.verify_color_profile(audit)
-
+      def self.verify_color_profile(audit, opts={})
         wrong_profiles = []
         audit.each do |f|
           if f[:mime] == 'image/tiff'
@@ -208,11 +216,12 @@ module PulStore
             end
           end
         end
+        opts[:logger].info("#{wrong_profiles.length} image have the wrong color profile") if opts[:logger]
         wrong_profiles
       end
 
       # note that filtering of stuff not OK to ingest also happens here
-      def self.filter_and_group_images_and_ocr(audit)
+      def self.filter_and_group_images_and_ocr(audit, opts={})
         pages_job_args = []
 
         audit.each do |a|
@@ -228,7 +237,7 @@ module PulStore
             end
           end
         end
-
+        opts[:logger].info("Created args for #{pages_job_args.length} jobs") if opts[:logger]
         pages_job_args
 
       end

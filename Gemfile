@@ -60,6 +60,7 @@ gem "devise-guests", "~> 0.3"
 gem 'capistrano', '~> 3.1.0'
 gem 'capistrano-rails'
 gem 'capistrano-bundler'
+gem "capistrano-resque", github: "sshingler/capistrano-resque", require: false
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
