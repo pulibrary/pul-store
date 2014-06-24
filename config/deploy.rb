@@ -26,6 +26,13 @@ set :linked_dirs, %w{tmp/pids tmp/cache tmp/sockets}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
 # set :keep_releases, 5
 
+# See https://github.com/sshingler/capistrano-resque#in-your-deployrb
+role :resque_worker, 'localhost:6379'
+role :resque_scheduler, 'localhost:6379'
+set :workers, { '*' => 1 }
+set :resque_environment_task, true
+set :resque_log_file, "log/resque.log"
+
 task :make_noid_state_files do
   execute "touch #{shared_path}/noid-minter-state"
   execute "touch #{shared_path}/lae-box-counter-state"
@@ -35,10 +42,11 @@ namespace :deploy do
 
   desc 'Restart application'
   after :cleanup, :restart do
-      on roles(:web), in: :sequence, wait: 5 do
+    on roles(:web), in: :sequence, wait: 5 do
       # Your restart mechanism here, for example:
-        execute "touch #{release_path}/tmp/restart.txt"
-      end
+      execute "touch #{release_path}/tmp/restart.txt"
+    end
+    'resque:restart'
   end
 
 
