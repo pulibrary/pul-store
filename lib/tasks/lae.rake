@@ -59,20 +59,20 @@ namespace :lae do
       # 1. Parse the audit XML
       audit = PulStore::Lae::JhoveAuditUtilities.parse_audit(args[:audit_path_arg])
       # 2. Check for breakers (fail if any)
-      breakers = PulStore::Lae::JhoveAuditUtilities.validate_audit_for_breakers(audit)
+      breakers = PulStore::Lae::JhoveAuditUtilities.validate_audit_for_breakers(audit, logger: logger)
       unless breakers == []
         breakers.each { |problem| logger.fatal problem }
         status = 1
         raise 'There were problems that made this drive unacceptable.'
       end
       # 3. Check for individual errors (OK to continue, so log case by case)
-      file_errors = PulStore::Lae::JhoveAuditUtilities.validate_audit_members(audit)
+      file_errors = PulStore::Lae::JhoveAuditUtilities.validate_audit_members(audit, logger: logger)
       # 3.1 Report the errors
       file_errors.each { |e| logger.warn e }
 
       # 4. Go through and start making jobs that make pages and add them to Folders (yay!)
       # 4.1 Group the tiffs and ocr into hashes with folder_barcode, tiff_path, ocr_path, sort_order
-      page_args = PulStore::Lae::JhoveAuditUtilities.filter_and_group_images_and_ocr(audit)
+      page_args = PulStore::Lae::JhoveAuditUtilities.filter_and_group_images_and_ocr(audit, logger: logger)
       # 4.2 Instantiate Jobs
 
       page_args.each do |job_args| 
