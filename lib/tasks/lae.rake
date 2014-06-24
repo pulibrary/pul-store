@@ -53,7 +53,7 @@ namespace :lae do
 
     begin # Do everything inside here. `ensure` exits.
 
-      logger = Logger.new(STDOUT)
+      logger = Logger.new("#{Rails.root}/log/lae_ingest_#{Date.today.strftime('%Y-%m-%d')}.log")
       logger.level = Logger::INFO
 
       # 1. Parse the audit XML
