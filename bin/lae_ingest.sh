@@ -7,7 +7,7 @@
 #
 
 LOG_DIR=$(readlink -f ~/lae_ingest_logs)
-LOG_FILENAME="$LOG_DIR/ingest-$(date +%Y-%m-%dT%T).log"
+LOG_FILENAME="$LOG_DIR/ingest-$(date +%Y-%m-%d).log"
 
 echo ""
 echo "Make sure you've started a worker! e.g.:"
