@@ -36,6 +36,7 @@ set :linked_dirs, %w{tmp/pids tmp/cache tmp/sockets}
 set :workers, { "hydra" => 1 }
 set :resque_environment_task, true
 set :resque_log_file, "log/resque.log"
+set :resque_redirection, ">> log/resque.log 2>> log/resque.log"
 
 task :make_noid_state_files do
   execute "touch #{shared_path}/noid-minter-state"
