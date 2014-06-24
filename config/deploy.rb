@@ -50,7 +50,8 @@ namespace :deploy do
       # Your restart mechanism here, for example:
       execute "touch #{release_path}/tmp/restart.txt"
     end
-    after "deploy:restart", "resque:restart"
+    'resque:restart'
+      
   end
 
 
