@@ -1,6 +1,9 @@
 set :stage, :production
 set :rails_env, 'production'
-server 'pulstore1', roles: [:web, :app, :db]
+server 'pulstore1', roles: [:web, :app, :db, :resque_worker, :resque_scheduler]
+
+
+
 # Simple Role Syntax
 # ==================
 # Supports bulk-adding hosts to roles, the primary
