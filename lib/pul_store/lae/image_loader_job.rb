@@ -12,14 +12,22 @@ module PulStore
       end
 
       def run
-        fits = PulStore::Page.characterize(@tiff_path)
-        page = build_page(@tiff_path, fits, @ocr_path, @folder_id, @sort_order)
-        jp2_content = make_jp2(page)
-        PulStore::ImageServerUtils.stream_content_to_image_server(jp2_content, page.pid)
+        # Do not duplicate pages!
+        unless page_exists?
+          fits = PulStore::Page.characterize(@tiff_path)
+          page = build_page(@tiff_path, fits, @ocr_path, @folder_id, @sort_order)
+          jp2_content = make_jp2(page)
+          PulStore::ImageServerUtils.stream_content_to_image_server(jp2_content, page.pid)
+        end
       end
 
       def folder_id_from_barcode(barcode)
         PulStore::Lae::Folder.where(prov_metadata__barcode_tesim: barcode).first.pid
+      end
+
+      def page_exists?
+        folder = PulStore::Lae::Folder.find(@folder_id)
+        folder.pages.any? { |p| p.sort_order == @sort_order }
       end
 
       def build_page(tiff_path, fits, ocr_path, folder_id, sort_order)
