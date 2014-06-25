@@ -30,6 +30,7 @@ module PulStore
         page.project = PulStore::Lae::Provenance::PROJECT
         page.folder_id = folder_id
         page.sort_order = sort_order
+        page.label = "Image #{sort_order}"
         page.save
         page
       end
