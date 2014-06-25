@@ -49,6 +49,17 @@ module PulStore
         end
       end
 
+      # describe 'run' do
+      #   it 'does not load duplicate images base on folder and sort_order' do
+      #     args = { tiff_path: @tiff_path, ocr_path: @ocr_path,
+      #       sort_order: @sort_order, folder_id: @folder.pid
+      #     }
+      #     job = PulStore::Lae::ImageLoaderJob.new(args)
+      #     job.run
+      #     expect(@folder.pages.count).to eq 1
+      #   end
+      # end
+
 
     end
   end
