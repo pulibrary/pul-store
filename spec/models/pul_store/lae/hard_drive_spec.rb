@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe PulStore::Lae::HardDrive do
+describe PulStore::Lae::HardDrive, :type => :model do
   before(:all) do
     PulStore::Lae::HardDrive.delete_all
     PulStore::Lae::Box.delete_all
@@ -11,14 +11,14 @@ describe PulStore::Lae::HardDrive do
     PulStore::Lae::Box.delete_all
   end
 
-  describe "project" do
+  it "should belong to the lae project" do
     hd = FactoryGirl.create(:lae_hard_drive)
-    hd.project.identifier.should == 'lae'
+    expect(hd.project.identifier).to eq('lae')
   end
 
   it "is Available when it does not have an associated Box" do
     drive = FactoryGirl.create(:lae_hard_drive)
-    drive.workflow_state.should == "Available"
+    expect(drive.workflow_state).to eq("Available")
   end
 
   it "is in the same workflow_state as its box when it does have an associated Box" do
@@ -26,7 +26,7 @@ describe PulStore::Lae::HardDrive do
     box = FactoryGirl.create(:lae_box_with_prelim_folders)
     drive.box = box
     drive.save!
-    drive.workflow_state.should == box.workflow_state
+    expect(drive.workflow_state).to eq(box.workflow_state)
   end
 
 end

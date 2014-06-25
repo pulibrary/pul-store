@@ -1,41 +1,41 @@
 require 'spec_helper'
 
-describe PulStore::Page do
+describe PulStore::Page, :type => :model do
 
   # it_behaves_like "supports characterization"
 
   it "has a valid factory" do
-    FactoryGirl.create(:page).should be_valid
+    expect(FactoryGirl.create(:page)).to be_valid
   end
 
   it "gets a pid that is a NOID" do
     p = FactoryGirl.create(:page)
-    p.pid.start_with?(PUL_STORE_CONFIG['id_namespace']).should be_true
+    expect(p.pid.start_with?(PUL_STORE_CONFIG['id_namespace'])).to be_truthy
   end
 
   it "has a sort_order" do
-    FactoryGirl.build(:page, sort_order: nil).should_not be_valid
+    expect(FactoryGirl.build(:page, sort_order: nil)).not_to be_valid
   end
 
   it "must belong to a parent" do
-    FactoryGirl.build(:page, text: nil).should_not be_valid
+    expect(FactoryGirl.build(:page, text: nil)).not_to be_valid
   end
 
   it "can have a float as a sort_order" do
-    FactoryGirl.build(:page, sort_order: 4.1).should be_valid
+    expect(FactoryGirl.build(:page, sort_order: 4.1)).to be_valid
   end
 
   it "can take a master image" do
     p = FactoryGirl.build(:page)
     p.save
-    p.datastreams.keys.include?('masterImage').should be_true
+    expect(p.datastreams.keys.include?('masterImage')).to be_truthy
   end
 
   it "can populate its master_* fields from fits XML" do
     sample_fits_fp = File.join(RSpec.configuration.fixture_path, 'files', 'fits.xml')
     p = FactoryGirl.build(:page)
     p.master_tech_metadata = File.read(sample_fits_fp)
-    p.master_mime_type.should == "image/tiff"
+    expect(p.master_mime_type).to eq("image/tiff")
   end
 
   it "can characterize an image" do # TODO...no assertions here.
@@ -51,8 +51,8 @@ describe PulStore::Page do
     p.save
     p.create_derivatives
     p.save
-    p.datastreams['deliverableImage'].should have_content
-    p.datastreams['deliverableImage'].mimeType.should == 'image/jp2'
+    expect(p.datastreams['deliverableImage']).to have_content
+    expect(p.datastreams['deliverableImage'].mimeType).to eq('image/jp2')
   end
 
   describe "the pageOcr stream" do
@@ -61,7 +61,7 @@ describe PulStore::Page do
       p = FactoryGirl.build(:page)
       p.page_ocr = ocr_fixture
       p.save
-      p.datastreams.keys.include?('pageOcr').should be_true
+      expect(p.datastreams.keys.include?('pageOcr')).to be_truthy
     end
   end
 
@@ -82,17 +82,17 @@ describe PulStore::Page do
         page = FactoryGirl.create(:page, folder: @folder, text: nil, project: @project)
         f2 = PulStore::Lae::Folder.find(@folder.pid)
         p2 = PulStore::Page.find(page.pid)
-        p2.folder.should == f2
-        f2.pages.should include(p2)
+        expect(p2.folder).to eq(f2)
+        expect(f2.pages).to include(p2)
       end
 
       it "#text" do
         page = FactoryGirl.create(:page, text: @text, project: @project)
-        page.text.should == @text
+        expect(page.text).to eq(@text)
         t2 = PulStore::Text.find(@text.pid)
         p2 = PulStore::Page.find(page.pid)
-        p2.text.should == t2
-        t2.pages.should include(p2)
+        expect(p2.text).to eq(t2)
+        expect(t2.pages).to include(p2)
       end
     end
 

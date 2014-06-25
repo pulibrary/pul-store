@@ -26,7 +26,7 @@ feature "boxes" do
     end
 
     scenario "When I visit a URL to edit a box I see a message advising me to sign in" do
-      page.should_not have_content "Sign In"
+      expect(page).not_to have_content "Sign In"
     end
   end
 
@@ -41,7 +41,7 @@ feature "boxes" do
     end
 
     scenario "I should see boxes to edit" do
-      page.should have_content "Edit"
+      expect(page).to have_content "Edit"
       #Warden.test_reset!
     end
   end
@@ -60,7 +60,7 @@ feature "boxes" do
         fill_in 'barcode', with: box.barcode
         click_on('quick_lookup_submit')
       end
-      current_url.should == url_for(box)
+      expect(current_url).to eq(url_for(box))
       #Warden.test_reset!
     end
 
@@ -73,9 +73,9 @@ feature "boxes" do
         fill_in 'barcode', with: bad_barcode
         click_on('quick_lookup_submit')
       end
-      current_url.should == lae_boxes_url
+      expect(current_url).to eq(lae_boxes_url)
 
-      page.should have_selector ".alert"
+      expect(page).to have_selector ".alert"
       #Warden.test_reset!
     end
   end
@@ -88,7 +88,7 @@ feature "boxes" do
       box = boxes[rand(0..2)]
       login_as(@user, :scope => :user)
       visit edit_lae_box_path(box.id)
-      page.should have_content 'Add a Folder'
+      expect(page).to have_content 'Add a Folder'
     end
 
     scenario "It has folders attached, so the \"Add a folder\" message should not display in folders table" do
@@ -98,7 +98,7 @@ feature "boxes" do
       box = boxes[rand(0..2)]
       login_as(@user, :scope => :user)
       visit edit_lae_box_path(box.id)
-      page.should_not have_xpath "//table[@id='folders-table']/tbody/tr[@id='empty-folder-row']"
+      expect(page).not_to have_xpath "//table[@id='folders-table']/tbody/tr[@id='empty-folder-row']"
     end
 
     scenario "It has editable folders attached" do
@@ -108,7 +108,7 @@ feature "boxes" do
       box = boxes[rand(0..2)]
       login_as(@user, :scope => :user)
       visit edit_lae_box_path(box.id)
-      page.should have_xpath("//table[@id='folders-table']/tbody/tr/td/a[text()='Edit']")
+      expect(page).to have_xpath("//table[@id='folders-table']/tbody/tr/td/a[text()='Edit']")
     end
 
   end
@@ -116,7 +116,7 @@ feature "boxes" do
   feature "Friendly barcode uniqueness" do
 
     scenario "Page offers a link to the existing box when a duplicate barcode is entered" do
-      pending "Implement me when we have #new method"
+      skip "Implement me when we have #new method"
       # barcode = TEST_BARCODES.pop
       # FactoryGirl.create(:lae_box, barcode: barcode)
 

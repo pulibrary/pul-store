@@ -28,7 +28,7 @@ feature "boxes" do
         fill_in 'box_barcode', with: box.barcode
         click_on('hard_drive_submit')
       end
-      current_url.should == url_for(@drive)
+      expect(current_url).to eq(url_for(@drive))
     end
 
     scenario "an association with a box can be removed by checking a box" do
@@ -40,7 +40,7 @@ feature "boxes" do
         fill_in 'box_barcode', with: unused_barcode
         click_on('hard_drive_submit')
       end
-      current_url.should == lae_hard_drive_url(@drive)
+      expect(current_url).to eq(lae_hard_drive_url(@drive))
     end
 
     scenario "the box association can be cleared" do
@@ -55,8 +55,8 @@ feature "boxes" do
         click_on('hard_drive_submit')
       end
 
-      find('#box_barcode').text.should == 'None'
-      current_url.should == lae_hard_drive_url(@drive)
+      expect(find('#box_barcode').text).to eq('None')
+      expect(current_url).to eq(lae_hard_drive_url(@drive))
     end
 
   end

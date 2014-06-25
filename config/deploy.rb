@@ -14,6 +14,10 @@ set :scm, :git
 set :log_level, :debug
 # set :pty, true
 
+#set :ssh_options, {
+#  verbose: :debug
+#}
+
 shared_path = "#{:deploy_to}/shared"
 #set :assets_prefix, '#{shared_path}/public'
 
@@ -27,11 +31,12 @@ set :linked_dirs, %w{tmp/pids tmp/cache tmp/sockets}
 # set :keep_releases, 5
 
 # See https://github.com/sshingler/capistrano-resque#in-your-deployrb
-role :resque_worker, 'localhost:6379'
-role :resque_scheduler, 'localhost:6379'
-set :workers, { '*' => 1 }
+#role :resque_worker, 'localhost:6379'
+#role :resque_scheduler, 'localhost:6379'
+set :workers, { "hydra" => 1 }
 set :resque_environment_task, true
 set :resque_log_file, "log/resque.log"
+set :resque_redirection, ">> log/resque.log 2>> log/resque.log"
 
 task :make_noid_state_files do
   execute "touch #{shared_path}/noid-minter-state"
@@ -47,6 +52,7 @@ namespace :deploy do
       execute "touch #{release_path}/tmp/restart.txt"
     end
     'resque:restart'
+      
   end
 
 

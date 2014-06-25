@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "PulStore::Lae::Subject" do
+describe "PulStore::Lae::Subject", :type => :request do
 
   before(:all) do
     User.delete_all
@@ -16,14 +16,14 @@ describe "PulStore::Lae::Subject" do
     it "can serve subjects for a category as json" do
       login_as(@user, :scope => :user)
       get category_subject_path, format: :json
-      response.status.should be(200)
-      JSON.parse(response.body).any?{ |a| a['label'] == subject.label }.should be_true
+      expect(response.status).to be(200)
+      expect(JSON.parse(response.body).any?{ |a| a['label'] == subject.label }).to be_truthy
     end
 
     it "redirects requests without .json to .json" do
       login_as(@user, :scope => :user)
       get category_subject_path
-      response.status.should be(301)
+      expect(response.status).to be(301)
       # JSON.parse(response.body).any?{ |a| a['label'] == subject.label }.should be_true
     end
   end
