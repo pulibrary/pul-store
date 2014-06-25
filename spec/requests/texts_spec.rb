@@ -2,7 +2,7 @@ require 'spec_helper'
 
 
 
-describe "Texts" do
+describe "Texts", :type => :request do
 
   before(:all) do
     User.delete_all
@@ -15,7 +15,7 @@ describe "Texts" do
     it "works!" do
       login_as(@user, :scope => :user)
       get texts_path
-      response.status.should be(200)
+      expect(response.status).to be(200)
     end
 
   end

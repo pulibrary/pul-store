@@ -30,14 +30,14 @@ feature "attach a hard drive" do
       within '#new-hard-drive-modal' do
         fill_in 'lae_hard_drive[barcode]', :with => TEST_BARCODES.pop
         click_button 'Attach Drive'
-        page.should  have_css '#hard_drive_dialog_messages .alert-success'
+        expect(page).to  have_css '#hard_drive_dialog_messages .alert-success'
       end
       
     end
 
     scenario "Invalid Drive Barcode Confirms Failure", js: true do
       # TESTME
-      pending "Not sure duplicate barcode validation works here"
+      skip "Not sure duplicate barcode validation works here"
     end
 
 

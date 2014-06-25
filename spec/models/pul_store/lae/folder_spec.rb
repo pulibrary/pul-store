@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 
-describe PulStore::Lae::Folder do
+describe PulStore::Lae::Folder, :type => :model do
   before(:all) do
     PulStore::Lae::Folder.delete_all
     @invalid_barcode = "32101067661198"
@@ -14,13 +14,13 @@ describe PulStore::Lae::Folder do
   end
 
   it "has a valid factory" do
-    FactoryGirl.create(:lae_folder).should be_valid
+    expect(FactoryGirl.create(:lae_folder)).to be_valid
   end
 
   describe "project" do
     it "belonds to the lae project" do
       f = FactoryGirl.create(:lae_folder)
-      f.project.identifier.should == 'lae'
+      expect(f.project.identifier).to eq('lae')
     end
   end
 
@@ -36,12 +36,12 @@ describe PulStore::Lae::Folder do
     optional_elements.each do |oe|
       it "#{oe} is not required" do
         f = FactoryGirl.build(:lae_folder, oe => nil)
-        f.valid?.should be_true
+        expect(f.valid?).to be_truthy
       end
 
       it "#{oe} is empty by default" do
         f = FactoryGirl.build(:lae_folder, oe => nil)
-        f.send(oe).blank?.should be_true
+        expect(f.send(oe).blank?).to be_truthy
       end
     end
   end
@@ -65,7 +65,7 @@ describe PulStore::Lae::Folder do
         f = FactoryGirl.build(:lae_folder, re => v)
         f.save!
         f.reload
-        f[re].should == v
+        expect(f[re]).to eq(v)
       end
     end
   end
@@ -74,7 +74,7 @@ describe PulStore::Lae::Folder do
 
     it "are required" do
       f = FactoryGirl.build(:lae_folder, barcode: nil)
-      f.valid?.should be_false
+      expect(f.valid?).to be_falsey
     end
 
     it "must be valid - try invalid" do
@@ -91,12 +91,12 @@ describe PulStore::Lae::Folder do
 
     it "must be 14 places long" do
       f = FactoryGirl.build(:lae_folder, barcode: @short_barcode)
-      f.valid?.should be_false
+      expect(f.valid?).to be_falsey
     end
 
     it "must start with 32101" do
       f = FactoryGirl.build(:lae_folder, barcode: @bad_prefix_barcode)
-      f.valid?.should be_false
+      expect(f.valid?).to be_falsey
     end
 
     it "must be unique" do
@@ -122,7 +122,7 @@ describe PulStore::Lae::Folder do
 
     it "is valid with a physical number" do
       f = FactoryGirl.build(:lae_folder, physical_number: Faker::Number.digit.to_i+1)
-      f.valid?.should be_true
+      expect(f.valid?).to be_truthy
     end
 
     it "it is invalid with a string value" do
@@ -137,17 +137,17 @@ describe PulStore::Lae::Folder do
     describe "is false" do
       it "by default" do
         f = FactoryGirl.create(:lae_folder)
-        f.passed_qc?.should be_false
+        expect(f.passed_qc?).to be_falsey
       end
       it "passed_qc? responds as such when set" do
         f = FactoryGirl.create(:lae_folder)
         f.passed_qc = false
         f.save!
-        f.passed_qc?.should be_false
+        expect(f.passed_qc?).to be_falsey
       end
       it "passed_qc? responds as such by default" do
         f = FactoryGirl.create(:lae_folder)
-        f.passed_qc?.should be_false
+        expect(f.passed_qc?).to be_falsey
       end
     end
 
@@ -170,7 +170,7 @@ describe PulStore::Lae::Folder do
         f = FactoryGirl.create(:lae_core_folder_with_pages)
         f.passed_qc = true
         f.save!
-        f.passed_qc?.should be_true
+        expect(f.passed_qc?).to be_truthy
       end
     end
 
@@ -179,21 +179,21 @@ describe PulStore::Lae::Folder do
   describe "suppress" do
     it "is false by default" do
       f = FactoryGirl.create(:lae_folder)
-      f.suppressed?.should be_false
+      expect(f.suppressed?).to be_falsey
     end
 
     it "responds to suppressed? as true when set" do
       f = FactoryGirl.build(:lae_folder)
       f.suppressed = true
       f.save!
-      f.suppressed?.should be_true
+      expect(f.suppressed?).to be_truthy
     end
 
     it "responds to suppressed? as false when not set" do
       f = FactoryGirl.create(:lae_folder)
       f.suppressed = false
       f.save!
-      f.suppressed?.should be_false
+      expect(f.suppressed?).to be_falsey
     end
   end
 
@@ -203,32 +203,32 @@ describe PulStore::Lae::Folder do
       f = FactoryGirl.build(:lae_folder)
       f.error_note = Faker::Lorem.paragraph
       f.save!
-      f.error?.should be_true
+      expect(f.error?).to be_truthy
     end
   end
 
   describe "has_extent?" do
     it "should be a valid model by default" do
       f = FactoryGirl.build(:lae_prelim_folder)
-      f.should be_valid
+      expect(f).to be_valid
     end
 
     it "should be false without any extent attributes" do
       f = FactoryGirl.build(:lae_prelim_folder, width_in_cm: nil, height_in_cm: nil, page_count: nil)
-      f.has_extent?.should be_false
+      expect(f.has_extent?).to be_falsey
     end
 
     it "should be true with a page count" do
       f = FactoryGirl.build(:lae_prelim_folder, width_in_cm: nil, height_in_cm: nil, page_count: nil)
       f.page_count = 7
-      f.has_extent?.should be_true
+      expect(f.has_extent?).to be_truthy
     end
 
     it "should be true with a width and height" do
       f = FactoryGirl.build(:lae_prelim_folder, width_in_cm: nil, height_in_cm: nil, page_count: nil)
       f.width_in_cm = 5.5
       f.height_in_cm = 13
-      f.has_extent?.should be_true
+      expect(f.has_extent?).to be_truthy
     end
   end
 
@@ -274,13 +274,13 @@ describe PulStore::Lae::Folder do
       extent_params = { width_in_cm: 50, height_in_cm: 50, page_count: "cats" }
       f = FactoryGirl.build(:lae_prelim_folder, extent_params)
       #expect { f.save! }.not_to raise_error #ActiveFedora::RecordInvalid
-      f.should_not be_valid
+      expect(f).not_to be_valid
     end
     it "should be an invalid model with a height/width that is not nil or an integer" do
       extent_params = { width_in_cm: 'fifty', height_in_cm: 'thirty', page_count: 25 }
       f = FactoryGirl.build(:lae_prelim_folder, extent_params)
       #expect { f.save! }.not_to raise_error #ActiveFedora::RecordInvalid
-      f.should_not be_valid
+      expect(f).not_to be_valid
     end
     it "should be valid with a width and height" do
       extent_params = { width_in_cm: 3, height_in_cm: 7, page_count: nil }
@@ -298,35 +298,35 @@ describe PulStore::Lae::Folder do
         f.date_created = nil
         f.earliest_created = nil
         f.latest_created = nil
-        f.valid?.should be_false
+        expect(f.valid?).to be_falsey
       end
 
       it "all can't be ''" do
         f.date_created = ''
         f.earliest_created = ''
         f.latest_created = ''
-        f.valid?.should be_false
+        expect(f.valid?).to be_falsey
       end
 
       it "OK if it has a (valid) date_created" do
         f.date_created = 1999
         f.earliest_created = nil
         f.latest_created = nil
-        f.valid?.should be_true
+        expect(f.valid?).to be_truthy
       end
       
       it "OK if it has a (valid) earliest_created and latest_created" do
         f.date_created = nil
         f.earliest_created = 1999
         f.latest_created = 2001
-        f.valid?.should be_true
+        expect(f.valid?).to be_truthy
       end
 
       it "but both earliest_created and latest_created are required" do
         f.date_created = nil
         f.earliest_created = 1999
         f.latest_created = nil
-        f.valid?.should be_false
+        expect(f.valid?).to be_falsey
       end
     end
 
@@ -350,14 +350,14 @@ describe PulStore::Lae::Folder do
           f.date_created = "199?"
           f.earliest_created = nil
           f.latest_created = nil
-          f.valid?.should be_false
+          expect(f.valid?).to be_falsey
         end
 
         it "earliest_created" do
           f.date_created = nil
           f.earliest_created = 3005
           f.latest_created = 2007
-          f.valid?.should be_false
+          expect(f.valid?).to be_falsey
         end
 
         it "latest_created" do
@@ -381,7 +381,7 @@ describe PulStore::Lae::Folder do
       f = FactoryGirl.build(:lae_prelim_folder, width_in_cm: nil, height_in_cm: nil)
       f.page_count = Faker::Number.digit
       f.genre = Faker::Lorem.word
-      f.has_prelim_metadata?.should be_true
+      expect(f.has_prelim_metadata?).to be_truthy
     end
 
     it "responds with true when we have #{PulStore::Lae::Folder.prelim_elements} and width and height" do
@@ -389,7 +389,7 @@ describe PulStore::Lae::Folder do
       f.width_in_cm = Faker::Number.digit
       f.height_in_cm = Faker::Number.digit
       f.genre = Faker::Lorem.word
-      f.has_prelim_metadata?.should be_true
+      expect(f.has_prelim_metadata?).to be_truthy
     end
 
     describe "responds with false" do
@@ -397,7 +397,7 @@ describe PulStore::Lae::Folder do
         it "when #{pe} is missing" do
           f = FactoryGirl.build(:lae_prelim_folder)
           f[pe] = nil
-          f.has_prelim_metadata?.should be_false
+          expect(f.has_prelim_metadata?).to be_falsey
         end
       end
     end
@@ -407,17 +407,17 @@ describe PulStore::Lae::Folder do
   describe "has_core_metadata?" do
     it "responds with true when we have #{PulStore::Lae::Folder.required_elements}" do
       f = FactoryGirl.build(:lae_core_folder)
-      f.has_core_metadata?.should be_true
+      expect(f.has_core_metadata?).to be_truthy
     end
 
     it "earliest_created and latest_created may be swapped for date_created" do
       f = FactoryGirl.build(:lae_core_folder, date_created: nil, earliest_created: 1999, latest_created: 2002)
-      f.has_core_metadata?.should be_true
+      expect(f.has_core_metadata?).to be_truthy
     end
 
     it "width_in_cm and height_in_cm may be swapped for page_count" do
       f = FactoryGirl.build(:lae_core_folder, width_in_cm: 5, height_in_cm: 7, page_count: nil)
-      f.has_core_metadata?.should be_true
+      expect(f.has_core_metadata?).to be_truthy
     end
 
     describe "responds with false" do
@@ -425,7 +425,7 @@ describe PulStore::Lae::Folder do
         it "when #{re} is missing" do
           f = FactoryGirl.build(:lae_core_folder)
           f[re] = nil
-          f.has_core_metadata?.should be_false
+          expect(f.has_core_metadata?).to be_falsey
         end
       end
     end
@@ -435,19 +435,19 @@ describe PulStore::Lae::Folder do
     it "responds with true when we have our core elements, (valid) pages, and passed_qc is false" do
       f = FactoryGirl.build(:lae_core_folder)
       f.pages << FactoryGirl.create(:page)
-      f.needs_qc?.should be_true
+      expect(f.needs_qc?).to be_truthy
     end
 
     describe "responds with false" do
       it "when there are no pages" do
         f = FactoryGirl.build(:lae_core_folder)
-        f.needs_qc?.should be_false
+        expect(f.needs_qc?).to be_falsey
       end
 
       it "when one of the pages is invalid" do
         f = FactoryGirl.build(:lae_core_folder_with_pages)
         f.pages << FactoryGirl.build(:page, sort_order: nil)
-        f.needs_qc?.should be_false
+        expect(f.needs_qc?).to be_falsey
       end
 
     end
@@ -457,30 +457,30 @@ describe PulStore::Lae::Folder do
     it "responds with true when we qc_passed is true, there are no errors, and the suppressed is false" do
       f = FactoryGirl.build(:lae_core_folder_with_pages)
       f.passed_qc = true
-      f.in_production?.should be_true
+      expect(f.in_production?).to be_truthy
     end
 
     describe "responds with false" do
       it "when passed_qc is false" do
         f = FactoryGirl.create(:lae_core_folder_with_pages)
-        f.needs_qc?.should be_true
-        f.in_production?.should be_false
+        expect(f.needs_qc?).to be_truthy
+        expect(f.in_production?).to be_falsey
       end
 
       it "there is an error note present" do
         f = FactoryGirl.build(:lae_core_folder_with_pages)
         f.error_note = "HELP!"
         f.passed_qc = true
-        f.needs_qc?.should be_false
-        f.in_production?.should be_false
+        expect(f.needs_qc?).to be_falsey
+        expect(f.in_production?).to be_falsey
       end
 
       it "suppressed is true" do
         f = FactoryGirl.build(:lae_core_folder_with_pages)
         f.passed_qc = true
         f.suppressed = true
-        f.needs_qc?.should be_false
-        f.in_production?.should be_false
+        expect(f.needs_qc?).to be_falsey
+        expect(f.in_production?).to be_falsey
       end
     end
   end
@@ -495,26 +495,26 @@ describe PulStore::Lae::Folder do
     it "is 'Has Prelim. Metadata' when we only have #{PulStore::Lae::Folder.prelim_elements}" do
       f = FactoryGirl.build(:lae_prelim_folder)
       f.save!
-      f.workflow_state.should == 'Has Prelim. Metadata'
+      expect(f.workflow_state).to eq('Has Prelim. Metadata')
     end
 
     it "is 'Has Core Metadata' when we have #{PulStore::Lae::Folder.required_elements}" do
       f = FactoryGirl.build(:lae_core_folder)
       f.save!
-      f.workflow_state.should == 'Has Core Metadata'
+      expect(f.workflow_state).to eq('Has Core Metadata')
     end
 
     it "is 'Needs QC' when we have core metadata, we have valid pages, and qc_passed is false" do
       f = FactoryGirl.create(:lae_core_folder_with_pages)
       f.save!
-      f.workflow_state.should == 'Needs QC'
+      expect(f.workflow_state).to eq('Needs QC')
     end
 
     it "is 'In Production' when in_production? is true" do
       f = FactoryGirl.create(:lae_core_folder_with_pages)
       f.passed_qc = true
       f.save!
-      f.workflow_state.should == 'In Production'
+      expect(f.workflow_state).to eq('In Production')
     end
 
     # Error
@@ -528,7 +528,7 @@ describe PulStore::Lae::Folder do
       barcode = TEST_BARCODES.pop
       f = FactoryGirl.build(:lae_folder, barcode: barcode)
       f.save!
-      f.rights.should == PUL_STORE_CONFIG['lae_rights_boilerplate']
+      expect(f.rights).to eq(PUL_STORE_CONFIG['lae_rights_boilerplate'])
     end
   end
 

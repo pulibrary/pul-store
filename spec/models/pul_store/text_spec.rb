@@ -1,15 +1,15 @@
 require 'spec_helper'
 require 'nokogiri'
 
-describe PulStore::Text do
+describe PulStore::Text, :type => :model do
 
   it 'has a valid factory' do
-    FactoryGirl.create(:text).should be_valid
+    expect(FactoryGirl.create(:text)).to be_valid
   end
 
   it "gets a pid that is a NOID" do
     t = FactoryGirl.create(:text)
-    t.pid.start_with?(PUL_STORE_CONFIG['id_namespace']).should be_true
+    expect(t.pid.start_with?(PUL_STORE_CONFIG['id_namespace'])).to be_truthy
   end
 
   it 'can have many pages' do
@@ -21,16 +21,16 @@ describe PulStore::Text do
       # t.pages << p
       p.save
     end
-    t.pages.size.should == expected_page_count
+    expect(t.pages.size).to eq(expected_page_count)
   end
 
   it 'gets a timestamp on save' do
     t = FactoryGirl.create(:text)
-    t.date_modified.should_not be_nil
+    expect(t.date_modified).not_to be_nil
 
     u = FactoryGirl.build(:text)
     u.save
-    u.date_modified.should_not be_nil
+    expect(u.date_modified).not_to be_nil
   end
 
   it 'has a date uploaded that does not change' do
@@ -38,7 +38,7 @@ describe PulStore::Text do
     d = t.date_uploaded
     t.title ="Changed title"
     t.save
-    t.date_uploaded.should == d
+    expect(t.date_uploaded).to eq(d)
   end
 
   it 'has a list of dates when it was modified' do
@@ -46,7 +46,7 @@ describe PulStore::Text do
     d = t.date_uploaded
     t.title ="Changed title"
     t.save
-    t.date_modified.length.should == 2
+    expect(t.date_modified.length).to eq(2)
   end
 
   it 'can get marcxml' do
@@ -54,7 +54,7 @@ describe PulStore::Text do
     mrx = Nokogiri::XML(PulStore::Text.get_marcxml '345682')
     xp = '//marc:controlfield[@tag="001"][parent::marc:record[@type="Bibliographic"]]'
     id_from_mrx = mrx.xpath(xp)[0].content
-    id_from_mrx.should == doc_id
+    expect(id_from_mrx).to eq(doc_id)
   end
 
   it 'can save marcxml to its srcMetadata stream' do
@@ -68,7 +68,7 @@ describe PulStore::Text do
     xp = '//marc:controlfield[@tag="001"][parent::marc:record[@type="Bibliographic"]]'
 
     id_from_mrx = mrx.xpath(xp)[0].content
-    id_from_mrx.should == t_from_repo.dmd_system_id
+    expect(id_from_mrx).to eq(t_from_repo.dmd_system_id)
   end
 
   sample_marcxml_fp1 = File.join(RSpec.configuration.fixture_path, 'files', '4854502.mrx')
@@ -81,16 +81,16 @@ describe PulStore::Text do
   describe 'populate some descMetadata fields from MARC' do
     it 'can add alternative titles' do
       alt_tis = ["Fawāʼid al-fiqhīyah.", "الفوائد الفقهية"]
-      PulStore::Text.alternative_titles_from_marc(sample_marcxml_fp1).should == alt_tis
+      expect(PulStore::Text.alternative_titles_from_marc(sample_marcxml_fp1)).to eq(alt_tis)
     end
 
     it 'doesn\'t choke when there are no alternative titles' do
-      PulStore::Text.alternative_titles_from_marc(sample_marcxml_fp2).should be_empty
+      expect(PulStore::Text.alternative_titles_from_marc(sample_marcxml_fp2)).to be_empty
     end
 
     it 'can get a hasPart from a 7xx with a ‡t' do
       c = ["Jones, Mary. Book by Mary."]
-      PulStore::Text.has_parts_from_marc(sample_marcxml_fp3).should == c
+      expect(PulStore::Text.has_parts_from_marc(sample_marcxml_fp3)).to eq(c)
     end
 
     it 'can get many hasParts from a many 7xxs with a ‡t' do
@@ -113,20 +113,20 @@ describe PulStore::Text do
           "Ghazzālī, 1058-1111. Mishkāt al-anwār.",
           "غزالي. مشكاة الانوار"
         ]
-      PulStore::Text.has_parts_from_marc(sample_marcxml_fp4).should == c
+      expect(PulStore::Text.has_parts_from_marc(sample_marcxml_fp4)).to eq(c)
     end
 
     it 'can get a toc' do
       c = "Contents / foo. ; Contents / bar -- Contents / baz"
-      PulStore::Text.toc_from_marc(sample_marcxml_fp2).should == c
+      expect(PulStore::Text.toc_from_marc(sample_marcxml_fp2)).to eq(c)
     end
 
     it 'is OK with no publisher' do
-      PulStore::Text.publisher_from_marc(sample_marcxml_fp4).should be_empty
+      expect(PulStore::Text.publisher_from_marc(sample_marcxml_fp4)).to be_empty
     end
 
     it 'can get a publisher' do
-      PulStore::Text.publisher_from_marc(sample_marcxml_fp2).should == ['A. Martínez,']
+      expect(PulStore::Text.publisher_from_marc(sample_marcxml_fp2)).to eq(['A. Martínez,'])
     end
 
     it 'is OK with no extent' do
@@ -134,27 +134,27 @@ describe PulStore::Text do
 
     it 'can get extent' do
       e = ['i, 113, i leaves : paper ; 165 x 123 (140 x 100) mm. bound to 165 x 140 mm.']
-      PulStore::Text.extent_from_marc(sample_marcxml_fp4).should == e
+      expect(PulStore::Text.extent_from_marc(sample_marcxml_fp4)).to eq(e)
     end
 
     it 'can get abstract' do
       s = ["Collection of several treatises, some fragmentary or defective, by al-Ghazzālī."]
-      PulStore::Text.abstract_from_marc(sample_marcxml_fp4).should == s
+      expect(PulStore::Text.abstract_from_marc(sample_marcxml_fp4)).to eq(s)
     end
 
     it 'can get languages crammed into one 041a' do
       l = ["German", "Italian"]
-      PulStore::Text.language_from_marc(sample_marcxml_fp5).should == l
+      expect(PulStore::Text.language_from_marc(sample_marcxml_fp5)).to eq(l)
     end
 
     it 'can get languages from separate 041as' do
       l = ["Italian", "Spanish", "English", "French", "German"]
-      PulStore::Text.language_from_marc(sample_marcxml_fp6).should == l
+      expect(PulStore::Text.language_from_marc(sample_marcxml_fp6)).to eq(l)
     end
 
     it 'can get a language from 008 35:37' do
       l = ['Arabic']
-      PulStore::Text.language_from_marc(sample_marcxml_fp1).should == l
+      expect(PulStore::Text.language_from_marc(sample_marcxml_fp1)).to eq(l)
     end
 
   end

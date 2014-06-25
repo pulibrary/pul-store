@@ -2,7 +2,7 @@ require 'spec_helper'
 include Warden::Test::Helpers
 include PulStore::Lae::FolderLookups
 
-describe PulStore::Lae::FolderLookups do
+describe PulStore::Lae::FolderLookups, :type => :controller do
   before(:all) do
     PulStore::Lae::Box.delete_all
     PulStore::Lae::Folder.delete_all

@@ -27,7 +27,7 @@ feature 'Box Page Should Display Attached Folders' do
     end
     login_as(@user, :scope => :user)
     visit edit_lae_box_path(box.id)
-    page.should have_xpath('//table/tbody/tr', :count => 20)
+    expect(page).to have_xpath('//table/tbody/tr', :count => 20)
 
   end
   scenario "When I Click the See all Folders Button I should see all attached Folders", js: true do
@@ -42,7 +42,7 @@ feature 'Box Page Should Display Attached Folders' do
     login_as(@user, :scope => :user)
     visit edit_lae_box_path(box.id)
     click_link('Show All Folders')
-    page.should have_xpath('//table/tbody/tr', :count => 21)
+    expect(page).to have_xpath('//table/tbody/tr', :count => 21)
 
   end
 

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe PulStore::Lae::Box do
+describe PulStore::Lae::Box, :type => :model do
   before(:all) do
     PulStore::Lae::Box.delete_all
     @invalid_barcode = "32101067700826"
@@ -15,7 +15,7 @@ describe PulStore::Lae::Box do
   describe "project" do
     it "should belong to the lae project" do
       b = FactoryGirl.create(:lae_box)
-      b.project.identifier.should == 'lae'
+      expect(b.project.identifier).to eq('lae')
     end
   end
 
@@ -24,14 +24,14 @@ describe PulStore::Lae::Box do
     it "should not be assigned if the box is invalid" do
       bad_box = FactoryGirl.build(:lae_box, barcode: @invalid_barcode)
       expect { bad_box.save! }.to raise_error ActiveFedora::RecordInvalid
-      bad_box.physical_number.should be_nil
+      expect(bad_box.physical_number).to be_nil
     end
 
     it "should be an auto-assigned number" do
       b = FactoryGirl.create(:lae_box)
       #b.physical_number.should match(/^(\d+)$/)
-      b.physical_number.is_a?(Fixnum).should be_true
-      b.physical_number.should_not be_blank
+      expect(b.physical_number.is_a?(Fixnum)).to be_truthy
+      expect(b.physical_number).not_to be_blank
     end
   end
 
@@ -39,12 +39,12 @@ describe PulStore::Lae::Box do
 
     it "are required for saving" do
       b = PulStore::Lae::Box.new
-      b.valid?.should be_false
+      expect(b.valid?).to be_falsey
     end
 
     it "are required for saving" do
       b = PulStore::Lae::Box.new
-      b.valid?.should be_false
+      expect(b.valid?).to be_falsey
     end
 
     it "must be valid - try invalid" do
@@ -59,12 +59,12 @@ describe PulStore::Lae::Box do
 
     it "must be 14 places long" do
       b = FactoryGirl.build(:lae_box, barcode: @short_barcode)
-      b.valid?.should be_false
+      expect(b.valid?).to be_falsey
     end
 
     it "start with 32101" do
       b = FactoryGirl.build(:lae_box, barcode: @bad_prefix_barcode)
-      b.valid?.should be_false
+      expect(b.valid?).to be_falsey
     end
 
     it "must be unique" do
@@ -87,21 +87,21 @@ describe PulStore::Lae::Box do
     it "attr is false by default" do
       b = FactoryGirl.create(:lae_box)
       b.save!
-      b.full?.should be_false
+      expect(b.full?).to be_falsey
     end
 
     it "responds to full? as true when set" do
       b = FactoryGirl.create(:lae_box)
       b.full = true
       b.save!
-      b.full?.should be_true
+      expect(b.full?).to be_truthy
     end
 
     it "responds to full? as false when not set" do
       b = FactoryGirl.create(:lae_box)
       b.full = false
       b.save!
-      b.full?.should be_false
+      expect(b.full?).to be_falsey
     end
 
   end
@@ -109,7 +109,7 @@ describe PulStore::Lae::Box do
   describe "physical location" do
     it "is added when we save" do
       b = FactoryGirl.create(:lae_box)
-      b.physical_location.should == PUL_STORE_CONFIG['lae_recap_code']
+      expect(b.physical_location).to eq(PUL_STORE_CONFIG['lae_recap_code'])
     end
   end
 
@@ -120,12 +120,12 @@ describe PulStore::Lae::Box do
       b.full = true
       b.tracking_number = "12345"
       b.shipped_date = Date.current.to_s
-      b.shipped?.should be_true
+      expect(b.shipped?).to be_truthy
     end
 
     it "shipped? is false when there isn't a shipped_date" do
       b = FactoryGirl.create(:lae_box)
-      b.shipped?.should be_false
+      expect(b.shipped?).to be_falsey
     end
 
     it "received? is true when there is a received_date" do
@@ -135,7 +135,7 @@ describe PulStore::Lae::Box do
       now = Date.current
       b.shipped_date = now.ago(86400).to_s
       b.received_date = now.to_s
-      b.received?.should be_true
+      expect(b.received?).to be_truthy
     end
 
     it "received? is false when there isn't a received_date" do
@@ -143,14 +143,14 @@ describe PulStore::Lae::Box do
       b.full = true
       b.tracking_number = "12345"
       b.shipped_date = Date.current.ago(86400).to_s
-      b.received?.should be_false
+      expect(b.received?).to be_falsey
     end
 
     it "Box is invalid if there is a received date when there is no shipped date" do
       b = FactoryGirl.create(:lae_box)
       b.full = true
       b.received_date = Date.current.to_s
-      b.valid?.should be_false
+      expect(b.valid?).to be_falsey
     end
 
     it "invalid if the received date is before shipped date" do
@@ -159,7 +159,7 @@ describe PulStore::Lae::Box do
       now = Date.current
       b.shipped_date = now.to_s
       b.received_date = now.ago(86400).to_s
-      b.valid?.should be_false
+      expect(b.valid?).to be_falsey
     end
 
   end
@@ -173,20 +173,20 @@ describe PulStore::Lae::Box do
       b.tracking_number = n
       b.save!
       b.reload
-      b.tracking_number.should == n
+      expect(b.tracking_number).to eq(n)
     end
 
     it "causes the object to be invalid if present and there is not a ship date" do
       b = FactoryGirl.create(:lae_box)
       b.tracking_number = 'foo'
-      b.valid?.should be_false
+      expect(b.valid?).to be_falsey
     end
 
     it "passes validation if there is also a ship date" do
       b = FactoryGirl.create(:lae_box)
       b.tracking_number = 'foo'
       b.shipped_date = Date.current.to_s
-      b.valid?.should be_true
+      expect(b.valid?).to be_truthy
     end
 
   end
@@ -195,14 +195,14 @@ describe PulStore::Lae::Box do
 
     it "is 'New' when we only have a barcode" do
       b = FactoryGirl.create(:lae_box)
-      b.workflow_state.should == 'New'
+      expect(b.workflow_state).to eq('New')
     end
 
     it "is 'Ready to Ship' when all folders have prelim metadata" do
       b = FactoryGirl.create(:lae_box_with_prelim_folders)
       b.full = true
       b.save!
-      b.workflow_state.should == 'Ready to Ship'
+      expect(b.workflow_state).to eq('Ready to Ship')
     end
 
     it "is 'Shipped' when all folders have prelim metadata, we have a shipped date, and a tracking no" do
@@ -211,7 +211,7 @@ describe PulStore::Lae::Box do
       b.tracking_number = 'foo'
       b.shipped_date = Date.current
       b.save!
-      b.workflow_state.should == 'Shipped'
+      expect(b.workflow_state).to eq('Shipped')
     end
 
 
@@ -223,7 +223,7 @@ describe PulStore::Lae::Box do
       b.shipped_date = now.ago(604800).to_s
       b.received_date = now.to_s
       b.save!
-      b.workflow_state.should == 'Received'
+      expect(b.workflow_state).to eq('Received')
     end
 
     it "is 'All in Production' " do
@@ -238,7 +238,7 @@ describe PulStore::Lae::Box do
         f.save!
       end
       b.save!
-      b.workflow_state.should == 'All in Production'
+      expect(b.workflow_state).to eq('All in Production')
     end
 
 

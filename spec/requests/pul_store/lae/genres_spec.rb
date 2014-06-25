@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "PulStore::Lae::Genres" do
+describe "PulStore::Lae::Genres", :type => :request do
 
   before(:all) do
     User.delete_all
@@ -12,8 +12,8 @@ describe "PulStore::Lae::Genres" do
     it "can get json" do
       login_as(@user, :scope => :user)
       get lae_genres_path format: :json
-      response.status.should be(200)
-      JSON.parse(response.body).any?{ |a| a['pul_label'] == 'Maps' }.should be_true
+      expect(response.status).to be(200)
+      expect(JSON.parse(response.body).any?{ |a| a['pul_label'] == 'Maps' }).to be_truthy
     end
   end
 end
