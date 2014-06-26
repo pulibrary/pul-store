@@ -5,6 +5,7 @@ class CatalogController < ApplicationController
   include Blacklight::Marc::Catalog
   include Blacklight::Catalog
   include Hydra::Controller::ControllerBehavior
+  helper Openseadragon::OpenseadragonHelper
 
   # These before_filters apply the hydra access controls
   # before_filter :enforce_show_permissions, :only=>:show
