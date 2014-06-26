@@ -50,6 +50,7 @@ gem "font-awesome-rails"
 
 #for bulk upload ui
 gem 'jquery-fileupload-rails'
+gem 'jquery-turbolinks'
 #gem 'paperclip'
 
 gem "bootstrap-sass"

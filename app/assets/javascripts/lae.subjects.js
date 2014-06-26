@@ -9,9 +9,11 @@
       var cloneId = this.id.replace("submit", "clone");
       var newId = this.id.replace("submit", "elements");
       var cloneElem = $('.initial_lae_subject').first().clone(); //$('#'+cloneId).clone();
-      console.log(cloneElem);
+      // FIXME
       // change the add button to a remove button
+      //console.log("a "+this.id);
       var plusbttn = cloneElem.find('#'+this.id);
+      //console.log(plusbttn.html());
       plusbttn.html('-<span class="sr-only">remove this '+ this.name.replace("_", " ") +'</span>');
       plusbttn.on('click',removeField);
 
@@ -77,8 +79,14 @@
           _.each(subject_labels, function(label) {
             opt_list = opt_list + "<option value='"+label+"'>"+label+"</option>";
           });
+          //var add_category_button = '<button class="adder btn" id="additional_subject_submit" name="additional_subject">+<span class="sr-only">add another subject</span></button>';
           var subject_select = "<select class='form-control lae-subject' id='lae_folder_subject_' name='lae_folder[subject][]'>"+opt_list+"</select>";
-          $(this).next().replaceWith(subject_select);
+          var current_initial_select_state = $('.initial_lae_subject select').length;
+          if (current_initial_select_state === 1) {
+            $(this).next().replaceWith(subject_select); //+add_category_button);
+          } else {
+            $(this).next().replaceWith(subject_select);
+          }
           $(this).next().focus();
         });
        });
