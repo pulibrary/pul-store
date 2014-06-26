@@ -1,6 +1,13 @@
+<% 
+
+  osd_config = {
+    crossOriginPolicy: false,
+  }
+%>
+
 <h2>Images</h2>
 <% if !@pages_list.blank? %>
-  <%= openseadragon_picture_tag pul_store_iiif_path(@pages_list[0]['id'], { size: "!600,400" }),  pul_store_iiif_info_path(@pages_list[0]['id'])%>
+  <%= openseadragon_picture_tag pul_store_iiif_path(@pages_list[0]['id'], { size: "!600,400" }),  pul_store_iiif_info_path(@pages_list[0]['id']), class: 'osd-image row', data: { openseadragon: osd_config } %>
 
   <img src="<%= pul_store_iiif_path(@pages_list[0]['id'], { size: "!600,400" }) %>"
        alt="<%= @pages_list[0]['desc_metadata__display_label_ssm'] %>" />
