@@ -19,7 +19,7 @@ module PulStore
       rotation = params.fetch(:rotation, '0').tr('/', '')
       quality = params.fetch(:quality, 'native').tr('/', '')
       format = params.fetch(:format, 'jpg').tr('/', '')
-      "#{server}/#{id}/#{region}/#{size}/#{rotation}/#{quality}.#{format}"
+      "#{server}/#{id}.jp2/#{region}/#{size}/#{rotation}/#{quality}.#{format}"
     end
 
     protected
