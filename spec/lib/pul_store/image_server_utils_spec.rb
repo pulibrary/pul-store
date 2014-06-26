@@ -33,18 +33,23 @@ module PulStore
 
     describe 'self.build_iiif_request' do
       it 'has an expected set of defaults' do
-        expected = "#{image_server_base}/#{fake_pid_as_iiif_id}/full/full/0/native.jpg"
+        expected = "#{image_server_base}/#{fake_pid_as_iiif_id}.jp2/full/full/0/native.jpg"
         actual = subject.build_iiif_request(fake_pid)
         expect(actual).to eq expected
       end
 
       it 'has can take iiif style params' do
         # See http://iiif.io/api/image/1.1/#parameters
-        expected = "#{image_server_base}/#{fake_pid_as_iiif_id}/full/120,/0/color.png"
+        expected = "#{image_server_base}/#{fake_pid_as_iiif_id}.jp2/full/120,/0/color.png"
         actual = subject.build_iiif_request(fake_pid, size: '120,', quality: 'color', format: 'png')
         expect(actual).to eq expected
       end
 
+      it 'provides an info.json file' do
+        expected = "#{image_server_base}/#{fake_pid_as_iiif_id}.jp2/info.json"
+        actual = subject.build_iiif_info_request(fake_pid)
+        expect(actual).to eq expected
+      end
     end
   end
 end

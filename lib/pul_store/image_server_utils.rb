@@ -19,7 +19,13 @@ module PulStore
       rotation = params.fetch(:rotation, '0').tr('/', '')
       quality = params.fetch(:quality, 'native').tr('/', '')
       format = params.fetch(:format, 'jpg').tr('/', '')
-      "#{server}/#{id}/#{region}/#{size}/#{rotation}/#{quality}.#{format}"
+      "#{server}/#{id}.jp2/#{region}/#{size}/#{rotation}/#{quality}.#{format}"
+    end
+
+    def self.build_iiif_info_request(pid, params={})
+      server = PUL_STORE_CONFIG['image_server_base']
+      id = pid_to_iiif_id(pid)
+      "#{server}/#{id}.jp2/info.json"
     end
 
     protected

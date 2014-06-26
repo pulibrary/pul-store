@@ -4,7 +4,9 @@
 <% @pages_list.each do |page| %>
 <li class="span4">
     <a href="<%= pul_store_page_path(page['id']) %>" class="thumbnail">
-      <img data-sort-order="<%= page['desc_metadata__sort_order_isi'] %>" data-src="holder.js/300x200" alt="">
+      <img data-sort-order="<%= page['desc_metadata__sort_order_isi'] %>" 
+            data-src="<%= pul_store_iiif_path(page['id'], {size: "!200,200"}) %>"
+            alt="<%= page['desc_metadata__display_label_ssm'] %>" >
     </a>
   </li>
 <% end %>
