@@ -4,8 +4,12 @@ module PulStore::PageHelper
   	"/pages/#{id}"
   end
 
-  def pul_store_iif_path(id)
-    PulStore::ImageServerUtils::build_iiif_request(id)
+  def pul_store_iiif_path(id, params={})
+    PulStore::ImageServerUtils::build_iiif_request(id, params)
+  end
+
+  def pul_store_iiif_info_path(id)
+    PulStore::ImageServerUtils::build_iiif_info_request(id)
   end
 
 end

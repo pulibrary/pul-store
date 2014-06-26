@@ -45,6 +45,11 @@ module PulStore
         expect(actual).to eq expected
       end
 
+      it 'provides an info.json file' do
+        expected = "#{image_server_base}/#{fake_pid_as_iiif_id}.jp2/info.json"
+        actual = subject.build_iiif_info_request(fake_pid)
+        expect(actual).to eq expected
+      end
     end
   end
 end

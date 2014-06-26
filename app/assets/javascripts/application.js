@@ -18,6 +18,7 @@
 //= require jquery.tablesorter
 //= require jquery.tablesorter.widgets
 //= require hydra-editor/hydra-editor
+//= require openseadragon/rails.js
 //= require underscore
 //= require lae.subjects
 //= require lae.alt_title.js
