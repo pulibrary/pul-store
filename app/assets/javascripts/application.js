@@ -11,8 +11,8 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
-//= require turbolinks
 //= require jquery-fileupload
 //= require jquery.ui.all
 //= require jquery.tablesorter
@@ -20,6 +20,8 @@
 //= require hydra-editor/hydra-editor
 //= require underscore
 //= require lae.subjects
+//= require lae.alt_title.js
+//= require turbolinks
 //
 // Required by Blacklight
 //= require blacklight/blacklight
@@ -60,6 +62,10 @@ $(function() {
 
 //$(function() {
   $('form.editor.lae-folder').laeSubjectForm();
+  //
+  $('form.editor.lae-folder').laeAltTitleFilter(
+    { sortTitleFilters: sortTitleFilters }
+  );
 
   //FIXME - this should be extracted somewhere else and reflect the current search
   $('#quick_lookup #barcode').on('click', function() {

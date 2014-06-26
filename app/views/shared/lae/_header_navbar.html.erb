@@ -16,17 +16,17 @@
 </div>
 <div class="navbar navbar-default" role="navigation">
   <div class="container">
-    <ul class="nav navbar-nav">
-      <li><a href="/lae">Lae Home</a></li>
+    <ul class="nav navbar-nav nav-pills">
+      <li><a href="/lae"><%= fa_icon 'home lg' %> Lae Home</a></li>
       <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown">Manage Boxes<b class="caret"></b></a>
+          <a class="dropdown-toggle" data-toggle="dropdown"><%= fa_icon 'dropbox lg' %> Manage Boxes<b class="caret"></b></a>
         <ul class="dropdown-menu">
-          <li><a href="/lae/boxes">Browse</a></li>
-          <li><a href="/lae/boxes/new">Add New</a></li>
+          <li><a href="/lae/boxes">Browse All</a></li>
+          <li><a href="/lae/boxes/new">New Box</a></li>
         </ul>
       </li>
-      <li><a href="/lae/folders">Manage Folders</a></li>
-      <li><a href="/lae/hard_drives">Manage Drives</a></li>
+      <li><a href="/lae/folders"><%= fa_icon 'folder lg' %> Manage Folders</a></li>
+      <li><a href="/lae/hard_drives"><%= fa_icon 'database lg' %> Manage Drives</a></li>
     </ul>
     <div class="navbar-right col-sm-4 col-md-4" id="searchbar">         
       <%= render 'shared/lae/quick_lookup' %>

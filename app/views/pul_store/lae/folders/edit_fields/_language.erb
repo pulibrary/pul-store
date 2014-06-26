@@ -1,6 +1,6 @@
 <div class="col-xs-7 col-xs-offset-3" <%  if index == 0 %> id="additional_<%= key.to_s %>_clone" <% end %>>
   <% required = render_req && (index == 0) && f.object.required?(key) %>
-    <%= select_tag("#{ActiveModel::Naming.param_key(f.object)}[#{key.to_s}][]", options_for_select(list_all_languages_as_select_list(project: 'lae'), [@folder.language[index]]), prompt: "Select One", class: "form-control") %>
+    <%= select_tag("#{ActiveModel::Naming.param_key(f.object)}[#{key.to_s}][]", options_for_select(list_all_languages_as_select_list(project: 'lae'), [@folder.language[index]]), prompt: "Select One", class: "form-control lae-language") %>
     <% unless f.object.class.unique?(key) %>
       <%= render :partial=>"records/edit_fields/suffix", :locals=>{key: key, index: index} %>
     <% end %>

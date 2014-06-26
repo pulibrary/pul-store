@@ -7,6 +7,9 @@
     <title><%= h(@page_title || application_name) %></title>
     <%= favicon_link_tag asset_path('favicon.ico') %>
     <%= stylesheet_link_tag    "application" %>
+    <script>
+      var sortTitleFilters = <%= PUL_STORE_CONFIG['lae_sort_title_filters'].to_json.html_safe %>;
+    </script>
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
 
@@ -16,7 +19,7 @@
     <![endif]-->
 
   </head>
-  <body class="<%= render_body_class %>" data-no-turbolink>
+  <body class="<%= render_body_class %>">
     <%= render :partial => 'shared/lae/header_navbar' %>
 
     <div id="ajax-modal" class="modal hide fade" tabindex="-1"></div>
