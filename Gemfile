@@ -35,7 +35,7 @@ gem "hydra-file_characterization", "~> 0.3.1"
 
 gem 'hydra-derivatives', git: 'git://github.com/projecthydra/hydra-derivatives.git'
 
-gem 'openseadragon', git: 'git@github.com:IIIF/openseadragon-rails.git'
+gem 'openseadragon', git: 'git://github.com/IIIF/openseadragon-rails.git'
 
 gem "rubyzip"
 
