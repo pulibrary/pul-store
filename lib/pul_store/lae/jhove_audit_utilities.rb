@@ -62,6 +62,11 @@ module PulStore
         wrong_color_profile.each do |f|
           errors << "File #{f[:path]} color profile is not '#{ADOBE_1998}'"
         end
+        # Folder Exists?
+        missing_folder = verify_folder_exists(audit_hash, opts)
+        missing_folder.uniq!{ |f| f[:folder_barcode] }.each do |f|
+          errors << "Folder #{f[:folder_barcode]} does not exist"
+        end
         # OCR w/ broken image || Image with broken ocr
         files_with_broken_partners = confirm_corresponding_files_ok(audit_hash, opts)
         files_with_broken_partners.each do |f|
@@ -161,7 +166,7 @@ module PulStore
         do_not_ingest = []
 
 
-        image_files.each do |image_file|
+        image_files.select { |i| i[:ok_to_ingest?] }.each do |image_file|
           ocr_file = ocr_for_image_file(image_file, ocr_files)
           unless ocr_file[:ok_to_ingest?] 
             image_file[:ok_to_ingest?] = false
@@ -169,14 +174,10 @@ module PulStore
           end
         end
 
-        ocr_files.each do |ocr_file|
+        ocr_files.select { |o| o[:ok_to_ingest?] }.each do |ocr_file|
           image_file = image_for_ocr_file(ocr_file, image_files)
-          unless image_file[:ok_to_ingest?]
+          unless image_file[:ok_to_ingest?] #&& !ocr_file[:ok_to_ingest?]
             ocr_file[:ok_to_ingest?] = false
-        # The PROBLEM is that if the image file above was marked as not to 
-        # ingest because the OCR wasn't OK, then now the image files that aren't
-        # OK have their OCR added to the do_not_ingest list. We want a clean list
-        # of files that are excluded for this reason.
             do_not_ingest << ocr_file unless do_not_ingest.include?(image_file)
           end
         end
@@ -207,6 +208,7 @@ module PulStore
         wrong_profiles = []
         audit.each do |f|
           if f[:mime] == 'image/tiff'
+            opts[:logger].info("Checking color profile for #{f[:path]}") if opts[:logger]
             im = ImageList.new(f[:path])
             unless im.gray?
               unless read_color_profile_name(im) == ADOBE_1998
@@ -216,8 +218,25 @@ module PulStore
             end
           end
         end
-        opts[:logger].info("#{wrong_profiles.length} image have the wrong color profile") if opts[:logger]
+        opts[:logger].info("#{wrong_profiles.length} image(s) have the wrong color profile") if opts[:logger]
         wrong_profiles
+      end
+
+      def self.verify_folder_exists(audit, opts={})
+        no_folder = []
+        audit.each do |a|
+          opts[:logger].info("Checking folder #{a[:folder_barcode]} exists") if opts[:logger]
+          unless folder_exists?(a[:folder_barcode])
+            a[:ok_to_ingest?] = false
+            no_folder << a
+          end
+        end
+        opts[:logger].info("#{no_folder.length} files' folder does not exist") if opts[:logger]
+        no_folder
+      end
+
+      def self.folder_exists?(barcode)
+        PulStore::Lae::Folder.where(prov_metadata__barcode_tesim: barcode).any?
       end
 
       # note that filtering of stuff not OK to ingest also happens here
