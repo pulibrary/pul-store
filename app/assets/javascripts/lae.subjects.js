@@ -22,6 +22,9 @@
       cloneElem.find('i').remove();
       cloneElem.find('.modal-div').remove();
 
+      //add offset class for inline forms 
+      cloneElem.addClass('col-xs-offset-3');
+
       //clear out the value for the element being appended
       //so the new element has a blank value
       cloneElem.find('select').val("");
@@ -90,9 +93,6 @@
           $(this).next().focus();
         });
        });
-//});
-
-      // ajax to fetch current selected subjects to category 
 
     });
 
