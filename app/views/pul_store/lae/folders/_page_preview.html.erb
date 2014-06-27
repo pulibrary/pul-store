@@ -2,15 +2,17 @@
 
   osd_config = {
     crossOriginPolicy: false,
+    preserveViewport: true, 
+    visibilityRatio: 1
   }
 %>
 
-<h2>Images</h2>
+<h2><%= @pages_list.size %> Images</h2>
 <% if !@pages_list.blank? %>
-  <%= openseadragon_picture_tag pul_store_iiif_path(@pages_list[0]['id'], { size: "!600,400" }),  pul_store_iiif_info_path(@pages_list[0]['id']), class: 'osd-image row', data: { openseadragon: osd_config } %>
-
-  <img src="<%= pul_store_iiif_path(@pages_list[0]['id'], { size: "!600,400" }) %>"
-       alt="<%= @pages_list[0]['desc_metadata__display_label_ssm'] %>" />
+  <div>
+    <% images = pul_store_iiif_page_info_list(@pages_list) %>
+    <%= openseadragon_picture_tag images, class: 'osd-image row', data: { openseadragon: osd_config } %>
+  </div>
 <% else %>
   <div>No Images Assigned Yet</div>
 <% end %>
