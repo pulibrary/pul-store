@@ -77,9 +77,10 @@ class PulStore::Lae::BoxesController < CatalogController #ApplicationController
     end
   end
 
+  # returns ALL folders
   def folders
     @box = PulStore::Lae::Box.find(params[:id])
-    @folder_list = get_folder_list_by_box @box.id, 300
+    @folder_list = get_folder_list_by_box @box.id, 100000
     respond_to do |format|
       format.json { render json: @folder_list }
       format.js   { render action: 'folders', notice: 'Show all Folders.' }

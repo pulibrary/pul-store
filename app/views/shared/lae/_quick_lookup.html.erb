@@ -1,4 +1,4 @@
-<%= form_tag(url_for(only_path: false), method: :get, id: 'quick_lookup', :class => 'search-query-form form-inline clearfix navbar-form') do %>
+<%= form_tag("/lae/#{controller_name.classify.downcase.pluralize(2)}", method: :get, id: 'quick_lookup', :class => 'search-query-form form-inline clearfix navbar-form') do %>
   <div class="pull-left">
     <div role="form-group">
       <%= text_field_tag(:barcode, "Find a #{controller_name.classify} by Barcode", :class => 'form-control') %>

@@ -1,9 +1,9 @@
 
 <div class="lae-subjects">  
     <% if @folder.subject[0].blank?  %>
-      <div class="form-group row initial_lae_subject">
+      <div class="form-group row">
         <%= label_tag('Categories and Subjects', nil, class: 'control-label col-xs-3') %>
-        <div class="col-xs-7" id="additional_subject_submit">
+        <div class="col-xs-7  initial_lae_subject">
           <%= select_tag("lae_folder[category][]", options_for_select(list_all_categories_as_select_list_with_data, []), prompt: 'Select a Category', class: 'lae-category form-control') %>
           <%= text_field_tag 'lae_folder[subject][]', nil, class: 'form-control lae-subject-placeholder col-xs-3', placeholder: 'Subject', disabled: 'true' %>
           <%= render :partial=>"records/edit_fields/suffix", :locals=>{key: subject, index: 0} %>
