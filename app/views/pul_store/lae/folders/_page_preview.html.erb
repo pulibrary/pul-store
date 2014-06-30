@@ -7,7 +7,7 @@
   }
 %>
 
-<h2><%= @pages_list.size %> Images</h2>
+<h2><%= pluralize(@pages_list.size, 'Images') %></h2>
 <% if !@pages_list.blank? %>
   <div>
     <% images = pul_store_iiif_page_info_list(@pages_list) %>

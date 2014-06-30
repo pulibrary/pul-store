@@ -1,5 +1,5 @@
 <% if !@pages_list.blank? %>
-  <h2><%= @pages_list.size %> Images</h2>
+  <h2><%= pluralize(@pages_list.size, 'Images') %></h2>
   <div id="pages" class="row">
   <% @pages_list.each do |page| %>
     <div class="col-xs-6 col-md-3">
