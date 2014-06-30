@@ -99,7 +99,7 @@ module PulStore
 
       def self.box_exists_in_repo?(audit, opts={})
         b = audit.first[:box_barcode]
-        exists = PulStore::Lae::Box.where(prov_metadata__barcode_tesim: b).to_a.length == 1
+        exists = PulStore::Lae::Box.where(prov_metadata__barcode_tesi: b).to_a.length == 1
         opts[:logger].info("Box exists? #{exists}") if opts[:logger]
         exists
       end
@@ -236,7 +236,7 @@ module PulStore
       end
 
       def self.folder_exists?(barcode)
-        PulStore::Lae::Folder.where(prov_metadata__barcode_tesim: barcode).any?
+        PulStore::Lae::Folder.where(prov_metadata__barcode_tesi: barcode).any?
       end
 
       # note that filtering of stuff not OK to ingest also happens here

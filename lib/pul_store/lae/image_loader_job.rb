@@ -22,7 +22,7 @@ module PulStore
       end
 
       def folder_id_from_barcode(barcode)
-        PulStore::Lae::Folder.where(prov_metadata__barcode_tesim: barcode).first.pid
+        PulStore::Lae::Folder.where(prov_metadata__barcode_tesi: barcode).first.pid
       end
 
       def page_exists?

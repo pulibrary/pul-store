@@ -15,17 +15,17 @@ class PulStore::ItemRdfMetadata < ActiveFedora::NtriplesRDFDatastream
     end
 
     map.date_created(:to => "created", :in => RDF::DC) do |index|
-      index.as :stored_searchable
+      index.as :stored_sortable
       index.type :integer
     end
 
     map.earliest_created(:to => "earliestCreated", :in => RDF::PulStoreTerms) do |index|
-      index.as :stored_searchable
+      index.as :stored_sortable
       index.type :integer
     end
 
     map.latest_created(:to => "latestCreated", :in => RDF::PulStoreTerms) do |index|
-      index.as :stored_searchable
+      index.as :stored_sortable
       index.type :integer
     end
 

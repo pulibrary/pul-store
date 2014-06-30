@@ -13,18 +13,18 @@ class PulStore::Lae::FolderRdfMetadata < PulStore::ItemRdfMetadata
     end
 
     map.height_in_cm(to: 'heightInCM', in: RDF::PulStoreTerms) do |index|
-      index.type :interfer
-      index.as :stored_searchable
+      index.as :stored_sortable
+      index.type :integer
     end
 
     map.width_in_cm(to: 'widthInCM', in: RDF::PulStoreTerms) do |index|
+      index.as :stored_sortable
       index.type :integer
-      index.as :stored_searchable
     end
 
     map.page_count(to: 'pageCount', in: RDF::PulStoreTerms) do |index|
+      index.as :stored_sortable
       index.type :integer
-      index.as :stored_searchable
     end
 
     map.genre(to: 'format', in: RDF::DC) do |index|
@@ -48,7 +48,7 @@ class PulStore::Lae::FolderRdfMetadata < PulStore::ItemRdfMetadata
     end
 
     map.rights(in: RDF::DC) do |index|
-      index.as :stored_searchable
+      index.as :stored_searchable_single_string
     end
 
     map.series(to: 'isPartOfSeries', in: RDF::PulStoreTerms) do |index|
@@ -64,10 +64,6 @@ class PulStore::Lae::FolderRdfMetadata < PulStore::ItemRdfMetadata
     end
 
   end
-
-
-
-
 
 end
 

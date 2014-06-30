@@ -12,3 +12,5 @@ Hydra::Derivatives.kdu_compress_recipes = PUL_STORE_CONFIG['jp2_recipes']
 if Rails.env.production?
   Deprecation.default_deprecation_behavior = :silence
 end
+
+Solrizer::FieldMapper.descriptors << PulStore::Mappers

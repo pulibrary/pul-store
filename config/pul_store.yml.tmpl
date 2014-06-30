@@ -28,7 +28,69 @@ defaults: &defaults
         - umas
   lae_recap_code: rcpxr
   lae_rights_boilerplate: "This digital reproduction is intended to support research, teaching, and private study. Users are responsible for determining any copyright questions."
-
+  lae_export_exclude:
+    folder:
+      - desc_metadata__category_sim
+      - desc_metadata__genre_sim
+      - desc_metadata__geographic_origin_sim
+      - desc_metadata__geographic_subject_sim
+      - desc_metadata__language_sim
+      - desc_metadata__subject_sim
+      - has_model_ssim
+      - in_box_ssim
+      - is_part_of_project_ssim
+      - object_profile_ssm
+      - object_state_ssi
+      - prov_metadata__project_label_sim
+      - prov_metadata__workflow_state_sim
+      - prov_metadata__workflow_state_tesim
+      - system_create_dtsi
+      - system_modified_dtsi
+    page:
+      - active_fedora_model_ssi
+      - discover_access_group_ssim
+      - edit_access_group_ssim
+      - has_model_ssim
+      - is_part_of_project_ssim
+      - is_part_of_ssim
+      - object_profile_ssm
+      - object_state_ssi
+      - prov_metadata__date_modified_dtsi
+      - prov_metadata__date_uploaded_dtsi
+      - prov_metadata__project_label_tesi
+      - read_access_group_ssim
+      - system_create_dtsi
+      - system_modified_dtsi
+      - timestamp
+    box:
+      - active_fedora_model_ssi
+      - discover_access_group_ssim
+      - edit_access_group_ssim
+      - has_model_ssim
+      - is_part_of_project_ssim
+      - object_profile_ssm
+      - object_state_ssi
+      - prov_metadata__date_modified_dtsi
+      - prov_metadata__date_uploaded_dtsi
+      - prov_metadata__project_label_sim
+      - prov_metadata__project_label_tesi
+      - prov_metadata__workflow_state_sim
+      - prov_metadata__workflow_state_tesim
+      - read_access_group_ssim
+      - system_create_dtsi
+      - system_modified_dtsi
+    project:
+      - active_fedora_model_ssi
+      - desc_metadata__description_ssm
+      - desc_metadata__identifier_tesim
+      - desc_metadata__label_sim
+      - has_model_ssim
+      - object_profile_ssm
+      - object_state_ssi
+      - prov_metadata__date_modified_dtsi
+      - prov_metadata__date_uploaded_dtsi
+      - system_create_dtsi
+      - system_modified_dtsi
   image_server_store: /tmp/fake_image_store
   image_server_base: http://libimages.princeton.edu/loris
   jp2_recipes:
