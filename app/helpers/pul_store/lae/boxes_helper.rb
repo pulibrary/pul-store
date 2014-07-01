@@ -9,7 +9,7 @@ module PulStore::Lae::BoxesHelper
 
 
   def link_to_lae_box(doc, opts={label: nil, counter: nil})
-    barcode_field = doc['prov_metadata__barcode_tesim']
+    barcode_field = doc['prov_metadata__barcode_tesi']
     box_number = lae_box_number doc
     barcode ||= barcode_field if barcode_field.is_a? String
     barcode ||= barcode_field[0] if barcode_field.is_a? Array

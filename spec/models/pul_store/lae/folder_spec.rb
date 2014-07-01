@@ -533,4 +533,19 @@ describe PulStore::Lae::Folder, :type => :model do
   end
 
 
+  describe "#to_yaml" do
+    box  = FactoryGirl.create(:lae_box)
+    let(:folder) { FactoryGirl.create(:lae_core_folder_with_pages, box: box) }
+    
+    it "produces parsable YAML" do
+      expect { YAML.load(folder.to_yaml) }.not_to raise_error
+    end
+
+    it "excludes the keys we done want (from config/pul_store.yml)" do
+      h = YAML.load(folder.to_yaml)
+      expect(h.has_key?('object_profile_ssm')).to be_falsey
+    end
+
+  end
+
 end

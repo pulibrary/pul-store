@@ -123,7 +123,6 @@ class PulStore::Lae::Folder < PulStore::Item
   # end
 
 
-
   def suppressed?
     self.suppressed = false if self.suppressed.blank?
     ["true", 1, true].include? self.suppressed # Not cool. We want an actual boolean!
@@ -159,6 +158,72 @@ class PulStore::Lae::Folder < PulStore::Item
       :subject, :geographic_origin, :geographic_subject, :language, :height_in_cm,
       :width_in_cm, :page_count, :date_created, :rights, :category]
   end
+
+  def to_yaml(opts={})
+    # unsolrize = opts.fetch(:unsolrize, true)
+    self.to_export(opts).to_yaml
+  end
+
+  # opts:
+  #   unsolrize: get keys back to name in model where possible. Default: true
+  def to_export(opts={})
+    unsolrize = opts.fetch(:unsolrize, true)
+
+    excludes = PUL_STORE_CONFIG['lae_export_exclude']
+    folder_h = self.to_solr.except(*excludes['folder'])
+
+    # Bring in Data stored in AR models
+    geo_subjects = []
+    folder_h['desc_metadata__geographic_subject_tesim'].each do |g_str|
+      geo_subjects << PulStore::Lae::Area.where(label: g_str).first.attributes.except('id')
+    end
+    folder_h['geographic_subject'] = geo_subjects unless geo_subjects.empty?
+    folder_h.delete('desc_metadata__geographic_subject_tesim')
+
+    subjects = []
+    folder_h['desc_metadata__subject_tesim'].each do |s|
+      subjects << PulStore::Lae::Subject.where(label: s).first.attributes.except('id', 'category_id')
+    end
+    folder_h['subject'] = subjects unless subjects.empty?
+    folder_h.delete('desc_metadata__subject_tesim')
+
+    genres = []
+    folder_h['desc_metadata__genre_tesim'].each do |s|
+      genres << PulStore::Lae::Genre.where(pul_label: s).first.attributes.except('id')
+    end
+    folder_h['genre'] = genres unless genres.empty?
+    folder_h.delete('desc_metadata__genre_tesim')
+
+
+    languages = []
+    folder_h['desc_metadata__language_tesim'].each do |l|
+      languages << Language.where(label: l).first.attributes.except('id')
+    end
+    folder_h['language'] = languages unless languages.empty?
+    folder_h.delete('desc_metadata__language_tesim')
+
+    origin_label = folder_h['desc_metadata__geographic_origin_tesim']
+    origin_hash = PulStore::Lae::Area.where(label: origin_label).first.attributes.except('id')
+    folder_h['geographic_origin'] = origin_hash.nil? ? origin_label : origin_hash
+    folder_h.delete('desc_metadata__geographic_origin_tesim')
+  
+    # Pages
+    folder_h['pages'] = []
+    self.pages(response_format: :solr).sort_by { |h| h['desc_metadata__sort_order_isi'] }.each do |p|
+      data = p.except(*excludes['page'])
+      folder_h['pages'] << (unsolrize ? unsolrize(data) : data)
+    end
+
+    # Box
+    box_data = self.box.to_solr.except(*excludes['box'])
+    folder_h['box'] = unsolrize ? unsolrize(box_data) : box_data
+
+    project_data = self.project.to_solr.except(*excludes['project'])
+    folder_h['project'] = unsolrize ? unsolrize(project_data) : project_data
+
+    unsolrize ? unsolrize(folder_h) : folder_h
+  end
+
 
   protected
 
@@ -217,5 +282,18 @@ class PulStore::Lae::Folder < PulStore::Item
       end
     end
   end
+
+  def unsolrize_key(s)
+    if s.to_s.include? '__'
+      s.scan( /^.+__(.+)_.+$/).last.first
+    else
+      s.to_s
+    end
+  end
+
+  def unsolrize(hsh)
+    Hash[hsh.map {|k, v| [unsolrize_key(k), v] }]
+  end
+
 
 end

@@ -40,15 +40,15 @@ ActiveRecord::Schema.define(version: 20140627214347) do
   end
 
   create_table "pul_store_lae_areas", force: true do |t|
-    t.string  "label"
-    t.string  "iso_3166_2_code"
-    t.string  "gac_code"
-    t.string  "uri"
-    t.string  "geoname_id"
-    t.integer "north"
-    t.integer "south"
-    t.integer "east"
-    t.integer "west"
+    t.string "label"
+    t.string "iso_3166_2_code"
+    t.string "gac_code"
+    t.string "uri"
+    t.string "geoname_id"
+    t.string "north"
+    t.string "south"
+    t.string "east"
+    t.string "west"
   end
 
   add_index "pul_store_lae_areas", ["label"], name: "index_pul_store_lae_areas_on_label", unique: true, using: :btree

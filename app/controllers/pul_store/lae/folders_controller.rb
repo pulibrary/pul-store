@@ -77,6 +77,7 @@ class PulStore::Lae::FoldersController  < CatalogController
     @box_list = get_box_by_id @folder.box_id
     respond_to do |format|
       format.html # show.html.erb
+      format.yml { render text: @folder.to_yaml }
       format.json { render json: @folder }
     end
   end
@@ -160,7 +161,7 @@ class PulStore::Lae::FoldersController  < CatalogController
     end
 
     def set_folder_by_barcode
-      PulStore::Lae::Folder.where(prov_metadata__barcode_tesim: params[:barcode]).first
+      PulStore::Lae::Folder.where(prov_metadata__barcode_tesi: params[:barcode]).first
     end
 
     def folder_params

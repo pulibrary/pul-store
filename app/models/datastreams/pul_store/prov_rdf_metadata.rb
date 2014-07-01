@@ -8,7 +8,7 @@ class PulStore::ProvRdfMetadata < ActiveFedora::NtriplesRDFDatastream
 
     map.barcode(to: "barcode", in: RDF::PulStoreTerms) do |index|
       index.type :string
-      index.as :stored_searchable
+      index.as :stored_searchable_single_string
     end
 
     map.date_uploaded(to: "dateSubmitted", in: RDF::DC) do |index|
@@ -63,7 +63,7 @@ class PulStore::ProvRdfMetadata < ActiveFedora::NtriplesRDFDatastream
 
     map.project_label(to: "projectLabel", in: RDF::PulStoreTerms) do |index|
       # The URI for the host system.
-      index.as :stored_searchable, :facetable
+      index.as :stored_searchable_single_string, :facetable
     end
 
     map.shipped_date(to: "shippedDate", in: RDF::PulStoreTerms) do |index|
