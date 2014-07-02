@@ -24,7 +24,7 @@ module PulStore::Lae::FoldersHelper
   end
 
   def lae_folder_barcode(doc)
-    field = doc['prov_metadata__barcode_tesim']
+    field = doc['prov_metadata__barcode_tesi']
     field.is_a?(Array) ? field[0] : field
   end
 

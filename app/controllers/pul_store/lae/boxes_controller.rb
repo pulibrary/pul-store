@@ -74,6 +74,7 @@ class PulStore::Lae::BoxesController < CatalogController #ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @box }
+      format.yml { render text: @box.to_yaml }
     end
   end
 

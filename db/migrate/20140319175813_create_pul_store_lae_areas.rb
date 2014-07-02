@@ -6,10 +6,10 @@ class CreatePulStoreLaeAreas < ActiveRecord::Migration
       t.string :gac_code
       t.string :uri
       t.string :geoname_id
-      t.integer :north
-      t.integer :south
-      t.integer :east
-      t.integer :west
+      t.string :north
+      t.string :south
+      t.string :east
+      t.string :west
     end
     add_index :pul_store_lae_areas, :label, unique: true
   end

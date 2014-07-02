@@ -6,7 +6,7 @@ class PulStore::ProjectRdfMetadata < ActiveFedora::NtriplesRDFDatastream
     end
 
     map.label(to: "label", in: RDF::RDFS) do |index|
-      index.as :stored_searchable, :facetable
+      index.as :stored_searchable_single_string, :facetable
     end
 
     map.identifier(to: 'identifier', in: RDF::DC) do |index|

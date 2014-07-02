@@ -6,8 +6,7 @@ class PulStore::PageRdfMetadata < ActiveFedora::NtriplesRDFDatastream
     map.identifier({in: RDF::DC})
 
     map.display_label(to: "label", in: RDF::RDFS) do |index|
-      index.as :displayable
-      index.type :string
+      index.as :stored_searchable_single_string
     end
 
     map.sort_order(to: "sortOrder", in: RDF::PulStoreTerms) do |index|

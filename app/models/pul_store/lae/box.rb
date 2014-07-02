@@ -87,8 +87,12 @@ class PulStore::Lae::Box < PulStore::Base
     self.received? && self.folders.all? { |f| f.in_production? }
   end
 
-  # TODO: hard_drive tests, once we have enough of HardDrive
 
+  def to_yaml(opts={})
+    folders = []
+    self.folders.each { |f| folders << f.to_export(opts) }
+    folders.to_yaml
+  end
 
   protected
 

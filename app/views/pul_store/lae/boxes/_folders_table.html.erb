@@ -25,7 +25,7 @@
             </span>
           </td>
           <td><% if !f['desc_metadata__title_tesim'].nil? %><%= f['desc_metadata__title_tesim'][0] %><% else %>[Not Yet Supplied]<% end %></td>
-          <td><%= f['prov_metadata__barcode_tesim'][0] %></td>
+          <td><%= f['prov_metadata__barcode_tesi'] %></td>
           <td><%= f['desc_metadata__genre_tesim'][0] %></td>
           <td>
               <%= link_to "Edit", edit_lae_folder_path(f['id']), :class => "btn btn-info" %>
