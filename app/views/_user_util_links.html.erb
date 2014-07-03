@@ -1,5 +1,8 @@
-  <% if has_user_authentication_provider? %>
-    <div class="nav navbar-nav pull-right">
+<div class="navbar-right">
+  <ul class="nav navbar-nav">
+    
+
+ <% if has_user_authentication_provider? %>
       <% if current_user %>
           
           <%= button_to "#{t('blacklight.header_links.logout')} #{current_user.to_s}", destroy_user_session_path,  { :type => 'submit', :class => 'btn btn-default form-control',  form_class: "form-inline" } %>
@@ -11,5 +14,5 @@
 
         
       <% end %>
-      </ul>
   <% end %>
+</div>
