@@ -173,40 +173,50 @@ class PulStore::Lae::Folder < PulStore::Item
     folder_h = self.to_solr.except(*excludes['folder'])
 
     # Bring in Data stored in AR models
-    geo_subjects = []
-    folder_h['desc_metadata__geographic_subject_tesim'].each do |g_str|
-      geo_subjects << PulStore::Lae::Area.where(label: g_str).first.attributes.except('id')
+    if folder_h.has_key?('desc_metadata__geographic_subject_tesim')
+      geo_subjects = []
+      folder_h['desc_metadata__geographic_subject_tesim'].each do |g_str|
+       geo_subjects << PulStore::Lae::Area.where(label: g_str).first.attributes.except('id')
+      end
+      folder_h['geographic_subject'] = geo_subjects unless geo_subjects.empty?
+      folder_h.delete('desc_metadata__geographic_subject_tesim')
     end
-    folder_h['geographic_subject'] = geo_subjects unless geo_subjects.empty?
-    folder_h.delete('desc_metadata__geographic_subject_tesim')
 
-    subjects = []
-    folder_h['desc_metadata__subject_tesim'].each do |s|
-      subjects << PulStore::Lae::Subject.where(label: s).first.attributes.except('id', 'category_id')
+    if folder_h.has_key?('desc_metadata__subject_tesim')
+      subjects = []
+      folder_h['desc_metadata__subject_tesim'].each do |s|
+        subjects << PulStore::Lae::Subject.where(label: s).first.attributes.except('id', 'category_id')
+      end
+      folder_h['subject'] = subjects unless subjects.empty?
+      folder_h.delete('desc_metadata__subject_tesim')
     end
-    folder_h['subject'] = subjects unless subjects.empty?
-    folder_h.delete('desc_metadata__subject_tesim')
 
-    genres = []
-    folder_h['desc_metadata__genre_tesim'].each do |s|
-      genres << PulStore::Lae::Genre.where(pul_label: s).first.attributes.except('id')
+    if folder_h.has_key?('desc_metadata__genre_tesim')
+      genres = []
+      folder_h['desc_metadata__genre_tesim'].each do |s|
+        genres << PulStore::Lae::Genre.where(pul_label: s).first.attributes.except('id')
+      end
+      folder_h['genre'] = genres unless genres.empty?
+      folder_h.delete('desc_metadata__genre_tesim')
     end
-    folder_h['genre'] = genres unless genres.empty?
-    folder_h.delete('desc_metadata__genre_tesim')
 
 
-    languages = []
-    folder_h['desc_metadata__language_tesim'].each do |l|
-      languages << Language.where(label: l).first.attributes.except('id')
+    if folder_h.has_key?('desc_metadata__language_tesim')
+      languages = []
+      folder_h['desc_metadata__language_tesim'].each do |l|
+        languages << Language.where(label: l).first.attributes.except('id')
+      end
+      folder_h['language'] = languages unless languages.empty?
+      folder_h.delete('desc_metadata__language_tesim')
     end
-    folder_h['language'] = languages unless languages.empty?
-    folder_h.delete('desc_metadata__language_tesim')
 
-    origin_label = folder_h['desc_metadata__geographic_origin_tesim']
-    origin_hash = PulStore::Lae::Area.where(label: origin_label).first.attributes.except('id')
-    folder_h['geographic_origin'] = origin_hash.nil? ? origin_label : origin_hash
-    folder_h.delete('desc_metadata__geographic_origin_tesim')
-  
+    if folder_h.has_key?('desc_metadata__geographic_origin_tesim')
+      origin_label = folder_h['desc_metadata__geographic_origin_tesim']
+      origin_hash = PulStore::Lae::Area.where(label: origin_label).first.attributes.except('id')
+      folder_h['geographic_origin'] = origin_hash.nil? ? origin_label : origin_hash
+      folder_h.delete('desc_metadata__geographic_origin_tesim')
+    end
+    
     # Pages
     folder_h['pages'] = []
     self.pages(response_format: :solr).sort_by { |h| h['desc_metadata__sort_order_isi'] }.each do |p|
