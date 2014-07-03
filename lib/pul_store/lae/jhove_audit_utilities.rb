@@ -64,7 +64,7 @@ module PulStore
         end
         # Folder Exists?
         missing_folder = verify_folder_exists(audit_hash, opts)
-        missing_folder.uniq!{ |f| f[:folder_barcode] }.each do |f|
+        missing_folder.uniq{ |f| f[:folder_barcode] }.each do |f|
           errors << "Folder #{f[:folder_barcode]} does not exist"
         end
         # OCR w/ broken image || Image with broken ocr
