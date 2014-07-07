@@ -28,7 +28,6 @@ module PulStore
       "#{server}/#{id}.jp2/info.json"
     end
 
-    protected
     def self.pid_to_path(pid)
       path = []
       ns, noid = pid.split(':')
