@@ -83,7 +83,27 @@ class PulStore::Page < PulStore::Base
     self.pageOcr.content
   end
 
+  def delete
+    self.delete_or_destroy
+    super
+  end
+
+  def destroy
+    self.delete_or_destroy
+    super
+  end
+
   protected
+
+  def delete_or_destroy(suffix='jp2')
+    # Get rid of the JP2 as well
+    jp2_storage_root = PUL_STORE_CONFIG['image_server_store']
+    local = PulStore::ImageServerUtils.pid_to_path(self.pid)
+    path = "#{File.join(jp2_storage_root,local)}.#{suffix}"
+    if File.exists?(path)
+      File.delete(path)
+    end
+  end
 
   # Ingest a String, StringIO, IO, or file from a path.
   # Options: 
