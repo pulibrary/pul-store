@@ -14,3 +14,6 @@ if Rails.env.production?
 end
 
 Solrizer::FieldMapper.descriptors << PulStore::Mappers
+
+Resque.logger = Logger.new("#{Rails.root}/log/resque_#{Date.today.strftime('%Y-%m-%d')}.log")
+Resque.logger.level = Logger::INFO
