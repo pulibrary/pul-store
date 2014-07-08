@@ -55,6 +55,26 @@ describe PulStore::Page, :type => :model do
     expect(p.datastreams['deliverableImage'].mimeType).to eq('image/jp2')
   end
 
+  it "deletes its jp2 from remote storage on #delete or #destroy", unless: ENV['TRAVIS'] == 'true' do
+    fp = RSpec.configuration.fixture_path + "/files/00000001.tif"
+    p = FactoryGirl.build(:page)
+    stage_path = PulStore::Page.upload_to_stage(File.new(fp), '0001.tif')
+    p.master_image = stage_path
+    p.save
+    p.create_derivatives
+    p.save
+
+    jp2_storage_root = PUL_STORE_CONFIG['image_server_store']
+    local = PulStore::ImageServerUtils.pid_to_path(p.pid)
+    path = "#{File.join(jp2_storage_root,local)}.jp2"
+
+    PulStore::ImageServerUtils.stream_content_to_image_server(p.deliverableImage, p.pid)
+    
+    expect(File.exists?(path)).to be_truthy
+    p.delete
+    expect(File.exists?(path)).to be_falsey
+  end
+
   describe "the pageOcr stream" do
     it "may be included" do
       ocr_fixture = RSpec.configuration.fixture_path + "/files/lae_test_img/32101075851483/32101075851434/0001.xml"
