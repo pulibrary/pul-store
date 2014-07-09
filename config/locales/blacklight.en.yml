@@ -20,7 +20,7 @@ en:
       next: 'Next &raquo;'
 
   blacklight:
-    application_name: 'Pul Store'
+    application_name: 'Princeton University Library Store'
 
     header_links:
       login: 'Login'
@@ -29,7 +29,7 @@ en:
       saved_searches: 'Saved Searches'
       search_history: 'History'
 
-    welcome: 'Pul Store'
+    welcome: 'Project List'
     and: 'and'
     or: 'or'
 

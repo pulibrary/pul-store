@@ -3,7 +3,8 @@ class PulStore::Lae::FoldersController  < CatalogController
   include PulStore::Lae::BoxLookups
 
   before_action :set_folder, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate_user!
+  #before_action :redirect_to_sign_in, unless: :user_signed_in?, only: [:edit, :update, :destroy, :create]
+  #before_action :authenticate_user!
   
 
   layout 'lae'
@@ -23,7 +24,6 @@ class PulStore::Lae::FoldersController  < CatalogController
   self.blacklight_config.add_sort_field 'prov_metadata__date_uploaded_ssi desc', :label => 'Date Created'
   self.blacklight_config.add_sort_field 'prov_metadata__shipped_date_ssi desc', :label => 'Date Shipped'
   self.blacklight_config.add_sort_field 'prov_metadata__received_date_ssi desc', :label => 'Date Received'
-
 
   def limit_to_folders(solr_parameters, user_params)
       fq = '{!raw f=active_fedora_model_ssi}PulStore::Lae::Folder'
@@ -49,6 +49,7 @@ class PulStore::Lae::FoldersController  < CatalogController
 
   def index
     #authorize! :index, params[:id]
+    session[:path_to_redirect_to] = request.original_fullpath
     if params[:barcode]
       @folder = set_folder_by_barcode
       @page_title = "Lae Folders"
@@ -79,6 +80,16 @@ class PulStore::Lae::FoldersController  < CatalogController
       format.html # show.html.erb
       format.yml { render text: @folder.to_yaml }
       format.json { render json: @folder }
+    end
+  end
+
+  # displays an oversize osd modeal
+  def image_list
+    @folder = PulStore::Lae::Folder.find(params[:id])
+    @page_title = "Folder #{@folder.physical_number}"
+    @pages_list = get_pages_by_folder @folder.id
+    respond_to do |format|
+      format.html
     end
   end
 

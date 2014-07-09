@@ -18,4 +18,18 @@ module PulStore::PageHelper
     end
   end
 
+  def pul_store_iiif_pid_info_list(pid_list)
+    iiif_info_list = pid_list.map do |pid|
+      pul_store_iiif_info_path(pid)
+    end
+  end
+
+  def pul_store_page_modal_target(id)
+    "\##{pul_store_page_model_string(id)}"
+  end
+
+  def pul_store_page_model_string(id)
+    id.gsub(":", "")
+  end
+
 end

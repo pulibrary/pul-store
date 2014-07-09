@@ -8,7 +8,7 @@ class CatalogController < ApplicationController
   helper Openseadragon::OpenseadragonHelper
 
   # These before_filters apply the hydra access controls
-  # before_filter :enforce_show_permissions, :only=>:show
+  #before_filter :enforce_show_permissions, :only=>:show
 
   # This applies appropriate access controls to all solr queries
   CatalogController.solr_search_params_logic += [:add_access_controls_to_solr_params]
@@ -64,9 +64,9 @@ class CatalogController < ApplicationController
     config.add_facet_field solr_name('prov_metadata__workflow_state', :facetable), :label => 'State'
     config.add_facet_field solr_name('desc_metadata__genre', :facetable), :label => 'Genre'
     config.add_facet_field solr_name('desc_metadata__language', :facetable), :label => 'Language'
-    config.add_facet_field solr_name('desc_metadata__geographic_subject', :facetable), :label => 'Geographic Subject'
-    config.add_facet_field solr_name('desc_metadata__category', :facetable), :label => 'Category'
-    config.add_facet_field solr_name('desc_metadata__subject', :facetable), :label => 'Subject'
+    config.add_facet_field solr_name('desc_metadata__geographic_subject', :facetable), :label => 'Geographic Subject', :show => false
+    config.add_facet_field solr_name('desc_metadata__category', :facetable), :label => 'Category', :show => false
+    config.add_facet_field solr_name('desc_metadata__subject', :facetable), :label => 'Subject', :show => false
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request

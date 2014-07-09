@@ -15,6 +15,9 @@ class PulStore::Lae::BoxesController < CatalogController #ApplicationController
   before_action :set_box, only: [:edit, :update, :destroy]
   #before_filter :list_all_boxes, only: [:show]
 
+  #before_action :redirect_to_sign_in, unless: :user_signed_in?, only: [:edit, :update, :destroy, :create]
+  #before_action :authenticate_user!
+
   # This applies appropriate access controls to all solr queries
   PulStore::Lae::BoxesController.solr_search_params_logic += [:add_access_controls_to_solr_params]
 
@@ -30,8 +33,6 @@ class PulStore::Lae::BoxesController < CatalogController #ApplicationController
   self.blacklight_config.add_sort_field 'prov_metadata__shipped_date_ssi desc', :label => 'Date Shipped'
   self.blacklight_config.add_sort_field 'prov_metadata__received_date_ssi desc', :label => 'Date Received'
 
-  #load_and_authorize_resource
-
   def limit_to_boxes(solr_parameters, user_params)
       fq = '{!raw f=active_fedora_model_ssi}PulStore::Lae::Box'
       solr_parameters[:fq] << fq
@@ -44,6 +45,7 @@ class PulStore::Lae::BoxesController < CatalogController #ApplicationController
   end
 
   def index
+    session[:path_to_redirect_to] = request.original_fullpath
     if params[:barcode]
       # this is slow...what's a better (Solr-only?) way?
       @box = get_box_by_barcode(params[:barcode])

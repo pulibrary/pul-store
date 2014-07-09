@@ -8,7 +8,14 @@
 %>
 
 <h2><%= pluralize(@pages_list.size, 'Images') %></h2>
-<% if !@pages_list.blank? %>
+
+<% unless @pages_list.blank? %>
+  <div class="pul-store-controls">
+    <%= link_to(lae_folder_image_list_path(@folder.id), class: "btn btn-primary", target: "_blank") do %>
+      <span>View Full Image</span>
+      <%= fa_icon 'external-link' %>
+    <% end %>
+  </div>
   <div>
     <% images = pul_store_iiif_page_info_list(@pages_list) %>
     <%= openseadragon_picture_tag images, class: 'osd-image row', data: { openseadragon: osd_config } %>

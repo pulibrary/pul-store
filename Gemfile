@@ -19,7 +19,7 @@ gem 'therubyracer', platforms: :ruby
 gem 'jquery-rails'
 
 # jquery ui
-gem 'jquery-ui-rails'
+gem 'jquery-ui-rails', '~> 4.2.1'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
@@ -57,6 +57,7 @@ gem 'jquery-turbolinks'
 
 gem "bootstrap-sass"
 gem "devise"
+gem 'devise_cas_authenticatable'
 gem "devise-guests", "~> 0.3"
 
 # Use Capistrano for deployment
@@ -76,7 +77,7 @@ group :development, :test, :production do
   gem "jettywrapper"
 end
 
-gem 'hydra-editor'
+gem 'hydra-editor', '~> 0.3.0'
 gem 'underscore-rails'
 gem 'poltergeist'
 

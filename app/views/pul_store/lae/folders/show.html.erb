@@ -25,8 +25,19 @@
     <%= render :partial => 'folder_attributes' %>
   </div>
 <!-- other fields to display -->
-<div class="row">
-  <%= render :partial => 'pages_list' %>
+<div class="btn-group btn-group-lg btn-toolbar" role="toolbar">
+  <div id="pull-full-view" class="btn btn-default active">
+    <%= link_to(lae_folder_image_list_path(@folder.id)) do %>
+      <%= fa_icon 'photo' %>
+      Full Image
+    <% end %>
+  </div>
+  <div id="pul-grid-view" class="btn btn-default active">
+    <%= fa_icon 'th' %>
+    Grid
+  </div>
 </div>
+<%= render :partial => 'pages_list' %>
+
 
 
