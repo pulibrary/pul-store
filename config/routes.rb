@@ -16,6 +16,7 @@ PulStore::Application.routes.draw do
       get 'genres/:id', to: 'genres#show'
       get 'categories/:category_id/subjects', to: 'subjects#index'
       get 'boxes/:id/folders', to: 'boxes#folders'
+      get 'folders/:id/image_list', to: 'folders#image_list'
     end
   end
 
@@ -32,7 +33,7 @@ PulStore::Application.routes.draw do
   # routes at /records/:id/edit
   # or /reocords/new
 
-  devise_for :users
+  devise_for :users, controllers: { cas_sessions: 'princeton_cas' }
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

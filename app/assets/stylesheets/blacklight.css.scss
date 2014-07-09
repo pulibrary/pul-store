@@ -2,8 +2,22 @@
 
 @import 'blacklight/blacklight';
 
+
+
+.navbar, .jumbotron { 
+  margin-bottom: 0;
+}
+
+.navbar-header, .navbar-right {
+  margin-top: .5em;
+}
+
 footer {
   background-color: #f2f1eb;
   border-top: 1px solid #dddddd;
   margin-top: 1em;
+}
+
+.modal-backdrop.in {
+  z-index: 100;
 }

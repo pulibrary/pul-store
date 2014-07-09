@@ -6,6 +6,7 @@ describe "Lae::BoxesController", :type => :request do
     User.delete_all
     @user = FactoryGirl.create(:user)
     @user.save!
+
   end
 
   describe "GET /lae/boxes" do
@@ -16,6 +17,10 @@ describe "Lae::BoxesController", :type => :request do
       expect(response.status).to be(200)
     end
 
+    it "Forces me to sign in via CAS" do
+      get lae_boxes_path
+      expect(response.status).to be(302)
+    end
   end
 
 end

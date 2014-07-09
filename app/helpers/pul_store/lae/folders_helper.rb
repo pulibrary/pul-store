@@ -50,6 +50,10 @@ module PulStore::Lae::FoldersHelper
     box.physical_number
   end
 
+  def lae_folder_image_list_path(folder_id)
+    "/lae/folders/#{folder_id}/image_list"
+  end
+
   def lae_date_value_set(folder)
     
   end
