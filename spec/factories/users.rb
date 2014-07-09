@@ -7,6 +7,7 @@ FactoryGirl.define do
     first_name = "Joe"
     last_name = "Test"
     u.email "#{first_name}#{last_name}@university.edu".downcase
-    u.password "zzzzzzzzzzzzz"
+    u.username "#{first_name}#{last_name}".downcase
+    #u.password "zzzzzzzzzzzzz"
   end
 end
