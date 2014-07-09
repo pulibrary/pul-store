@@ -16,6 +16,7 @@ PulStore::Application.routes.draw do
       get 'genres/:id', to: 'genres#show'
       get 'categories/:category_id/subjects', to: 'subjects#index'
       get 'boxes/:id/folders', to: 'boxes#folders'
+      get 'folders/:id/image_list', to: 'folders#image_list'
     end
   end
 

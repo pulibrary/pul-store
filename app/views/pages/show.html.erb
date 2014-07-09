@@ -1,14 +1,29 @@
+<% 
+
+  osd_config = {
+    crossOriginPolicy: false,
+    preserveViewport: true, 
+    visibilityRatio: 1
+  }
+%> 
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Label:</strong>
-  <%= @page.label %>
-</p>
+<dl class="dl-horizontal">
+  <dt>Label</dt>
+  <dd>
+    <% unless @page.label.blank? %>
+        <%= @page.label %>
+      <% else %>
+        [Label not yet supplied]
+      <% end %>
+  </dd>
+  <dt>Sort Order</dt>
+  <dd><%= @page.sort_order %></dd>
+  <dt>Folder</dt>
+  <dd><%= @page.folder_id %></dd>
+</dl>
 
-<p>
-  <strong>Sort order:</strong>
-  <%= @page.sort_order %>
-</p>
+<%= openseadragon_picture_tag [pul_store_iiif_info_path(@page.id)], class: 'osd-image row', data: { openseadragon: osd_config } %>
 
-<%= link_to 'Edit', edit_page_path(@page) %> |
-<%= link_to 'Back', pages_path %>
+<%= link_to 'Edit Page', edit_page_path(@page) %> |
+<%= link_to 'Back to Folder', lae_folder_path(@page.folder_id) %>

@@ -1,14 +1,43 @@
+<% 
+
+  osd_config = {
+    crossOriginPolicy: false,
+    preserveViewport: true, 
+    visibilityRatio: 1,
+    showNavigator:  true
+  }
+%>
 <% unless @pages_list.blank? %>
-  <h2><%= pluralize(@pages_list.size, 'Images') %></h2>
   <ol id="page-thumbnails">
   <% @pages_list.each do |page| %>
     <li>
-      <a href="<%= pul_store_page_path(page['id']) %>">
+      <button class="btn btn-link" data-toggle="modal" data-target="<%= pul_store_page_modal_target(page['id']) %>">
         <img data-sort-order="<%= page['desc_metadata__sort_order_isi'] %>" 
              src="<%= pul_store_iiif_path(page['id'], {size: "!200,200"}) %>"
              alt="<%= page['desc_metadata__display_label_ssm'] %>" >
-        <p class="caption"><%= page['desc_metadata__display_label_ssm'] %></p>
-      </a>
+        <p class="caption">
+          <%= page['desc_metadata__display_label_ssm'] %>
+          <%= page['desc_metadata__sort_order_isi'] %>
+        </p>
+      </button>
+      <div class="modal osd-modal" id="<%= pul_store_page_model_string(page['id']) %>" tabindex="-1" role="dialog" aria-labelledby="<%= page['desc_metadata__display_label_ssm'] %>" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+              <h4 class="modal-title" id="myModalLabel">
+                <%= page['desc_metadata__display_label_ssm'] %>
+              </h4>
+            </div>
+            <div class="modal-body">
+              <%= openseadragon_picture_tag [pul_store_iiif_info_path(page['id'])], class: 'osd-image row', data: { openseadragon: osd_config } %>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </li>
   <% end %>
   </ol>

@@ -83,6 +83,16 @@ class PulStore::Lae::FoldersController  < CatalogController
     end
   end
 
+  # displays an oversize osd modeal
+  def image_list
+    @folder = PulStore::Lae::Folder.find(params[:id])
+    @page_title = "Folder #{@folder.physical_number}"
+    @pages_list = get_pages_by_folder @folder.id
+    respond_to do |format|
+      format.html
+    end
+  end
+
   # GET /lae/folders/new
   def new
    authorize! :create, PulStore::Lae::Folder

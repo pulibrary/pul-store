@@ -1,6 +1,7 @@
 require 'json'
 
 class PagesController < ApplicationController
+  helper Openseadragon::OpenseadragonHelper
   before_action :set_page, only: [:show, :edit, :update, :destroy]
 
   # GET /pages
