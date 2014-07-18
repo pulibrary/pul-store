@@ -11,11 +11,24 @@ class Ability
 
     # Limits creating new objects to a specific group
 
-    if user_groups.include? 'lae_project_writers'
+    if user_groups.include? ['all_project_writers']
        can [:create], PulStore::Base
+       can [:create], PulStore::Lae::Box
+       can [:create], PulStore::Lae::Folder
+       can [:create], Pulstore::Lae::HardDrive
     end
 
-    if user_groups.include? 'lae_project_readers'
+    if user_groups.include? ['lae_project_writers']
+       can [:create], PulStore::Lae::Box
+       can [:create], PulStore::Lae::Folder
+       can [:create], Pulstore::Lae::HardDrive
+    end 
+
+    if user_groups.include? ['all_project_writers']
+       can [:destroy], PulStore::Base
+    end
+
+    if user_groups.include? ['lae_project_readers', 'all_project_readers' ]
       can [:show], PulStore::Base
     end
   end

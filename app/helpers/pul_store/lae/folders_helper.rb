@@ -58,6 +58,12 @@ module PulStore::Lae::FoldersHelper
     
   end
 
+  def lae_folder_thumbnail(doc) 
+    #pages = PulStore::Lae::PageLookups::get_pages_by_folder(doc['id'])
+    page = PulStore::Page.where(is_part_of_ssim: "info:fedora/#{doc['id']}").first
+    #page.id
+  end
+
   private
   @offset = Time.now.gmt_offset
   def self.style_date str

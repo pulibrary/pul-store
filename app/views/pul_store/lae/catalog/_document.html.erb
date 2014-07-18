@@ -4,36 +4,45 @@
 
       <% # main container for doc partial view -%>
       <% #= render_document_partial document, :index, :document_counter => document_counter %>
-      <dl class="document-metadata dl-horizontal dl-invert">
+      <div class="row">
+        <div class="col-md-8">
+          <dl class="document-metadata dl-horizontal dl-invert">
 
-        <% # A hack until we can get all of the functionality of          -%>
-        <% # Blacklight::BlacklightHelperBehavior#render_document_partial: -%>
-        <% if controller.class.to_s == 'PulStore::Lae::BoxesController' %>
+            <% # A hack until we can get all of the functionality of          -%>
+            <% # Blacklight::BlacklightHelperBehavior#render_document_partial: -%>
+            <% if controller.class.to_s == 'PulStore::Lae::BoxesController' %>
 
-          <dt>State:</dt>
-          <dd>
-            <% state = lae_box_state document %>
-            <span class="label <%= pul_store_base_state_to_label(state, "label") %>"><%= state %></span>
-          </dd>
-          <dt>Created:</dt>
-          <dd><%= lae_box_created_datetime document %></dd>
+              <dt>State:</dt>
+              <dd>
+                <% state = lae_box_state document %>
+                <span class="label <%= pul_store_base_state_to_label(state, "label") %>"><%= state %></span>
+              </dd>
+              <dt>Created:</dt>
+              <dd><%= lae_box_created_datetime document %></dd>
 
-        <% elsif controller.class.to_s == 'PulStore::Lae::FoldersController' %>
-          <dt>Barcode:</dt>
-          <dd><%= lae_folder_barcode document %></dd>
-          <dt>State:</dt>
-          <dd>
-            <% state = lae_folder_state document %>
-            <span class="label <%= pul_store_base_state_to_label(state, "label") %>"><%= state %></span>
-          </dd>
-          <dt>Created:</dt>
-          <dd><%= lae_folder_created_datetime document %></dd>
-
-        <% end %>
-
-
-
-      </dl>
+            <% elsif controller.class.to_s == 'PulStore::Lae::FoldersController' %>
+              <dt>Barcode:</dt>
+              <dd><%= lae_folder_barcode document %></dd>
+              <dt>State:</dt>
+              <dd>
+                <% state = lae_folder_state document %>
+                <span class="label <%= pul_store_base_state_to_label(state, "label") %>"><%= state %></span>
+              </dd>
+              <dt>Created:</dt>
+              <dd><%= lae_folder_created_datetime document %></dd>
+            <% end %>
+          </dl>
+        </div>
+        <div class="col-md-4" id="document-preview">
+          <% if controller.class.to_s == 'PulStore::Lae::FoldersController' %>
+            <% thumbnail = lae_folder_thumbnail(document) %>
+            <% unless thumbnail.blank? %>
+              <img src="<%= pul_store_iiif_path(thumbnail.id, {size: "!200,200"}) %>"
+                 alt="" >
+            <% end %>
+          <% end %>
+        </div>
+      </div>
 
       <%= link_to "Edit this #{controller_name.classify}", url_for(only_path: true, action: 'edit', id: document.id), class: "btn btn-info" %>
 
