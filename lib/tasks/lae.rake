@@ -31,29 +31,32 @@ namespace :lae do
     end
   end
 
-  desc "Seed dev with the Boxes and Folders in the fitures (for debugging queuing)"
+  desc "Seed dev with the Boxes and Folders in the fixtures (for debugging queuing)"
   task seed_queue_fixtures: :environment do
 
     projects = YAML.load_file(Rails.root.join('db/fixtures/projects.yml'))
     projects.map{ |project| PulStore::Project.create(project) }
+    
     box = FactoryGirl.create(:lae_box, barcode: '32101075851483')
     ['32101075851434','32101075851459'].each do |barcode|
       FactoryGirl.create(:lae_core_folder, barcode: barcode, box: box)
     end
 
+    box = FactoryGirl.create(:lae_box, barcode: '32101081556985')
+    ['32101093680005','32101093680013'].each do |barcode|
+      FactoryGirl.create(:lae_core_folder, barcode: barcode, box: box)
+    end
+
   end
 
-  desc 'Ingest a directory that represents a box (run as rake "lae:ingest_box[some/file.jhove.xml]"'
-  task :ingest_box, [:audit_path_arg] => :environment do |t, args|
+  desc 'Verify the contents of an LAE hard drive (run as rake "lae:verify_drive[some/file.jhove.xml]"'
+  task :verify_drive, [:audit_path_arg] => :environment do |t, args|
     require File.expand_path('../../pul_store/lae/jhove_audit_utilities', __FILE__) 
-
-    # TODO: should probably have some counters for success vs. fail
-
     status = 0
 
     begin # Do everything inside here. `ensure` exits.
 
-      logger = Logger.new("#{Rails.root}/log/lae_ingest_#{Date.today.strftime('%Y-%m-%d')}.log")
+      logger = Logger.new(STDOUT)
       logger.level = Logger::INFO
 
       # 1. Parse the audit XML
@@ -68,14 +71,46 @@ namespace :lae do
       # 3. Check for individual errors (OK to continue, so log case by case)
       file_errors = PulStore::Lae::JhoveAuditUtilities.validate_audit_members(audit, logger: logger)
       # 3.1 Report the errors
-      file_errors.each { |e| logger.warn e }
+      if file_errors.length == 0
+        page_args = PulStore::Lae::JhoveAuditUtilities.filter_and_group_images_and_ocr(audit, logger: logger)
+        # Write Job args to a yaml file for consumption by PulStore::Lae::ImageLoaderJob        
+        out_fp = args[:audit_path_arg].sub(/\.jhove\.xml$/, '.jobs.yml')
+        File.open(out_fp, 'w') { |f| f.write page_args.to_yaml }
+      else
+        file_errors.each { |e| logger.warn e }
+      end
 
-      # 4. Go through and start making jobs that make pages and add them to Folders (yay!)
-      # 4.1 Group the tiffs and ocr into hashes with folder_barcode, tiff_path, ocr_path, sort_order
-      page_args = PulStore::Lae::JhoveAuditUtilities.filter_and_group_images_and_ocr(audit, logger: logger)
-      # 4.2 Instantiate Jobs
+    rescue => err
 
+      logger.fatal("#{err.message} Trace follows:")
+      err.backtrace.each { |line| logger.fatal line }
+
+    ensure
+     
+      logger.close
+      exit(status)
+
+    end
+  end
+
+
+  desc 'Ingest a directory that represents a box from yaml provided by lae:ingest_drive (run as rake "lae:ingest_box[some/barcode.jobs.yml]"'
+  task :ingest_drive, [:jobs_file_arg] => :environment do |t, args|
+    require File.expand_path('../../pul_store/lae/jhove_audit_utilities', __FILE__) 
+    status = 0
+    begin # Do everything inside here. `ensure` exits.
+
+      logger = nil
+      if Rails.env.development?
+        logger = Logger.new(STDOUT)
+        logger.level = Logger::DEBUG
+      else
+        logger = Logger.new("#{Rails.root}/log/lae_ingest_#{Date.today.strftime('%Y-%m-%d')}.log")
+        logger.level = Logger::INFO
+      end
+      page_args = YAML::load_file(args[:jobs_file_arg])
       page_args.each do |job_args| 
+        logger.debug("Job args: #{job_args}")
         job = PulStore::Lae::ImageLoaderJob.new(job_args)
         OrderUp.push(job)
       end
@@ -86,7 +121,7 @@ namespace :lae do
       err.backtrace.each { |line| logger.fatal line }
 
     ensure
-     
+
       logger.close
       exit(status)
 
