@@ -27,7 +27,7 @@ class PulStore::Lae::HardDrivesController < ApplicationController
 
   # GET /lae/hard_drives/new
   def new
-    authorize! :create, PulStore::Lae::HardDrive
+    #authorize! :create, PulStore::Lae::HardDrive
     @hard_drive = PulStore::Lae::HardDrive.new
     @page_title = "Add a New Hard Drive"
     render 'new'

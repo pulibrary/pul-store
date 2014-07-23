@@ -95,7 +95,7 @@ class PulStore::Lae::FoldersController  < CatalogController
 
   # GET /lae/folders/new
   def new
-   authorize! :create, PulStore::Lae::Folder
+   #authorize! :create, PulStore::Lae::Folder
    @folder = PulStore::Lae::Folder.new
    @page_title = "Create a New Folder"
    render 'new'
@@ -118,8 +118,9 @@ class PulStore::Lae::FoldersController  < CatalogController
   # POST /lae/folders
   # POST /lae/folders.json
   def create
-    authorize! :create, PulStore::Lae::Folder
+    #authorize! :create, PulStore::Lae::Folder
     @folder = PulStore::Lae::Folder.new(folder_params)
+    #authorize! :create, @folder
     project = PulStore::Project.first
     @folder.project = project
     respond_to do |format|

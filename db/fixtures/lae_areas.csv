@@ -21,6 +21,7 @@
 "Dominican Republic","do","nwdr","http://id.loc.gov/vocabulary/countries/dr","3508796","19.929859","17.543159","-68.32","-72.003487"
 "Ecuador","ec","s-ec","http://id.loc.gov/vocabulary/countries/ec","3658394","1.43902","-4.998823","-75.184586","-81.078598"
 "El Salvador","sv","nces","http://id.loc.gov/vocabulary/countries/es","3585968","14.445067","13.148679","-87.692162","-90.128662"
+"Europe","","e","http://id.loc.gov/vocabulary/geographicAreas/e","6255148","81.008797","27.636311","39.869301","-31.266001"
 "France","fr","e-fr","http://id.loc.gov/vocabulary/countries/fr","3017382","51.092804","41.371582","9.561556","-5.142222"
 "French Guiana","gf","s-fg","http://id.loc.gov/vocabulary/countries/fg","3381670","5.776496","2.127094","-51.613949","-54.542511"
 "Germany","de","e-gx","http://id.loc.gov/vocabulary/countries/de","2921044","55.055637","47.275776","15.039889","5.865639"

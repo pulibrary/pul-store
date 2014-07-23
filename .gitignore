@@ -42,3 +42,4 @@ public/assets
 vendor/bundle
 
 .DS_Store
+*.jobs.yml

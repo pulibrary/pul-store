@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jhove xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://hul.harvard.edu/ois/xml/ns/jhove" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/jhove http://hul.harvard.edu/ois/xml/xsd/jhove/1.6/jhove.xsd" name="Jhove" release="1.11" date="2013-09-29">
+ <date>2014-05-27T17:43:38-04:00</date>
+ <audit home="C:\Users\ksheckels">
+  <file mime="image/tiff" status="valid" md5="57d069ec0ec235ae353cc1f6aea601a0">\\FS-CMGMD-SAN01\San\Princeton\PrincetonUniv4218-1\Deliverables\32101081556985\32101093680005\0001.tif</file>
+  <file mime="text/xml" status="well-formed" md5="401243d611d6faa7c3e0a2f0b093aa85">\\FS-CMGMD-SAN01\San\Princeton\PrincetonUniv4218-1\Deliverables\32101081556985\32101093680005\0001.xml</file>
+  <file mime="image/tiff" status="valid" md5="94e9f7027e27acd47fb43f5ea4f835cc">\\FS-CMGMD-SAN01\San\Princeton\PrincetonUniv4218-1\Deliverables\32101081556985\32101093680013\0001.tif</file>
+  <file mime="text/xml" status="well-formed" md5="beb681f74cc06a97bc1db82df3bc50b2">\\FS-CMGMD-SAN01\San\Princeton\PrincetonUniv4218-1\Deliverables\32101081556985\32101093680013\0001.xml</file>
+  <file mime="image/tiff" status="valid" md5="2aa5b31ccae32ccfe72c0c7a62d199f9">\\FS-CMGMD-SAN01\San\Princeton\PrincetonUniv4218-1\Deliverables\32101081556985\32101093680013\0002.tif</file>
+  <file mime="text/xml" status="well-formed" md5="85b400c70cd63528d28da9c655c5e57f">\\FS-CMGMD-SAN01\San\Princeton\PrincetonUniv4218-1\Deliverables\32101081556985\32101093680013\0002.xml</file>
+  
+ </audit>
+</jhove>

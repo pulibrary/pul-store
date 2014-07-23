@@ -1,7 +1,7 @@
 require 'nokogiri'
 require 'digest/md5'
 require 'RMagick'
-
+require 'yaml'
 
 module PulStore
   module Lae
@@ -257,7 +257,7 @@ module PulStore
           end
         end
         opts[:logger].info("Created args for #{pages_job_args.length} jobs") if opts[:logger]
-        pages_job_args
+        return pages_job_args
 
       end
 
@@ -311,23 +311,26 @@ module PulStore
         # See http://www.color.org/specification/ICC1v43_2010-12.pdf
         profile = []
         profile_name = nil
+        if image_list.color_profile.nil?
+          return nil
+        else
+          image_list.color_profile.each_byte { |b| profile << b }
 
-        image_list.color_profile.each_byte { |b| profile << b }
+          tag_count = profile[128,4].pack("c*").unpack("N").first
+          tag_count.times do |i|
+            tag_table_row =  (128 + 4) + (12*i) # the header + tag count + 12 bytes for each tag
+            tag_signature = profile[tag_table_row,4].pack("c*") # 9.2.41 profileDescriptionTag
 
-        tag_count = profile[128,4].pack("c*").unpack("N").first
-        tag_count.times do |i|
-          tag_table_row =  (128 + 4) + (12*i) # the header + tag count + 12 bytes for each tag
-          tag_signature = profile[tag_table_row,4].pack("c*") # 9.2.41 profileDescriptionTag
-
-          if tag_signature == 'desc'
-            desc_offset = profile[tag_table_row+4,4].pack("c*").unpack("N").first
-            tag_size = profile[tag_table_row+8,4].pack("c*").unpack("N").first
-            tag = profile[desc_offset,tag_size].pack("c*").unpack("Z12 Z*")
-            profile_name = tag[1]
-            break
+            if tag_signature == 'desc'
+              desc_offset = profile[tag_table_row+4,4].pack("c*").unpack("N").first
+              tag_size = profile[tag_table_row+8,4].pack("c*").unpack("N").first
+              tag = profile[desc_offset,tag_size].pack("c*").unpack("Z12 Z*")
+              profile_name = tag[1]
+              break
+            end
           end
+          return profile_name
         end
-        profile_name
       end
 
       # file(s) are entries in an audit
