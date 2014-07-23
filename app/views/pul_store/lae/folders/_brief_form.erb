@@ -24,21 +24,21 @@
   </div>
   
   <div class="form-group">
-      <%= b.label "Width x Height (cm)", class: 'control-label' %>
+      <%= f.label "Width x Height (cm)", class: 'control-label' %>
       <div class="controls row">
         <div class="input-prepend col-xs-3">
-          <%= b.text_field :width_in_cm, placeholder: 'Width'  %>
+          <%= f.text_field :width_in_cm, placeholder: 'Width'  %>
         </div>
         <span> X </span>
         <div class="input-append col-xs-3">
-          <%= b.text_field :height_in_cm, placeholder: 'Height'   %>
+          <%= f.text_field :height_in_cm, placeholder: 'Height'   %>
        </div>
       </div>
     </div>
     <div class="form-group">
-    <%= b.label :page_count, class: 'control-label' %>
+    <%= f.label :page_count, class: 'control-label' %>
       <div class="controls">
-        <%= b.text_field :page_count, class: 'col-xs-3', placeholder: "Num Pages" %>
+        <%= f.text_field :page_count, class: 'col-xs-3', placeholder: "Num Pages" %>
       </div>
     </div>
 

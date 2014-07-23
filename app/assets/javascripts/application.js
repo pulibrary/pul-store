@@ -61,12 +61,14 @@ $(function() {
   });
 
 
-//$(function() {
   $('form.editor.lae-folder').laeSubjectForm();
-  //
-  $('form.editor.lae-folder').laeAltTitleFilter(
-    { sortTitleFilters: sortTitleFilters }
-  );
+  
+
+  if(typeof sortTitleFilters !== 'undefined' ) {
+    $('form.editor.lae-folder').laeAltTitleFilter(
+      { sortTitleFilters: sortTitleFilters }
+    );
+  }
 
   //FIXME - this should be extracted somewhere else and reflect the current search
   $('#quick_lookup #barcode').on('click', function() {

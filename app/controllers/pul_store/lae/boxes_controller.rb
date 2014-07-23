@@ -91,7 +91,7 @@ class PulStore::Lae::BoxesController < CatalogController #ApplicationController
   end
 
   def new
-   authorize! :create, PulStore::Lae::Box
+   #authorize! :create, PulStore::Lae::Box
    @box = PulStore::Lae::Box.new
    @page_title = "Create a New Box" 
   end
@@ -110,7 +110,7 @@ class PulStore::Lae::BoxesController < CatalogController #ApplicationController
 
   # POST
   def create
-    authorize! :create, PulStore::Lae::Box
+    #authorize! :create, PulStore::Lae::Box
     @box = PulStore::Lae::Box.new(box_params)
     project = PulStore::Project.first
     @box.project = project
