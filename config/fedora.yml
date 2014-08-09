@@ -10,5 +10,6 @@ production:
   user: fedoraAdmin
   password: changeme
   url: http://iaminproduction.edu
+  timeout: 120
 cucumber:
   <<: *TEST
