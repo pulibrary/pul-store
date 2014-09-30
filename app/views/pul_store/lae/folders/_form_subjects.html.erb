@@ -15,7 +15,7 @@
       <%= label_tag('Categories and Subjects', nil, class: 'control-label col-xs-3') %>
       <% @folder.subject.to_ary.each_with_index do |v, index| %>
         <% unless v.blank? %>
-          <div class="col-xs-7 col-xs-offset-3 <% if (index != 0) %><%= "col-xs-offset-3" %><% end %> <% if (index == 0) %><%= "initial_lae_subject" %><% end %>">
+          <div class="col-xs-7 <% if (index != 0) %><%= "col-xs-offset-3" %><% end %> <% if (index == 0) %><%= "initial_lae_subject" %><% end %>">
             <% category_id = category_id_for_subject_label @folder.subject[index] %>
             <% category_label = category_label_for_subject_label @folder.subject[index] %>
             <%= select_tag("lae_folder[category][]", options_for_select(list_all_categories_as_select_list_with_data, [category_label]), class: 'form-control lae-category', prompt: "Select Category") %>

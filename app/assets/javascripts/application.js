@@ -74,6 +74,10 @@ $(function() {
   $('#quick_lookup #barcode').on('click', function() {
     $(this).val("");
   });
+
+  $('.adder').on('click', function() {
+    console.log(this)
+  });
 });
 
 
