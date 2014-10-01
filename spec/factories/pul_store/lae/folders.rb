@@ -1,6 +1,6 @@
+TEST_BARCODES ||= YAML.load_file(Rails.root.join('spec/fixtures/test_barcodes.yml'))
 FactoryGirl.define do
 
-  # TEST_BARCODES ||= YAML.load_file(Rails.root.join('spec/fixtures/test_barcodes.yml'))
 
   # per traits disc. at https://github.com/thoughtbot/factory_girl/blob/master/GETTING_STARTED.md
   trait :categories_and_subjects do

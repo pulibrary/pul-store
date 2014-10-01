@@ -1,3 +1,4 @@
+TEST_BARCODES ||= YAML.load_file(Rails.root.join('spec/fixtures/test_barcodes.yml'))
 FactoryGirl.define do
 
   factory :lae_box, :class => 'PulStore::Lae::Box' do |b|
