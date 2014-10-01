@@ -75,9 +75,6 @@ $(function() {
     $(this).val("");
   });
 
-  $('.adder').on('click', function() {
-    console.log(this)
-  });
 });
 
 
