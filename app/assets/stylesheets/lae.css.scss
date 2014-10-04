@@ -36,10 +36,21 @@ a:visited.btn {
   margin-top: 20px;
 }
 
-#desc-metadata .form-control {
-  width: 80%;
-  display: inline-block;
+
+#desc-metadata  {
+  .form-control {
+    width: 90%;
+    display: inline;
+  }
+
+  .field-controls {
+    width: 10%;
+    display: inline;
+  }
 }
+
+
+
 
 .no-active-date-range, .no-active-date-created {
   display: none;
