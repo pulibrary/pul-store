@@ -39,6 +39,8 @@ gem 'openseadragon', git: 'git://github.com/IIIF/openseadragon-rails.git'
 
 gem "rubyzip"
 
+gem "compass-rails" #, git: 'git@github.com:Compass/compass-rails.git'
+
 gem 'mysql2'
 
 gem 'noid'
@@ -77,7 +79,7 @@ group :development, :test, :production do
   gem "jettywrapper"
 end
 
-gem 'hydra-editor', '~> 0.3.0'
+gem 'hydra-editor' #, '~> 0.3.0'
 gem 'underscore-rails'
 gem 'poltergeist'
 
