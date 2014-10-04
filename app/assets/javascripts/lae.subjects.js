@@ -46,7 +46,7 @@
     function removeField () {
       // get parent and remove it
       //$(this).parents('.form-group').remove();
-      $(this).parent().remove();
+      $(this).parent().parent().remove();
       return false;
     }
 
