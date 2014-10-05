@@ -1,24 +1,28 @@
-@import "bootstrap-sprockets";
+@import 'compass';
+@import 'bootstrap-sprockets';
 @import 'bootstrap';
 
-@import 'blacklight/blacklight';
-
-
-
-.navbar, .jumbotron { 
-  margin-bottom: 0;
-}
-
-.navbar-header, .navbar-right {
-  margin-top: .5em;
-}
-
-footer {
-  background-color: #f2f1eb;
-  border-top: 1px solid #dddddd;
-  margin-top: 1em;
-}
+/* local bootstrap overrides */
+@import "variables/**/*";
+@import 'bootstrap-overrides';
+@import 'blacklight/facets';
 
 .modal-backdrop.in {
   z-index: 100;
+}
+
+.navbar-branding {
+  border-top: 5px solid $orange;
+  background-color: $dark-gray;
+  margin-bottom: 0;
+}
+
+.appliedFilter a.btn:visited {
+  color: black;
+}
+
+footer {
+  background-color: $light-gray;
+  margin-top: 20px;
+  bottom: 0;
 }
