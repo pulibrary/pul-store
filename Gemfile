@@ -39,7 +39,9 @@ gem 'openseadragon', git: 'git://github.com/IIIF/openseadragon-rails.git'
 
 gem "rubyzip"
 
-gem "compass-rails" #, git: 'git@github.com:Compass/compass-rails.git'
+
+## Need to wait until this supports compass 1.0 or higher
+#gem "compass-rails" #, git: 'git@github.com:Compass/compass-rails.git'
 
 gem 'mysql2'
 
