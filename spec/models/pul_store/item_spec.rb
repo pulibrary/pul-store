@@ -26,7 +26,7 @@ describe PulStore::Item, :type => :model do
     }.to raise_error ActiveFedora::RecordInvalid
 
     expect { 
-      FactoryGirl.create(:item, title: 'My Book') 
+      FactoryGirl.create(:item, title: ['My Book']) 
     }.to_not raise_error
   end
 
@@ -36,7 +36,7 @@ describe PulStore::Item, :type => :model do
     }.to raise_error ActiveFedora::RecordInvalid
 
     expect { 
-      FactoryGirl.create(:item, sort_title: 'My Book') 
+      FactoryGirl.create(:item, sort_title: 'My Book')
     }.to_not raise_error
   end
 
