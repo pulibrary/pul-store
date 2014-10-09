@@ -1,24 +1,40 @@
-@import "bootstrap-sprockets";
+@import 'bootstrap-sprockets';
 @import 'bootstrap';
 
+/* local bootstrap overrides */
+@import "variables/**/*";
 @import 'blacklight/blacklight';
+@import 'bootstrap-overrides';
 
-
-
-.navbar, .jumbotron { 
-  margin-bottom: 0;
-}
-
-.navbar-header, .navbar-right {
-  margin-top: .5em;
-}
-
-footer {
-  background-color: #f2f1eb;
-  border-top: 1px solid #dddddd;
-  margin-top: 1em;
-}
 
 .modal-backdrop.in {
   z-index: 100;
+}
+
+.navbar-branding {
+  border-top: 5px solid $orange;
+  background-color: $dark-gray;
+  margin-bottom: 0;
+}
+
+.appliedFilter a.btn:visited {
+  color: black;
+}
+
+footer {
+  background-color: $light-gray;
+  margin-top: 20px;
+  bottom: 0;
+}
+
+.navbar + .navbar {
+  margin-top: 0px;
+}
+
+.navbar-nav {
+  padding-top: 5px; 
+}
+
+h1 {
+  margin-top: 10px;
 }

@@ -22,6 +22,7 @@
 //= require underscore
 //= require lae.subjects
 //= require lae.alt_title.js
+//= require lae.boxes.js
 //= require turbolinks
 //
 // Required by Blacklight
@@ -44,17 +45,7 @@ $(function() {
     }
   });
 
-  $("#folders-table").tablesorter({
-      theme     : 'bootstrap',
-      headerTemplate : '{content} {icon}',
-      widgets : [ "uitheme", "zebra" ],
-      widgetOptions : {
-      zebra : ["even", "odd"],
-      widthFixed: true,
-      filter_reset : ".reset"
-
-      }
-    });
+  $("#folders-table").laeBoxFolderSort();
 
   $('#new-folder-modal').on('shown', function () {
     $('input:text:visible:first', this).focus();
