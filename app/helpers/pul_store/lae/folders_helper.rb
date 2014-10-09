@@ -54,6 +54,10 @@ module PulStore::Lae::FoldersHelper
     "/lae/folders/#{folder_id}/image_list"
   end
 
+  #def lae_folder_path(folder_id)
+  #  "/lae/folders/#{folder_id}"
+  #end
+
   def lae_date_value_set(folder)
     
   end
@@ -62,6 +66,18 @@ module PulStore::Lae::FoldersHelper
     #pages = PulStore::Lae::PageLookups::get_pages_by_folder(doc['id'])
     page = PulStore::Page.where(is_part_of_ssim: "info:fedora/#{doc['id']}").first
     #page.id
+  end
+
+  def lae_display_title(title)
+    title
+  end
+
+  def lae_link_to_previous_document(doc)
+    link_to "Prev", "/lae/folders/#{doc['id']}"
+  end
+
+  def lae_link_to_next_document(doc)
+    link_to "Next", "/lae/folders/#{doc['id']}"
   end
 
   private

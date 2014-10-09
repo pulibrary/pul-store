@@ -49,7 +49,9 @@ a:visited.btn {
   }
 }
 
-
+.navbar + .navbar {
+  margin-top: 0px;
+}
 
 
 .no-active-date-range, .no-active-date-created {

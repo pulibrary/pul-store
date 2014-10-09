@@ -1,13 +1,12 @@
 <% #Using the Bootstrap Pagination class  -%>
 <% if @previous_document || @next_document %>
 	<div id="previousNextDocument">
-    <%= debug @previous_document %>
     <div class="page_links">
-      <%= link_to_previous_document @previous_document %> |
+      <%= lae_link_to_previous_document @previous_document %> |
 
       <%= item_page_entry_info %> |
 
-      <%= link_to_next_document @next_document %>
+      <%= lae_link_to_next_document @next_document %>
       </div>
 
     <div class="pull-right search-widgets">
