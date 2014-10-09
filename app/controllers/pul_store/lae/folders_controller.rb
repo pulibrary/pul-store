@@ -77,7 +77,7 @@ class PulStore::Lae::FoldersController  < CatalogController
     @pages_list = get_pages_by_folder @folder.id
     @box_list = get_box_by_id @folder.box_id
     respond_to do |format|
-      format.html # show.html.erb
+      format.html { setup_next_and_previous_documents } # show.html.erb
       format.yml { render text: @folder.to_yaml }
       format.json { render json: @folder }
     end

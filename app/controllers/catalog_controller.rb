@@ -25,13 +25,12 @@ class CatalogController < ApplicationController
     }
 
     # solr field configuration for search results/index views
-    config.index.show_link = 'title_tesim'
-    config.index.record_display_type = 'has_model_ssim'
+    config.index.title_field = 'title_tesim'
+    config.index.display_type_field = 'has_model_ssim'
 
     # solr field configuration for document/show views
-    config.show.html_title = 'title_tesim'
-    config.show.heading = 'title_tesim'
-    config.show.display_type = 'has_model_ssim'
+    config.show.title_field = 'title_tesim'
+    config.show.display_type_field = 'has_model_ssim'
 
     # solr fields that will be treated as facets by the blacklight application
     #   The ordering of the field names is the order of the display
@@ -54,12 +53,12 @@ class CatalogController < ApplicationController
     # facet bar
 
 
-    config.add_facet_field solr_name('master_mime_type', :facetable), :label => 'MIME Type'
-    config.add_facet_field solr_name('master_well_formed', :facetable), :label => 'Well Formed'
-    config.add_facet_field solr_name('master_valid', :facetable), :label => 'Valid'
-    config.add_facet_field solr_name('master_image_producer', :facetable), :label => 'Image Producer'
-    config.add_facet_field solr_name('master_capture_device', :facetable), :label => 'Capture Device'
-    config.add_facet_field solr_name('master_scanning_software', :facetable), :label => 'Scanning Software'
+    config.add_facet_field solr_name('master_tech_metadata__master_mime_type', :facetable), :label => 'MIME Type'
+    config.add_facet_field solr_name('master_tech_metadata__master_well_formed', :facetable), :label => 'Well Formed'
+    config.add_facet_field solr_name('master_tech_metadata__master_valid', :facetable), :label => 'Valid'
+    config.add_facet_field solr_name('master_tech_metadata__master_image_producer', :facetable), :label => 'Image Producer'
+    config.add_facet_field solr_name('master_tech_metadata__master_capture_device', :facetable), :label => 'Capture Device'
+    config.add_facet_field solr_name('master_tech_metadata__master_scanning_software', :facetable), :label => 'Scanning Software'
     config.add_facet_field solr_name('active_fedora_model', :stored_sortable), :label => 'Model'
     config.add_facet_field solr_name('prov_metadata__workflow_state', :facetable), :label => 'State'
     config.add_facet_field solr_name('desc_metadata__genre', :facetable), :label => 'Genre'
@@ -85,7 +84,7 @@ class CatalogController < ApplicationController
     config.add_index_field solr_name('desc_metadata__creator', :stored_searchable, type: :string), :label => 'Creator:'
     # Page
     config.add_index_field solr_name('desc_metadata__display_label', :displayable, type: :string), :label => 'Label:'
-    config.add_index_field solr_name('master_mime_type', :stored_searchable, type: :string), :label => 'MIME Type:'
+    config.add_index_field solr_name('master_tech_metadata__master_mime_type', :stored_searchable, type: :string), :label => 'MIME Type:'
     # Box
     # config.add_index_field solr_name('prov_metadata__barcode', :stored_searchable), :label => 'Barcode:'
     # config.add_index_field solr_name('language', :stored_searchable, type: :string), :label => 'Language:'

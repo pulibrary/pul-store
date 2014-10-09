@@ -36,7 +36,7 @@ describe PulStore::Text, :type => :model do
   it 'has a date uploaded that does not change' do
     t = FactoryGirl.create(:text)
     d = t.date_uploaded
-    t.title ="Changed title"
+    t.title = ['Changed title']
     t.save
     expect(t.date_uploaded).to eq(d)
   end
@@ -44,7 +44,7 @@ describe PulStore::Text, :type => :model do
   it 'has a list of dates when it was modified' do
     t = FactoryGirl.create(:text)
     d = t.date_uploaded
-    t.title ="Changed title"
+    t.title = ['Changed title']
     t.save
     expect(t.date_modified.length).to eq(2)
   end

@@ -20,7 +20,7 @@ en:
       next: 'Next &raquo;'
 
   blacklight:
-    application_name: 'Library Storage'
+    application_name: 'PUL Store'
 
     header_links:
       login: 'Login'
@@ -29,7 +29,7 @@ en:
       saved_searches: 'Saved Searches'
       search_history: 'History'
 
-    welcome: 'Project List'
+    welcome: 'Available Projects'
     and: 'and'
     or: 'or'
 

@@ -24,7 +24,8 @@
               <%= f['prov_metadata__workflow_state_tesim'][0] %>
             </span>
           </td>
-          <td><% if !f['desc_metadata__title_tesim'].nil? %><%= f['desc_metadata__title_tesim'][0] %><% else %>[Not Yet Supplied]<% end %></td>
+          <td>
+            <% if !f['desc_metadata__title_tesim'].blank? %><%= f['desc_metadata__title_tesim'][0] %><% else %>[Not Yet Supplied]<% end %></td>
           <td><%= f['prov_metadata__barcode_tesi'] %></td>
           <td><%= f['desc_metadata__genre_tesim'][0] %></td>
           <td>
