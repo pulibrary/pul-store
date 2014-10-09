@@ -46,7 +46,7 @@
     function removeField () {
       // get parent and remove it
       //$(this).parents('.form-group').remove();
-      $(this).parent().remove();
+      $(this).parent().parent().remove();
       return false;
     }
 
@@ -80,7 +80,7 @@
           var subject_labels = _.pluck(subjects, 'label');
           var opt_list = "<option value>Select Subject</a>";
           _.each(subject_labels, function(label) {
-            opt_list = opt_list + "<option value='"+label+"'>"+label+"</option>";
+            opt_list = opt_list + "<option value=\"" + label +"\">"+label+"</option>";
           });
           //var add_category_button = '<button class="adder btn" id="additional_subject_submit" name="additional_subject">+<span class="sr-only">add another subject</span></button>';
           var subject_select = "<select class='form-control lae-subject' id='lae_folder_subject_' name='lae_folder[subject][]'>"+opt_list+"</select>";
