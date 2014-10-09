@@ -27,7 +27,7 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
-gem "hydra", "~> 7.0.0"
+gem 'hydra', '~> 7.1.0'
 
 gem "blacklight-marc", "~> 5.0.0"
 

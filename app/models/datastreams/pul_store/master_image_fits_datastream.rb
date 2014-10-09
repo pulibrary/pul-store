@@ -3,6 +3,10 @@
 class PulStore::MasterImageFitsDatastream < ActiveFedora::OmDatastream
   include OM::XML::Document
 
+  def prefix
+    'master_tech_metadata__'
+  end
+
   set_terminology do |t|
     t.root(:path => "fits", 
            :xmlns => "http://hul.harvard.edu/ois/xml/ns/fits/fits_output", 

@@ -45,7 +45,7 @@ FactoryGirl.define do
     f.rights { Faker::Lorem.sentence(5, true, 12) }
     f.sort_title { Faker::Lorem.sentence(2, true, 5) }
     categories_and_subjects
-    f.title { Faker::Lorem.sentence(3, true, 5) }
+    f.title { Array.new(rand(1..2)) { Faker::Lorem.sentence(3, true, 5) } }
   end
 
   factory :lae_core_folder_with_pages, :class => 'PulStore::Lae::Folder' do |f|
@@ -61,7 +61,7 @@ FactoryGirl.define do
     f.rights { Faker::Lorem.sentence(5, true, 12) }
     f.sort_title { Faker::Lorem.sentence(2, true, 5) }
     categories_and_subjects
-    f.title { Faker::Lorem.sentence(3, true, 5) }
+    f.title { Array.new(rand(1..2)) { Faker::Lorem.sentence(3, true, 5) } }
     #f.pages { Array.new(2) { FactoryGirl.create(:page) } }
     after(:create) do |folder|
       #f.pages { Array.new(2) { FactoryGirl.create(:page) } }
