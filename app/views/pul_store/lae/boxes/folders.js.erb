@@ -3,4 +3,4 @@ var folders_message = $("<%= escape_javascript(render :partial => 'folders_messa
 $(".folder-options").replaceWith(folders_message);
 $("#folders-table").replaceWith(response);
 $(".show-all-folders").addClass('disabled');
-
+$("#folders-table").laeBoxFolderSort(); // sort folder table upon load
