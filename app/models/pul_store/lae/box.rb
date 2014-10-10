@@ -2,6 +2,7 @@ class PulStore::Lae::Box < PulStore::Base
   include PulStore::Validations
   include PulStore::Lae::Provenance
   include PulStore::Lae::Permissions
+  include PulStore::Lae::Exportable
 
   # Callbacks
   before_save :_defaults
@@ -85,13 +86,6 @@ class PulStore::Lae::Box < PulStore::Base
 
   def all_folders_in_production?
     self.received? && self.folders.all? { |f| f.in_production? }
-  end
-
-
-  def to_yaml(opts={})
-    folders = []
-    self.folders.each { |f| folders << f.to_export(opts) }
-    folders.to_yaml
   end
 
   protected

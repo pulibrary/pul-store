@@ -520,7 +520,7 @@ describe PulStore::Lae::Folder, :type => :model do
     # Error
     # Suppressed
 
-  end
+   end
 
   describe "rights statements" do
 
@@ -532,18 +532,41 @@ describe PulStore::Lae::Folder, :type => :model do
     end
   end
 
+  describe 'export features' do
 
-  describe "#to_yaml" do
-    box  = FactoryGirl.create(:lae_box)
-    let(:folder) { FactoryGirl.create(:lae_core_folder_with_pages, box: box) }
-    
-    it "produces parsable YAML" do
-      expect { YAML.load(folder.to_yaml) }.not_to raise_error
+    describe '#to_export' do
+      box  = FactoryGirl.create(:lae_box)
+      let(:folder) { FactoryGirl.create(:lae_core_folder_with_pages, box: box) }
+      
+      it "returns nil when the workflow_state is not 'In Production'" do
+        folder.passed_qc = false
+        folder.save!
+        expect(folder.to_export).to eq nil
+      end
+
+      it "returns a hash nil when the workflow_state is 'In Production'" do
+        folder.passed_qc = true
+        folder.save!
+        expect(folder.to_export).to be_a Hash
+      end
     end
 
-    it "excludes the keys we done want (from config/pul_store.yml)" do
-      h = YAML.load(folder.to_yaml)
-      expect(h.has_key?('object_profile_ssm')).to be_falsey
+    describe "#to_yaml" do
+      box  = FactoryGirl.create(:lae_box)
+      let(:folder) { FactoryGirl.create(:lae_core_folder_with_pages, box: box) }
+      
+      it "produces parsable YAML" do
+        folder.passed_qc = true
+        folder.save!
+        expect { YAML.load(folder.to_yaml) }.not_to raise_error
+      end
+
+      it "excludes the keys we done want (from config/pul_store.yml)" do
+        folder.passed_qc = true
+        folder.save!
+        h = YAML.load(folder.to_yaml)
+        expect(h.has_key?('object_profile_ssm')).to be_falsey
+      end
     end
 
   end

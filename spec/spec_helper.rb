@@ -21,18 +21,19 @@ ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 
 TEST_BARCODES = YAML.load_file(Rails.root.join('spec/fixtures/test_barcodes.yml'))
 
+ActiveFedora::Base.delete_all
 
 RSpec.configure do |config|
 
   config.infer_spec_type_from_file_location!
 
   # config.before(:suite) do 
-    require "#{Rails.root}/db/seeds.rb"
-    PulStore::Project.delete_all
-    projects = YAML.load_file("#{Rails.root}/db/fixtures/projects.yml")
-    projects.map { |project| PulStore::Project.create(project)  }
-  # end
+  require "#{Rails.root}/db/seeds.rb"
+  PulStore::Project.delete_all
+  projects = YAML.load_file("#{Rails.root}/db/fixtures/projects.yml")
+  projects.map { |project| PulStore::Project.create(project)  }
 
+  # end
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
