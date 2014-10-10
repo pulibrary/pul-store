@@ -1,3 +1,12 @@
+@import "variables/**/*";
+
+.lae-project .navbar-branding {
+  border-top: 5px solid $orange;
+  background-color: $cream;
+  margin-bottom: 0;
+}
+
+
 .lae-brand {
     background-image: image-url("lae/lae-logo-final.png");
     background-size: 338px 42px;
