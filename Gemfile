@@ -4,7 +4,11 @@ source 'https://rubygems.org'
 gem 'rails', '~> 4.1.0'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.0'
+gem 'sass-rails', '~> 5.0.0.beta1'
+
+gem 'compass-rails', '~> 2.0.1'
+
+gem 'bourbon'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
@@ -39,9 +43,7 @@ gem 'openseadragon', git: 'git://github.com/IIIF/openseadragon-rails.git'
 
 gem "rubyzip"
 
-
-## Need to wait until this supports compass 1.0 or higher
-#gem "compass-rails" #, git: 'git@github.com:Compass/compass-rails.git'
+gem 'compass'
 
 gem 'mysql2'
 

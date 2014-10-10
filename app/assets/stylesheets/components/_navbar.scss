@@ -1,0 +1,15 @@
+/* _navbar.scss */
+
+.navbar-branding {
+  border-top: 5px solid $orange;
+  background-color: $dark-gray;
+  margin-bottom: 0;
+}
+
+.navbar + .navbar {
+  margin-top: 0px;
+}
+
+.navbar-nav, .navbar-header {
+  padding-top: 5px; 
+}

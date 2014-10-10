@@ -1,0 +1,16 @@
+/* viewer.css.scss */
+//@import "bourbon";
+//@import "../variables/**/*";
+
+.viewer-full {
+  .osd-image {
+    @include border-color($faded-gray);
+    @include border-style(solid);
+    @include border-top-radius(5px);
+    @include border-bottom-radius(5px);
+    @include border-left-radius(5px);
+    @include border-right-radius(5px);
+    @include transition(all .2s ease-in-out);
+    @include box-shadow(0 1px 3px rgba(0, 0, 0, 0.055));
+  }
+}

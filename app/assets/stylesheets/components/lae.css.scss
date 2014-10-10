@@ -1,4 +1,4 @@
-@import "variables/**/*";
+//@import "../variables/**/*";
 
 .lae-project .navbar-branding {
   border-top: 5px solid $orange;
@@ -74,3 +74,68 @@ a:visited.btn {
 #lae-box-folder-options {
   margin-bottom: 1em;
 }
+
+.lae-folder-state {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 180%;
+}
+
+/** LAE Folder Edit Tab-Controls */
+.tab-pane {
+  display: none;
+}
+
+.active.tab-pane {
+  display: block;
+  background-color: $white;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 25px;
+}
+
+.vertical-tab-controls {
+  padding-right: 0;
+  margin-right: 0;
+  margin-left: 0;
+  border-right: 0;
+}
+
+.active.tab-pane.vertical-tab-content {
+  padding-left: 0;
+  margin-left: 0;
+  border-left: 0;
+}
+
+.nav-tabs li a {
+  margin-right: 0;
+}
+
+.tablist.lae-edit {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+
+.tablist.lae-edit h2 {
+  text-align: left;
+  margin-left: 10px;
+  padding-left: 10px;
+}
+
+.lae-folder-edit-options {
+  //margin: 0;
+  padding-right: 0;
+  border: 0;
+}
+
+#desc-metadata, #admin-metadata, #image-preview  {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
