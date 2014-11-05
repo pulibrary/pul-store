@@ -6,6 +6,7 @@ Mime::Type.register "application/marcxml+xml", :marcxml,
       ["application/x-marc+xml", "application/x-marcxml+xml", 
        "application/marc+xml"]
 Mime::Type.register "application/x-yaml", :yml, ['text/yaml','text/x-yaml','application/yaml','application/x-yaml']
+Mime::Type.register "text/turtle", :ttl, ['text/turtle']
 
 # Add new mime types for use in respond_to blocks:
 # Mime::Type.register "text/richtext", :rtf

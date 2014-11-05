@@ -1,4 +1,4 @@
-class PulStore::Lae::FoldersController  < CatalogController
+class PulStore::Lae::FoldersController < CatalogController
   include PulStore::Lae::PageLookups
   include PulStore::Lae::BoxLookups
 
@@ -78,9 +78,13 @@ class PulStore::Lae::FoldersController  < CatalogController
     @box_list = get_box_by_id @folder.box_id
     respond_to do |format|
       format.html { setup_next_and_previous_documents } # show.html.erb
-      format.yml { render text: @folder.to_yaml }
       format.json { render json: @folder }
+      format.yml { render text: @folder.to_yaml(prod_only: !params.include?(:all)) }
+      format.ttl { render text: @folder.to_ttl(prod_only: !params.include?(:all)) }
+      format.xml { render xml: @folder.to_solr_xml(prod_only: !params.include?(:all)) }
     end
+  rescue NoMethodError
+    not_allowed
   end
 
   # displays an oversize osd modeal
@@ -180,8 +184,12 @@ class PulStore::Lae::FoldersController  < CatalogController
       params.require(:lae_folder).permit(:barcode, :date_created, :earliest_created, :latest_created,
         :description, :width_in_cm, :height_in_cm, :page_count, :genre, :passed_qc, :rights, :physical_number,
         :sort_title, :suppressed,:box_id, :project_id, :error_note, :geographic_origin, :suppressed,
-        :box_id, alternative_title: [], geographic_subject: [], title: [], category: [],
+        :box_id, :all, alternative_title: [], geographic_subject: [], title: [], category: [],
         language: [], publisher: [], series: [], subject: [], creator: [], contributor: [])
+    end
+
+    def not_allowed
+      render plain: 'By default this format is not available until the it is ready for production. Include ?all if you want to see it.', status: 406
     end
 
 end

@@ -11,7 +11,7 @@ FactoryGirl.define do
     b.project { PulStore::Lae::Provenance::PROJECT }
 
     after(:create) do |box|
-      5.times do
+      3.times do
         box.folders << FactoryGirl.create(:lae_prelim_folder)
       end
     end

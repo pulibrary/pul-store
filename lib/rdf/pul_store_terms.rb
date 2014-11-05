@@ -26,6 +26,8 @@ module RDF
     property :trackingNumber # sub of dc:identifier (??)
     property :heightInCM
     property :widthInCM
+    property :height
+    property :width
     property :pageCount
     property :category # this this the category classification for lae subjects
   end
