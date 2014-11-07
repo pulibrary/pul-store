@@ -17,15 +17,22 @@
     <% else %>
     <% if can?(:edit, @box) && !@folder_list.nil? %>
       <% @folder_list.each do |f| %>
+
         <tr>
           <td><%= f['prov_metadata__physical_number_isi'] %></td>
           <td>
-            <span class="label label-large <%= pul_store_base_state_to_label(f['prov_metadata__workflow_state_tesim'][0], "label") %>" >
+            <span class="label label-large 
+              <%= pul_store_base_state_to_label(f['prov_metadata__workflow_state_tesim'][0], "label") %>" >
               <%= f['prov_metadata__workflow_state_tesim'][0] %>
             </span>
           </td>
           <td>
-            <% if !f['desc_metadata__title_tesim'].blank? %><%= f['desc_metadata__title_tesim'][0] %><% else %>[Not Yet Supplied]<% end %></td>
+            <% unless f['desc_metadata__title_tesim'].blank? %>
+              <%= f['desc_metadata__title_tesim'].first %>
+            <% else %>
+              <%= "[Title not yet supplied]" %>
+            <% end %>
+          </td>
           <td><%= f['prov_metadata__barcode_tesi'] %></td>
           <td><%= f['desc_metadata__genre_tesim'][0] %></td>
           <td>

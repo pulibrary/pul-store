@@ -1,38 +1,11 @@
-@import 'bootstrap-sprockets';
-@import 'bootstrap';
-
-/* local bootstrap overrides */
-@import "variables/**/*";
-@import 'blacklight/blacklight';
-@import 'bootstrap-overrides';
-
 
 .modal-backdrop.in {
   z-index: 100;
 }
 
-.navbar-branding {
-  border-top: 5px solid $orange;
-  background-color: $dark-gray;
-  margin-bottom: 0;
-}
 
 .appliedFilter a.btn:visited {
   color: black;
-}
-
-footer {
-  background-color: $light-gray;
-  margin-top: 20px;
-  bottom: 0;
-}
-
-.navbar + .navbar {
-  margin-top: 0px;
-}
-
-.navbar-nav, .navbar-header {
-  padding-top: 5px; 
 }
 
 h1 {

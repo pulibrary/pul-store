@@ -68,10 +68,6 @@ module PulStore::Lae::FoldersHelper
     #page.id
   end
 
-  def lae_display_title(title)
-    title
-  end
-
   def lae_link_to_previous_document(doc)
     link_to "Prev", "/lae/folders/#{doc['id']}"
   end

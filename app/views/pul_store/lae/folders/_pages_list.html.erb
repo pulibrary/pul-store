@@ -1,13 +1,14 @@
 <% 
 
   osd_config = {
-    crossOriginPolicy: false,
+    crossOriginPolicy: true,
     preserveViewport: true, 
     visibilityRatio: 1,
     showNavigator:  true
   }
 %>
 <% unless @pages_list.blank? %>
+  <h2><%= pluralize(@pages_list.size, 'Images') %></h2>
   <ol id="page-thumbnails">
   <% @pages_list.each do |page| %>
     <li>
@@ -41,4 +42,6 @@
     </li>
   <% end %>
   </ol>
+<% else %>
+  <h2>No Images Assigned</h2>
 <% end %>
