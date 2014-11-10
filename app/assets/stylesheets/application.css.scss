@@ -8,10 +8,42 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
- * Removed require jquery.fileupload-ui
- *= require_self
- *= require jquery.ui.all
- *= require hydra-editor/hydra-editor
- *= require font-awesome
- *= require_tree .
  */
+ 
+/* Vendor Mixins */
+@import "bourbon";
+@import "compass";
+@import 'bootstrap-sprockets';
+@import 'bootstrap';
+@import 'font-awesome';
+@import 'hydra-editor/hydra-editor';
+
+/* Local variables, base styles, and components */
+@import "variables/**/*";
+/* local bootstrap overrides. This should come last. */
+@import 'bootstrap-variables';
+
+/* Imports and styles from Blacklight */
+@import 'blacklight/blacklight';
+@import 'blacklight'; 
+
+
+
+@import "base/**/*";
+@import 'components/**/*';
+
+
+
+
+/*
+************* Import order matters ***************************
+* SPROCKETS Declarations should come AFTER any SASS @imports
+* to avoid code duplication during compliation. See
+* http://inside.unbounce.com/product-dev/handling-code-duplication/
+* for more information
+**************************************************************
+* 
+* Removed require jquery.fileupload-ui
+*= require_self
+*= require jquery.ui.all
+*/

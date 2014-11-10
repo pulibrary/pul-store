@@ -1,9 +1,16 @@
 require 'spec_helper'
+require 'rdf/turtle'
+require 'nokogiri'
 include Warden::Test::Helpers
 
-describe "Lae::FoldersController", :type => :request do
+describe "Lae::FoldersController", type: :request do
+
+  let(:box) { FactoryGirl.create(:lae_box) }
+  let(:folder) { FactoryGirl.create(:lae_core_folder_with_pages, box: box) }
+
   before(:all) do
     PulStore::Lae::Folder.delete_all
+    PulStore::Lae::Box.delete_all
     User.delete_all
     @user = FactoryGirl.create(:user)
     @user.save!
@@ -14,6 +21,59 @@ describe "Lae::FoldersController", :type => :request do
       login_as(@user, :scope => :user)
       get lae_folders_path
       expect(response.status).to be(200)
+    end
+  end
+
+  describe "GET /lae/folders/{folder}.ttl" do
+    it 'gets a folder as turtle' do
+      login_as(@user, scope: :user)
+      get lae_folder_path(folder), {format: :ttl, all: 'xyz'}
+      expect(response.status).to be(200)
+    end
+    it 'returns a 406 is the object isn\'t baked and ?all is not passed'  do
+      login_as(@user, scope: :user)
+      get lae_folder_path(folder), {format: :ttl}
+      expect(response.status).to be(406)
+    end
+    it 'the turtle is parsable' do
+      login_as(@user, scope: :user)
+      get lae_folder_path(folder), {format: :ttl, all: 'xyz'}
+      expect { 
+        RDF::Reader.for(:turtle).new(response.body) do |reader|
+          reader.each_statement { |s| s.inspect }
+        end
+      }.to_not raise_error
+    end
+  end
+
+  describe "GET /lae/folders/{folder}.xml" do
+    it 'gets a folder as xml' do
+      login_as(@user, scope: :user)
+      get lae_folder_path(folder), {format: :xml, all: 'xyz'}
+      expect(response.status).to be(200)
+    end
+    it 'returns a 406 is the object isn\'t baked and ?all is not passed'  do
+      login_as(@user, scope: :user)
+      get lae_folder_path(folder), {format: :xml}
+      expect(response.status).to be(406)
+    end
+    it 'looks like Solr XML' do
+      login_as(@user, scope: :user)
+      get lae_folder_path(folder), {format: :xml, all: 'xyz'}
+      doc = Nokogiri::XML(response.body)
+      expect(doc.xpath('/*').first.name).to eq 'add'
+      expect(doc.xpath('/add/*').all? { |e| 
+        e.name == 'doc'
+      }).to be_truthy
+      expect(doc.xpath('/add/doc/*').all? { |e| 
+        e.name == 'field'
+      }).to be_truthy
+      expect(doc.xpath('/add/doc/*').all? { |field| 
+        field.attributes.length == 1 
+      }).to be_truthy
+      expect(doc.xpath('/add/doc/*').all? { |field| 
+        field.attributes.first[0] == 'name' 
+      }).to be_truthy
     end
   end
 

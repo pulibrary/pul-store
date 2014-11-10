@@ -27,6 +27,7 @@
 //
 // Required by Blacklight
 //= require blacklight/blacklight
+//= require bootstrap/tab
 //= require_tree .
 //
 $(function() {

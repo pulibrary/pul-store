@@ -31,7 +31,7 @@
 
 <h2><%= pluralize(@pages_list.size, 'Images') %></h2>
 <% unless @pages_list.blank? %>
-  <div>
+  <div class="viewer-full">
     <% images = pul_store_iiif_page_info_list(@pages_list) %>
     <%= openseadragon_picture_tag images, class: 'osd-image row', data: { openseadragon: osd_config } %>
   </div>
