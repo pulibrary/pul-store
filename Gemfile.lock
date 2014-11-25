@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/kevinreiss/openseadragon-rails.git
+  revision: 4c6c8e2ee658d35339ec3e5d8a9139d5bd413685
+  specs:
+    openseadragon (0.0.8)
+      rails (> 3.2.0)
+
+GIT
   remote: git://github.com/projecthydra/hydra-derivatives.git
   revision: 136b9c0967619d119481b12d824160b6de73976b
   specs:
@@ -16,13 +23,6 @@ GIT
       capistrano
       resque
       resque-scheduler
-
-GIT
-  remote: git@github.com:kevinreiss/openseadragon-rails.git
-  revision: 4c6c8e2ee658d35339ec3e5d8a9139d5bd413685
-  specs:
-    openseadragon (0.0.8)
-      rails (> 3.2.0)
 
 GEM
   remote: https://rubygems.org/
