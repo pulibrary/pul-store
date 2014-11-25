@@ -1,6 +1,10 @@
 
 .modal-backdrop.in {
-  z-index: 100;
+  z-index: 10;
+}
+
+.modal-dialog {
+  z-index: 99;
 }
 
 
