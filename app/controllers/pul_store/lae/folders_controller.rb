@@ -76,6 +76,7 @@ class PulStore::Lae::FoldersController < CatalogController
     @page_title = "Folder #{@folder.physical_number}"
     @pages_list = get_pages_by_folder @folder.id
     @box_list = get_box_by_id @folder.box_id
+    
     respond_to do |format|
       format.html { setup_next_and_previous_documents } # show.html.erb
       format.json { render json: @folder }
