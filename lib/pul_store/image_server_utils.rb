@@ -17,7 +17,7 @@ module PulStore
       region = params.fetch(:region, 'full').tr('/', '')
       size = params.fetch(:size, 'full').tr('/', '')
       rotation = params.fetch(:rotation, '0').tr('/', '')
-      quality = params.fetch(:quality, 'native').tr('/', '')
+      quality = params.fetch(:quality, 'default').tr('/', '')
       format = params.fetch(:format, 'jpg').tr('/', '')
       "#{server}/#{id}.jp2/#{region}/#{size}/#{rotation}/#{quality}.#{format}"
     end

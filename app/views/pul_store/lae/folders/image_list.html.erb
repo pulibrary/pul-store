@@ -16,25 +16,27 @@
   }
 %>
 
-<div class="btn-group btn-group-lg btn-toolbar" role="toolbar">
-  <div id="pull-full-view" class="btn btn-default active">
-    <%= fa_icon 'photo' %>
-    Full Image
+<div class="row-fluid">
+  <div class="btn-group btn-group-lg btn-toolbar" role="toolbar">
+    <div id="pull-full-view" class="btn btn-default active">
+      <%= fa_icon 'photo' %>
+      Full Image
+    </div>
+    <div id="pul-grid-view" class="btn btn-default">
+      <%= link_to @folder do %>
+        <%= fa_icon 'th' %>
+        Grid
+      <% end %>
+    </div>
   </div>
-  <div id="pul-grid-view" class="btn btn-default">
-    <%= link_to @folder do %>
-      <%= fa_icon 'th' %>
-      Grid
-    <% end %>
-  </div>
-</div>
 
-<h2><%= pluralize(@pages_list.size, 'Images') %></h2>
-<% unless @pages_list.blank? %>
-  <div class="viewer-full">
-    <% images = pul_store_iiif_page_info_list(@pages_list) %>
-    <%= openseadragon_picture_tag images, class: 'osd-image row', data: { openseadragon: osd_config } %>
-  </div>
-<% else %>
-  <div>No Images Assigned Yet</div>
-<% end %>
+  <h2><%= pluralize(@pages_list.size, 'Images') %></h2>
+  <% unless @pages_list.blank? %>
+    <div class="viewer-full">
+      <% images = pul_store_iiif_page_info_list(@pages_list) %>
+      <%= openseadragon_picture_tag images, class: 'osd-image row', data: { openseadragon: osd_config } %>
+    </div>
+  <% else %>
+    <div>No Images Assigned Yet</div>
+  <% end %>
+</div>

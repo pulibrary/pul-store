@@ -36,7 +36,7 @@
           <% if controller.class.to_s == 'PulStore::Lae::FoldersController' %>
             <% thumbnail = lae_folder_thumbnail(document) %>
             <% unless thumbnail.blank? %>
-              <img src="<%= pul_store_iiif_path(thumbnail.id, {size: "!200,200"}) %>"
+              <img src="<%= pul_store_iiif_path(thumbnail.id, {size: "!200,200", quality: "default"}) %>"
                  alt="" >
             <% end %>
           <% end %>
