@@ -33,7 +33,7 @@ module PulStore
 
     describe 'self.build_iiif_request' do
       it 'has an expected set of defaults' do
-        expected = "#{image_server_base}/#{fake_pid_as_iiif_id}.jp2/full/full/0/native.jpg"
+        expected = "#{image_server_base}/#{fake_pid_as_iiif_id}.jp2/full/full/0/default.jpg"
         actual = subject.build_iiif_request(fake_pid)
         expect(actual).to eq expected
       end
