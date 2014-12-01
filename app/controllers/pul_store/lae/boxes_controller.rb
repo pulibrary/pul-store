@@ -79,8 +79,6 @@ class PulStore::Lae::BoxesController < CatalogController #ApplicationController
       format.yml { render text: @box.to_yaml(prod_only: !params.include?(:all)) }
       format.xml { render xml: @box.to_solr_xml(prod_only: !params.include?(:all)) }
     end
-  rescue NoMethodError
-    not_allowed
   end
 
   # returns ALL folders
@@ -172,4 +170,5 @@ class PulStore::Lae::BoxesController < CatalogController #ApplicationController
         :width_in_cm, :height_in_cm, :barcode, :id, :box_id] )
 
     end
+
 end
