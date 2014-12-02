@@ -97,6 +97,8 @@ module PulStore::Lae::Exportable
                   if k == 'id'
                     xml.send(:field, v.split(':').last, name: k)
                     xml.send(:field, v, name: 'pulstore_pid')
+                  elsif k == 'title'
+                    xml.send(:field, v.first, name: 'title_display')
                   else
                     xml.send(:field, v, name: k) unless blanks.include?(v)
                   end
