@@ -13,6 +13,7 @@ FactoryGirl.define do
     p.sort_order { Faker::Number.digit.to_i }
     p.project { PulStore::Lae::Provenance::PROJECT }
   end
+
 end
 
 

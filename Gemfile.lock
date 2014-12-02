@@ -1,4 +1,14 @@
 GIT
+  remote: git://github.com/jpstroop/osullivan.git
+  revision: 41660b1711e2950e66ee016534b014e8a3c9af28
+  tag: v0.0.1
+  specs:
+    osullivan (0.0.1.pre.dev)
+      activesupport (~> 4.1)
+      faraday (~> 0.9.0)
+      json
+
+GIT
   remote: git://github.com/kevinreiss/openseadragon-rails.git
   revision: 4c6c8e2ee658d35339ec3e5d8a9139d5bd413685
   specs:
@@ -165,6 +175,8 @@ GEM
       railties (>= 3.0.0)
     faker (1.4.3)
       i18n (~> 0.5)
+    faraday (0.9.0)
+      multipart-post (>= 1.2, < 3)
     fastercsv (1.5.5)
     ffi (1.9.6)
     font-awesome-rails (4.2.0.0)
@@ -268,6 +280,7 @@ GEM
     minitest (5.4.3)
     mono_logger (1.1.0)
     multi_json (1.10.1)
+    multipart-post (2.0.0)
     mysql2 (0.3.17)
     net-http-persistent (2.9.4)
     net-scp (1.2.1)
@@ -521,6 +534,7 @@ DEPENDENCIES
   noid
   openseadragon!
   order_up
+  osullivan!
   poltergeist
   rails (~> 4.1.0)
   rmagick

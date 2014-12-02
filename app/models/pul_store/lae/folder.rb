@@ -160,6 +160,10 @@ class PulStore::Lae::Folder < PulStore::Item
       :width_in_cm, :page_count, :date_created, :rights, :category]
   end
 
+  def to_json(id)
+    # self.to_export.to_json
+    self.to_manifest
+  end
 
   protected
 
