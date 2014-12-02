@@ -41,6 +41,7 @@ gem 'hydra-derivatives', git: 'git://github.com/projecthydra/hydra-derivatives.g
 
 gem 'openseadragon', git: 'git://github.com/kevinreiss/openseadragon-rails.git'
 
+gem 'osullivan', :github => 'jpstroop/osullivan', :tag => 'v0.0.1'
 #'git://github.com/IIIF/openseadragon-rails.git'
 
 gem "rubyzip"

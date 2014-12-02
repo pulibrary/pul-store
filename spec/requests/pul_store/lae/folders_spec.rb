@@ -6,7 +6,22 @@ include Warden::Test::Helpers
 describe "Lae::FoldersController", type: :request do
 
   let(:box) { FactoryGirl.create(:lae_box) }
-  let(:folder) { FactoryGirl.create(:lae_core_folder_with_pages, box: box) }
+  # let(:folder) { FactoryGirl.create(:lae_core_folder_with_pages, box: box) }
+
+
+  let(:folder) { 
+    folder = FactoryGirl.create(:lae_core_folder, box: box) 
+    real_page_pids = 'puls:039s9', 'puls:039r5'
+    real_page_pids.each_with_index do |pid, i|
+      p = PulStore::Page.new(pid: pid, sort_order: i, label: "Image #{i}", 
+        project: PulStore::Lae::Provenance::PROJECT)
+      folder.pages << p
+      p.save!
+    end
+    folder.save!
+    folder
+  }
+
 
   before(:all) do
     PulStore::Lae::Folder.delete_all

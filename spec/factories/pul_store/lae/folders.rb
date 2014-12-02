@@ -62,12 +62,15 @@ FactoryGirl.define do
     f.sort_title { Faker::Lorem.sentence(2, true, 5) }
     categories_and_subjects
     f.title { Array.new(rand(1..2)) { Faker::Lorem.sentence(3, true, 5) } }
-    #f.pages { Array.new(2) { FactoryGirl.create(:page) } }
     after(:create) do |folder|
-      #f.pages { Array.new(2) { FactoryGirl.create(:page) } }
-      2.times do
-        folder.pages << FactoryGirl.create(:lae_page, folder: folder)
+      real_page_pids = 'puls:039s9', 'puls:039r5'
+      real_page_pids.each_with_index do |pid, i|
+        p = PulStore::Page.new(pid: pid, sort_order: i, display_label: "Image #{i}", 
+          project: PulStore::Lae::Provenance::PROJECT)
+        folder.pages << p
+        p.save!
       end
     end
+
   end
 end

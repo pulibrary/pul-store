@@ -3,10 +3,13 @@ require File.expand_path('../../../../../../lib/rdf/pul_store_terms', __FILE__)
 require 'rdf'
 require 'rdf/turtle'
 require 'nokogiri'
+require 'iiif/presentation'
+require 'active_support/ordered_hash'
+
 module PulStore::Lae::Exportable
   extend ActiveSupport::Concern
   included do
-     PREFIXES ||= {
+    PREFIXES ||= {
       dc: RDF::DC.to_uri,
       dctype: RDF::URI.new('http://purl.org/dc/dcmitype/'),
       foaf: RDF::FOAF.to_uri,
@@ -32,6 +35,7 @@ module PulStore::Lae::Exportable
       'eng' => :en
     }
 
+
     # opts:
     #   unsolrize: get keys back to name in model where possible. Default: true
     #   prod_only: only return the hash if state it "In Production". Default: true
@@ -40,7 +44,7 @@ module PulStore::Lae::Exportable
         return self.to_folder_export_hash(opts)
       elsif self.class == PulStore::Lae::Box
         folders = []
-        self.folders.each do |f| 
+        self.folders.each do |f|
           folder_h = f.to_folder_export_hash(opts)
           folders << folder_h unless folder_h.nil?
         end
@@ -61,9 +65,9 @@ module PulStore::Lae::Exportable
     #   prod_only: only return the hash if state it "In Production". Default: true
     def to_solr_xml(opts={})
       blanks = ['', [], ['']]
-      atomic_fields_we_want = %w{ 
-        id barcode date_uploaded date_modified physical_number project_label 
-        date_created earliest_created latest_created sort_title height_in_cm 
+      atomic_fields_we_want = %w{
+        id barcode date_uploaded date_modified physical_number project_label
+        date_created earliest_created latest_created sort_title height_in_cm
         width_in_cm page_count rights
       }
       array_fields_we_want = %w{
@@ -83,14 +87,19 @@ module PulStore::Lae::Exportable
       export_hashes = self.to_export(opts)
       export_hashes = [ export_hashes ] unless export_hashes.kind_of?(Array)
       bob = Nokogiri::XML::Builder.new do |xml|
-        xml.send(:add) do 
+        xml.send(:add) do
           export_hashes.each do |export_hash|
             xml.send(:doc_) do
               export_hash.each do |k,v|
                 if blanks.include?(v)
                   # skip it. blank? doesn't quite work because of ['']
                 elsif atomic_fields_we_want.include?(k)
-                  xml.send(:field, v, name: k) unless blanks.include?(v)
+                  if k == 'id'
+                    xml.send(:field, v.split(':').last, name: k)
+                    xml.send(:field, v, name: 'pulstore_pid')
+                  else
+                    xml.send(:field, v, name: k) unless blanks.include?(v)
+                  end
                 elsif array_fields_we_want.include?(k)
                   v.each do |member|
                     xml.send(:field, member, name: k) unless blanks.include?(member)
@@ -110,36 +119,53 @@ module PulStore::Lae::Exportable
                 end
               end
               if export_hash['active_fedora_model_ssi'] == 'PulStore::Lae::Folder'
-                # static alternatives keep us from having to call to_export twice
-                graph = PulStore::Lae::Folder.to_graph(export_hash)
-                ttl = PulStore::Lae::Folder.to_ttl(graph)
+                ttl = to_ttl(data: export_hash)
                 xml.send(:field, ttl, name: :ttl)
+                manifest = to_manifest(data: export_hash)
+                xml.send(:field, manifest, name: :manifest)
               end
 
             end
           end
-        end    
+        end
       end
       return bob.to_xml
     end
 
     # opts:
-    #   unsolrize: get keys back to name in model where possible. Default: true
     #   prod_only: only return the hash if state it "In Production". Default: true
-    def to_graph(opts={})
-      data = self.to_export(opts)
-      self.class.to_graph(data)
+    #   data: the export hash, in case you already have it
+    def to_ttl(opts={})
+      self.to_graph(opts).dump(:turtle, prefixes: PREFIXES)
     end
+
+    # opts:
+    #   data: (REQUIRED) the export hash
+    def to_manifest(opts={})
+      # fetch seems to be calling #to_export even if we pass :data in...
+      data = opts.has_key?(:data) ? opts[:data] : self.to_export(opts)
+      uri = "#{PREFIXES[:lae].to_s}catalog/#{self.id}"
+      manifest = IIIF::Presentation::Manifest.new('@id' => uri)
+      manifest.label = data['title'][0]
+      manifest.viewing_hint = 'individuals'
+      manifest.metadata = self.class.to_iiif_metadata(data)
+      sequence = IIIF::Presentation::Sequence.new
+      data.fetch('pages', []).sort_by { |p| p['sort_order'] }.each do |p|
+        sequence.canvases << self.canvas_from_page_hash(p)
+      end
+      manifest.sequences << sequence
+      manifest.to_json
+    end
+
+
 
     # opts:
     #   unsolrize: get keys back to name in model where possible. Default: true
     #   prod_only: only return the hash if state it "In Production". Default: true
-    def to_ttl(opts={})
-      self.to_graph(opts).dump(:turtle, prefixes: PREFIXES)
-    end
-    
-    # static version to be called if you already have the data hash    
-    def self.to_graph(data)
+    #   data: the export hash, in case you already have it
+    def to_graph(opts={})
+      # fetch seems to be calling #to_export even if we pass :data in...
+      data = opts.has_key?(:data) ? opts[:data] : self.to_export(opts)
       graph = RDF::Graph.new
       this = PREFIXES[:lae].join(data['id'].sub(/puls:/, ''))
       # type
@@ -249,9 +275,96 @@ module PulStore::Lae::Exportable
       graph
     end
 
-    # static version to be called if you already have the graph
-    def self.to_ttl(graph)
-      graph.dump(:turtle, prefixes: PREFIXES)
+
+    def canvas_from_page_hash(page)
+      annotation = IIIF::Presentation::Annotation.new
+      annotation.resource = image_resource_from_page_hash(page)
+      canvas = IIIF::Presentation::Canvas.new
+      canvas_uri = "#{PREFIXES[:lae].to_s}pages/#{page['id']}"
+      canvas['@id'] = canvas_uri
+      canvas.label = page['display_label']
+      canvas.width = annotation.resource['width']
+      canvas.height = annotation.resource['height']
+      canvas.images << annotation
+      canvas
+    end
+
+    def image_resource_from_page_hash(page)
+      base_uri = PulStore::ImageServerUtils.build_iiif_base_uri(page['id'])
+      params = {service_id: base_uri}
+      image_resource = IIIF::Presentation::ImageResource.create_image_api_image_resource(params)
+      image_resource
+    end
+
+    LABEL_LOOKUP ||= ActiveSupport::OrderedHash[[
+      ['title', 'Title'],
+      ['alternative_title', 'Other Title'],
+      ['series', 'Series'],
+      ['creator', 'Creator'],
+      ['contributors', 'Contributor'],
+      ['geographic_origin', 'Origin'],
+      ['publisher', 'Publisher'],
+      ['date_created', 'Date'],
+      ['genre', 'Item Type'],
+      ['description', 'Description'],
+      ['page_count', 'Page Count'],
+      ['dimensions', 'Dimensions'],
+      ['geographic_subject', 'Geographic Subject'],
+      ['category', 'Category'],
+      ['subject', 'Subject'],
+      ['language', 'Language'],
+      ['container', 'Container'],
+      ['rights', 'Rights'],
+    ]]
+
+    def self.to_iiif_metadata(data)
+      # Filter blanks (etc.)
+      data.each do |k,v|
+        if v.kind_of?(Array) && (v.all?{|v| v.blank?} || v.empty? )
+          data.delete(k)
+        elsif v.blank?
+          data.delete(k)
+        end
+      end
+
+      metadata = []
+
+      LABEL_LOOKUP.each do |k,v|
+        display_label = v
+        display_val = nil
+        if ['title'].include?(k)
+          display_val = data[k][0]
+        elsif k == 'date_created' && data.has_key?('earliest_created') && data.has_key?('latest_created')
+          display_val = "#{data['earliest_created']}-#{data['latest_created']}"
+        elsif k == 'dimensions' && data.has_key?('height_in_cm') && data.has_key?('width_in_cm')
+          display_val = "#{data['width_in_cm']} cm. × #{data['height_in_cm']} cm."
+        elsif ['subject','geographic_subject','language'].include?(k)
+          display_val = []
+          data[k].each { |member| display_val << member['label'] }
+        elsif k == 'geographic_origin'
+          display_val = data[k]['label']
+        elsif k == 'genre'
+          display_val = []
+          data[k].each { |member| display_val << member['pul_label'] }
+        elsif k == 'container'
+          display_val = "Box #{data['box']['physical_number']}, Folder #{data['physical_number']}"
+        else
+          display_val = data[k]
+        end
+
+        if display_val.kind_of?(Array)
+          if display_val.length > 1 # pluralize the label
+            display_label = display_label.pluralize(display_val.length)
+          else # just make the value a regular string
+            display_val = display_val[0]
+          end
+        end
+
+        unless display_val.nil?
+          metadata << { label: display_label, value: display_val }
+        end
+      end
+      metadata
     end
 
 
@@ -266,7 +379,7 @@ module PulStore::Lae::Exportable
       if prod_only && self.workflow_state != 'In Production'
         return nil
       end
-      
+
       excludes = PUL_STORE_CONFIG['lae_export_exclude']
       folder_h = self.to_solr.except(*excludes['folder'])
 
@@ -274,7 +387,7 @@ module PulStore::Lae::Exportable
       unless folder_h['desc_metadata__geographic_subject_tesim'].blank?
         geo_subjects = []
         folder_h['desc_metadata__geographic_subject_tesim'].each do |g_str|
-         geo_subjects << PulStore::Lae::Area.where(label: g_str).first.attributes.except('id')
+          geo_subjects << PulStore::Lae::Area.where(label: g_str).first.attributes.except('id')
         end
         folder_h['geographic_subject'] = geo_subjects unless geo_subjects.empty?
         folder_h.delete('desc_metadata__geographic_subject_tesim')
@@ -313,7 +426,7 @@ module PulStore::Lae::Exportable
         folder_h['geographic_origin'] = origin_hash.nil? ? origin_label : origin_hash
         folder_h.delete('desc_metadata__geographic_origin_tesim')
       end
-      
+
       # Pages
       folder_h['pages'] = []
       self.pages(response_format: :solr).sort_by { |h| h['desc_metadata__sort_order_isi'] }.each do |p|
@@ -331,6 +444,8 @@ module PulStore::Lae::Exportable
       unsolrize ? unsolrize(folder_h) : folder_h
     end
 
+    protected
+
     def unsolrize_key(s)
       if s.to_s.include? '__'
         s.scan( /^.+__(.+)_.+$/).last.first
@@ -343,5 +458,6 @@ module PulStore::Lae::Exportable
       Hash[hsh.map {|k, v| [unsolrize_key(k), v] }]
     end
 
+  end
 end
-end
+
