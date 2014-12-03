@@ -88,7 +88,52 @@ class PulStore::Lae::Box < PulStore::Base
     self.received? && self.folders.all? { |f| f.in_production? }
   end
 
+  def self.json_index
+    json_export_keys_props = {
+      'id' => 'id',
+      'prov_metadata__barcode_tesi' => 'barcode',
+      'system_create_dtsi' => 'created',
+      'system_modified_dtsi' => 'modified',
+      'prov_metadata__physical_number_isi' => 'physical_number'
+    }
+    boxes = ActiveFedora::SolrService.query('active_fedora_model_ssi:"PulStore::Lae::Box"')
+    docs = []
+    boxes.each do |d|
+      h = {}
+      docs << h
+      h[:last_mod_prod_folder] = newest_in_prod_folder_from_box(d['id'])
+      d.each do |k,v|
+        h[json_export_keys_props[k]] = v if json_export_keys_props.keys.include?(k)
+      end
+    end
+    docs
+  end
+
   protected
+
+  def self.newest_in_prod_folder_from_box(box_id)
+    params = {
+      sort: 'prov_metadata__date_modified_dtsi desc', 
+      rows: 1, 
+      fl: 'id prov_metadata__date_modified_dtsi'
+    }
+
+    q = [
+      ['+in_box_ssim',"\"info:fedora/#{box_id}\"" ],
+      ['+active_fedora_model_ssi', "\"PulStore::Lae::Folder\""],
+      ['+prov_metadata__workflow_state_tesim', "\"In Production\""]
+    ].map { |p| p.join(':')}.join(' ')
+
+    result = ActiveFedora::SolrService.query(q, params)
+    if result.empty?
+      return nil
+    else
+      return {
+        id: result.first['id'], 
+        time: result.first['prov_metadata__date_modified_dtsi']
+      }
+    end
+  end
 
   def _defaults
     self.full = self.full?
