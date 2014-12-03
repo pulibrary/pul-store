@@ -45,6 +45,8 @@ class PulStore::Lae::BoxesController < CatalogController #ApplicationController
   end
 
   def index
+
+
     session[:path_to_redirect_to] = request.original_fullpath
     if params[:barcode]
       # this is slow...what's a better (Solr-only?) way?
@@ -57,13 +59,11 @@ class PulStore::Lae::BoxesController < CatalogController #ApplicationController
       end
     else
       (@response, @document_list) = get_search_results
-      logger.debug("*" * 40)
-      logger.debug(@document_list)
-      logger.debug("*" * 40)
       @filters = params[:f] || []
       @box = PulStore::Lae::Box.first
       respond_to do |format|
         format.html { render template: 'shared/lae/index' }
+        format.json { render json: PulStore::Lae::Box.json_index }
       end
     end
   end
