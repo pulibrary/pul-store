@@ -26,10 +26,6 @@ describe "Lae::BoxesController", :type => :request do
       expect(response.status).to be(200)
     end
 
-    it "Forces me to sign in via CAS" do
-      get lae_boxes_path
-      expect(response.status).to be(302)
-    end
   end
 
   describe "GET /lae/boxes.xml" do

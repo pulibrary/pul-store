@@ -10,12 +10,12 @@ class PulStore::Lae::BoxesController < CatalogController #ApplicationController
   # include Blacklight::Configurable
 
   # enforce access controls
-  # before_filter :enforce_show_permissions, only: [:show]
+  before_filter :enforce_show_permissions, only: [:edit]
 
   before_action :set_box, only: [:edit, :update, :destroy]
   #before_filter :list_all_boxes, only: [:show]
 
-  #before_action :redirect_to_sign_in, unless: :user_signed_in?, only: [:edit, :update, :destroy, :create]
+  before_action :redirect_to_sign_in, unless: :user_signed_in?, only: [:edit, :update, :destroy, :create]
   #before_action :authenticate_user!
 
   # This applies appropriate access controls to all solr queries

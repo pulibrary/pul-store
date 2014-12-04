@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   # force CAS on all pages
-  before_action :redirect_to_sign_in, unless: :user_signed_in?
+  #before_action :redirect_to_sign_in, unless: :user_signed_in?
 
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to '/users/sign_in', :alert => exception.message
