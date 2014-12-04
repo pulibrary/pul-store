@@ -3,7 +3,7 @@ class PulStore::Lae::FoldersController < CatalogController
   include PulStore::Lae::BoxLookups
 
   before_action :set_folder, only: [:show, :edit, :update, :destroy]
-  #before_action :redirect_to_sign_in, unless: :user_signed_in?, only: [:edit, :update, :destroy, :create]
+  before_action :redirect_to_sign_in, unless: :user_signed_in?, only: [:edit, :update, :destroy, :create]
   #before_action :authenticate_user!
   
 
