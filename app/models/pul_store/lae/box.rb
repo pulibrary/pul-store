@@ -96,7 +96,7 @@ class PulStore::Lae::Box < PulStore::Base
       'system_modified_dtsi' => 'modified',
       'prov_metadata__physical_number_isi' => 'physical_number'
     }
-    boxes = ActiveFedora::SolrService.query('active_fedora_model_ssi:"PulStore::Lae::Box"')
+    boxes = ActiveFedora::SolrService.query('active_fedora_model_ssi:"PulStore::Lae::Box"', rows: 99999)
     docs = []
     boxes.each do |d|
       h = {}
