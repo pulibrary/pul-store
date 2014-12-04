@@ -33,8 +33,20 @@
               <%= "[Title not yet supplied]" %>
             <% end %>
           </td>
-          <td><%= f['prov_metadata__barcode_tesi'] %></td>
-          <td><%= f['desc_metadata__genre_tesim'][0] %></td>
+           <td>
+            <% unless f['prov_metadata__barcode_tesi'].blank? %>
+              <%= f['prov_metadata__barcode_tesi'] %>
+            <% else %>
+              <%= "[No Barcode]" %>
+            <% end %>
+          </td>
+          <td>
+            <% unless f['desc_metadata__genre_tesim'].blank? %>
+              <%= f['desc_metadata__genre_tesim'].first %>
+            <% else %>
+              <%= "[Genre not yet supplied]" %>
+            <% end %>
+          </td>
           <td>
               <%= link_to "Edit", edit_lae_folder_path(f['id']), :class => "btn btn-info" %>
           </td>
