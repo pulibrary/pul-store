@@ -43,6 +43,7 @@ module PulStore
         page.sort_order = sort_order
         page.label = "Image #{sort_order}"
         page.save
+        PulStore::Lae::Folder.find(folder_id).save
         page
       rescue => e
         logger.error("Something went wrong building a a page")

@@ -156,6 +156,10 @@ module PulStore::Lae::Exportable
         sequence.canvases << self.canvas_from_page_hash(p)
       end
       manifest.sequences << sequence
+      unless manifest.sequences.first.canvases.empty?
+        thumb = manifest.sequences.first.canvases.first.images.first.resource['@id']
+        manifest.insert_after(existing_key: 'label', new_key: 'thumbnail', value: thumb)
+      end
       manifest.to_json
     end
 
