@@ -139,11 +139,23 @@ class PulStore::Lae::Folder < PulStore::Item
   end
 
   def has_prelim_metadata?
-    self.has_extent? && @@prelim_elements.all? { |e| !self.send(e).blank? }
+    self.has_extent? && @@prelim_elements.all?  { |e| 
+      if self.send(e).kind_of?(Array)
+        !self.send(e).all? { |member| member.blank? }
+      else
+        !self.send(e).blank?
+      end
+    }
   end
 
   def has_core_metadata?
-    self.has_extent? && self.has_dates? && @@required_elements.all? { |e| !self.send(e).blank? }
+    self.has_extent? && self.has_dates? && @@required_elements.all? { |e| 
+      if self.send(e).kind_of?(Array)
+        !self.send(e).all? { |member| member.blank? }
+      else
+        !self.send(e).blank?
+      end
+    }
   end
 
   def in_production?
