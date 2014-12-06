@@ -384,6 +384,12 @@ describe PulStore::Lae::Folder, :type => :model do
       expect(f.has_prelim_metadata?).to be_truthy
     end
 
+    it "responds with false if one of the repeatable elements is all empty strings" do
+      data =  ['','']
+      f = FactoryGirl.build(:lae_core_folder, genre: data)
+      expect(f.has_prelim_metadata?).to be_falsey
+    end
+
     it "responds with true when we have #{PulStore::Lae::Folder.prelim_elements} and width and height" do
       f = FactoryGirl.build(:lae_prelim_folder, height_in_cm: nil)
       f.width_in_cm = Faker::Number.digit
@@ -408,6 +414,12 @@ describe PulStore::Lae::Folder, :type => :model do
     it "responds with true when we have #{PulStore::Lae::Folder.required_elements}" do
       f = FactoryGirl.build(:lae_core_folder)
       expect(f.has_core_metadata?).to be_truthy
+    end
+
+    it "responds with false if one of the repeatable elements is all empty strings" do
+      data =  ['','']
+      f = FactoryGirl.build(:lae_core_folder, category: data)
+      expect(f.has_core_metadata?).to be_falsey
     end
 
     it "earliest_created and latest_created may be swapped for date_created" do
