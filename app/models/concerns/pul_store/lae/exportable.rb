@@ -125,6 +125,8 @@ module PulStore::Lae::Exportable
                 xml.send(:field, ttl, name: :ttl)
                 manifest = to_manifest(data: export_hash)
                 xml.send(:field, manifest, name: :manifest)
+                thumb = PulStore::ImageServerUtils.build_iiif_base_uri(export_hash['pages'].first['id'])
+                xml.send(:field, thumb, name: :thumbnail_base)
               end
 
             end
