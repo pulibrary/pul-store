@@ -65,8 +65,7 @@ FactoryGirl.define do
     after(:create) do |folder|
       real_page_pids = 'puls:039s9', 'puls:039r5'
       real_page_pids.each_with_index do |pid, i|
-        p = PulStore::Page.new(pid: pid, sort_order: i, display_label: "Image #{i}", 
-          project: PulStore::Lae::Provenance::PROJECT)
+        p = PulStore::Page.new(pid: pid, sort_order: i, display_label: "Image #{i}", project: PulStore::Lae::Provenance::PROJECT)
         folder.pages << p
         p.save!
       end
