@@ -80,6 +80,11 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+
+group :development, :test do
+  gem 'byebug', '~> 3.5.1'
+end
+
 group :development, :test, :production do
   gem 'rspec-rails', '~> 3.0.0'
   gem 'factory_girl_rails'

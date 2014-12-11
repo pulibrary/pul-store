@@ -3,14 +3,12 @@ require 'spec_helper'
 describe "Lae::BoxesController", :type => :request do
 
   subject { 
-    b = FactoryGirl.create(:lae_box)
-    3.times do 
-      FactoryGirl.create(:lae_core_folder_with_pages, box: b)
-    end
-    b
+    box = FactoryGirl.create(:lae_box)
+    FactoryGirl.create(:lae_core_folder_with_pages, box: box)
+    box
   }
 
-  before(:all) do
+  before(:each) do
     User.delete_all
     PulStore::Lae::Box.delete_all
     @user = FactoryGirl.create(:user)
