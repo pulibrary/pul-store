@@ -99,6 +99,17 @@ module PulStore::Lae::Exportable
                     xml.send(:field, v, name: 'pulstore_pid')
                   elsif k == 'title'
                     xml.send(:field, v.first, name: 'title_display')
+                  elsif k == 'date_created'
+                    unless blanks.include?(v)
+                      xml.send(:field, v, name: 'date_display')
+                      xml.send(:field, v, name: k)
+                    end
+                  elsif k == 'earliest_created'
+                    display = "#{v}-#{export_hash['latest_created']}"
+                    unless blanks.include?(v)
+                      xml.send(:field, display, name: 'date_display') 
+                      xml.send(:field, v, name: k)
+                    end
                   else
                     xml.send(:field, v, name: k) unless blanks.include?(v)
                   end
