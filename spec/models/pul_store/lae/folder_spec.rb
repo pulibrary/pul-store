@@ -152,6 +152,12 @@ describe PulStore::Lae::Folder, :type => :model do
     end
 
     describe "raises errors when setting to true" do
+      it 'does not let us set passed_qc to true if any arrays just contain an empty string ([""])' do
+        f = FactoryGirl.create(:lae_core_folder_with_pages)
+        f.subject = ['']
+        f.passed_qc = true
+        expect(f.valid?).to be_falsey
+      end
       it "without core elements" do
         f = FactoryGirl.build(:lae_folder)
         f.passed_qc = true
@@ -314,7 +320,7 @@ describe PulStore::Lae::Folder, :type => :model do
         f.latest_created = nil
         expect(f.valid?).to be_truthy
       end
-      
+
       it "OK if it has a (valid) earliest_created and latest_created" do
         f.date_created = nil
         f.earliest_created = 1999
@@ -532,7 +538,7 @@ describe PulStore::Lae::Folder, :type => :model do
     # Error
     # Suppressed
 
-   end
+  end
 
   describe "rights statements" do
 
@@ -549,7 +555,7 @@ describe PulStore::Lae::Folder, :type => :model do
     describe '#to_export' do
       box  = FactoryGirl.create(:lae_box)
       let(:folder) { FactoryGirl.create(:lae_core_folder_with_pages, box: box) }
-      
+
       it "returns nil when the workflow_state is not 'In Production'" do
         folder.passed_qc = false
         folder.save!
@@ -566,7 +572,7 @@ describe PulStore::Lae::Folder, :type => :model do
     describe "#to_yaml" do
       box  = FactoryGirl.create(:lae_box)
       let(:folder) { FactoryGirl.create(:lae_core_folder_with_pages, box: box) }
-      
+
       it "produces parsable YAML" do
         folder.passed_qc = true
         folder.save!
@@ -584,3 +590,5 @@ describe PulStore::Lae::Folder, :type => :model do
   end
 
 end
+
+

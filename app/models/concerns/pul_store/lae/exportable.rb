@@ -174,6 +174,9 @@ module PulStore::Lae::Exportable
         manifest.insert_after(existing_key: 'label', new_key: 'thumbnail', value: thumb)
       end
       manifest.to_json
+    rescue Exception => e
+      logger.error(data[:id])
+      raise e
     end
 
 
@@ -402,6 +405,7 @@ module PulStore::Lae::Exportable
       excludes = PUL_STORE_CONFIG['lae_export_exclude']
       folder_h = self.to_solr.except(*excludes['folder'])
 
+
       # Bring in Data stored in AR models
       unless folder_h['desc_metadata__geographic_subject_tesim'].blank?
         geo_subjects = []
@@ -461,6 +465,10 @@ module PulStore::Lae::Exportable
       folder_h['project'] = unsolrize ? unsolrize(project_data) : project_data
 
       unsolrize ? unsolrize(folder_h) : folder_h
+
+      rescue Exception => e
+        logger.error(folder_h[:id])
+        raise e
     end
 
     protected
