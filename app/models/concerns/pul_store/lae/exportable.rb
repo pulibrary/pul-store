@@ -29,7 +29,7 @@ module PulStore::Lae::Exportable
       xsd: RDF::XSD.to_uri
     }
     CM_TYPE ||= RDF::URI.new('http://sweet.jpl.nasa.gov/2.3/reprSciUnits.owl#centimeter')
-    LANG_LOOKUP ||= {
+    LANG_LOOKUP ||= { # only list languages that the LAE catalog's solr supports!
       'por' => :pt,
       'spa' => :es,
       'eng' => :en
@@ -65,6 +65,7 @@ module PulStore::Lae::Exportable
     #   prod_only: only return the hash if state it "In Production". Default: true
     def to_solr_xml(opts={})
       blanks = ['', [], ['']]
+
       atomic_fields_we_want = %w{
         id barcode date_uploaded date_modified physical_number project_label
         date_created earliest_created latest_created sort_title height_in_cm
@@ -76,8 +77,8 @@ module PulStore::Lae::Exportable
       }
       #k, sub_k (k = key for field (may point to an array), sub_k = key for hash)
       hash_values_we_want = {
-        'geographic_origin' => %w{ label iso_3166_2_code gac_code geoname_id },
-        'geographic_subject' => %w{ label iso_3166_2_code gac_code geoname_id },
+        'geographic_origin' => %w{ label },
+        'geographic_subject' => %w{ label },
         'subject' => %w{ label },
         'genre' => %w{ pul_label },
         'language' => %w{ label },
@@ -86,19 +87,19 @@ module PulStore::Lae::Exportable
       }
       export_hashes = self.to_export(opts)
       export_hashes = [ export_hashes ] unless export_hashes.kind_of?(Array)
+
       bob = Nokogiri::XML::Builder.new do |xml|
         xml.send(:add) do
           export_hashes.each do |export_hash|
             xml.send(:doc_) do
               export_hash.each do |k,v|
+                lang_code = LANG_LOOKUP[export_hash['language'][0]['code']]
                 if blanks.include?(v)
                   # skip it. blank? doesn't quite work because of ['']
                 elsif atomic_fields_we_want.include?(k)
                   if k == 'id'
                     xml.send(:field, v.split(':').last, name: k)
                     xml.send(:field, v, name: 'pulstore_pid')
-                  elsif k == 'title'
-                    xml.send(:field, v.first, name: 'title_display')
                   elsif k == 'date_created'
                     unless blanks.include?(v)
                       xml.send(:field, v, name: 'date_display')
@@ -114,8 +115,14 @@ module PulStore::Lae::Exportable
                     xml.send(:field, v, name: k) unless blanks.include?(v)
                   end
                 elsif array_fields_we_want.include?(k)
-                  v.each do |member|
-                    xml.send(:field, member, name: k) unless blanks.include?(member)
+                  if ['title','alternative_title','publisher','series'].include?(k)
+                    name = lang_code.nil? ? k : "#{k}_#{lang_code}"
+                    # name = "title_#{lang_code}"
+                    xml.send(:field, v.first, name: name)
+                  else
+                    v.each do |member|
+                      xml.send(:field, member, name: k) unless blanks.include?(member)
+                    end
                   end
                 elsif hash_values_we_want.has_key?(k)
                   if v.kind_of?(Array) # array of hashes
