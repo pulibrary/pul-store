@@ -93,6 +93,8 @@ class PulStore::Lae::Folder < PulStore::Item
   validates_presence_of @@required_elements,
     if: :passed_qc?
 
+  validate :required_arrays_elements_are_not_all_blank #, if: :passed_qc?
+
   validates_presence_of :date_created, 
     unless: :has_earliest_and_latest?,
     if: :passed_qc?
@@ -123,6 +125,9 @@ class PulStore::Lae::Folder < PulStore::Item
   #   record.errors.add(attr, "Must not be Empty") if val =~ /\w+/
   # end
 
+  def required_elements
+    @@required_elements
+  end
 
   def suppressed?
     self.suppressed = false if self.suppressed.blank?
@@ -131,7 +136,7 @@ class PulStore::Lae::Folder < PulStore::Item
 
   def passed_qc?
     self.passed_qc = false if self.passed_qc.blank?
-    ["true", 1, true].include? self.passed_qc
+    ["true", 1, true].include?(self.passed_qc)
   end
 
   def needs_qc?
@@ -193,7 +198,7 @@ class PulStore::Lae::Folder < PulStore::Item
     if !self.page_count.blank? 
       self.page_count = self.page_count.to_i
     end
-    if !self.height_in_cm .blank? 
+    if !self.height_in_cm.blank? 
       self.height_in_cm  = self.height_in_cm.to_i
     end
     if !self.width_in_cm.blank? 
