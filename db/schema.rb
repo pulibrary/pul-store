@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140703195214) do
+ActiveRecord::Schema.define(version: 20141216144307) do
 
   create_table "bookmarks", force: true do |t|
     t.integer  "user_id",       null: false
@@ -66,6 +66,8 @@ ActiveRecord::Schema.define(version: 20140703195214) do
     t.string "uri"
     t.text   "scope_note"
   end
+
+  add_index "pul_store_lae_genres", ["pul_label"], name: "index_pul_store_lae_genres_on_pul_label", using: :btree
 
   create_table "pul_store_lae_subjects", force: true do |t|
     t.string  "label"
