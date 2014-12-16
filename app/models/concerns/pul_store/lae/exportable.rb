@@ -117,8 +117,10 @@ module PulStore::Lae::Exportable
                 elsif array_fields_we_want.include?(k)
                   if ['title','alternative_title','publisher','series'].include?(k)
                     name = lang_code.nil? ? k : "#{k}_#{lang_code}"
-                    # name = "title_#{lang_code}"
                     xml.send(:field, v.first, name: name)
+                    if ['title','publisher'].include?(k)
+                      xml.send(:field, v.first, name: "#{k}_display")
+                    end
                   else
                     v.each do |member|
                       xml.send(:field, member, name: k) unless blanks.include?(member)
