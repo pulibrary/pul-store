@@ -102,6 +102,16 @@ module PulStore::Validations
       errors.add(:base, m)
     end
   end
+
+  def required_arrays_elements_are_not_all_blank
+    self.send(:required_elements).each do |e| 
+      if self.send(e).kind_of?(Array)
+        if self.send(e).any? { |member| member == '' }
+          errors.add(:base, "Empty strings are not allowed in #{e}")
+        end
+      end
+    end
+  end
     
 
   protected
