@@ -182,7 +182,7 @@ module PulStore::Lae::Exportable
       end
       manifest.to_json
     rescue Exception => e
-      logger.error(data[:id])
+      logger.error(data['id'])
       raise e
     end
 
