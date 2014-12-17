@@ -30,6 +30,9 @@ defaults: &defaults
   lae_rights_boilerplate: "This digital reproduction is intended to support research, teaching, and private study. Users are responsible for determining any copyright questions."
   lae_export_exclude:
     folder:
+      - discover_access_group_ssim
+      - read_access_group_ssim
+      - edit_access_group_ssim
       - desc_metadata__category_sim
       - desc_metadata__genre_sim
       - desc_metadata__geographic_origin_sim
@@ -46,6 +49,7 @@ defaults: &defaults
       - prov_metadata__workflow_state_tesim
       - system_create_dtsi
       - system_modified_dtsi
+      - timestamp
     page:
       - active_fedora_model_ssi
       - discover_access_group_ssim
@@ -79,6 +83,12 @@ defaults: &defaults
       - read_access_group_ssim
       - system_create_dtsi
       - system_modified_dtsi
+      - visibility_during_embargo_ssim
+      - visibility_after_embargo_ssim
+      - visibility_during_lease_ssim
+      - visibility_after_lease_ssim
+      - embargo_history_ssim
+      - lease_history_ssim
     project:
       - active_fedora_model_ssi
       - desc_metadata__description_ssm
@@ -91,6 +101,12 @@ defaults: &defaults
       - prov_metadata__date_uploaded_dtsi
       - system_create_dtsi
       - system_modified_dtsi
+      - visibility_during_embargo_ssim
+      - visibility_after_embargo_ssim
+      - visibility_during_lease_ssim
+      - visibility_after_lease_ssim
+      - embargo_history_ssim
+      - lease_history_ssim
   image_server_store: /tmp/fake_image_store
   image_server_base: http://libimages.princeton.edu/loris
   jp2_recipes:

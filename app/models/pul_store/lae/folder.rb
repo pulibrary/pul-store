@@ -178,8 +178,9 @@ class PulStore::Lae::Folder < PulStore::Item
   end
 
   def to_json(id)
-    # self.to_export.to_json
-    self.to_manifest
+    self.to_export.to_json
+    
+    # self.to_manifest
   end
 
   protected
