@@ -46,7 +46,7 @@ module PulStore::Lae::Exportable
       elsif self.class == PulStore::Lae::Box
         # START HERE...GET AN ARRAY OF FOLDER IDs
         q = "+in_box_ssim:\"info:fedora/#{self.id}\" +has_model_ssim:\"info:fedora/afmodel:PulStore_Lae_Folder\""
-        folders = ActiveFedora::SolrService.query(q, fl: 'id')
+        folders = ActiveFedora::SolrService.query(q, fl: 'id', rows: 99999)
         folder_ids = folders.map { |f| f.values.first }
         folders = []
         folder_ids.each do |folder_id|
@@ -412,7 +412,7 @@ module PulStore::Lae::Exportable
 
 # ActiveFedora::SolrService.query('+id:"puls:00028" +has_model_ssim:"info:fedora/afmodel:PulStore_Lae_Folder"')
       q = "+id:\"#{folder_id}\" +has_model_ssim:\"info:fedora/afmodel:PulStore_Lae_Folder\""
-      folder_solr = ActiveFedora::SolrService.query(q).first
+      folder_solr = ActiveFedora::SolrService.query(q, rows: 99999).first
       folder_h = folder_solr.except(*excludes['folder'])
 
       if prod_only && folder_solr['prov_metadata__workflow_state_tesim'].first != 'In Production'
@@ -466,7 +466,7 @@ module PulStore::Lae::Exportable
       # Pages
       folder_h['pages'] = []
       q = "+is_part_of_ssim:\"info:fedora/#{folder_id}\" +has_model_ssim: \"info:fedora/afmodel:PulStore_Page\""
-      pages = ActiveFedora::SolrService.query(q, sort: 'desc_metadata__sort_order_isi asc')
+      pages = ActiveFedora::SolrService.query(q, sort: 'desc_metadata__sort_order_isi asc', rows: 99999)
       # self.pages(response_format: :solr).sort_by { |h| h['desc_metadata__sort_order_isi'] }.each do |p|
       pages.each do |p|
         data = p.except(*excludes['page'])
@@ -478,7 +478,7 @@ module PulStore::Lae::Exportable
       # in_box_ssim"=>["info:fedora/puls:00014"]
       box_id ||= folder_solr['in_box_ssim'].first.split('/')[1]
       q = "+id:\"#{box_id}\" +has_model_ssim: \"info:fedora/afmodel:PulStore_Lae_Box\""
-      box_data = ActiveFedora::SolrService.query(q).first.except(*excludes['box'])
+      box_data = ActiveFedora::SolrService.query(q, rows: 99999).first.except(*excludes['box'])
 
       folder_h['box'] = unsolrize ? unsolrize(box_data) : box_data
 
