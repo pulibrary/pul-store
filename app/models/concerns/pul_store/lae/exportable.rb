@@ -41,23 +41,24 @@ module PulStore::Lae::Exportable
     #   prod_only: only return the hash if state it "In Production". Default: true
     def to_export(opts={})
       if self.class == PulStore::Lae::Folder
-        return self.to_folder_export_hash(opts)
+        opts[:folder_id] = self.id
+        return self.class.folder_to_export_hash(opts)
       elsif self.class == PulStore::Lae::Box
+        # START HERE...GET AN ARRAY OF FOLDER IDs
+        q = "+in_box_ssim:\"info:fedora/#{self.id}\" +has_model_ssim:\"info:fedora/afmodel:PulStore_Lae_Folder\""
+        folders = ActiveFedora::SolrService.query(q, fl: 'id')
+        folder_ids = folders.map { |f| f.values.first }
         folders = []
-        self.folders.each do |f|
-          folder_h = f.to_folder_export_hash(opts)
+        folder_ids.each do |folder_id|
+          opts[:box_id] = self.id
+          opts[:folder_id] = folder_id
+          folder_h = self.class.folder_to_export_hash(opts)
           folders << folder_h unless folder_h.nil?
         end
         return folders
       end
     end
 
-    # opts:
-    #   unsolrize: get keys back to name in model where possible. Default: true
-    #   prod_only: only return the hash if state it "In Production". Default: true
-    def to_yaml(opts={})
-      self.to_export(opts).to_yaml
-    end
 
     # Return Solr-flavored XML; intended for indexing in external systems.
     # opts:
@@ -398,22 +399,25 @@ module PulStore::Lae::Exportable
       metadata
     end
 
-
-
     # opts:
     #   unsolrize: get keys back to name in model where possible. Default: true
     #   prod_only: return nil if workflow_state is not "In Production". Default: true
-    def to_folder_export_hash(opts={})
+    def self.folder_to_export_hash(opts={})
       unsolrize = opts.fetch(:unsolrize, true)
       prod_only = opts.fetch(:prod_only, true)
-
-      if prod_only && self.workflow_state != 'In Production'
-        return nil
-      end
+      folder_id = opts.fetch(:folder_id)
+      box_id = opts.fetch(:box_id, nil)
 
       excludes = PUL_STORE_CONFIG['lae_export_exclude']
-      folder_h = self.to_solr.except(*excludes['folder'])
 
+# ActiveFedora::SolrService.query('+id:"puls:00028" +has_model_ssim:"info:fedora/afmodel:PulStore_Lae_Folder"')
+      q = "+id:\"#{folder_id}\" +has_model_ssim:\"info:fedora/afmodel:PulStore_Lae_Folder\""
+      folder_solr = ActiveFedora::SolrService.query(q).first
+      folder_h = folder_solr.except(*excludes['folder'])
+
+      if prod_only && folder_solr['prov_metadata__workflow_state_tesim'].first != 'In Production'
+        return nil
+      end
 
       # Bring in Data stored in AR models
       unless folder_h['desc_metadata__geographic_subject_tesim'].blank?
@@ -461,17 +465,22 @@ module PulStore::Lae::Exportable
 
       # Pages
       folder_h['pages'] = []
-      self.pages(response_format: :solr).sort_by { |h| h['desc_metadata__sort_order_isi'] }.each do |p|
+      q = "+is_part_of_ssim:\"info:fedora/#{folder_id}\" +has_model_ssim: \"info:fedora/afmodel:PulStore_Page\""
+      pages = ActiveFedora::SolrService.query(q, sort: 'desc_metadata__sort_order_isi asc')
+      # self.pages(response_format: :solr).sort_by { |h| h['desc_metadata__sort_order_isi'] }.each do |p|
+      pages.each do |p|
         data = p.except(*excludes['page'])
         folder_h['pages'] << (unsolrize ? unsolrize(data) : data)
       end
 
       # Box
-      box_data = self.box.to_solr.except(*excludes['box'])
-      folder_h['box'] = unsolrize ? unsolrize(box_data) : box_data
+      # box_data = self.box.to_solr.except(*excludes['box'])
+      # in_box_ssim"=>["info:fedora/puls:00014"]
+      box_id ||= folder_solr['in_box_ssim'].first.split('/')[1]
+      q = "+id:\"#{box_id}\" +has_model_ssim: \"info:fedora/afmodel:PulStore_Lae_Box\""
+      box_data = ActiveFedora::SolrService.query(q).first.except(*excludes['box'])
 
-      project_data = self.project.to_solr.except(*excludes['project'])
-      folder_h['project'] = unsolrize ? unsolrize(project_data) : project_data
+      folder_h['box'] = unsolrize ? unsolrize(box_data) : box_data
 
       unsolrize ? unsolrize(folder_h) : folder_h
 
@@ -482,7 +491,7 @@ module PulStore::Lae::Exportable
 
     protected
 
-    def unsolrize_key(s)
+    def self.unsolrize_key(s)
       if s.to_s.include? '__'
         s.scan( /^.+__(.+)_.+$/).last.first
       else
@@ -490,7 +499,7 @@ module PulStore::Lae::Exportable
       end
     end
 
-    def unsolrize(hsh)
+    def self.unsolrize(hsh)
       Hash[hsh.map {|k, v| [unsolrize_key(k), v] }]
     end
 
