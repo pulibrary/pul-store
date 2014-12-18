@@ -59,12 +59,6 @@ module PulStore::Lae::Exportable
       end
     end
 
-    # opts:
-    #   unsolrize: get keys back to name in model where possible. Default: true
-    #   prod_only: only return the hash if state it "In Production". Default: true
-    def to_yaml(opts={})
-      self.to_export(opts).to_yaml
-    end
 
     # Return Solr-flavored XML; intended for indexing in external systems.
     # opts:
