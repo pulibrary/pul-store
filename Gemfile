@@ -37,7 +37,7 @@ gem "blacklight-marc", "~> 5.0.0"
 
 gem "hydra-file_characterization", "~> 0.3.1"
 
-gem 'hydra-derivatives', git: 'git://github.com/projecthydra/hydra-derivatives.git'
+gem 'hydra-derivatives', "~> 0.1.1"
 
 gem 'openseadragon', git: 'git://github.com/kevinreiss/openseadragon-rails.git'
 
