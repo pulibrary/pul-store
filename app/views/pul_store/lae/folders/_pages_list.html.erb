@@ -12,7 +12,7 @@
   <ol id="page-thumbnails">
   <% @pages_list.each do |page| %>
     <li>
-      <button class="btn btn-link" data-toggle="modal" data-target="<%= pul_store_page_modal_target(page['id']) %>">
+      <a class="btn btn-link" data-toggle="modal" data-target="<%= pul_store_page_modal_target(page['id']) %>">
         <img data-sort-order="<%= page['desc_metadata__sort_order_isi'] %>" 
              src="<%= pul_store_iiif_path(page['id'], {size: "!200,200", quality: "default" }) %>"
              alt="<%= page['desc_metadata__display_label_ssm'] %>" >
@@ -20,7 +20,7 @@
           <%= page['desc_metadata__display_label_ssm'] %>
           <%= page['desc_metadata__sort_order_isi'] %>
         </p>
-      </button>
+      </a>
       <div class="modal osd-modal" id="<%= pul_store_page_model_string(page['id']) %>" tabindex="-1" role="dialog" aria-labelledby="<%= page['desc_metadata__display_label_ssm'] %>" aria-hidden="true">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">

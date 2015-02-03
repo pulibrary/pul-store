@@ -32,6 +32,7 @@ describe "Lae::BoxesController", :type => :request do
       get lae_box_path(subject), {format: :xml, all: 'xyz'}
       expect(response.status).to be(200)
     end
+
     it 'looks like Solr XML' do
       login_as(@user, scope: :user)
       get lae_box_path(subject), {format: :xml, all: 'xyz'}
@@ -50,6 +51,12 @@ describe "Lae::BoxesController", :type => :request do
         field.attributes.first[0] == 'name' 
       }).to be_truthy
     end
+
+    #FIXME - Factory Doesn't seem to save box
+    # it 'gets a shared box as an anonymous user' do
+    #   get lae_box_path(subject), {format: :xml, all: 'xyz'}
+    #   expect(response.status).to be(200)
+    # end
   end
 
 end

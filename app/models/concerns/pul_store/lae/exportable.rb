@@ -1,4 +1,4 @@
-
+3
 require File.expand_path('../../../../../../lib/rdf/pul_store_terms', __FILE__)
 require 'rdf'
 require 'rdf/turtle'
@@ -415,7 +415,7 @@ module PulStore::Lae::Exportable
       folder_solr = ActiveFedora::SolrService.query(q, rows: 99999).first
       folder_h = folder_solr.except(*excludes['folder'])
 
-      if prod_only && folder_solr['prov_metadata__workflow_state_tesim'].first != 'In Production'
+      if prod_only && !['In Production', 'Needs QC'].include?(folder_solr['prov_metadata__workflow_state_tesim'].first)
         return nil
       end
 

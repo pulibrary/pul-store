@@ -553,16 +553,21 @@ describe PulStore::Lae::Folder, :type => :model do
   describe 'export features' do
 
     describe '#to_export' do
-      let(:box)  { FactoryGirl.create(:lae_box) }
+      let(:box)  { FactoryGirl.create(:lae_box_with_core_folders_with_pages) }
       let(:folder) { FactoryGirl.create(:lae_core_folder_with_pages, box: box) }
+      let(:folder_has_core_metadata) { FactoryGirl.create(:lae_core_folder, box: box) }
 
-      it "returns nil when the workflow_state is not 'In Production'" do
-        folder.passed_qc = false
-        folder.save!
-        expect(folder.to_export).to eq nil
+      it "return nil when the workflow state is not 'Needs QC' or 'In Production'" do
+        expect(folder_has_core_metadata.to_export).to be nil
       end
 
-      it "returns a hash nil when the workflow_state is 'In Production'" do
+      it "returns a hash when the workflow_state is 'Needs QC'" do
+        folder.passed_qc = false
+        folder.save!
+        expect(folder.to_export).to be_a Hash
+      end
+
+      it "returns a hash when the workflow_state is 'In Production'" do
         folder.passed_qc = true
         folder.save!
         expect(folder.to_export).to be_a Hash

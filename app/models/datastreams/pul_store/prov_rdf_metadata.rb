@@ -40,6 +40,11 @@ class PulStore::ProvRdfMetadata < ActiveFedora::NtriplesRDFDatastream
     index.as :stored_searchable
   end
 
+  property :shareable, predicate: RDF::PulStoreTerms.containerIsShareable do |index|
+    index.type :boolean
+    index.as :stored_searchable
+  end
+
   property :identifier, predicate: RDF::DC.identifier do |index|
     index.as :stored_searchable
   end
