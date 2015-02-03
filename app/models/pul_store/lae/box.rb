@@ -12,8 +12,13 @@ class PulStore::Lae::Box < PulStore::Base
     self.project ||= PulStore::Lae::Provenance::PROJECT
   end
 
+  # Metadata
+  #has_metadata 'descMetadata', type: PulStore::Lae::BoxRdfMetadata
+
+  # has_attributes :shareable,
+  #   :datastream => 'descMetadata', multiple: false
   # Delegate attributes
-  has_attributes :full, :physical_location, :tracking_number, :physical_number,
+  has_attributes :shareable, :full, :physical_location, :tracking_number, :physical_number,
     :datastream => 'provMetadata', multiple: false
   # For dates, UI should let a bool through and then set the date (Date.current)
   has_attributes :shipped_date, :received_date,
@@ -82,6 +87,14 @@ class PulStore::Lae::Box < PulStore::Base
 
   def received?
     self.shipped? && self.received_date?
+  end
+
+  def shareable?
+    if self.shareable == 'true'
+      return true
+    else
+      return false
+    end
   end
 
   def all_folders_in_production?

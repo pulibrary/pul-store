@@ -3,6 +3,7 @@ module RDF
   class PulStoreTerms < Vocabulary("http://princeton.edu/pulstore/terms/")
     property :barcode # sub of dc:identifier
     property :containerIsFull
+    property :containerIsShareable
     property :dmdSource # sub of dc:source
     property :dmdSystemId # sub of dc:indentifier
     property :errorNote # sub of dc:description

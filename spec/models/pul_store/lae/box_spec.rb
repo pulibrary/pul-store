@@ -244,4 +244,26 @@ describe PulStore::Lae::Box, :type => :model do
 
   end
 
+  describe "can_be_shared" do
+    it "Can Share Folder Data" do
+      b = FactoryGirl.create(:lae_box_with_core_folders_with_pages_not_shared)
+      b.shareable = "true"
+      b.save!
+      expect(b.shareable?).to be_truthy
+    end
+
+    it "Allows the public to read" do
+      b = FactoryGirl.create(:lae_box_with_core_folders_with_pages_not_shared)
+      b.shareable = "true"
+      b.save!
+      expect(b.read_groups).to include('public')
+    end
+
+    it "Cannot Share Folder Data" do
+      b = FactoryGirl.create(:lae_box_with_core_folders_with_pages_not_shared)
+      b.save!
+      expect(b.shareable?).to be_falsey
+    end
+  end
+
 end
