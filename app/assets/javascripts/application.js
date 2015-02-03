@@ -24,6 +24,7 @@
 //= require lae.alt_title.js
 //= require lae.boxes.js
 //= require turbolinks
+//= require jquery.iiifOsdViewer
 //
 // Required by Blacklight
 //= require blacklight/blacklight
