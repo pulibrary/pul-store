@@ -22,6 +22,11 @@ describe "Lae::FoldersController", type: :request do
     folder
   }
 
+  let(:folder_no_pages) { 
+    folder = FactoryGirl.create(:lae_core_folder, box: box) 
+    folder
+  }
+
 
   before(:all) do
     PulStore::Lae::Folder.delete_all
@@ -42,12 +47,12 @@ describe "Lae::FoldersController", type: :request do
   describe "GET /lae/folders/{folder}.ttl" do
     it 'gets a folder as turtle' do
       login_as(@user, scope: :user)
-      get lae_folder_path(folder), {format: :ttl, all: 'xyz'}
+      get lae_folder_path(folder_no_pages), {format: :ttl, all: 'xyz'}
       expect(response.status).to be(200)
     end
     it 'returns a 406 is the object isn\'t baked and ?all is not passed'  do
       login_as(@user, scope: :user)
-      get lae_folder_path(folder), {format: :ttl}
+      get lae_folder_path(folder_no_pages), {format: :ttl}
       expect(response.status).to be(406)
     end
     it 'the turtle is parsable' do
@@ -69,7 +74,7 @@ describe "Lae::FoldersController", type: :request do
     end
     it 'returns a 406 is the object isn\'t baked and ?all is not passed'  do
       login_as(@user, scope: :user)
-      get lae_folder_path(folder), {format: :xml}
+      get lae_folder_path(folder_no_pages), {format: :xml}
       expect(response.status).to be(406)
     end
     it 'looks like Solr XML' do
