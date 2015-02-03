@@ -91,7 +91,7 @@ group :development, :test, :production do
   gem "jettywrapper"
 end
 
-gem 'hydra-editor' #, '~> 0.3.0'
+gem 'hydra-editor', '~> 0.5.1'
 gem 'underscore-rails'
 gem 'poltergeist'
 
