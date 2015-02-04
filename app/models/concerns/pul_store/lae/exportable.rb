@@ -333,7 +333,7 @@ module PulStore::Lae::Exportable
       ['alternative_title', 'Other Title'],
       ['series', 'Series'],
       ['creator', 'Creator'],
-      ['contributors', 'Contributor'],
+      ['contributor', 'Contributor'],
       ['geographic_origin', 'Origin'],
       ['publisher', 'Publisher'],
       ['date_created', 'Date'],
