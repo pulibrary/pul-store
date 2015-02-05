@@ -185,7 +185,7 @@ module PulStore::Lae::Exportable
       end
       manifest.to_json
     rescue Exception => e
-      logger.error(data['id'])
+      logger.error("Manifest Export Error: #{data['id']}")
       raise e
     end
 
@@ -485,7 +485,7 @@ module PulStore::Lae::Exportable
       unsolrize ? unsolrize(folder_h) : folder_h
 
       rescue Exception => e
-        logger.error(folder_h[:id])
+        logger.error("Problem Exporting #{folder_h[:id]}")
         raise e
     end
 
