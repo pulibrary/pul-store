@@ -7,6 +7,7 @@ namespace :lae do
   task seed_dev: :environment do
     TEST_BARCODES = YAML.load_file(Rails.root.join('spec/fixtures/test_barcodes.yml'))
     box_count = 2
+    real_page_folders_count = 5
     folder_min = 3
     folder_max = 250
     page_min = 2
@@ -17,6 +18,11 @@ namespace :lae do
     box_count.times do |bi|
       box = FactoryGirl.create(:lae_box, project: project)
       puts "+-Box #{bi+1} \"#{box.pid}\""
+
+      10.times do |pf|
+        FactoryGirl.create(:lae_prelim_folder, box: box, project: project)
+      end
+
       rand(folder_min .. folder_max).times do |fi|
         folder = FactoryGirl.create(:lae_core_folder, box: box, project: project)
         puts "  +-Folder #{fi+1} \"#{folder.pid}\""

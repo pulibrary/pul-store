@@ -6,7 +6,7 @@ module PulStore::Lae::PageLookups
       solr = RSolr.connect(Blacklight.solr_config)
       # FIXME Get a default Where is the page sequence stored in index for this object?
       # sort by physical_number/sort_order
-      solr_response = solr.get 'select', :params => {:q => "is_part_of_ssim:info:fedora/#{folder_id}", 
+      solr_response = solr.get 'select', :params => {:q => "is_part_of_ssim:info:fedora/#{folder_id} AND active_fedora_model_ssi:PulStore::Page", 
                                                       :start => 0, 
                                                       :rows => 400, 
                                                       :wt => :ruby, 
