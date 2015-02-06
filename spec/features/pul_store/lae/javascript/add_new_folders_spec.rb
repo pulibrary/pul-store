@@ -41,7 +41,7 @@ feature "add new folders" do
     end
 
     scenario "New Folder Form Confirms Invalid Save", js: true do
-      skip("Passing locally but travis repeatedly throws errors") if ENV["CI"]
+      #skip("Passing locally but travis repeatedly throws errors") if ENV["CI"]
       boxes = Array.new(3) do |b|
         FactoryGirl.create(:lae_box, barcode: TEST_BARCODES.pop )
       end
