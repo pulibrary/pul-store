@@ -52,7 +52,12 @@ module PulStore::Lae::Exportable
         folder_ids.each do |folder_id|
           opts[:box_id] = self.id
           opts[:folder_id] = folder_id
-          folder_h = self.class.folder_to_export_hash(opts)
+          begin
+            folder_h = self.class.folder_to_export_hash(opts)
+          rescue Exception => e
+            logger.error("Problem Exporting #{folder_id}")
+            raise e
+          end
           folders << folder_h unless folder_h.nil?
         end
         return folders
