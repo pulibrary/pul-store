@@ -150,6 +150,9 @@ class PulStore::Lae::FoldersController < CatalogController
         format.html { redirect_to @folder, notice: 'Folder was successfully updated.' }
         format.json { head :no_content }
       else
+        # repopulate these values for the response
+        @page_title = "Edit Lae Folder #{@folder.physical_number}"
+        @pages_list = get_pages_by_folder @folder.id
         format.html { render action: 'edit' }
         format.json { render json: @folder.errors, status: :unprocessable_entity }
       end

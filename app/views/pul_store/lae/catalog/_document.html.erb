@@ -43,6 +43,7 @@
         </div>
       </div>
 
-      <%= link_to "Edit this #{controller_name.classify}", url_for(only_path: true, action: 'edit', id: document.id), class: "btn btn-info" %>
-
+      <% if can? :edit, document %>
+        <%= link_to "Edit this #{controller_name.classify}", url_for(only_path: true, action: 'edit', id: document.id), class: "btn btn-info" %>
+      <% end %>
     </div>

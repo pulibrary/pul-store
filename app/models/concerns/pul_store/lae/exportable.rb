@@ -1,4 +1,4 @@
-
+3
 require File.expand_path('../../../../../../lib/rdf/pul_store_terms', __FILE__)
 require 'rdf'
 require 'rdf/turtle'
@@ -52,7 +52,12 @@ module PulStore::Lae::Exportable
         folder_ids.each do |folder_id|
           opts[:box_id] = self.id
           opts[:folder_id] = folder_id
-          folder_h = self.class.folder_to_export_hash(opts)
+          begin
+            folder_h = self.class.folder_to_export_hash(opts)
+          rescue Exception => e
+            logger.error("Problem Exporting #{folder_id}")
+            raise e
+          end
           folders << folder_h unless folder_h.nil?
         end
         return folders
@@ -86,6 +91,7 @@ module PulStore::Lae::Exportable
         'box' => %w{ barcode physical_location physical_number },
         'project' =>  %w{ label }
       }
+
       export_hashes = self.to_export(opts)
       export_hashes = [ export_hashes ] unless export_hashes.kind_of?(Array)
 
@@ -185,7 +191,7 @@ module PulStore::Lae::Exportable
       end
       manifest.to_json
     rescue Exception => e
-      logger.error(data['id'])
+      logger.error("Manifest Export Error: #{data['id']}")
       raise e
     end
 
@@ -333,7 +339,7 @@ module PulStore::Lae::Exportable
       ['alternative_title', 'Other Title'],
       ['series', 'Series'],
       ['creator', 'Creator'],
-      ['contributors', 'Contributor'],
+      ['contributor', 'Contributor'],
       ['geographic_origin', 'Origin'],
       ['publisher', 'Publisher'],
       ['date_created', 'Date'],
@@ -403,90 +409,92 @@ module PulStore::Lae::Exportable
     #   unsolrize: get keys back to name in model where possible. Default: true
     #   prod_only: return nil if workflow_state is not "In Production". Default: true
     def self.folder_to_export_hash(opts={})
-      unsolrize = opts.fetch(:unsolrize, true)
-      prod_only = opts.fetch(:prod_only, true)
-      folder_id = opts.fetch(:folder_id)
-      box_id = opts.fetch(:box_id, nil)
+      begin 
+        unsolrize = opts.fetch(:unsolrize, true)
+        prod_only = opts.fetch(:prod_only, true)
+        folder_id = opts.fetch(:folder_id)
+        box_id = opts.fetch(:box_id, nil)
 
-      excludes = PUL_STORE_CONFIG['lae_export_exclude']
+        excludes = PUL_STORE_CONFIG['lae_export_exclude']
 
-# ActiveFedora::SolrService.query('+id:"puls:00028" +has_model_ssim:"info:fedora/afmodel:PulStore_Lae_Folder"')
-      q = "+id:\"#{folder_id}\" +has_model_ssim:\"info:fedora/afmodel:PulStore_Lae_Folder\""
-      folder_solr = ActiveFedora::SolrService.query(q, rows: 99999).first
-      folder_h = folder_solr.except(*excludes['folder'])
+        # ActiveFedora::SolrService.query('+id:"puls:00028" +has_model_ssim:"info:fedora/afmodel:PulStore_Lae_Folder"')
+        q = "+id:\"#{folder_id}\" +has_model_ssim:\"info:fedora/afmodel:PulStore_Lae_Folder\""
+        folder_solr = ActiveFedora::SolrService.query(q, rows: 99999).first
+        folder_h = folder_solr.except(*excludes['folder'])
 
-      if prod_only && folder_solr['prov_metadata__workflow_state_tesim'].first != 'In Production'
-        return nil
-      end
-
-      # Bring in Data stored in AR models
-      unless folder_h['desc_metadata__geographic_subject_tesim'].blank?
-        geo_subjects = []
-        folder_h['desc_metadata__geographic_subject_tesim'].each do |g_str|
-          geo_subjects << PulStore::Lae::Area.where(label: g_str).first.attributes.except('id')
+        if prod_only && !['In Production', 'Needs QC'].include?(folder_solr['prov_metadata__workflow_state_tesim'].first)
+          return nil
         end
-        folder_h['geographic_subject'] = geo_subjects unless geo_subjects.empty?
-        folder_h.delete('desc_metadata__geographic_subject_tesim')
-      end
 
-      unless folder_h['desc_metadata__subject_tesim'].blank?
-        subjects = []
-        folder_h['desc_metadata__subject_tesim'].each do |s|
-          subjects << PulStore::Lae::Subject.where(label: s).first.attributes.except('id', 'category_id')
+        # Bring in Data stored in AR models
+        unless folder_h['desc_metadata__geographic_subject_tesim'].blank?
+          geo_subjects = []
+          folder_h['desc_metadata__geographic_subject_tesim'].each do |g_str|
+            geo_subjects << PulStore::Lae::Area.where(label: g_str).first.attributes.except('id')
+          end
+          folder_h['geographic_subject'] = geo_subjects unless geo_subjects.empty?
+          folder_h.delete('desc_metadata__geographic_subject_tesim')
         end
-        folder_h['subject'] = subjects unless subjects.empty?
-        folder_h.delete('desc_metadata__subject_tesim')
-      end
 
-      unless folder_h['desc_metadata__genre_tesim'].blank?
-        genres = []
-        folder_h['desc_metadata__genre_tesim'].each do |s|
-          genres << PulStore::Lae::Genre.where(pul_label: s).first.attributes.except('id')
+        unless folder_h['desc_metadata__subject_tesim'].blank?
+          subjects = []
+          folder_h['desc_metadata__subject_tesim'].each do |s|
+            subjects << PulStore::Lae::Subject.where(label: s).first.attributes.except('id', 'category_id')
+          end
+          folder_h['subject'] = subjects unless subjects.empty?
+          folder_h.delete('desc_metadata__subject_tesim')
         end
-        folder_h['genre'] = genres unless genres.empty?
-        folder_h.delete('desc_metadata__genre_tesim')
-      end
 
-      unless folder_h['desc_metadata__language_tesim'].blank?
-        languages = []
-        folder_h['desc_metadata__language_tesim'].each do |l|
-          languages << Language.where(label: l).first.attributes.except('id')
+        unless folder_h['desc_metadata__genre_tesim'].blank?
+          genres = []
+          folder_h['desc_metadata__genre_tesim'].each do |s|
+            genres << PulStore::Lae::Genre.where(pul_label: s).first.attributes.except('id')
+          end
+          folder_h['genre'] = genres unless genres.empty?
+          folder_h.delete('desc_metadata__genre_tesim')
         end
-        folder_h['language'] = languages unless languages.empty?
-        folder_h.delete('desc_metadata__language_tesim')
-      end
 
-      unless folder_h['desc_metadata__geographic_origin_tesim'].blank?
-        origin_label = folder_h['desc_metadata__geographic_origin_tesim']
-        origin_hash = PulStore::Lae::Area.where(label: origin_label).first.attributes.except('id')
-        folder_h['geographic_origin'] = origin_hash.nil? ? origin_label : origin_hash
-        folder_h.delete('desc_metadata__geographic_origin_tesim')
-      end
+        unless folder_h['desc_metadata__language_tesim'].blank?
+          languages = []
+          folder_h['desc_metadata__language_tesim'].each do |l|
+            languages << Language.where(label: l).first.attributes.except('id')
+          end
+          folder_h['language'] = languages unless languages.empty?
+          folder_h.delete('desc_metadata__language_tesim')
+        end
 
-      # Pages
-      folder_h['pages'] = []
-      q = "+is_part_of_ssim:\"info:fedora/#{folder_id}\" +has_model_ssim: \"info:fedora/afmodel:PulStore_Page\""
-      pages = ActiveFedora::SolrService.query(q, sort: 'desc_metadata__sort_order_isi asc', rows: 99999)
-      # self.pages(response_format: :solr).sort_by { |h| h['desc_metadata__sort_order_isi'] }.each do |p|
-      pages.each do |p|
-        data = p.except(*excludes['page'])
-        folder_h['pages'] << (unsolrize ? unsolrize(data) : data)
-      end
+        unless folder_h['desc_metadata__geographic_origin_tesim'].blank?
+          origin_label = folder_h['desc_metadata__geographic_origin_tesim']
+          origin_hash = PulStore::Lae::Area.where(label: origin_label).first.attributes.except('id')
+          folder_h['geographic_origin'] = origin_hash.nil? ? origin_label : origin_hash
+          folder_h.delete('desc_metadata__geographic_origin_tesim')
+        end
 
-      # Box
-      # box_data = self.box.to_solr.except(*excludes['box'])
-      # in_box_ssim"=>["info:fedora/puls:00014"]
-      box_id ||= folder_solr['in_box_ssim'].first.split('/')[1]
-      q = "+id:\"#{box_id}\" +has_model_ssim: \"info:fedora/afmodel:PulStore_Lae_Box\""
-      box_data = ActiveFedora::SolrService.query(q, rows: 99999).first.except(*excludes['box'])
+        # Pages
+        folder_h['pages'] = []
+        q = "+is_part_of_ssim:\"info:fedora/#{folder_id}\" +has_model_ssim: \"info:fedora/afmodel:PulStore_Page\""
+        pages = ActiveFedora::SolrService.query(q, sort: 'desc_metadata__sort_order_isi asc', rows: 99999)
+        # self.pages(response_format: :solr).sort_by { |h| h['desc_metadata__sort_order_isi'] }.each do |p|
+        pages.each do |p|
+          data = p.except(*excludes['page'])
+          folder_h['pages'] << (unsolrize ? unsolrize(data) : data)
+        end
 
-      folder_h['box'] = unsolrize ? unsolrize(box_data) : box_data
+        # Box
+        # box_data = self.box.to_solr.except(*excludes['box'])
+        # in_box_ssim"=>["info:fedora/puls:00014"]
+        box_id ||= folder_solr['in_box_ssim'].first.split('/')[1]
+        q = "+id:\"#{box_id}\" +has_model_ssim: \"info:fedora/afmodel:PulStore_Lae_Box\""
+        box_data = ActiveFedora::SolrService.query(q, rows: 99999).first.except(*excludes['box'])
 
-      unsolrize ? unsolrize(folder_h) : folder_h
+        folder_h['box'] = unsolrize ? unsolrize(box_data) : box_data
+
+        unsolrize ? unsolrize(folder_h) : folder_h
 
       rescue Exception => e
-        logger.error(folder_h[:id])
+        logger.error("Problem Exporting #{folder_h[:id]}")
         raise e
+      end
     end
 
     protected

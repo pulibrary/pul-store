@@ -10,9 +10,9 @@ class PulStore::Lae::BoxesController < CatalogController #ApplicationController
   # include Blacklight::Configurable
 
   # enforce access controls
-  before_filter :enforce_show_permissions, only: [:edit]
+  #before_filter :enforce_show_permissions, only: [:edit]
 
-  before_action :set_box, only: [:edit, :update, :destroy]
+  before_action :set_box, only: [:show, :edit, :update, :destroy]
   #before_filter :list_all_boxes, only: [:show]
 
   before_action :redirect_to_sign_in, unless: :user_signed_in?, only: [:edit, :update, :destroy, :create]
@@ -166,7 +166,7 @@ class PulStore::Lae::BoxesController < CatalogController #ApplicationController
     def box_params
       params.require(:lae_box).permit(:full, :barcode, :error_note,
         :physical_location, :tracking_number, :shipped_date, :received_date,
-        :project, :id, :project, folders_attributes: [:genre, :page_count,
+        :project, :id, :shareable, :project, folders_attributes: [:genre, :page_count,
         :width_in_cm, :height_in_cm, :barcode, :id, :box_id] )
 
     end

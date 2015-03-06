@@ -28,7 +28,7 @@ class PulStore::ItemRdfMetadata < ActiveFedora::NtriplesRDFDatastream
   end
 
   property :sort_title, predicate: RDF::PulStoreTerms.sortTitle do |index|
-    index.as :sortable
+    index.as :stored_sortable
     index.type :string
   end
 

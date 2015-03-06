@@ -40,6 +40,14 @@
       <div class="form-group">
         <div class="col-sm-9 col-sm-offset-3">
           <div class="checkbox">
+          <%= b.check_box :shareable, { class: 'checkbox' }, "true", "false" %>
+          <%= b.label 'Mark Box Public' %>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-9 col-sm-offset-3">
+          <div class="checkbox">
           <%= b.check_box :full, { class: 'checkbox' }, "true", "false" %>
           <%= b.label 'Mark Box Full' %>
           </div>
@@ -85,9 +93,11 @@
         <span id="folder-count"><%= @box.folders.size %>&nbsp;</span>
       <% end %>
       Folders</h3>
+      <!--
       <div class="folder-options">
         <%= link_to "Show All Folders", "#{lae_box_path}/folders", remote: true, method: :get, :class => "btn btn-default show-all-folders" %>
       </div>
+      -->
     </div>
   <!-- start modal -->
         <div id="new-folder-modal" class="modal fade well" backdrop="static" role="dialog" aria-hidden="true">

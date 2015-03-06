@@ -21,6 +21,20 @@ FactoryGirl.define do
     b.barcode { TEST_BARCODES.shift }
     b.project { PulStore::Lae::Provenance::PROJECT }
     b.discover_groups { ["all_project_discover", "lae_project_discover", "public"] }
+    b.read_groups { ["all_project_readers", "lae_project_readers", "public"] }
+    b.shareable { "true" }
+    after(:create) do |box|
+      2.times do 
+        box.folders << FactoryGirl.create(:lae_core_folder_with_pages)
+      end
+    end
+  end
+
+  factory :lae_box_with_core_folders_with_pages_not_shared, :class => 'PulStore::Lae::Box' do |b|
+    b.barcode { TEST_BARCODES.shift }
+    b.project { PulStore::Lae::Provenance::PROJECT }
+    #b.read_groups { ["all_project_readers", "lae_project_readers", "public"] }
+    #b.shareable { "true" }
     after(:create) do |box|
       2.times do 
         box.folders << FactoryGirl.create(:lae_core_folder_with_pages)

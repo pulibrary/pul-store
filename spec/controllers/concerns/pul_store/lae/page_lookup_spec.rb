@@ -18,9 +18,10 @@ describe PulStore::Lae::PageLookups, :type => :controller do
     end
 
     it "Page Count by Folder should be Equal from Fedora and Solr" do
-      skip "Add test to retrive pages by folder from solr"
-      #folders = @box.folders
-      #expect(folders[0].pages.length).to eq(get_pages_by_folder(folders[0].id).length)
+      #skip "Add test to retrive pages by folder from solr"
+      folders = @box.folders
+      f = PulStore::Lae::Folder.find(folders[0].id)
+      expect(f.pages.size).to eq(get_pages_by_folder(folders[0].id).size)
     end
 
   end
