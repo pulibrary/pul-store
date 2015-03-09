@@ -30,7 +30,21 @@
               </h4>
             </div>
             <div class="modal-body">
-              <%= openseadragon_picture_tag [pul_store_iiif_info_path(page['id'])], class: 'osd-image row', data: { openseadragon: osd_config } %>
+              <div class="viewer">
+                <script>
+    $('#<%= pul_store_page_model_string(page['id']) %>').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget); // Button that triggered the modal
+        var iiif_images = button.data('iiif-images'); // Extract info from 
+        var modal = $(this);
+        var viewer = modal.find('.viewer');
+        viewer.iiifOsdViewer({
+          data: [{
+            iiifServer: 'http://libimages.princeton.edu/loris2',
+            images: <%= raw [pul_store_iiif_info_path(page['id'])].to_json %> }
+          ]
+        });
+      });
+    </script>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
