@@ -3,9 +3,9 @@ lock '3.1.0'
 
 set :application, 'pul-store'
 set :repo_url, 'git@github.com:pulibrary/pul-store.git'
-set :branch, 'master'
+#set :branch, 'master'
 
-# ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
+ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
 
 set :deploy_to, '/opt/pul-store'
 set :scm, :git
