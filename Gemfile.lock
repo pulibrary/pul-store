@@ -9,13 +9,6 @@ GIT
       json
 
 GIT
-  remote: git://github.com/kevinreiss/openseadragon-rails.git
-  revision: 11b8d2935cb0992f834890ecf8026bd3be259336
-  specs:
-    openseadragon (0.0.9)
-      rails (> 3.2.0)
-
-GIT
   remote: git://github.com/sshingler/capistrano-resque.git
   revision: f7dec5a5fc850053d03f1fef1438b561c4372b37
   specs:
@@ -307,6 +300,8 @@ GEM
       activesupport
       nokogiri (>= 1.4.2)
       solrizer (~> 3.3)
+    openseadragon (0.1.0)
+      rails (> 3.2.0)
     order_up (0.0.1)
       activesupport
       resque (~> 1.25)
@@ -550,7 +545,7 @@ DEPENDENCIES
   minitest
   mysql2
   noid
-  openseadragon!
+  openseadragon
   order_up
   osullivan!
   poltergeist

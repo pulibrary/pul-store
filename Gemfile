@@ -39,7 +39,7 @@ gem "hydra-file_characterization", "~> 0.3.1"
 
 gem 'hydra-derivatives', "~> 0.1.1"
 
-gem 'openseadragon', git: 'git://github.com/kevinreiss/openseadragon-rails.git'
+gem 'openseadragon'
 
 gem 'osullivan', :github => 'jpstroop/osullivan', :tag => 'v0.0.1'
 #'git://github.com/IIIF/openseadragon-rails.git'
@@ -94,6 +94,11 @@ end
 gem 'hydra-editor', '~> 0.5.1'
 gem 'underscore-rails'
 gem 'poltergeist'
+
+# # Add some rails assets
+# source 'https://rails-assets.org' do
+#   gem 'rails-assets-leaflet-iiif'
+# end
 
 #group :test do
   gem 'faker'
