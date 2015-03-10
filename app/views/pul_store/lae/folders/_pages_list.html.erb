@@ -37,12 +37,22 @@
         var button = $(event.relatedTarget); // Button that triggered the modal
         var modal = $(this);
         var viewer = modal.find('.viewer');
-        viewer.iiifOsdViewer({
-          data: [{
-            iiifServer: 'http://libimages.princeton.edu/loris2',
-            images: <%= raw id_to_show.to_json %> }
-          ]
-        });
+        // viewer.iiifOsdViewer({
+        //   data: [{
+        //     iiifServer: 'http://libimages.princeton.edu/loris2',
+        //     images: <%= raw id_to_show.to_json %> }
+        //   ]
+        // });
+        var osd_confg = {
+            id: <%= pul_store_page_model_string(page['id']) %>,
+            prefixUrl: "js/openseadragon/images/",
+            preserveViewport: true,
+            showNavigator:  true,
+            visibilityRatio: 1,
+            minZoomLevel: 1,
+            tileSources: [<%= pul_store_iiif_info_path(page['id']) %>]
+        }
+        OpenSeadragon(osd_config);
       });
     </script>
             </div>
