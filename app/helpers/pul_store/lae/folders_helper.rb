@@ -80,14 +80,20 @@ module PulStore::Lae::FoldersHelper
   def id_label_for_page(page)
     ids_labels = []
     label = "#{page['desc_metadata__display_label_ssm']} #{page['desc_metadata__sort_order_isi']}"
-    id = strip_iiif_server_base_from_id(page['id'])
-    ids_labels << {'id' => strip_iiif_server_base_from_id(id), 'label' => label}
+    #id = strip_iiif_server_base_from_id(page['id'])
+    pid = PulStore::ImageServerUtils::pid_to_iiif_id(page['id'])
+    Rails.logger.info("pid to process is #{pid}")
+    ids_labels << {'id' => "#{pid}.jp2", 'label' => label}
   end
 
   def strip_iiif_server_base_from_id(id)
+    #escaped_id = pul_store_iiif_path(id)
     base_url = "http://libimages.princeton.edu/loris2/"
     id = id.gsub("#{base_url}", '')
-    id.gsub("/info.json", '')
+    #Rails.logger.info("pid to process is #{id}")
+    id = PulStore::ImageServerUtils::pid_to_iiif_id(id)
+    id
+    #PulStore::ImageServerUtils::pid_to_iiif_id(id)
   end
 
   private
