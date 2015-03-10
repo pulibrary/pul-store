@@ -93,7 +93,7 @@ class PulStore::Lae::Folder < PulStore::Item
   validates_presence_of @@required_elements,
     if: :passed_qc?
 
-  validate :required_arrays_elements_are_not_all_blank, if: :has_core_metadata?
+  validate :required_arrays_elements_are_not_all_blank, if: :passed_qc?
 
   validates_presence_of :date_created, 
     unless: :has_earliest_and_latest?,
