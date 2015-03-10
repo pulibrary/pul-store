@@ -95,10 +95,10 @@ gem 'hydra-editor', '~> 0.5.1'
 gem 'underscore-rails'
 gem 'poltergeist'
 
-# Add some rails assets
-source 'https://rails-assets.org' do
-  gem 'rails-assets-leaflet-iiif'
-end
+# # Add some rails assets
+# source 'https://rails-assets.org' do
+#   gem 'rails-assets-leaflet-iiif'
+# end
 
 #group :test do
   gem 'faker'
