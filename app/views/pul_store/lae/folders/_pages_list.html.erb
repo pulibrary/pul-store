@@ -30,31 +30,7 @@
               </h4>
             </div>
             <div class="modal-body">
-              <div class="viewer" id="osd<%= pul_store_page_model_string(page['id']) %>">
-                <% id_to_show = id_label_for_page(page) %>
-                <script>
-    $('#<%= pul_store_page_model_string(page['id']) %>').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget); // Button that triggered the modal
-        //var modal = $(this);
-        //var viewer = modal.find('.viewer');
-        // viewer.iiifOsdViewer({
-        //   data: [{
-        //     iiifServer: 'http://libimages.princeton.edu/loris2',
-        //     images: <%= raw id_to_show.to_json %> }
-        //   ]
-        // });
-        var osd_config = {
-            id: "osd" + <%= pul_store_page_model_string(page['id']) %>,
-            prefixUrl: "js/openseadragon/images/",
-            preserveViewport: true,
-            showNavigator:  true,
-            visibilityRatio: 1,
-            minZoomLevel: 1,
-            tileSources: ["<%= pul_store_iiif_info_path(page['id']) %>"]
-        }
-        var osd = OpenSeadragon(osd_config);
-      });
-    </script>
+              <%= openseadragon_picture_tag [pul_store_iiif_info_path(page['id'])], class: 'osd-image row', data: { openseadragon: osd_config } %>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
