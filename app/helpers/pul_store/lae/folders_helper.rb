@@ -76,6 +76,20 @@ module PulStore::Lae::FoldersHelper
     link_to "Next", "/lae/folders/#{doc['id']}"
   end
 
+  # @page - solr doc of a page object
+  def id_label_for_page(page)
+    ids_labels = []
+    label = "#{page['desc_metadata__display_label_ssm']} #{page['desc_metadata__sort_order_isi']}"
+    id = strip_iiif_server_base_from_id(page['id'])
+    ids_labels << {'id' => strip_iiif_server_base_from_id(id), 'label' => label}
+  end
+
+  def strip_iiif_server_base_from_id(id)
+    base_url = "http://libimages.princeton.edu/loris2/"
+    id = id.gsub("#{base_url}", '')
+    id.gsub("/info.json", '')
+  end
+
   private
   @offset = Time.now.gmt_offset
   def self.style_date str

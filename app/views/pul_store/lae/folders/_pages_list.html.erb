@@ -31,16 +31,16 @@
             </div>
             <div class="modal-body">
               <div class="viewer">
+                <% id_to_show = id_label_for_page(page) %>
                 <script>
     $('#<%= pul_store_page_model_string(page['id']) %>').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget); // Button that triggered the modal
-        var iiif_images = button.data('iiif-images'); // Extract info from 
         var modal = $(this);
         var viewer = modal.find('.viewer');
         viewer.iiifOsdViewer({
           data: [{
             iiifServer: 'http://libimages.princeton.edu/loris2',
-            images: <%= raw [pul_store_iiif_info_path(page['id'])].to_json %> }
+            images: <%= raw id_to_show.to_json %> }
           ]
         });
       });
