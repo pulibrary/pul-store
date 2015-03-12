@@ -59,6 +59,7 @@ gem 'rmagick'
 gem 'order_up'
 gem "font-awesome-rails"
 
+gem 'multi_json', "~> 1.10.1"
 #for bulk upload ui
 gem 'jquery-fileupload-rails'
 gem 'jquery-turbolinks'
