@@ -86,7 +86,7 @@ group :development, :test do
 end
 
 group :development, :test, :production do
-  gem 'rspec-rails', '~> 3.0.0'
+  gem 'rspec-rails', '~> 3.2'
   gem 'factory_girl_rails'
   gem "jettywrapper"
 end
