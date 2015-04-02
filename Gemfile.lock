@@ -133,8 +133,10 @@ GEM
       sass (>= 3.3.0, < 3.5)
     compass-import-once (1.0.5)
       sass (>= 3.2, < 3.5)
-    compass-rails (2.0.1)
+    compass-rails (2.0.4)
       compass (~> 1.0.0)
+      sass-rails (<= 5.0.1)
+      sprockets (< 2.13)
     daemons (1.2.2)
     debugger-linecache (1.2.0)
     deprecation (0.2.2)
@@ -437,7 +439,7 @@ GEM
     rufus-scheduler (3.0.9)
       tzinfo
     sass (3.4.13)
-    sass-rails (5.0.3)
+    sass-rails (5.0.1)
       railties (>= 4.0.0, < 5.0)
       sass (~> 3.1)
       sprockets (>= 2.8, < 4.0)
@@ -528,7 +530,7 @@ DEPENDENCIES
   capybara
   coffee-rails (~> 4.0.0)
   compass
-  compass-rails (~> 2.0.1)
+  compass-rails (~> 2.0.4)
   devise
   devise-guests (~> 0.3)
   devise_cas_authenticatable
@@ -557,7 +559,7 @@ DEPENDENCIES
   rmagick
   rspec-rails (~> 3.2)
   rubyzip
-  sass-rails (~> 5.0.0.beta1)
+  sass-rails (~> 5.0.1)
   sdoc
   therubyracer
   turbolinks

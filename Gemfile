@@ -4,9 +4,9 @@ source 'https://rubygems.org'
 gem 'rails', '~> 4.1.0'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0.0.beta1'
+gem 'sass-rails', '~> 5.0.1'
 
-gem 'compass-rails', '~> 2.0.1'
+gem 'compass-rails', '~> 2.0.4'
 
 gem 'bourbon'
 
