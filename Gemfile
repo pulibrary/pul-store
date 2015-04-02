@@ -4,9 +4,9 @@ source 'https://rubygems.org'
 gem 'rails', '~> 4.1.0'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0.0.beta1'
+gem 'sass-rails', '~> 5.0.1'
 
-gem 'compass-rails', '~> 2.0.1'
+gem 'compass-rails', '~> 2.0.4'
 
 gem 'bourbon'
 
@@ -31,7 +31,7 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
-gem 'hydra', '~> 7.1.0'
+gem 'hydra', '~> 7.1.1'
 
 gem "blacklight-marc", "~> 5.0.0"
 
@@ -59,7 +59,6 @@ gem 'rmagick'
 gem 'order_up'
 gem "font-awesome-rails"
 
-gem 'multi_json', "~> 1.10.1"
 #for bulk upload ui
 gem 'jquery-fileupload-rails'
 gem 'jquery-turbolinks'
@@ -87,7 +86,7 @@ group :development, :test do
 end
 
 group :development, :test, :production do
-  gem 'rspec-rails', '~> 3.0.0'
+  gem 'rspec-rails', '~> 3.2'
   gem 'factory_girl_rails'
   gem "jettywrapper"
 end

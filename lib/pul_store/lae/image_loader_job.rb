@@ -4,13 +4,25 @@ module PulStore
   module Lae
     class ImageLoaderJob
 
+      @@logger = Logger.new("#{Rails.root}/log/lae_ingest_#{Date.today.strftime('%Y-%m-%d')}.log")
+
       def initialize(args={})
         @folder_id = folder_id_from_barcode(args[:folder_barcode])
         @folder_barcode = args[:folder_barcode]
         @tiff_path = args[:tiff_path]
         @ocr_path = args[:ocr_path]
         @sort_order = args[:sort_order]
-        @logger = Logger.new("#{Rails.root}/log/lae_ingest_#{Date.today.strftime('%Y-%m-%d')}.log")
+        # @logger = Logger.new("#{Rails.root}/log/lae_ingest_#{Date.today.strftime('%Y-%m-%d')}.log")
+      end
+
+      def to_hash
+        hash = {}
+        hash["folder_id"] = @folder_id
+        hash["folder_barcode"] = @folder_barcode
+        hash["tiff_path"] = @tiff_path
+        hash["ocr_path"] = @ocr_path
+        hash["sort_order"] = @sort_order
+        hash
       end
 
       def run
@@ -21,7 +33,7 @@ module PulStore
           jp2_content = make_jp2(page)
           PulStore::ImageServerUtils.stream_content_to_image_server(jp2_content, page.pid)
         else
-          @logger.warn("Folder #{@folder_barcode} (pid: #{@folder_id}), page {@sort_order} already exists!")
+          @@logger.warn("Folder #{@folder_barcode} (pid: #{@folder_id}), page #{@sort_order} already exists!")
         end
       end
 
@@ -47,14 +59,14 @@ module PulStore
         PulStore::Lae::Folder.find(folder_id).save
         page
       rescue => e
-        @logger.error("Something went wrong building a a page")
-        @logger.error("tiff_path: #{tiff_path}")
-        @logger.error("ocr_path: #{ocr_path}")
-        @logger.error("folder_id: #{folder_id}")
-        @logger.error("folder_barcode: #{@folder_barcode}")
-        @logger.error("sort_order: #{sort_order}")
-        @logger.error(e.message)
-        @logger.error(e.backtrace)
+        @@logger.error("Something went wrong building a page")
+        @@logger.error("tiff_path: #{tiff_path}")
+        @@logger.error("ocr_path: #{ocr_path}")
+        @@logger.error("folder_id: #{folder_id}")
+        @@logger.error("folder_barcode: #{@folder_barcode}")
+        @@logger.error("sort_order: #{sort_order}")
+        @@logger.error(e.message)
+        @@logger.error(e.backtrace)
       end
 
       # Saves to repo and returns the stream
@@ -63,9 +75,9 @@ module PulStore
         page.save
         page.deliverable_image
       rescue => e
-        @logger.error("Something went wrong making a JP2 for #{page.pid}")
-        @logger.error(e.message)
-        @logger.error(e.backtrace)
+        @@logger.error("Something went wrong making a JP2 for #{page.pid}")
+        @@logger.error(e.message)
+        @@logger.error(e.backtrace)
       end
 
     end
@@ -73,4 +85,3 @@ module PulStore
   end
 
 end
-
