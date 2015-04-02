@@ -22,6 +22,7 @@
 //= require lae.subjects
 //= require lae.alt_title.js
 //= require lae.boxes.js
+//= require openseadragon
 //= require turbolinks
 //= require jquery.iiifOsdViewer
 //
