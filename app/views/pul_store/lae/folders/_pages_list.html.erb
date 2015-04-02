@@ -11,7 +11,7 @@
   <ol id="page-thumbnails">
   <% @pages_list.each do |page| %>
     <li>
-      <a class="btn btn-link" href="/catalog/<%= page['id'] %> ">
+      <a class="btn btn-link" href="<%= pul_store_page_path(page['id']) %> ">
         <img data-sort-order="<%= page['desc_metadata__sort_order_isi'] %>" 
              src="<%= pul_store_iiif_path(page['id'], {size: "!200,200", quality: "default" }) %>"
              alt="<%= page['desc_metadata__display_label_ssm'] %>" >
