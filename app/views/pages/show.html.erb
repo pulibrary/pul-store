@@ -23,7 +23,22 @@
   <dd><%= @page.folder_id %></dd>
 </dl>
 
-<%= openseadragon_picture_tag [pul_store_iiif_info_path(@page.id)], class: 'osd-image row', data: { openseadragon: osd_config } %>
+<% ids = [{"id" => "#{PulStore::ImageServerUtils::pid_to_iiif_id(@page.id)}.jp2", "label" => "#{@page.folder_id} page: #{@page.sort_order}" }] %>
+<div class="viewer">
+  <script>
+        var osdviewer = $('.viewer');
+       
+        if ($('div.iov').length == 0) {
+          // var viewer = modal.find('.viewer');
+          osdviewer.iiifOsdViewer({
+            data: [{
+              iiifServer: 'http://libimages.princeton.edu/loris2',
+              images: <%= raw ids.to_json %> }
+            ]
+          });
+        }
+    </script>
+</div>
 
 <%= link_to 'Edit Page', edit_page_path(@page) %> |
 <%= link_to 'Back to Folder', lae_folder_path(@page.folder_id) %>
