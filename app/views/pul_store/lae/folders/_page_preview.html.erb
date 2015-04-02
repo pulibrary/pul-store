@@ -16,8 +16,22 @@
     <% end %>
   </div>
   <div>
-    <% images = pul_store_iiif_page_info_list(@pages_list) %>
-    <%= openseadragon_picture_tag images, class: 'osd-image row', data: { openseadragon: osd_config } %>
+    <% images = pul_store_iiif_ids_label_list(@pages_list) %>
+    <div class="viewer">
+  <script>
+        var osdviewer = $('.viewer');
+       
+        if ($('div.iov').length == 0) {
+          // var viewer = modal.find('.viewer');
+          osdviewer.iiifOsdViewer({
+            data: [{
+              iiifServer: 'http://libimages.princeton.edu/loris2',
+              images: <%= raw images.to_json %> }
+            ]
+          });
+        }
+    </script>
+</div>
   </div>
 <% else %>
   <div>No Images Assigned Yet</div>
