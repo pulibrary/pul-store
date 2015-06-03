@@ -68,14 +68,6 @@ module PulStore::Lae::FoldersHelper
     #page.id
   end
 
-  def lae_link_to_previous_document(doc)
-    link_to "Prev", "/lae/folders/#{doc['id']}"
-  end
-
-  def lae_link_to_next_document(doc)
-    link_to "Next", "/lae/folders/#{doc['id']}"
-  end
-
   # @page - solr doc of a page object
   def id_label_for_page(page)
     ids_labels = []

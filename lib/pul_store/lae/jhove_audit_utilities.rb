@@ -149,7 +149,7 @@ module PulStore
         end
 
         ocr_files.each do |ocr_file|
-          unless ocr_file[:status] == 'well-formed'
+          unless ['well-formed', 'valid'].include? ocr_file[:status]
             ocr_file[:ok_to_ingest?] = false
             do_not_ingest << ocr_file
           end
@@ -168,7 +168,7 @@ module PulStore
 
         image_files.select { |i| i[:ok_to_ingest?] }.each do |image_file|
           ocr_file = ocr_for_image_file(image_file, ocr_files)
-          unless ocr_file[:ok_to_ingest?] 
+          unless ocr_file[:ok_to_ingest?]
             image_file[:ok_to_ingest?] = false
             do_not_ingest << image_file unless do_not_ingest.include?(ocr_file)
           end
@@ -377,4 +377,3 @@ end
 #   :ok_to_ingest?=>true
 # }
 # We need: folder_barcode, tiff_path, ocr_path, sort_order
-
