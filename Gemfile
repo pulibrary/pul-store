@@ -41,14 +41,14 @@ gem 'hydra-derivatives', "~> 0.1.1"
 
 gem 'openseadragon'
 
-gem 'osullivan', :github => 'jpstroop/osullivan', :tag => 'v0.0.1'
+gem 'osullivan', "~> 0.0.3"
 #'git://github.com/IIIF/openseadragon-rails.git'
 
 gem "rubyzip"
 
 gem 'compass'
 
-gem 'mysql2'
+gem 'mysql2', '~> 0.3.20'
 
 gem 'noid'
 
@@ -73,7 +73,8 @@ gem "devise-guests", "~> 0.3"
 gem 'capistrano', '~> 3.1.0'
 gem 'capistrano-rails'
 gem 'capistrano-bundler'
-gem "capistrano-resque", github: "sshingler/capistrano-resque", require: false
+#gem "capistrano-resque", github: "sshingler/capistrano-resque", require: false
+gem "capistrano-resque", "~> 0.2.2", require: false
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
